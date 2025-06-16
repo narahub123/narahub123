@@ -63,7 +63,112 @@
               placeholder="이메일을 입력해주세요."
             />
           </li>
+          <li>
+            <label for="age">나이</label>
+            <input
+              type="number"
+              name="age"
+              id="age"
+              placeholder="Enter your age"
+              min="0"
+              max="200"
+            />
+          </li>
+          <li>
+            <label for="subscribe1">
+              <input type="checkbox" name="subscribe1" id="subscribe1" />
+              구독하기
+            </label>
+
+            <label for="subscribe2">
+              <input type="checkbox" name="subscribe2" id="subscribe2" />
+              구독하기2
+            </label>
+
+            <label for="subscribe3">
+              <input type="checkbox" name="subscribe3" id="subscribe3" />
+              구독하기3
+            </label>
+          </li>
+          <li>
+            <label for="male"
+              ><input type="radio" name="gender" id="male" />남자</label
+            >
+            <label for="female"
+              ><input type="radio" name="gender" id="female" />여자</label
+            >
+          </li>
+          <li>
+            <input type="file" name="file" />
+          </li>
+          <li>
+            <input type="date" name="date" />
+          </li>
+          <li>
+            <input type="range" name="range" min="0" max="100" step="10" />
+          </li>
+          <li>
+            <input type="color" name="color" />
+          </li>
+          <li>
+            <label for="country"> select your country</label>
+            <select name="country" id="country">
+              <option value="usa">USA</option>
+              <option value="canada">Canada</option>
+              <option value="uk">UK</option>
+            </select>
+          </li>
+          <br />
+          <li>
+            <label for="message">Your message:</label>
+            <textarea
+              name="message"
+              id="message"
+              placeholder="Enter your message"
+              rows="5"
+              cols="50"
+            ></textarea>
+          </li>
+          <li><button type="submit">Submit</button></li>
         </ul>
+      </fieldset>
+    </form>
+
+    <form action="" method="get">
+      <fieldset>
+        <legend>Contact</legend>
+        <table>
+          <tr>
+            <td>
+              <label for="name"> Name : </label>
+            </td>
+            <td>
+              <input type="text" id="name" name="name" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="name"> E-mail : </label>
+            </td>
+            <td>
+              <input type="email" name="email" id="email" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="message">Message : </label>
+            </td>
+            <td>
+              <textarea name="message" id="message"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button>SEND YOUR MESSAGE</button>
+            </td>
+          </tr>
+        </table>
       </fieldset>
     </form>
   </body>
