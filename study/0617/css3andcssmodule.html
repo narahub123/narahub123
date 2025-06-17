@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS3 and CSS Module</title>
+    <style>
+      .css3 {
+        animation: css3 1s infinite;
+      }
+
+      @keyframes css3 {
+        from {
+          /* background-color: red; */
+          /* transform: rotate(0deg); */
+          /* transform: translate(0, 0) scale(1); */
+          /* transform: translateX(0) skew(0deg); */
+        }
+
+        50% {
+          /* transform: translateX(100px) skew(45deg); */
+        }
+
+        to {
+          /* background-color: yellow; */
+          /* transform: rotate(45deg); */
+          /* transform: translate(100px, 100px) scale(1.5); */
+          /* transform: translateX(0) skew(0deg); */
+        }
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+      }
+
+      .gradient {
+        background: linear-gradient(to right, red, yellow);
+      }
+
+      @media (max-width: 600px) {
+        .box {
+          background-color: yellow;
+        }
+      }
+      @media (min-width: 601px) and(max-width: 1000px) {
+        .box {
+          background-color: blue;
+        }
+      }
+      @media (min-width: 1001px) {
+        .box {
+          background-color: red;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS3 and CSS Module</h1>
+    <div class="css3 box gradient">CSS3</div>
+    <div class="box">CSS3</div>
+  </body>
+</html>
