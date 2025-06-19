@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: 20% 1fr 1fr;
+        grid-template-rows: 30% 1fr 1fr 10%;
+        grid-template-areas:
+          "header header header"
+          "nav section1 section2"
+          "nav section3 section4"
+          "footer footer footer";
+        gap: 10px;
+      }
+
+      header {
+        grid-area: header;
+        text-align: center;
+        background-color: aquamarine;
+      }
+
+      nav {
+        grid-area: nav;
+        background-color: yellow;
+      }
+
+      section {
+        background-color: pink;
+      }
+
+      .section1 {
+        grid-area: section1;
+      }
+
+      .section2 {
+        grid-area: section2;
+      }
+
+      .section3 {
+        grid-area: section3;
+      }
+
+      .section4 {
+        grid-area: section4;
+      }
+
+      footer {
+        grid-area: footer;
+        text-align: center;
+        font-size: x-small;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>배고파</h1>
+      <p>저녁메뉴 고르기</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li>한식</li>
+        <li>일식</li>
+        <li>중식</li>
+        <li>양식</li>
+      </ul>
+    </nav>
+
+    <section class="section1">
+      <h2>한식</h2>
+      <p>불고기 비빔밥</p>
+    </section>
+
+    <section class="section2">
+      <h2>일식</h2>
+      <p>초밥 라멘</p>
+    </section>
+
+    <section class="section3">
+      <h2>중식</h2>
+      <p>짜장면 탕수육</p>
+    </section>
+
+    <section class="section4">
+      <h2>양식</h2>
+      <p>스테이크 파스타</p>
+    </section>
+
+    <footer>&copy;2025 all rights reserved</footer>
+  </body>
+</html>
