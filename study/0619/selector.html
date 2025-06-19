@@ -2,6 +2,29 @@
 <html>
   <head>
     <title>DOM 구조 예시</title>
+    <style>
+      div > p {
+        color: blue;
+      }
+
+      /* 형제 선택자 : 첫 번째 선택자 다음에 오는 형제 선택자 */
+      img ~ h1 {
+        color: green;
+      }
+
+      /* 인접 형제 선택자 */
+      h1 + img {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #000;
+        border-radius: 50%;
+      }
+
+      /* 특성 선택자 */
+      img[src^="image"] {
+        color: purple;
+      }
+    </style>
   </head>
   <body>
     <section>
