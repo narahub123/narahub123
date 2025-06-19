@@ -20,6 +20,43 @@
         border-radius: 50%;
       }
 
+      p:nth-child(odd) {
+        background-color: lightcoral;
+      }
+
+      p:nth-child(even) {
+        background-color: lightblue;
+      }
+
+      p:first-child {
+        background-color: lightgreen;
+      }
+
+      p:last-child {
+        background-color: black;
+        color: #fff;
+      }
+
+      p:nth-child(2) {
+        background-color: lightpink;
+        font-style: italic;
+      }
+
+      p:nth-child(2n + 3) {
+        background-color: lightgrey;
+        font-style: italic;
+      }
+
+      div > p > strong {
+        font-weight: bold;
+        color: yellow;
+      }
+
+      div > p:nth-child(2n + 3) {
+        background-color: lightgrey;
+        font-size: 2rem;
+      }
+
       /* 특성 선택자 */
       img[src^="image"] {
         color: purple;
@@ -45,11 +82,14 @@
       </h1>
       <img src="image.jpg" alt="예시 이미지" />
       <div>
-        <p              ><strong>첫 번째 단락 강조</strong></p>
+        <p><strong>첫 번째 단락 강조</strong></p>
         <p><strong>두 번째 단락 강조</strong></p>
         <p><strong>세 번째 단락 강조</strong></p>
-        <input type="text" />
+        <p><strong>네 번째 단락 강조</strong></p>
+        <p><strong>다섯 번째 단락 강조</strong></p>
+        <p><strong>여섯 번째 단락 강조</strong></p>
       </div>
+      <input type="text" />
     </section>
   </body>
 </html>
