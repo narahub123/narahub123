@@ -24,6 +24,18 @@
       img[src^="image"] {
         color: purple;
       }
+
+      input:hover {
+        background-color: lightcoral;
+      }
+
+      input:focus {
+        background-color: lightblue;
+      }
+
+      input:active {
+        background-color: lightyellow;
+      }
     </style>
   </head>
   <body>
@@ -33,9 +45,10 @@
       </h1>
       <img src="image.jpg" alt="예시 이미지" />
       <div>
-        <p><strong>첫 번째 단락 강조</strong></p>
+        <p              ><strong>첫 번째 단락 강조</strong></p>
         <p><strong>두 번째 단락 강조</strong></p>
         <p><strong>세 번째 단락 강조</strong></p>
+        <input type="text" />
       </div>
     </section>
   </body>
