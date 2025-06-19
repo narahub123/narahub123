@@ -4,7 +4,7 @@
 
 플랫폼을 3계층으로 나누어 별도의 논리적/물리적인 장치에 구축 및 운영하는 형태
 
-![3-Tier Architecture](attachment:2dcf3c47-fc9a-4094-9838-b93e10e02880:img1.daumcdn.png)
+![3-Tier Architecture](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FROnrw%2Fbtq7FiGVnhw%2FuLvlYyCZWuMCtIdrF1DEWK%2Fimg.png)
 
 ### 데이터 계층
 
