@@ -81,15 +81,62 @@
 // }
 
 // switch 문 실습 :
-let day = prompt("요일을 입력하세요.");
+// let day = prompt("요일을 입력하세요.");
 
-switch (day) {
-  case "월요일":
-    alert("한 주의 시작!");
-    break;
-  case "금요일":
-    alert("불타는 금요일!");
-    break;
-  default:
-    alert("평범한 하루네요.");
-}
+// switch (day) {
+//   case "월요일":
+//     alert("한 주의 시작!");
+//     break;
+//   case "금요일":
+//     alert("불타는 금요일!");
+//     break;
+//   default:
+//     alert("평범한 하루네요.");
+// }
+
+// 연습 문제
+// 변수
+// 1. 숫자 두 개를 변수로 저장하고 더한 결과를 출력해보세요.
+// let a = 5;
+// let b = 3;
+
+// console.log("두 값의 합은 " + (a + b) + "입니다");
+
+// // 2. 이름과 나이를 저장하고 다음과 같은 문장을 출력해보세요. "홍길동님은 20살입니다."
+// let name = "홍길동";
+// let age = 20;
+
+// console.log(`${name}은 ${age}살입니다.`);
+
+// // 3. 정사각형의 한 변 길이를 변수로 저장하고 넓이를 출력해보세요.
+// let side = 4;
+// console.log("정사각형의 넓이는 " + side * side + "입니다.");
+
+// 조건문
+// 4. 숫자 하나가 짝수인지 홀수인지 출력해보세요.
+// let number = Number(prompt("숫자를 입력하세요."));
+// if (number % 2 === 0) {
+//   alert("짝수입니다.");
+// } else {
+//   alert("홀수입니다.");
+// }
+
+// // 5. 나이에 따라 아래 문장을 출력해보세요.
+// let age = Number(prompt("나이를 입력하세요."));
+// if (age < 19) {
+//   alert("미성년자입니다.");
+// } else {
+//   alert("성인입니다.");
+// }
+
+// // 6. 비밀번호가 맞는지 확인하는 코드를 작성해보세요.
+// let password = "1234";
+// let input = prompt("비밀번호를 입력하세요.");
+
+// if (password === input) {
+//   alert("로그인 성공");
+// } else {
+//   alert("로그인 실패");
+// }
+
+
