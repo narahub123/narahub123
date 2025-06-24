@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>함수 예제</title>
+  </head>
+  <body>
+    <script>
+      // 함수 선언
+      //   function greet() {
+      //     alert("반갑습니다.");
+      //   }
+
+      //   // 함수 호출
+      //   greet();
+
+      //   function showName() {
+      //     let name = "홍길동";
+      //     name = "이순신";
+
+      //     console.log(name);
+      //   }
+
+      //   showName();
+
+      // 재사용 가능한 함수 만들기
+      //   function add(a, b) {
+      //     return a + b;
+      //   }
+
+      //   let sum = add(3, 5);
+
+      //   console.log("두 수의 합", sum);
+
+      // BMI 계산기
+      // 몸무게 / (키 * 키)
+      const weight = Number(prompt("몸무게를 입력해주세요."));
+      const height = Number(prompt("키를 입력해주세요.")) / 100;
+
+      function calculateBmi(weigth, height) {
+        return weight / (height * height);
+      }
+
+      const bmi = calculateBmi(weight, height);
+
+      console.log("BMI", bmi);
+    </script>
+  </body>
+</html>
