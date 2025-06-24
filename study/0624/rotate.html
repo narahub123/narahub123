@@ -21,9 +21,9 @@
       .box {
         position: absolute;
         width: 100px;
-        height: 200px;
+        height: 150px;
         border: 1px solid #ccc;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -58,6 +58,8 @@
 
         boxes[i].style.left = `${x}px`;
         boxes[i].style.top = `${y}px`;
+
+        boxes[i].style.transform = `rotate(${(360 / boxes.length) * i}deg)`;
       }
 
       function changeAngle() {
@@ -65,7 +67,7 @@
         const boxes = circle.childElementCount;
 
         circle.style.transform = `rotate(${360 / boxes}deg)`;
-        // circle.style.transformOrigin = `${0} ${0}`;
+        circle.style.transformOrigin = "center";
       }
     </script>
   </body>
