@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotate</title>
+    <style>
+      #circle {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .box {
+        position: absolute;
+        width: 100px;
+        height: 200px;
+        border: 1px solid #ccc;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="circle" onclick="changeAngle()">
+      <!-- 박스를 여러 개 넣어야 원형 배치됨 -->
+      <div class="box box1">01</div>
+      <div class="box box2">02</div>
+      <div class="box box3">03</div>
+      <div class="box box4">04</div>
+      <div class="box box5">05</div>
+      <div class="box box6">06</div>
+    </div>
+
+    <script>
+      const circle = document.getElementById("circle");
+      const boxes = circle.getElementsByClassName("box");
+
+      const radius = 150;
+      const centerX = 150;
+      const centerY = 150;
+
+      const count = boxes.length;
+
+      for (let i = 0; i < count; i++) {
+        const angle = (2 * Math.PI * i) / count; // 라디안
+        const x = centerX + radius * Math.sin(angle);
+        const y = centerY + radius * Math.cos(angle) * -1;
+
+        boxes[i].style.left = `${x}px`;
+        boxes[i].style.top = `${y}px`;
+      }
+
+      function changeAngle() {
+        const circle = document.getElementById("circle");
+        const boxes = circle.childElementCount;
+
+        circle.style.transform = `rotate(${360 / boxes}deg)`;
+        // circle.style.transformOrigin = `${0} ${0}`;
+      }
+    </script>
+  </body>
+</html>
