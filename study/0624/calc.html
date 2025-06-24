@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>함수 계산기</title>
+  </head>
+  <body>
+    <script>
+      // 함수 계산기 예제
+
+      // 더하기 함수
+      function add(a, b) {
+        return a + b;
+      }
+
+      // 익명 함수
+      const add2 = function (a, b) {
+        return a + b;
+      };
+
+      // 빼기 함수
+      function subtract(a, b) {
+        return a - b;
+      }
+
+      const subtract2 = function (a, b) {
+        return a - b;
+      };
+
+      // 곱하기 함수
+      function multiply(a, b) {
+        return a * b;
+      }
+
+      const multiply2 = function (a, b) {
+        return a * b;
+      };
+
+      // 나누기 함수
+      function divide(a, b) {
+        return a / b;
+      }
+
+      const divide2 = function (a, b) {
+        return a / b;
+      };
+
+      // 나머지 함수
+      function modulo(a, b) {
+        return a % b;
+      }
+
+      const modulo2 = function (a, b) {
+        return a % b;
+      };
+
+      // 첫 번째 숫자 입력
+      let num1 = Number(prompt("첫 번째 숫자를 입력하세요."));
+
+      // 입력값이 숫자가 아닌 경우
+      if (isNaN(num1)) {
+        num1 = Number(prompt("숫자만 입력하세요."));
+      }
+
+      // 연산자 목록
+      const operators = ["+", "-", "*", "/", "%"];
+
+      // 연산자 입력
+      let operator = prompt("연산자를 입력하세요.");
+
+      // 입력된 연산자가 연산자 목록에 속하지 않는 경우
+      while (!operators.includes(operator.trim())) {
+        operator = prompt("+, -, *, /, % 중 하나를 입력하세요.");
+      }
+
+      // 두 번째 숫자 입력
+      let num2 = Number(prompt("두 번째 숫자를 입력하세요."));
+
+      // 입력값이 숫자가 아닌 경우
+      if (isNaN(num2)) {
+        num2 = Number(prompt("숫자만 입력하세요."));
+      }
+
+      // 결과
+      let result = 0;
+
+      switch (operator) {
+        case "+":
+          result = add(num1, num2);
+          break;
+        case "-":
+          result = subtract(num1, num2);
+          break;
+        case "*":
+          result = multiply(num1, num2);
+          break;
+        case "/":
+          result = divide(num1, num2);
+          break;
+        case "%":
+          result = modulo(num1, num2);
+          break;
+      }
+
+      console.log(result);
+    </script>
+  </body>
+</html>
