@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 예제</title>
+    <style>
+      #pic {
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="img1.jpg" id="pic" />
+    <button onclick="changePic()">이미지 바꾸기</button>
+    <button id="myBtn">이미지 바꾸기2</button>
+    <script>
+      function changePic() {
+        const pic = document.getElementById("pic");
+
+        if (pic.src.includes("img1.jpg")) {
+          pic.src = "img2.png";
+        } else {
+          pic.src = "img1.jpg";
+        }
+      }
+
+      let pic = document.getElementById("pic");
+      let myBtn = document.getElementById("myBtn");
+
+      myBtn.addEventListener("click", changePic);
+      pic.addEventListener("mouseover", changePic);
+      
+    </script>
+  </body>
+</html>
