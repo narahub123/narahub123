@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>while</title>
+  </head>
+  <body>
+    <script>
+      // while 문 예제 : 2단 만들기
+      //   let i = 2;
+      //   let j = 1;
+
+      //   console.log("구구단 출력");
+      //   console.log(`${i}단`);
+
+      //   while (j < 10) {
+      //     console.log(`${i} x ${j} = ${i * j}`);
+
+      //     j++;
+      //   }
+
+      // 팩토리얼 계산기
+      // 팩토리얼 5! = 1 * 2 * 3 * 4 * 5
+      //   let k = 0;
+      //   let num = Number(prompt("숫자를 입력해주세요"));
+      //   let factorial = 1;
+
+      // 음수 이거나 숫자가 아닌 값이 입력된 경우 추가
+      //   do {
+      //     if (num < 0 || isNaN(num)) {
+      //       factorial = NaN;
+      //     } else if (k === 0) {
+      //       factorial = 1;
+      //     } else {
+      //       factorial *= k;
+      //     }
+
+      //     k++;
+      //   } while (k <= num);
+
+      //   while (k <= num) {
+      //     if (k === 0) {
+      //       factorial = 1;
+      //     } else {
+      //       factorial *= k;
+      //     }
+
+      //     k++;
+      //   }
+
+      //   while (num > 1) {
+      //     factorial *= num;
+
+      //     num--;
+      //   }
+
+      //   console.log("팩토리얼", factorial);
+
+      // break, continue 예제
+      // break
+      //   let sum = 0;
+
+      //   for (let i = 1; i <= 10; i++) {
+      //     if (i % 2 !== 0) continue;
+
+      //     sum += i;
+
+      //     console.log(`${i}를 더함`);
+      //   }
+
+      //   console.log("짝수의 합 : ", sum);
+
+      // break
+      //   let i = 1;
+
+      //   while (i <= 10) {
+      //     if (i === 5) break;
+      //     if (i % 2 !== 0) {
+      //       i++;
+      //       continue;
+      //     }
+      //     console.log(`>>> ${i}`);
+      //     i++;
+      //   }
+
+      // 1. 사용자의 나이를 입력받아 미성년자/성인 여부 판단하기
+      let age = Number(prompt("나이를 입력해주세요."));
+
+      if (isNaN(age)) {
+        alert("숫자를 입력해주세요.");
+      }
+
+      if (age < 19) {
+        console.log("당신은 미성년자입니다.");
+      } else {
+        console.log("당신은 성인입니다.");
+      }
+      // 2. 1~100까지 숫자 중에서 짝수만 합치기
+      i = 1;
+      let sum = 0;
+      while (i <= 100) {
+        if (i % 2 === 0) sum += i;
+
+        i++;
+      }
+
+      console.log("1~100까지의 짝수의 합은 : " + sum + "입니다.");
+
+      // 3. do...while을 사용해 숫자를 입력 받고 종료 조건 처리하기 (exit 입력 시 종료)
+      let num = prompt("숫자를 입력해주세요.");
+
+      while (num !== "exit") {
+        num = prompt("숫자를 입력해주세요.");
+
+        console.log(num);
+      }
+    </script>
+  </body>
+</html>
