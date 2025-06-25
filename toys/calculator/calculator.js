@@ -5,7 +5,21 @@ function clickButton(event) {
   // 버튼 안의 기호 불러오기
   const symbol = convertInnerTextToSymbol(event.target.innerText);
 
-  console.log(symbol);
+  if (symbol === "clear") {
+    // 전체 삭제
+    console.log("전체 삭제");
+  } else if (symbol === "clearEntry") {
+    // 문자열의 마지막 삭제
+    console.log("문자열의 마지막 삭제");
+  } else if (symbol === "unary") {
+    // 변환
+    console.log("변환");
+  } else if (symbol === "=") {
+    // 계산하기
+    console.log("계산하기");
+  } else {
+    console.log("숫자 혹은 연산자");
+  }
 }
 
 // 버튼의 내용을 기호로 변경하기
