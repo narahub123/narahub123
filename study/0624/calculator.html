@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="calculator.css" />
+    <title>계산기</title>
+  </head>
+  <body>
+    <div id="calculator">
+      <div id="display">
+        <div id="wrapper">
+          <p id="message"></p>
+        </div>
+        <p id="equation"><br /></p>
+        <p id="result"><br /></p>
+      </div>
+      <div id="btns">
+        <div class="row">
+          <button class="btn gray" onclick="clickButton(event)">C</button>
+          <button class="btn gray" onclick="clickButton(event)">AC</button>
+          <button class="btn gray" onclick="clickButton(event)">%</button>
+          <button class="btn yellow" onclick="clickButton(event)">/</button>
+        </div>
+        <div class="row">
+          <button class="btn dark" onclick="clickButton(event)">7</button>
+          <button class="btn dark" onclick="clickButton(event)">8</button>
+          <button class="btn dark" onclick="clickButton(event)">9</button>
+          <button class="btn yellow" onclick="clickButton(event)">X</button>
+        </div>
+        <div class="row">
+          <button class="btn dark" onclick="clickButton(event)">4</button>
+          <button class="btn dark" onclick="clickButton(event)">5</button>
+          <button class="btn dark" onclick="clickButton(event)">6</button>
+          <button class="btn yellow" onclick="clickButton(event)">-</button>
+        </div>
+        <div class="row">
+          <button class="btn dark" onclick="clickButton(event)">1</button>
+          <button class="btn dark" onclick="clickButton(event)">2</button>
+          <button class="btn dark" onclick="clickButton(event)">3</button>
+          <button class="btn yellow" onclick="clickButton(event)">+</button>
+        </div>
+        <div class="row">
+          <button class="btn dark" onclick="clickButton(event)">+/-</button>
+          <button class="btn dark" onclick="clickButton(event)">0</button>
+          <button class="btn dark" onclick="clickButton(event)">.</button>
+          <button class="btn yellow" onclick="clickButton(event)">=</button>
+        </div>
+      </div>
+    </div>
+    <script src="calculator.js"></script>
+  </body>
+</html>
