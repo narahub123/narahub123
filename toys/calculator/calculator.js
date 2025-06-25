@@ -45,7 +45,7 @@ function clickButton(event) {
   }
 
   // 등식에 심볼 추가하기
-  equation.textContent = text;
+  text ? (equation.textContent = text) : (equation.innerHTML = "<br />");
 }
 
 // onkeydown 함수
@@ -91,7 +91,7 @@ function handleKeydown(event) {
     }
   }
 
-  equation.textContent = text;
+  text ? (equation.textContent = text) : (equation.innerHTML = "<br />");
 }
 
 window.addEventListener("keydown", handleKeydown);
