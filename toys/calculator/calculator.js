@@ -32,7 +32,8 @@ function clickButton(event) {
     console.log("변환");
   } else if (symbol === "=") {
     // 계산하기
-    getResult(text);
+    const result = getResult(text);
+    equation.textContent = result;
   } else {
     if (!checkWrongEquation(symbol, text)) return;
 
@@ -62,15 +63,16 @@ function handleKeydown(event) {
     text = clearEntry(text);
   } else if (key === "=" || key === "Enter") {
     // 계산하기
-    getResult(text);
+    text = getResult(text);
   } else {
     // 숫자와 연산자 인 경우에 출력
     if (isAvailableChar(key)) {
-      if (!text && (key === "-" || key === "+" || key === ".")) {
-      } else {
-        if (!checkWrongEquation(key, text)) {
-          return;
-        }
+      // 식의 시작에서 +,-,.로 시작하는 경우를 제외하고는 연산자 앞에 숫자가 없는 경우 에러
+      if (
+        !(!text && ["-", "+", "."].includes(key)) &&
+        !checkWrongEquation(key, text)
+      ) {
+        return;
       }
 
       text += key;
@@ -194,11 +196,14 @@ function getResult(text) {
 
   const formula = calcMultiplicativeOperators(text);
 
-  console.log(formula);
+  const value = calcAdditiveOperator(formula);
 
-  const result = calcAdditiveOperator(formula);
+  // 결과
+  const result = document.getElementById("result");
 
-  console.log(result);
+  result.textContent = value;
+
+  return value;
 }
 
 function calcAdditiveOperator(text) {
