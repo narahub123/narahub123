@@ -42,7 +42,11 @@ function handleKeydown(event) {
   } else if (key === "Backspace") {
     // 가장 마지막 문자 삭제하기
     console.log("마지막 문자열 삭제");
+  } else if (key === "=") {
+    // 계산하기
+    console.log("계산하기");
   } else {
+    // 숫자와 연산자 인 경우에 출력
     console.log("문자 클릭");
   }
 }
