@@ -1,3 +1,6 @@
+// 너비에 따라서 표시되는 숫자 다르게 처리하기
+
+// 버튼 클릭 시 작동하는 함수 : onclick
 function clickButton(event) {
   // 버튼 안의 기호 불러오기
   const symbol = convertInnerTextToSymbol(event.target.innerText);
@@ -21,3 +24,27 @@ function convertInnerTextToSymbol(innerText) {
       return innerText;
   }
 }
+
+// onkeydown 함수
+function handleKeydown(event) {
+  const key = event.key;
+  // 영문 대소문자, 숫자, Backspace, shiftKey, -, +, /, ., *, %, Enter, 방향키, tab
+
+  console.log(key);
+
+  if (event.shiftKey) {
+    console.log("shift 눌림");
+
+    if (key === "c" || key === "C") {
+      // equation, result 삭제하기
+      console.log("전체 삭제");
+    }
+  } else if (key === "Backspace") {
+    // 가장 마지막 문자 삭제하기
+    console.log("마지막 문자열 삭제");
+  } else {
+    console.log("문자 클릭");
+  }
+}
+
+window.addEventListener("keydown", handleKeydown);
