@@ -190,56 +190,31 @@ function calcMultiplicativeOperators(text) {
 }
 
 function getResult(text) {
-  console.log("게산하기");
   if (!text) return; // 메시지?
 
   const formula = calcMultiplicativeOperators(text);
 
   console.log(formula);
 
-  // const numbers = extractNumber(text);
-  // const operators = extractOperator(text);
+  const result = calcAdditiveOperator(formula);
 
-  // console.log(numbers, operators);
+  console.log(result);
+}
 
-  // const multipliesAndDivides = operators
-  //   .map((op, index) => ({
-  //     op: op,
-  //     index: index,
-  //   }))
-  //   .filter((op) => op.op === "*" || op.op === "/");
+function calcAdditiveOperator(text) {
+  const numbers = extractNumber(text);
+  const operators = extractOperator(text);
 
-  // console.log(multipliesAndDivides);
+  let curIndex = 1;
+  let result = Number(numbers[0]);
 
-  // if (multipliesAndDivides.length !== 0) {
-  //   multipliesAndDivides.forEach((op) => {
-  //     const result = calc(
-  //       op.op,
-  //       Number(numbers[op.index]),
-  //       Number(numbers[op.index + 1])
-  //     );
+  while (curIndex < numbers.length) {
+    result = calc(operators[curIndex - 1], result, Number(numbers[curIndex]));
 
-  //     console.log(result);
+    curIndex++;
+  }
 
-  //     numbers.splice(op.index, 2, result);
-  //     operators.splice(op.index, 1);
-  //   });
-  // }
-
-  // console.log(numbers, operators);
-
-  // let curIndex = 1;
-  // let result = Number(numbers[0]);
-
-  // while (curIndex < numbers.length) {
-  //   result = calc(operators[curIndex - 1], result, Number(numbers[curIndex]));
-
-  //   console.log(result);
-
-  //   curIndex++;
-  // }
-
-  // console.log(result);
+  return result;
 }
 
 // 등식에서 숫자만 추출
