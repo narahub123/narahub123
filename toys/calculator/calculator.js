@@ -32,8 +32,12 @@ function clickButton(event) {
     console.log("변환");
   } else if (symbol === "=") {
     // 계산하기
-    const result = getResult(text);
-    equation.textContent = result;
+    // 식이 숫자로 끝나지 않는 경우
+    if (!isEndedWithNumber(text)) {
+      showMessage();
+      return;
+    }
+    text = getResult(text);
   } else {
     if (!checkWrongEquation(symbol, text)) return;
 
@@ -63,6 +67,12 @@ function handleKeydown(event) {
     text = clearEntry(text);
   } else if (key === "=" || key === "Enter") {
     // 계산하기
+    // 식이 숫자로 끝나지 않는 경우
+    if (!isEndedWithNumber(text)) {
+      showMessage();
+      return;
+    }
+
     text = getResult(text);
   } else {
     // 숫자와 연산자 인 경우에 출력
