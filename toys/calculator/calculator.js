@@ -32,7 +32,7 @@ function clickButton(event) {
     console.log("변환");
   } else if (symbol === "=") {
     // 계산하기
-    console.log("계산하기");
+    getResult(text);
   } else {
     if (!checkWrongEquation(symbol, text)) return;
 
@@ -60,13 +60,18 @@ function handleKeydown(event) {
   } else if (key === "Backspace") {
     // 가장 마지막 문자 삭제하기
     text = clearEntry(text);
-  } else if (key === "=") {
+  } else if (key === "=" || key === "Enter") {
     // 계산하기
-    console.log("계산하기");
+    getResult(text);
   } else {
     // 숫자와 연산자 인 경우에 출력
     if (isAvailableChar(key)) {
-      if (!checkWrongEquation(key, text)) return;
+      if (!text && (key === "-" || key === "+" || key === ".")) {
+      } else {
+        if (!checkWrongEquation(key, text)) {
+          return;
+        }
+      }
 
       text += key;
     } else {
@@ -145,4 +150,149 @@ function showMessage() {
 function clearEntry(text) {
   if (!text) return;
   return text.slice(0, text.length - 1);
+}
+
+function calcMultiplicativeOperators(text) {
+  let formula = text;
+
+  // 식 안에 *, /, %가 존재하는 동안 반복됨
+  while (/[*/%]/.test(formula)) {
+    // 곱셈형 연산자 추출
+    const op = /[*/%]/.exec(formula);
+
+    // 해당 곱셈형 연산자 앞 뒤의 숫자 추출 : 정수가 아닌 실수 추출
+
+    // 곱셈형 연산자 이전 숫자 : 후방 탐색
+    // 식의 시작이 +, -로 시작하는 경우 해당 부호를 포함해서 추출해야 함
+    const prefixOperand =
+      formula.startsWith("-") || formula.startsWith("+")
+        ? /^[+-]?(?:\d+\.\d+|\d+|\.\d+)(?=[*/%])/.exec(formula)
+        : /(?:\d+\.\d+|\d+|\.\d+)(?=[*/%])/.exec(formula);
+
+    // 곱셈형 연산자 이후 숫자 : 전방 탐색
+    const postfixOperand = /(?<=[*/%])(?:\d+\.\d+|\d+|\.\d+)/.exec(formula);
+
+    // 해당 식 이전 문자열
+    const foreText = formula.slice(0, prefixOperand.index);
+
+    // 해당 식 이후 문자열
+    const postText = formula.slice(
+      postfixOperand.index + postfixOperand[0].length
+    );
+
+    // 추출한 식 계산
+    const result = calc(op[0], prefixOperand[0], postfixOperand[0]);
+
+    formula = foreText + result + postText;
+  }
+
+  return formula;
+}
+
+function getResult(text) {
+  console.log("게산하기");
+  if (!text) return; // 메시지?
+
+  const formula = calcMultiplicativeOperators(text);
+
+  console.log(formula);
+
+  // const numbers = extractNumber(text);
+  // const operators = extractOperator(text);
+
+  // console.log(numbers, operators);
+
+  // const multipliesAndDivides = operators
+  //   .map((op, index) => ({
+  //     op: op,
+  //     index: index,
+  //   }))
+  //   .filter((op) => op.op === "*" || op.op === "/");
+
+  // console.log(multipliesAndDivides);
+
+  // if (multipliesAndDivides.length !== 0) {
+  //   multipliesAndDivides.forEach((op) => {
+  //     const result = calc(
+  //       op.op,
+  //       Number(numbers[op.index]),
+  //       Number(numbers[op.index + 1])
+  //     );
+
+  //     console.log(result);
+
+  //     numbers.splice(op.index, 2, result);
+  //     operators.splice(op.index, 1);
+  //   });
+  // }
+
+  // console.log(numbers, operators);
+
+  // let curIndex = 1;
+  // let result = Number(numbers[0]);
+
+  // while (curIndex < numbers.length) {
+  //   result = calc(operators[curIndex - 1], result, Number(numbers[curIndex]));
+
+  //   console.log(result);
+
+  //   curIndex++;
+  // }
+
+  // console.log(result);
+}
+
+// 등식에서 숫자만 추출
+function extractNumber(text) {
+  const results = [];
+  let remaining = text;
+
+  // 텍스트 - 혹은 +로 시작하는 경우 해당 부호를 포함해서 추출
+  const firstMatch = remaining.match(/^[+-]?(?:\d+\.\d+|\d+|\.\d+)/);
+
+  if (firstMatch) {
+    results.push(firstMatch[0]);
+    remaining = remaining.slice(firstMatch[0].length);
+  }
+
+  const rest = remaining.match(/(?:\d+\.\d+|\d+|\.\d+)/g);
+
+  if (rest) {
+    results.push(...rest);
+  }
+
+  return results;
+}
+
+// 등식에서 연산자만 추출
+function extractOperator(text) {
+  // 등식이 + 혹은 - 으로 시작하면 첫글자는 무시
+  let startIndex = /^[+-]/.test(text) ? 1 : 0;
+
+  const operatorRegex = /[+\-*/%]/g;
+  const results = [];
+
+  const slicedText = text.slice(startIndex);
+  let match;
+  while ((match = operatorRegex.exec(slicedText)) !== null) {
+    results.push(match[0]);
+  }
+
+  return results;
+}
+
+// 계산 함수
+function calc(op, operand1, operand2) {
+  switch (op) {
+    case "+":
+      return operand1 + operand2;
+    case "-":
+      return operand1 - operand2;
+    case "*":
+      return operand1 * operand2;
+    case "/":
+      return operand1 / operand2;
+    case "%":
+      return operand1 % operand2;
+  }
 }
