@@ -80,6 +80,9 @@ function convertInnerTextToSymbol(innerText) {
     case "+/-":
       return "unary";
 
+    case "X":
+      return "*";
+
     default:
       return innerText;
   }
