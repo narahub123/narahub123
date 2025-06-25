@@ -1,5 +1,29 @@
 // 너비에 따라서 표시되는 숫자 다르게 처리하기
 
+// 포커스 가능한 요소
+const focusableSelectors = [
+  "a[href]",
+  "button:not([disabled])",
+  "textarea:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+];
+
+const calculator = document.getElementById("calculator");
+
+const focusableElems = calculator.querySelectorAll(
+  focusableSelectors.join(",")
+);
+
+console.log(focusableElems);
+
+const firstElem = focusableElems[0];
+const lastElem = focusableElems[focusableElems.length - 1];
+
+// 포커스 주기
+firstElem.focus();
+
 // 숫자 혹은 연산인지 구별하는 정규표현식
 const available_regex = /[0-9-/.*%+]/;
 
@@ -86,6 +110,45 @@ function handleKeydown(event) {
     }
 
     text = getResult(text);
+  } else if (key === "ArrowRight") {
+    const curIndex =
+      [...focusableElems].findIndex((el) => el === document.activeElement) || 0;
+
+    const postIndex =
+      curIndex + 1 > focusableElems.length - 1 ? 0 : curIndex + 1;
+    console.log(curIndex);
+
+    focusableElems[postIndex].focus();
+  } else if (key === "ArrowLeft") {
+    const curIndex =
+      [...focusableElems].findIndex((el) => el === document.activeElement) || 0;
+
+    const prevIndex =
+      curIndex - 1 < 0 ? focusableElems.length - 1 : curIndex - 1;
+
+    focusableElems[prevIndex].focus();
+  } else if (key === "ArrowUp") {
+    event.preventDefault();
+    const curIndex =
+      [...focusableElems].findIndex((el) => el === document.activeElement) || 0;
+
+    const prevIndex =
+      curIndex - 4 < 0
+        ? focusableElems.length - 1 - (3 - (curIndex % 4))
+        : curIndex - 4;
+
+    focusableElems[prevIndex].focus();
+  } else if (key === "ArrowDown") {
+    const curIndex =
+      [...focusableElems].findIndex((el) => el === document.activeElement) || 0;
+
+    const postIndex =
+      curIndex + 4 > focusableElems.length - 1
+        ? 0 + (curIndex % 4)
+        : curIndex + 4;
+    console.log(curIndex);
+
+    focusableElems[postIndex].focus();
   } else {
     // 숫자와 연산자 인 경우에 출력
     if (isAvailableChar(key)) {
