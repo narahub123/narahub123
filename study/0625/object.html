@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체 예제</title>
+  </head>
+  <body>
+    <script>
+      //   const user = {
+      //     name: "철수",
+      //     age: 25,
+      //     greet: function () {
+      //       alert("안녕하세요!");
+      //     }, // 메서드, 익명 함수
+      //   };
+
+      //   console.log(user.name); // dot notation
+      //   console.log(user.age);
+      //   console.log(user["age"]); // bracket notation
+      //   user.greet(); // 메서드 호출
+
+      // 사용자 정의 객체 : 생성자 함수
+      //   function Student(name, age, gender, grade) {
+      //     this.name = name;
+      //     this.age = age;
+      //     this.gender = gender;
+      //     this.grade = grade;
+
+      //     this.sayHi = function () {
+      //       alert(`안녕하세여! 저는 ${this.name}입니다.`);
+      //     };
+      //   }
+
+      //   const student1 = new Student("철수", 20, "남자", 1);
+      //   const student2 = new Student("영희", 21, "여자", 2);
+
+      //   console.log(student1.name);
+      //   console.log(student2.age);
+      //   student1.sayHi();
+
+      // 연습 문제 1
+      //   const user = {
+      //     name: "홍길동",
+      //     age: 30,
+      //     email: "hong@example.com",
+      //   };
+
+      //   console.log("이름 :", user.name, "이메일 :", user.email);
+
+      // for in
+      //   const product = {
+      //     id: 101,
+      //     name: "노트북",
+      //     price: 12000,
+      //   };
+
+      //   console.log(product["name"]);
+
+      //   for (let key in product) {
+      //     console.log(`key : ${key}, value : ${product[key]}`);
+      //   }
+
+      //   // 연습 문제 2 : 속성 추가 및 삭제 - delete
+      //   const book = {};
+
+      //   book.title = "자바스크립트 입문";
+      //   book.author = "김작가";
+      //   book.year = 2025;
+
+      //   console.log(book);
+
+      //   delete book.year;
+
+      //   console.log(book);
+
+      //   for (const key in book) {
+      //     console.log(`key : ${key}, value: ${book[key]}`);
+      //   }
+
+      //   // 배열 속 객체
+      //   const people = [
+      //     { name: "철수", age: 25 },
+      //     { name: "영희", age: 30 },
+      //     { name: "민수", age: 35 },
+      //   ];
+
+      //   // 나이가 30 이상인 사람의 이름만 출력
+      //   console.log("나이가 30 이상인 사람");
+      //   for (const person of people) {
+      //     if (person.age >= 30) {
+      //       console.log(`이름 : ${person.name}, 나이 : ${person.age}`);
+      //     }
+      //   }
+
+      //   // 메서드를 포함한 객체
+      //   const calculator = {
+      //     add: function (a, b) {
+      //       return a + b;
+      //     },
+      //     subtract: function (a, b) {
+      //       return a - b;
+      //     },
+      //   };
+
+      //   console.log("더하기", calculator.add(3, 5));
+      //   console.log("빼기", calculator.subtract(7, 8));
+
+      //   // Date 객체
+      //   const now = new Date();
+
+      //   console.log(now);
+      //   console.log(now.getFullYear());
+      //   console.log(now.getMonth() + 1);
+      //   console.log(now.getDate());
+
+      //   console.log();
+
+      // 기념일 계산기
+      //   const today = new Date();
+      //   const birthday = new Date("1990-10-25");
+
+      //   let diff = today.getTime() - birthday.getTime();
+      //   let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      //   console.log(`태어난 지 ${days}일 지났습니다.`);
+
+      //   // Date 객체 생성 방법
+      //   const now = new Date();
+      //   const fromString = new Date("2024-12-25");
+      //   const fromNumbers = new Date(2024, 11, 24);
+      //   const fromTimeStamp = new Date(1700000000000);
+
+      //   console.log("fromString", fromString);
+      //   console.log("fromNumbers", fromNumbers);
+      //   console.log("fromTimeStamp", fromTimeStamp);
+
+      //   // 날짜와 시간 정보 추출
+      //   const d = new Date();
+
+      //   console.log("년", d.getFullYear());
+      //   console.log("월", d.getMonth() + 1);
+      //   console.log("일", d.getDate());
+      //   console.log("요일", d.getDay());
+
+      //   console.log("시간", d.getHours());
+      //   console.log("분", d.getMinutes());
+      //   console.log("초", d.getSeconds());
+      //   console.log("밀리초", d.getMilliseconds());
+
+      //   // 날짜 연산
+      //   console.log("원래 날짜", d);
+
+      //   d.setDate(d.getDate() + 7);
+      //   console.log("7일 뒤", d);
+
+      //   d.setMonth(d.getMonth() - 1);
+      //   console.log("한 달 전", d);
+
+      //   // 날짜 차이 계산
+      //   const date1 = new Date("2025-06-01");
+      //   const date2 = new Date("2025-06-11");
+
+      //   const diffInMs = date2 - date1;
+      //   const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+      //   console.log(diffInDays);
+
+      // 날짜 포멧팅
+      //   const d = new Date();
+      //   const formatted = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+      //     2,
+      //     0
+      //   )}-${String(d.getDate()).padStart(2, 0)}`;
+      //   console.log(formatted);
+
+      //   // 요일 이름 출력
+      //   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+
+      //   const d = new Date();
+
+      //   console.log(`오늘은 ${dayNames[d.getDay()]}요일입니다.`);
+
+      //   // 오전 오후 표시
+      //   const d = new Date();
+      //   const hour = d.getHours();
+      //   const amPm = hour >= 12 ? "오후" : "오전";
+      //   console.log(`${amPm} ${hour}시입니다.`);
+
+      // 연습문제
+
+      //   // 1. 오늘 날짜 출력
+      //   const today = new Date();
+
+      //   console.log(
+      //     `${today.getFullYear()}년 ${
+      //       today.getMonth() + 1
+      //     }월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`
+      //   );
+
+      //   // 2. 특정 날짜 만들기
+      //   console.log(new Date("2025-12-25"));
+      //   console.log(new Date(2025, 11, 25));
+
+      //   // 3. 연, 월, 일 분리 출력
+      //   const now = new Date();
+
+      //   console.log("년", now.getFullYear());
+      //   console.log("월", now.getMonth() + 1);
+      //   console.log("일", now.getDate());
+
+      //   // 4. 날짜 덧셈 : 오늘로부터 100일 후
+      //   console.log("100일 후", new Date(now.setDate(now.getDate() + 100)));
+
+      //   // 5. 두 날짜 간의 차이 : 2025 12 25
+      //   const diffInMs = new Date(2025, 11, 25) - today;
+
+      //   const diffDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+      //   console.log("오늘과 2025년 12월 25일은", diffDays + "일 차이가 납니다.");
+
+      //   // 6. 요일 구하기 오늘이 무슨 요일 인지
+      //   const days = ["일", "월", "화", "수", "목", "금", "토"];
+
+      //   console.log(`오늘은 ${days[today.getDay()]}요일입니다.`);
+
+      // 본인의 정보를 담은 객체를 만들어 이름, 나이 자기소개() 메서드를 출력해보세요.
+      const user = {
+        name: "박나라",
+        age: 100,
+        introduce: function () {
+          console.log(
+            `안녕하세요! 저는 ${this.name}이고 ${this.age}살 입니다.`
+          );
+        },
+      };
+
+      // 생성자 함수를 이용해 book 객체 여러개를 만들어보기
+      function Book(title, author, year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+      }
+
+      const book1 = new Book("책 제목1", "작가 1", 2025);
+      const book2 = new Book("책 제목2", "작가 2", 2024);
+
+      console.log(book1);
+      console.log(book2);
+
+      // Date 객체를 활용해 오늘 날짜 와 특정 날짜 간의 차이 계산하기
+      const now = new Date();
+      const someday = new Date("2024-12-05");
+
+      const diffInMs = now - someday;
+      const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+      console.log("날짜 차이", diffInDays + "일");
+    </script>
+  </body>
+</html>
