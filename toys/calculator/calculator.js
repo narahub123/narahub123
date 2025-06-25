@@ -112,10 +112,30 @@ function isEndedWithNumber(text) {
 
 function checkWrongEquation(input, text) {
   if (!isInputNumber(input) && !isEndedWithNumber(text)) {
-    console.log("wrong");
+    showMessage();
 
     return false;
   }
 
   return true;
+}
+
+function showMessage() {
+  const message = document.getElementById("message");
+
+  message.style.opacity = 1;
+
+  const msg = "완성되지 않은 수식입니다.";
+  message.textContent = msg;
+
+  let timer;
+
+  if (timer) {
+    clearTimeout(timer);
+  }
+
+  timer = setTimeout(() => {
+    message.textContent = "";
+    message.style.opacity = 0;
+  }, 2000);
 }
