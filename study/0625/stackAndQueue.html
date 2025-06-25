@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stack & Queue</title>
+  </head>
+  <body>
+    <script>
+      // // stack
+      const stack = [];
+
+      stack.push(1);
+      console.log(stack);
+      stack.push(2);
+      console.log(stack);
+      stack.push(3);
+      console.log(stack);
+      const deletedItem = stack.pop();
+      console.log(deletedItem);
+      console.log(stack);
+      console.log(stack[stack.length - 1]); // peek : 마지막 요소 출력
+
+      // queue
+      const queue = [];
+
+      queue.push("A");
+      console.log(queue);
+      queue.push("B");
+      console.log(queue);
+      queue.push("C");
+      console.log(queue);
+
+      const deletedItem2 = queue.shift();
+      console.log(queue);
+      console.log(deletedItem2);
+      console.log(queue[0]);
+    </script>
+  </body>
+</html>
