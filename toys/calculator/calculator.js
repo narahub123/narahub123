@@ -1,7 +1,13 @@
 // 너비에 따라서 표시되는 숫자 다르게 처리하기
 
 // 숫자 혹은 연산인지 구별하는 정규표현식
-const available_regex = /[0-9-/*%+.]/;
+const available_regex = /[0-9-/.*%+]/;
+
+// 입력된 값이 숫자인지 확인하는 정규표현식
+const number_filter_regex = /[0-9]/;
+
+// 등식의 마지막 값이 숫자인지 확인하는 정규 표현식
+const last_character_regex = /[0-9]$/;
 
 // 버튼 클릭 시 작동하는 함수 : onclick
 function clickButton(event) {
@@ -27,7 +33,8 @@ function clickButton(event) {
     // 계산하기
     console.log("계산하기");
   } else {
-    console.log("숫자 혹은 연산자");
+    if (!checkWrongEquation(symbol, text)) return;
+
     text += symbol;
   }
 
@@ -57,9 +64,12 @@ function handleKeydown(event) {
     console.log("계산하기");
   } else {
     // 숫자와 연산자 인 경우에 출력
-    console.log("문자 클릭");
     if (isAvailableChar(key)) {
+      if (!checkWrongEquation(key, text)) return;
+
       text += key;
+    } else {
+      return;
     }
   }
 
@@ -89,7 +99,23 @@ function convertInnerTextToSymbol(innerText) {
 }
 
 function isAvailableChar(char) {
-  console.log(char);
-
   return available_regex.test(char);
+}
+
+function isInputNumber(input) {
+  return number_filter_regex.test(input);
+}
+
+function isEndedWithNumber(text) {
+  return last_character_regex.test(text);
+}
+
+function checkWrongEquation(input, text) {
+  if (!isInputNumber(input) && !isEndedWithNumber(text)) {
+    console.log("wrong");
+
+    return false;
+  }
+
+  return true;
 }
