@@ -25,7 +25,8 @@ function clickButton(event) {
     console.log("전체 삭제");
   } else if (symbol === "clearEntry") {
     // 문자열의 마지막 삭제
-    console.log("문자열의 마지막 삭제");
+
+    text = clearEntry(text);
   } else if (symbol === "unary") {
     // 변환
     console.log("변환");
@@ -58,7 +59,7 @@ function handleKeydown(event) {
     console.log("전체 삭제");
   } else if (key === "Backspace") {
     // 가장 마지막 문자 삭제하기
-    console.log("마지막 문자열 삭제");
+    text = clearEntry(text);
   } else if (key === "=") {
     // 계산하기
     console.log("계산하기");
@@ -138,4 +139,10 @@ function showMessage() {
     message.textContent = "";
     message.style.opacity = 0;
   }, 2000);
+}
+
+// text의 마지막 글자를 지우는 함수
+function clearEntry(text) {
+  if (!text) return;
+  return text.slice(0, text.length - 1);
 }
