@@ -34,6 +34,12 @@ function clickButton(event) {
     // 계산하기
     // 식이 숫자로 끝나지 않는 경우
     if (!isEndedWithNumber(text)) {
+      if (!text) {
+        const result = document.getElementById("result");
+
+        result.innerHTML = "<br />";
+        return;
+      }
       showMessage();
       return;
     }
@@ -67,6 +73,12 @@ function handleKeydown(event) {
     text = clearEntry(text);
   } else if (key === "=" || key === "Enter") {
     // 계산하기
+    if (!text) {
+      const result = document.getElementById("result");
+
+      result.innerHTML = "<br />";
+      return;
+    }
     // 식이 숫자로 끝나지 않는 경우
     if (!isEndedWithNumber(text)) {
       showMessage();
@@ -211,7 +223,7 @@ function getResult(text) {
   // 결과
   const result = document.getElementById("result");
 
-  result.textContent = value;
+  text ? (result.textContent = value) : (result.innerHTML = "<br />");
 
   return value;
 }
@@ -286,3 +298,5 @@ function calc(op, operand1, operand2) {
       return operand1 % operand2;
   }
 }
+
+function initializeResult() {}
