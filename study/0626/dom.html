@@ -4,12 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOM</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+    </style>
   </head>
   <body>
     <p id="greeting">안녕하세요! 반갑습니다!</p>
     <img src="https://picsum.photos/200/300" alt="random image" />
     <br />
     <button id="change-image">이미지 변경</button>
+    <br />
+    <br />
+    <div id="box" class="box">Box</div>
+    <br />
+    <button id="change-style">스타일 변경</button>
 
     <script>
       // id 접근
@@ -32,6 +44,28 @@
 
         image[0].src = "https://picsum.photos/300/300";
       });
+
+      // 스타일 변경
+      //   let box = document.getElementById("box");
+
+      //   box.style.backgroundColor = "blue";
+
+      let btn = document.getElementById("change-style");
+
+      btn.addEventListener("click", function () {
+        let box = document.getElementById("box");
+
+        box.style.backgroundColor = getRandomColor();
+      });
+
+      function getRandomColor() {
+        let letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
     </script>
   </body>
 </html>
