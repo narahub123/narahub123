@@ -1,39 +1,98 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>계산기</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="calculator">
-    <div class="display">0</div>
-    <div class="buttons">
-      <button>C</button>
-      <button>←</button>
-      <button>%</button>
-      <button>/</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계산기</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="display" id="display">0</div>
+      <div class="buttons" id="buttons">
+        <button id="clear">C</button>
+        <button id="backspace">←</button>
+        <button id="modulo">%</button>
+        <button id="divide">/</button>
 
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>*</button>
+        <button id="seven">7</button>
+        <button id="eight">8</button>
+        <button id="nine">9</button>
+        <button id="multiply">*</button>
 
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>-</button>
+        <button id="four">4</button>
+        <button id="fiv">5</button>
+        <button id="six">6</button>
+        <button id="subtract">-</button>
 
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>+</button>
+        <button id="one">1</button>
+        <button id="two">2</button>
+        <button id="three">3</button>
+        <button id="add">+</button>
 
-      <button>0</button>
-      <button>.</button>
-      <button class="equal">=</button>
+        <button id="zero">0</button>
+        <button id="dot">.</button>
+        <button id="equal" class="equal">=</button>
+      </div>
     </div>
-  </div>
-</body>
+    <script>
+      let display = document.getElementById("display");
+      let clear = document.getElementById("clear");
+      clear.style.color = "red";
+      let backspace = document.getElementById("backspace");
+      backspace.style.color = "red";
+      let modulo = document.getElementById("modulo");
+      let divide = document.getElementById("divide");
+      let seven = document.getElementById("seven");
+      let eight = document.getElementById("eight");
+      let nine = document.getElementById("nine");
+      let multiply = document.getElementById("multiply");
+      let four = document.getElementById("four");
+      let five = document.getElementById("five");
+      let six = document.getElementById("six");
+      let subtract = document.getElementById("subtract");
+      let one = document.getElementById("one");
+      let two = document.getElementById("two");
+      let three = document.getElementById("three");
+      let add = document.getElementById("add");
+      let zero = document.getElementById("zero");
+      let dot = document.getElementById("dot");
+      let equal = document.getElementById("equal");
+
+      function appendToDisplay(value) {
+        if (display.textContent == 0) {
+          display.textContent = value;
+        } else {
+          display.textContent += value;
+        }
+      }
+
+      let buttons = document.getElementById("buttons");
+
+      buttons.addEventListener("click", function (e) {
+        if (e.target.id === "equal") {
+          let result = eval(display.textContent);
+
+          appendToDisplay(e.target.innerText + result);
+        } else if (e.target.id === "clear") {
+          // display를 0으로 대체
+          display.textContent = 0;
+        } else if (e.target.id === "backspace") {
+          const text = display.textContent;
+
+          // 현재 값이 0인 경우에는 삭제불가
+          if (text == 0) return;
+
+          const newText = text.slice(0, text.length - 1);
+
+          // 삭제 시 남아 있는 문자열이 없는 경우 0을 추가
+          display.textContent = newText ? newText : 0;
+        } else {
+          appendToDisplay(e.target.innerText);
+        }
+      });
+
+      buttons;
+    </script>
+  </body>
 </html>
