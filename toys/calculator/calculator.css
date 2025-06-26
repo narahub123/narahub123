@@ -36,12 +36,21 @@
   opacity: 0;
 }
 
+.text-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 11px;
+}
+
 #equation {
   color: #ccc;
   margin: 0;
   font-size: 20px;
   line-height: 1;
-  padding-right: 10px;
+
+  width: 100%;
+  overflow: hidden;
+  text-align: right;
 }
 
 #result {
@@ -49,7 +58,10 @@
   margin: 0;
   font-size: 50px;
   line-height: 1;
-  padding-right: 10px;
+
+  width: 100%;
+  overflow: hidden;
+  text-align: right;
 }
 
 #btns {
