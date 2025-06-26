@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM 이벤트</title>
+    <style>
+      #map {
+        width: 500px;
+        height: 500px;
+        background-color: #f0f0f0;
+
+        position: relative;
+      }
+
+      #character {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // 키보드 방향키 사용
+      // 키보드 방향키, div 상하좌우로 이동
+      let character = document.createElement("div");
+
+      character.setAttribute("id", "character");
+
+      const map = document.getElementById("map");
+
+      map.appendChild(character);
+
+      window.addEventListener("keydown", function (event) {
+        const key = event.key;
+
+        if (key === "ArrowUp") {
+          character.style.top =
+            character.offsetTop - 50 < map.offsetTop
+              ? 0
+              : character.offsetTop - 50 + "px";
+        } else if (key === "ArrowDown") {
+          character.style.top =
+            character.offsetTop + 50 > map.offsetTop + map.offsetHeight - 50
+              ? map.offsetTop + map.offsetHeight
+              : character.offsetTop + 50 + "px";
+        } else if (key === "ArrowRight") {
+          character.style.left =
+            character.offsetLeft + 50 > map.offsetLeft + map.offsetWidth - 50
+              ? map.offsetLeft + map.offsetWidth
+              : character.offsetLeft + 50 + "px";
+        } else if (key === "ArrowLeft") {
+          character.style.left =
+            character.offsetLeft - 50 < map.offsetLeft
+              ? 0
+              : character.offsetLeft - 50 + "px";
+        }
+      });
+    </script>
+  </body>
+</html>
