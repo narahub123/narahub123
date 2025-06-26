@@ -46,7 +46,7 @@ function clickButton(event) {
 
   if (symbol === "clear") {
     // 전체 삭제
-    console.log("전체 삭제");
+    clear();
   } else if (symbol === "clearEntry") {
     // 문자열의 마지막 삭제
 
@@ -91,7 +91,7 @@ function handleKeydown(event) {
   if ((event.shiftKey && key === "c") || key === "C") {
     event.preventDefault();
     // equation, result 삭제하기
-    console.log("전체 삭제");
+    clear();
   } else if (key === "Backspace") {
     // 가장 마지막 문자 삭제하기
     text = clearEntry(text);
@@ -364,4 +364,8 @@ function calc(op, operand1, operand2) {
   }
 }
 
-function initializeResult() {}
+function clear() {
+  const result = document.getElementById("result");
+
+  result.innerHTML = "<br />";
+}
