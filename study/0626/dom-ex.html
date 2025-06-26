@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM 연습</title>
+    <style>
+      .dark-mode {
+        background-color: #000;
+      }
+
+      .light-mode {
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="text">안녕하세요!</p>
+    <button id="change-text">텍스트 변경</button>
+    <ol id="list"></ol>
+    <input type="text" id="text-input" />
+    <button id="add-item">목록 추가</button>
+    <br />
+    <br />
+    <!-- 다크모드 -->
+    <button id="change-mode">배경 모드 변경</button>
+
+    <script>
+      // 1. 버튼 클릭 시 텍스트가 바꾸는 기능
+      //   let changeTextButton = document.getElementById("change-text");
+      let changeTextButton = document.querySelector("#change-text");
+
+      changeTextButton.addEventListener("click", function () {
+        // let text = document.getElementById("text");
+        let text = document.querySelector("#text");
+
+        text.textContent = "바꿨다!! " + new Date();
+      });
+
+      // 2. 입력 창에 글을 쓰고 Enter 누르면 목록에 추가되도록 구현
+      const addItemButton = document.getElementById("add-item");
+
+      addItemButton.addEventListener("click", function () {
+        const input = document.getElementById("text-input");
+
+        const value = input.value;
+
+        if (!value) return;
+
+        const newItem = document.createElement("li");
+
+        newItem.textContent = value;
+
+        const list = document.getElementById("list");
+
+        list.appendChild(newItem);
+      });
+
+      // 3. 특정 조건일 때 클래스 추가 / 제거하여 스타일 전환하기 (예: 다크 모드 토글)
+      const changeThemeButton = document.querySelector("#change-mode");
+
+      let toggle = false;
+
+      changeThemeButton.addEventListener("click", function () {
+        const body = document.getElementsByTagName("body")[0];
+
+        if (toggle) {
+          body.classList.add("light-mode");
+          body.classList.remove("dark-mode");
+
+          toggle = false;
+        } else {
+          body.classList.add("dark-mode");
+          body.classList.remove("light-mode");
+
+          toggle = true;
+        }
+      });
+
+      // 4.
+    </script>
+  </body>
+</html>
