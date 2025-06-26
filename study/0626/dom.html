@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+  </head>
+  <body>
+    <p id="greeting">안녕하세요! 반갑습니다!</p>
+    <img src="https://picsum.photos/200/300" alt="random image" />
+
+    <script>
+      // id 접근
+      let text = document.getElementById("greeting");
+
+      text.innerText = "Hello world!!";
+
+      // class 접근
+      
+
+      // tag 접근
+      let image = document.getElementsByTagName("img");
+
+      image[0].src = "https://picsum.photos/300/300";
+    </script>
+  </body>
+</html>
