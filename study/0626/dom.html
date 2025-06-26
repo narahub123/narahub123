@@ -32,6 +32,8 @@
     <br />
     <div id="element-add">요소 추가 div</div>
     <button id="element-add-button">요소 추가 버튼</button>
+    <button id="move-element">요소 이동 버튼</button>
+    <button id="remove-element">요소 삭제 버튼</button>
 
     <script>
       // id 접근
@@ -115,6 +117,35 @@
       });
 
       elementAdd.appendChild(elementAddButton);
+
+      // 요소 이동
+      let moveElementButton = document.getElementById("move-element");
+
+      moveElementButton.addEventListener("click", function () {
+        let box = document.getElementById("box");
+
+        let body = document.getElementsByTagName("body")[0];
+
+        // body의 마지막으로 이동
+        body.appendChild(box);
+
+        // body의 가장 처음으로 이동
+        body.insertBefore(box, body.firstChild);
+      });
+
+      // 요소 삭제
+      let removeElementButton = document.getElementById("remove-element");
+      removeElementButton.addEventListener("click", function () {
+        const title = document.getElementById("greeting");
+
+        // title.remove(); // 요소 삭제
+
+        const elementAddDiv = document.getElementById("element-add");
+
+        if (elementAddDiv.lastChild) {
+          elementAddDiv.removeChild(elementAddDiv.lastChild);
+        }
+      });
     </script>
   </body>
 </html>
