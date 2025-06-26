@@ -8,6 +8,8 @@
   <body>
     <p id="greeting">안녕하세요! 반갑습니다!</p>
     <img src="https://picsum.photos/200/300" alt="random image" />
+    <br />
+    <button id="change-image">이미지 변경</button>
 
     <script>
       // id 접근
@@ -16,12 +18,20 @@
       text.innerText = "Hello world!!";
 
       // class 접근
-      
 
       // tag 접근
-      let image = document.getElementsByTagName("img");
+      //   let image = document.getElementsByTagName("img");
 
-      image[0].src = "https://picsum.photos/300/300";
+      //   image[0].src = "https://picsum.photos/300/300";
+
+      // 이벤트 적용 : 이미지 변경하기
+      let button = document.getElementById("change-image");
+
+      button.addEventListener("click", function () {
+        let image = document.getElementsByTagName("img");
+
+        image[0].src = "https://picsum.photos/300/300";
+      });
     </script>
   </body>
 </html>
