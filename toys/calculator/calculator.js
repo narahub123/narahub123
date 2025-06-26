@@ -95,7 +95,8 @@ function handleKeydown(event) {
   } else if (key === "Backspace") {
     // 가장 마지막 문자 삭제하기
     text = clearEntry(text);
-  } else if (key === "=" || key === "Enter") {
+    // 기존에는 enter도 계산에 사용되었는데 포커스트랩 사용 후 삭제
+  } else if (key === "=") {
     // 계산하기
     if (!text) {
       const result = document.getElementById("result");
@@ -139,6 +140,7 @@ function handleKeydown(event) {
 
     focusableElems[prevIndex].focus();
   } else if (key === "ArrowDown") {
+    event.preventDefault();
     const curIndex =
       [...focusableElems].findIndex((el) => el === document.activeElement) || 0;
 
