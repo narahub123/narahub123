@@ -31,6 +31,7 @@
     <br />
     <br />
     <div id="element-add">요소 추가 div</div>
+    <button id="element-add-button">요소 추가 버튼</button>
 
     <script>
       // id 접근
@@ -91,14 +92,27 @@
       // 요소 추가
       const elementAdd = document.getElementById("element-add");
 
-      let elementAddButton = document.createElement("button");
-      elementAddButton.textContent = "추가";
-      elementAddButton.style.backgroundColor = "blue";
-      elementAddButton.style.color = "white";
-      elementAddButton.style.padding = "10px 20px";
-      elementAddButton.style.borderRadius = "5px";
-      elementAddButton.style.boxShadow = "4px 4px 10px rgba(0, 0, 0, 0.5)";
-      elementAddButton.style.cursor = "pointer";
+      //   let elementAddButton = document.createElement("button");
+      //   elementAddButton.textContent = "추가";
+      //   elementAddButton.style.backgroundColor = "blue";
+      //   elementAddButton.style.color = "white";
+      //   elementAddButton.style.padding = "10px 20px";
+      //   elementAddButton.style.borderRadius = "5px";
+      //   elementAddButton.style.boxShadow = "4px 4px 10px rgba(0, 0, 0, 0.5)";
+      //   elementAddButton.style.cursor = "pointer";
+
+      let elementAddButton = document.getElementById("element-add-button");
+
+      elementAddButton.addEventListener("click", function () {
+        let newElement = document.createElement("div");
+
+        newElement.style.innerText = "새 상자";
+        newElement.style.width = "100%";
+        newElement.style.height = "100px";
+        newElement.style.backgroundColor = getRandomColor();
+
+        elementAdd.appendChild(newElement);
+      });
 
       elementAdd.appendChild(elementAddButton);
     </script>
