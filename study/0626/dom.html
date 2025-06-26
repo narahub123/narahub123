@@ -28,6 +28,9 @@
     <div id="box" class="box">Box</div>
     <br />
     <button id="change-style">스타일 변경</button>
+    <br />
+    <br />
+    <div id="element-add">요소 추가 div</div>
 
     <script>
       // id 접근
@@ -84,6 +87,20 @@
       box.addEventListener("mouseout", function () {
         box.classList.remove("active");
       });
+
+      // 요소 추가
+      const elementAdd = document.getElementById("element-add");
+
+      let elementAddButton = document.createElement("button");
+      elementAddButton.textContent = "추가";
+      elementAddButton.style.backgroundColor = "blue";
+      elementAddButton.style.color = "white";
+      elementAddButton.style.padding = "10px 20px";
+      elementAddButton.style.borderRadius = "5px";
+      elementAddButton.style.boxShadow = "4px 4px 10px rgba(0, 0, 0, 0.5)";
+      elementAddButton.style.cursor = "pointer";
+
+      elementAdd.appendChild(elementAddButton);
     </script>
   </body>
 </html>
