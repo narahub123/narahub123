@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Test</title>
+  </head>
+  <body>
+    <script>
+      function printInvertedPyramind(num) {
+        for (let i = num; 0 < i; i--) {
+          const side = " ".repeat(num - i);
+          const stars = "*".repeat(2 * i - 1);
+
+          const line = side + stars;
+
+          console.log(line);
+        }
+      }
+
+      printInvertedPyramind(4);
+
+      function printInvertedPyramind2(num) {
+        for (let i = num; 0 < i; i--) {
+          const left = "*".repeat(i - 1).padStart(num - 1, " ");
+          const right = "*".repeat(i - 1).padEnd(num - 1, " ");
+
+          console.log(left + "*" + right);
+        }
+      }
+
+      printInvertedPyramind2(4);
+    </script>
+  </body>
+</html>
