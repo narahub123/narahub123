@@ -56,6 +56,9 @@
 #playground {
   box-sizing: border-box;
   border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #f0f0f0;
+  padding: 0.5rem;
 
   display: grid;
   gap: 0.5rem;
@@ -99,12 +102,10 @@
 }
 
 .front {
-  font-size: 5rem;
   cursor: pointer;
 }
 
 .back {
-  font-size: 5rem;
   transform: rotateY(180deg);
 }
 
