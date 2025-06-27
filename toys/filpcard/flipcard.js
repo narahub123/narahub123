@@ -122,6 +122,19 @@ playground.addEventListener("click", function (event) {
 
           // 카드 비우기
           playground.innerHTML = "";
+
+          // completed 추가하기
+          const completeds = document.getElementsByClassName("completed");
+
+          const completedLevel = completeds[level.value / 2 - 1];
+
+          completedLevel.textContent = "   completed";
+
+          const options = document.getElementsByTagName("option");
+
+          const completedOption = options[level.value / 2];
+          completedOption.disabled = true;
+          completedOption.classList.add("option-disabled");
         }
       } else {
         // open 클래스 삭제
