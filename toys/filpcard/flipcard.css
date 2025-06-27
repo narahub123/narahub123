@@ -52,4 +52,6 @@
 
 #playground {
   border: 1px solid #ccc;
+
+  display: grid;
 }
