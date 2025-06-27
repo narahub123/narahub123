@@ -55,3 +55,13 @@
 
   display: grid;
 }
+
+.card {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
