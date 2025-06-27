@@ -174,6 +174,7 @@ function createCardGrid(num) {
   let count = 0;
 
   playground.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+  playground.style.fontSize = `${6 - num / 2}rem`;
 
   getRandomTargets(num);
 
