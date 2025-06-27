@@ -1,6 +1,8 @@
 const level = document.getElementById("level");
 const playground = document.getElementById("playground");
 const cards = document.getElementsByClassName("card");
+const remaining = document.getElementById("remaining");
+const btn = document.getElementById("btn");
 
 // 맞춰야 하는 이미지 목록
 const targets = [
@@ -41,8 +43,34 @@ const targets = [
 
 let flippedCards = [];
 
+// 게임 시작 여부 상태
+let isPlaying = false;
+
+// 게임 시작 버튼을 누른 경우
+btn.addEventListener("click", function () {
+  // 게임 시작 상태 변경
+  isPlaying = true;
+
+  // 모든 카드에서 disabled를 삭제
+  Array.from(cards).forEach((card) => card.classList.remove("disabled"));
+
+  // level, btn 숨김
+  level.style.display = "none";
+  btn.style.display = "none";
+
+  // remaining 보임
+  remaining.style.display = "flex";
+
+  // 남은 쌍 표시
+  const reNum = document.getElementById("reNum");
+  reNum.textContent = Math.pow(level.value, 2) / 2;
+});
+
 // 카드 선택 시에만 flip이 일어나도록 하기
 playground.addEventListener("click", function (event) {
+  // 게임 시작 전 클릭 금지
+  if (!isPlaying) return;
+
   // 이미 뒤집힌 카드가 2장인 경우 종료
   if (flippedCards.length > 1) return;
 
@@ -96,6 +124,10 @@ level.addEventListener("change", function (event) {
 window.addEventListener("load", function () {
   const initialLevel = level.value;
 
+  if (!isPlaying) {
+    remaining.style.display = "none";
+  }
+
   createCardGrid(initialLevel);
 });
 
@@ -120,7 +152,7 @@ function createCardGrid(num) {
 function createCard(num) {
   const card = document.createElement("div");
 
-  card.setAttribute("class", "card");
+  card.setAttribute("class", "card disabled");
 
   // 카드 앞면 생성
   const front = document.createElement("div");
