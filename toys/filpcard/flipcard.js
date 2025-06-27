@@ -39,9 +39,20 @@ function createCard(num) {
 
   card.setAttribute("class", "card");
 
-  card.style.backgroundColor = getRandomColor();
+  // 카드 앞면 생성
+  const front = document.createElement("div");
+  front.style.backgroundColor = getRandomColor();
+  front.setAttribute("class", "front");
+  front.textContent = num;
 
-  card.textContent = num;
+  // 카드 뒷면 생성
+  const back = document.createElement("div");
+  back.style.backgroundColor = "#28a745";
+  back.setAttribute("class", "back");
+  back.textContent = "안녕";
+
+  card.appendChild(front);
+  card.appendChild(back);
 
   playground.appendChild(card);
 }
