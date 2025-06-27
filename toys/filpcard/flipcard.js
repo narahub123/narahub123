@@ -3,6 +3,7 @@ const playground = document.getElementById("playground");
 const cards = document.getElementsByClassName("card");
 const remaining = document.getElementById("remaining");
 const btn = document.getElementById("btn");
+let reNum = document.getElementById("reNum");
 
 // 맞춰야 하는 이미지 목록
 const targets = [
@@ -61,12 +62,10 @@ btn.addEventListener("click", function () {
   // remaining 보임
   remaining.style.display = "flex";
 
-  // 남은 쌍 표시
-  const reNum = document.getElementById("reNum");
   reNum.textContent = Math.pow(level.value, 2) / 2;
 });
 
-// 카드 선택 시에만 flip이 일어나도록 하기
+// 카드 클릭
 playground.addEventListener("click", function (event) {
   // 게임 시작 전 클릭 금지
   if (!isPlaying) return;
@@ -98,6 +97,32 @@ playground.addEventListener("click", function (event) {
         // 이미지 효과 추가 필요
         cards[flippedCards[0]].lastElementChild.classList.add("correct");
         cards[flippedCards[1]].lastElementChild.classList.add("correct");
+
+        // 남은 쌍의 개수 줄이기
+        const count = reNum.textContent - 1;
+
+        reNum.textContent = count;
+
+        // 모든 쌍을 맞춘 경우
+        if (count === 0) {
+          // alert corret 변경에 대한 스타일 적용 전에 뜨는 문제 발생
+          alert(`lv. ${level.value / 2}를 완료했습니다.`);
+          // 게임 시작 상태 변경
+          isPlaying = false;
+
+          // 모든 카드에서 disabled를 삭제
+          Array.from(cards).forEach((card) => card.classList.add("disabled"));
+
+          // level, btn 숨김
+          level.style.display = "block";
+          btn.style.display = "block";
+
+          // remaining 보임
+          remaining.style.display = "none";
+
+          // 카드 비우기
+          playground.innerHTML = "";
+        }
       } else {
         // open 클래스 삭제
         console.log("다른 이미지");
