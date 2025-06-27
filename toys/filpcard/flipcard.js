@@ -68,6 +68,8 @@ playground.addEventListener("click", function (event) {
         console.log("같은 이미지");
         // 같은 이미지인 경우 열어놓은 채로 놔두고 flippedCards 배열을 비움
         // 이미지 효과 추가 필요
+        cards[flippedCards[0]].lastElementChild.classList.add("correct");
+        cards[flippedCards[1]].lastElementChild.classList.add("correct");
       } else {
         // open 클래스 삭제
         console.log("다른 이미지");
