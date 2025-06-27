@@ -1,6 +1,16 @@
 const input = document.getElementById("input");
 const playground = document.getElementById("playground");
 
+// 레벨 변경 적용하기
+input.addEventListener("change", function (event) {
+  const level = event.target.value;
+
+  // 변경 전 기본 기록 삭제하기
+  playground.innerHTML = "";
+
+  createCardGrid(level);
+});
+
 // 기본 카드 레이아웃 적용하기
 window.addEventListener("load", function () {
   const initialLevel = input.value;
