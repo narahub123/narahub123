@@ -15,7 +15,13 @@
         <main class="main">
           <div id="controls">
             <!-- 게임이 시작되면 사라질 것 -->
-            <input type="range" id="input" min="2" max="8" step="2" value="2" />
+            <select name="level" id="level">
+              <option value="0">레벨을 선택해주세요</option>
+              <option value="2">lv. 1</option>
+              <option value="4">lv. 2</option>
+              <option value="5">lv. 3</option>
+              <option value="6">lv. 4</option>
+            </select>
 
             <!-- 게임이 시작되면 사라질 것 -->
             <button id="btn">게임 시작</button>
