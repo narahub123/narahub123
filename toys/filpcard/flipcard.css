@@ -102,3 +102,7 @@
 .open {
   transform: rotateY(180deg);
 }
+
+.correct {
+  opacity: 0.5;
+}
