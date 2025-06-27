@@ -3,31 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flipcard</title>
-    <style>
-      .card-container {
-        perspective: 1000px;
-      }
-
-      .card {
-        position: relative;
-        width: 200px;
-        height: 300px;
-        transform-style: preserve-3d;
-        transition: transform 0.6s;
-      }
-    </style>
+    <title>기억력 게임</title>
+    <link rel="stylesheet" href="flipcard.css" />
   </head>
   <body>
-    <div class="card-container">
-      <div class="card">
-        <div class="front">
-          <h1>front side of the card</h1>
-        </div>
-        <div class="back">
-          <h1>back side of the card</h1>
-        </div>
+    <div id="wrapper">
+      <div id="container">
+        <header class="header">
+          <h1 id="title">메모리 게임</h1>
+        </header>
+        <main class="main">
+          <div id="controls">
+            <!-- 게임이 시작되면 사라질 것 -->
+            <input type="range" id="input" />
+
+            <!-- 게임이 시작되면 사라질 것 -->
+            <button id="btn">게임 시작</button>
+
+            <!-- 게임이 시작되면 보일 것 -->
+            <p id="remaining">남은 카드 수 :</p>
+          </div>
+          <div id="lower">
+            <div id="playground">카드</div>
+          </div>
+        </main>
       </div>
     </div>
+    <script src="flipcard.js"></script>
   </body>
 </html>
