@@ -39,15 +39,45 @@ const targets = [
   "🍦",
 ];
 
-let selectedTargets = [];
+let flippedCards = [];
 
 // 카드 선택 시에만 flip이 일어나도록 하기
 playground.addEventListener("click", function (event) {
+  // 이미 뒤집힌 카드가 2장인 경우 종료
+  if (flippedCards.length > 1) return;
+
+  // 이미 뒤집힌 카드인 경우 종료
+  if (event.target.className === "back") return;
+
   // 클릭된 카드의 index 알아내기
-  const index = event.target.textContent - 1;
+  const index = event.target.firstChild.textContent - 1;
+
+  // 뒤집힌 카드를 배열에 추가
+  flippedCards.push(index);
 
   // 선택된 카드에 open 클래스 추가
   cards[index].classList.add("open");
+
+  // 뒤집힌 카드가 2장인 경우 동일 카드인지 확인하기
+  if (flippedCards.length === 2) {
+    setTimeout(() => {
+      const image0 = cards[flippedCards[0]].lastChild.textContent;
+      const image1 = cards[flippedCards[1]].lastChild.textContent;
+
+      if (image0 === image1) {
+        console.log("같은 이미지");
+        // 같은 이미지인 경우 열어놓은 채로 놔두고 flippedCards 배열을 비움
+        // 이미지 효과 추가 필요
+      } else {
+        // open 클래스 삭제
+        console.log("다른 이미지");
+        cards[flippedCards[0]].classList.remove("open");
+        cards[flippedCards[1]].classList.remove("open");
+      }
+
+      flippedCards.length = 0;
+    }, 1000);
+  }
 });
 
 // 레벨 변경 적용하기
