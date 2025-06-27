@@ -1,5 +1,6 @@
 const input = document.getElementById("input");
 const playground = document.getElementById("playground");
+const cards = document.getElementsByClassName("card");
 
 // 맞춰야 하는 이미지 목록
 const targets = [
@@ -39,6 +40,15 @@ const targets = [
 ];
 
 let selectedTargets = [];
+
+// 카드 선택 시에만 flip이 일어나도록 하기
+playground.addEventListener("click", function (event) {
+  // 클릭된 카드의 index 알아내기
+  const index = event.target.textContent - 1;
+
+  // 선택된 카드에 open 클래스 추가
+  cards[index].classList.add("open");
+});
 
 // 레벨 변경 적용하기
 input.addEventListener("change", function (event) {

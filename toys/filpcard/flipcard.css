@@ -99,6 +99,6 @@
   transform: rotateY(180deg);
 }
 
-.card:hover {
+.open {
   transform: rotateY(180deg);
 }
