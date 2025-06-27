@@ -79,6 +79,8 @@ playground.addEventListener("click", function (event) {
   // 클릭된 카드의 index 알아내기
   const index = event.target.firstChild.textContent - 1;
 
+  if (Number.isNaN(index)) return;
+
   // 뒤집힌 카드를 배열에 추가
   flippedCards.push(index);
 
