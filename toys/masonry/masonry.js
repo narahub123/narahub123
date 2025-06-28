@@ -1,5 +1,3 @@
-const numOfColumns = 3;
-
 const numOfItems = 10;
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -11,22 +9,34 @@ window.addEventListener("DOMContentLoaded", function () {
   // layout 생성 및 body에 삽입
   const layout = document.createElement("div");
   layout.setAttribute("id", "layout");
-  //   layout.style.gridTemplateColumns = `repeat(${numOfColumns}, 1fr)`;
 
   body.appendChild(layout);
 
+  const items = [
+    {
+      name: "function",
+      height: 300,
+      icon: '<i class="fi fi-sc-function icon"></i>',
+    },
+    {
+      name: "Rotate",
+      height: 400,
+      icon: '<i class="fi fi-rr-refresh icon"></i>',
+    },
+  ];
+
   // colums 생성하기
-  for (let i = 0; i < numOfItems; i++) {
+  for (let i = 0; i < items.length; i++) {
     const item = document.createElement("div");
     item.setAttribute("class", "item");
-    item.style.height = `${(i + 1) * 200}px`;
+    item.style.height = `${items[i].height}px`;
     item.style.backgroundColor = getRandomColumn();
 
-    item.innerHTML = '<i class="fi fi-rr-refresh icon"></i>';
+    item.innerHTML = items[i].icon;
 
     const title = document.createElement("p");
     title.setAttribute("class", "title");
-    title.textContent = "Rotate";
+    title.textContent = items[i].name;
 
     item.appendChild(title);
 
