@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", function () {
   // layout 생성 및 body에 삽입
   const layout = document.createElement("div");
   layout.setAttribute("id", "layout");
-  layout.style.gridTemplateColumns = `repeat(${numOfColumns}, 1fr)`;
+  //   layout.style.gridTemplateColumns = `repeat(${numOfColumns}, 1fr)`;
 
   body.appendChild(layout);
 
@@ -19,9 +19,16 @@ window.addEventListener("DOMContentLoaded", function () {
   for (let i = 0; i < numOfItems; i++) {
     const item = document.createElement("div");
     item.setAttribute("class", "item");
-    item.style.height = `${(i + 1) * 40}px`;
+    item.style.height = `${(i + 1) * 200}px`;
     item.style.backgroundColor = getRandomColumn();
-    item.textContent = i;
+
+    item.innerHTML = '<i class="fi fi-rr-refresh icon"></i>';
+
+    const title = document.createElement("p");
+    title.setAttribute("class", "title");
+    title.textContent = "Rotate";
+
+    item.appendChild(title);
 
     layout.appendChild(item);
   }
