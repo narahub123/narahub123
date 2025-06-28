@@ -53,3 +53,16 @@ function getRandomColumn() {
 
   return color;
 }
+
+function masonryLayout(layout) {
+  const layoutStyle = getComputedStyle(layout);
+
+  const rowHeight = parseInt(layoutStyle.getPropertyValue("grid-auto-rows"));
+  const rowGap = parseInt(layoutStyle.getPropertyValue("row-gap"));
+
+  document.querySelectorAll(".item").forEach((item) => {
+    const height = item.getBoundingClientRect().height;
+    const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+    item.style.gridRowEnd = `span ${span}`;
+  });
+}
