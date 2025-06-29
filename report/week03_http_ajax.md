@@ -125,3 +125,6 @@ Cache-Control: no-cache
   "email": "hong@example.com"
 }
 ```
+
+참고 사이트
+[99CORN [간단정리] HTTP Request/Response 구조](https://hahahoho5915.tistory.com/62)
