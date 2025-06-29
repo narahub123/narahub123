@@ -100,9 +100,6 @@ window.addEventListener("load", function () {
           "transitionend",
           () => {
             element.remove();
-
-            // 새 아이템 중앙 이동 처리
-            createAndMoveClone(target, rect);
           },
           { once: true }
         );
