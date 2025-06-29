@@ -139,7 +139,6 @@ window.addEventListener("load", function () {
     const originLeft = rect.left + window.scrollX;
 
     clone.style.width = `${rect.width}px`;
-    // clone.style.height = `${rect.height}px`;
     clone.style.top = `${originTop}px`;
     clone.style.left = `${originLeft}px`;
 
@@ -151,6 +150,24 @@ window.addEventListener("load", function () {
       () => {
         if (clone.dataset.theme === "function") {
           insertCalculatorIntoFloating(clone);
+        } else if (clone.dataset.theme === "rotate") {
+          // 원하는 너비 (픽셀 단위)
+          const newWidth = 600; // 화면 가로의 80%
+          const newHeight = 600; // 화면 가로의 80%
+
+          clone.style.width = `${newWidth}px`;
+          clone.style.height = `${newHeight}px`;
+
+          // 너비 변화에 맞게 left 조정 (중앙 정렬 유지)
+          const centerX = window.innerWidth / 2;
+          const newLeft = centerX - newWidth / 2;
+          const centerY = window.innerHeight / 2;
+          const newTop = centerY - newHeight / 2;
+
+          clone.style.left = `${newLeft + window.scrollX}px`;
+          clone.style.top = `${newTop + window.scrollY}px`;
+
+          insertMemoryGameIntoFloating(clone);
         }
       },
       { once: true } // 한 번만 실행하도록
@@ -253,5 +270,22 @@ function insertCalculatorIntoFloating(floatingElem) {
   // 생성 완료 이벤트 발생
   document.dispatchEvent(
     new CustomEvent("calculatorReady", { detail: calculatorElem })
+  );
+}
+
+function insertMemoryGameIntoFloating(floatingElem) {
+  // 예: 기존 floating 내부 내용 지우기
+  floatingElem.innerHTML = "";
+
+  // 계산기 DOM 생성 (직접 만든 함수 또는 외부에서 생성)
+  const memoryGame = createMemoryGame();
+
+  injuectMemoryGameStyles();
+
+  floatingElem.appendChild(memoryGame);
+
+  // 생성 완료 이벤트 발생
+  document.dispatchEvent(
+    new CustomEvent("memoryGameReady", { detail: memoryGame })
   );
 }
