@@ -4,11 +4,13 @@ const items = [
     name: "function",
     height: 300,
     icon: '<i class="fi fi-sc-function icon"></i>',
+    theme: "Calculator",
   },
   {
     name: "Rotate",
     height: 400,
     icon: '<i class="fi fi-rr-refresh icon"></i>',
+    theme: "Memory Game",
   },
   {
     name: "test",
@@ -168,6 +170,28 @@ function createItem(num) {
   item.style.backgroundColor = getRandomColumn();
 
   item.style.height = `${items[num].height}px`;
+
+  if (items[num].icon) {
+    item.innerHTML = items[num].icon;
+  }
+
+  const label = document.createElement("p");
+
+  label.setAttribute("class", "label");
+
+  label.textContent = items[num].name;
+
+  item.appendChild(label);
+
+  if (items[num].theme) {
+    const theme = document.createElement("p");
+
+    theme.setAttribute("class", "theme");
+
+    theme.textContent = items[num].theme;
+
+    item.appendChild(theme);
+  }
 
   return item;
 }
