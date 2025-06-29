@@ -127,4 +127,7 @@ Cache-Control: no-cache
 ```
 
 참고 사이트
+
 [99CORN [간단정리] HTTP Request/Response 구조](https://hahahoho5915.tistory.com/62)
+
+[HTTP MDN](https://developer.mozilla.org/ko/docs/Web/HTTP)
