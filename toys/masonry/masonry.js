@@ -165,7 +165,7 @@ function createItem(num) {
 
   item.setAttribute("class", "item");
 
-  item.style.backgroundColor = "lightblue";
+  item.style.backgroundColor = getRandomColumn();
 
   item.style.height = `${items[num].height}px`;
 
@@ -186,4 +186,16 @@ function masonryLayout(layout) {
 
     item.style.gridRowEnd = `span ${span}`;
   });
+}
+
+function getRandomColumn() {
+  const letters = "0123456789ABCDEF";
+
+  let color = "#";
+
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)];
+  }
+
+  return color;
 }
