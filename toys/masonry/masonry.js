@@ -289,3 +289,30 @@ function insertMemoryGameIntoFloating(floatingElem) {
     new CustomEvent("memoryGameReady", { detail: memoryGame })
   );
 }
+
+window.addEventListener("resize", () => {
+  if (window.currentFloating) {
+    const { element } = window.currentFloating;
+
+    // 현재 너비/높이 구하기 (픽셀 단위)
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    centerFloatingElement(element, width, height);
+  }
+});
+
+// floating clone이 너비/높이 변할 때 중앙 유지 함수
+function centerFloatingElement(clone, width, height) {
+  // 화면 가운데 좌표
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  // left, top 계산 (중앙 기준 좌표 - 요소 절반 크기)
+  const newLeft = centerX - width / 2;
+  const newTop = centerY - height / 2;
+
+  // 위치 지정 (스크롤 위치 고려)
+  clone.style.left = `${newLeft + window.scrollX}px`;
+  clone.style.top = `${newTop + window.scrollY}px`;
+}
