@@ -52,6 +52,89 @@ window.addEventListener("load", function () {
   }
 
   masonryLayout(layout);
+
+  window.currentFloating = null;
+
+  layout.addEventListener("click", (e) => {
+    const target = e.target;
+
+    if (target.classList.contains("item")) {
+      const rect = target.getBoundingClientRect();
+
+      if (window.currentFloating) {
+        const { element, originalTop, originalLeft } = window.currentFloating;
+
+        // 기존 떠 있던 아이템 원래 위치로 복귀
+        element.style.transform = "scale(1)";
+        element.style.top = `${originalTop}px`;
+        element.style.left = `${originalLeft}px`;
+
+        // 복귀 애니메이션 끝난 뒤 제거
+        element.addEventListener(
+          "transitionend",
+          () => {
+            element.remove();
+
+            // 새 아이템 중앙 이동 처리
+            createAndMoveClone(target, rect);
+          },
+          { once: true }
+        );
+
+        window.currentFloating = null;
+      } else {
+        // 기존 떠 있는 아이템 없으면 바로 새 아이템 중앙 이동
+        createAndMoveClone(target, rect);
+      }
+    } else if (window.currentFloating) {
+      // 아이템 아닌 곳 클릭 시 기존 떠 있던 아이템 원위치 복귀 및 제거
+      const { element, originalTop, originalLeft } = window.currentFloating;
+
+      element.style.transform = "scale(1)";
+      element.style.top = `${originalTop}px`;
+      element.style.left = `${originalLeft}px`;
+
+      element.addEventListener(
+        "transitionend",
+        () => {
+          element.remove();
+        },
+        { once: true }
+      );
+
+      window.currentFloating = null;
+    }
+  });
+
+  function createAndMoveClone(target, rect) {
+    const clone = target.cloneNode(true);
+    clone.classList.add("floating");
+
+    const originTop = rect.top + window.scrollY;
+    const originLeft = rect.left + window.scrollX;
+
+    clone.style.width = `${rect.width}px`;
+    clone.style.height = `${rect.height}px`;
+    clone.style.top = `${originTop}px`;
+    clone.style.left = `${originLeft}px`;
+
+    document.body.appendChild(clone);
+
+    requestAnimationFrame(() => {
+      const centerX = window.innerWidth / 2 - rect.width / 2;
+      const centerY = window.innerHeight / 2 - rect.height / 2;
+
+      clone.style.top = `${centerY + window.scrollY}px`;
+      clone.style.left = `${centerX + window.scrollX}px`;
+      // clone.style.transform = "scale(2)";
+    });
+
+    window.currentFloating = {
+      element: clone,
+      originalTop: originTop,
+      originalLeft: originLeft,
+    };
+  }
 });
 
 function createItem(num) {
