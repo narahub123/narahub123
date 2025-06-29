@@ -1,11 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  box-sizing: border-box;
+  padding: 20px;
+}
+
 #layout {
   box-sizing: border-box;
-  padding: 1rem;
   width: 100%;
-  height: 100%;
+
+  /*  */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+  grid-auto-rows: 10px;
+  row-gap: 10px;
 }
 
 .item {
+  box-sizing: border-box;
   width: 100%;
-  aspect-ratio: 1/1;
+  margin: 5px 0;
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
