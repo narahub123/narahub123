@@ -55,6 +55,32 @@ window.addEventListener("load", function () {
 
   window.currentFloating = null;
 
+  window.addEventListener("keydown", function (e) {
+    const key = e.key;
+
+    if (key === "Escape") {
+      if (window.currentFloating) {
+        const { element, originalTop, originalLeft } = window.currentFloating;
+
+        // 기존 떠 있던 아이템 원래 위치로 복귀
+        element.style.transform = "scale(1)";
+        element.style.top = `${originalTop}px`;
+        element.style.left = `${originalLeft}px`;
+
+        // 복귀 애니메이션 끝난 뒤 제거
+        element.addEventListener(
+          "transitionend",
+          () => {
+            element.remove();
+          },
+          { once: true }
+        );
+
+        window.currentFloating = null;
+      }
+    }
+  });
+
   layout.addEventListener("click", (e) => {
     const target = e.target;
 
