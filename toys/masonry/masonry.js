@@ -2,7 +2,7 @@
 const items = [
   {
     name: "function",
-    height: 300,
+    height: 463,
     icon: '<i class="fi fi-sc-function icon"></i>',
     theme: "Calculator",
   },
@@ -139,11 +139,22 @@ window.addEventListener("load", function () {
     const originLeft = rect.left + window.scrollX;
 
     clone.style.width = `${rect.width}px`;
-    clone.style.height = `${rect.height}px`;
+    // clone.style.height = `${rect.height}px`;
     clone.style.top = `${originTop}px`;
     clone.style.left = `${originLeft}px`;
 
     document.body.appendChild(clone);
+
+    // transitionend 이벤트 등록
+    clone.addEventListener(
+      "transitionend",
+      () => {
+        if (clone.dataset.theme === "function") {
+          insertCalculatorIntoFloating(clone);
+        }
+      },
+      { once: true } // 한 번만 실행하도록
+    );
 
     requestAnimationFrame(() => {
       const centerX = window.innerWidth / 2 - rect.width / 2;
@@ -166,6 +177,10 @@ function createItem(num) {
   const item = document.createElement("div");
 
   item.setAttribute("class", "item");
+
+  if (items[num].theme) {
+    item.dataset.theme = items[num].name?.toLowerCase();
+  }
 
   item.style.backgroundColor = getRandomColumn();
 
@@ -222,4 +237,21 @@ function getRandomColumn() {
   }
 
   return color;
+}
+
+function insertCalculatorIntoFloating(floatingElem) {
+  // 예: 기존 floating 내부 내용 지우기
+  floatingElem.innerHTML = "";
+
+  // 계산기 DOM 생성 (직접 만든 함수 또는 외부에서 생성)
+  const calculatorElem = createCalculator();
+
+  injectCalculatorStyles();
+
+  floatingElem.appendChild(calculatorElem);
+
+  // 생성 완료 이벤트 발생
+  document.dispatchEvent(
+    new CustomEvent("calculatorReady", { detail: calculatorElem })
+  );
 }
