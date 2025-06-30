@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM Mini Project</title>
+  </head>
+  <body>
+    <button onclick="getBrowserInfo()">브라우저 정보</button>
+
+    <button onclick="moveTo()">이동하기</button>
+
+    <div id="watch"></div>
+
+    <script>
+      function getBrowserInfo() {
+        // 브라우저 종류
+        const browser = navigator.userAgent;
+        console.log("브라우저", browser);
+
+        // 화면 크기
+        const screenSize = `높이 : ${screen.width} 너비 : ${screen.height}`;
+        console.log(screenSize);
+
+        // 언어
+        const language = navigator.language;
+        console.log("언어" + language);
+
+        // 위치
+        navigator.geolocation.getCurrentPosition((pos) => {
+          console.log("위도", pos.coords.latitude);
+          console.log("경도", pos.coords.longitude);
+        });
+      }
+
+      function moveTo() {
+        window.onbeforeunload = function () {
+          return "작업 내용이 저장되지 않았습니다. 정말 떠나시겠습니까?";
+        };
+
+        location.href = "https://www.naver.com";
+      }
+
+      const watch = document.getElementById("watch");
+
+      setInterval(() => {
+        const today = new Date();
+
+        const hour = today.getHours().toString().padStart(2, "0");
+        const minute = today.getMinutes().toString().padStart(2, "0");
+        const secs = today.getSeconds().toString().padStart(2, "0");
+
+        const time = `${hour} : ${minute} : ${secs}`;
+
+        watch.textContent = time;
+      }, 1000);
+    </script>
+  </body>
+</html>
