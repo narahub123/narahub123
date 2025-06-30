@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>폼 검증</title>
+  </head>
+  <body>
+    <input id="orderName" type="text" placeholder="주문자 이름" />
+    <input id="shipName" type="text" placeholder="수령인 이름" />
+    <input id="same" type="checkbox" onClick="copyName()" />
+
+    <br />
+    <input id="userName" type="text" placeholder="이름" />
+    <input id="userAge" type="number" placeholder="나이" />
+
+    <input type="submit" id="submit" value="제출" onclick="validateForm()" />
+
+    <br />
+
+    <input
+      type="radio"
+      name="gender"
+      value="male"
+      onclick="validateGender()"
+      id="male"
+    />
+    <label for="gender">남자</label>
+    <input
+      id="female"
+      type="radio"
+      name="gender"
+      value="female"
+      onclick="validateGender()"
+    />
+    <label for="gender">여자</label>
+
+    <br />
+
+    <select name="" id="country" onchange="validateCountry()">
+      <option value="korea">한국</option>
+      <option value="usa">미국</option>
+      <option value="japan">일본</option>
+    </select>
+
+    <script>
+      // checkbox
+      function copyName() {
+        console.log(document.getElementById("same").checked);
+
+        // checkbox를 체크가 된 경우
+        if (document.getElementById("same").checked) {
+          // 수령인에 주문자 이름을 넣어줌
+          document.getElementById("shipName").value =
+            document.getElementById("orderName").value;
+        } else {
+          // 체크가 되지 않은 경우
+          // 수령인 이름 삭제
+          document.getElementById("shipName").value = "";
+        }
+      }
+
+      // 입력값 검증 처리 : 유효성 검사
+      function validateForm() {
+        // 이름
+        let name = document.getElementById("userName").value;
+        console.log(name);
+
+        // 나이
+        let age = document.getElementById("userAge").value;
+        console.log(age);
+
+        // 유효성 검사
+        if (name === "") {
+          alert("이름을 입력하세요.");
+          return false;
+        }
+
+        if (isNaN(age) || age < 1) {
+          alert("나이를 올바르게 입력하세요.");
+          return false;
+        }
+
+        alert("폼이 정상적으로 제출됩니다.");
+        return true;
+      }
+
+      function validateGender() {
+        alert(document.querySelector('input[name="gender"]:checked').value);
+        // let male = document.getElementById("male").checked;
+        // let female = document.getElementById("female").checked;
+        // console.log(male, female);
+      }
+
+      function validateCountry() {
+        let country = document.getElementById("country").value;
+        console.log(country);
+      }
+    </script>
+  </body>
+</html>
