@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM 객체</title>
+  </head>
+  <body>
+    <h1>BOM 객체</h1>
+    <button onclick="openPopup()">팝업 열기</button>
+    <script>
+      // window 객체
+      // open
+      function openPopup() {
+        window.open("https://www.naver.com", "popup", "width=500, height=500");
+      }
+
+      // setTimeout
+      //   setTimeout(() => {
+      //     openPopup();
+      //   }, 3000);
+
+      // setInterval
+      //   setInterval(() => {
+      //     openPopup();
+      //   }, 3000);
+
+      // navigator
+      console.log(navigator.userAgent);
+      console.log(navigator.language);
+      console.log(navigator.platform);
+      console.log(navigator.appName);
+      console.log(navigator.appVersion);
+      console.log(navigator.cookieEnabled);
+      console.log(navigator.onLine);
+      console.log(navigator.product);
+      console.log(navigator.productSub);
+      console.log(navigator.vendor);
+
+      // location
+      console.log(location.href); // 현재 주소
+      console.log(location); //
+
+      //   setTimeout(() => {
+      //     location.href = "https://www.naver.com";
+      //   }, 3000);
+
+      //   if (confirm("구글로 이동할까?")) {
+      //     location.href = "https://www.google.com";
+      //   } else {
+      //     location.href = "https://www.naver.com";
+      //   }
+
+      // screen 객체
+      console.log("화면 너비 : ", screen.width);
+      console.log("화면 높이 : ", screen.height);
+      console.log(screen);
+
+      // history
+      console.log(history);
+    </script>
+  </body>
+</html>
