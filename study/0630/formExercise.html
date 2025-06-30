@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>폼과 유효성 검사 연습 문제</title>
+
+    <style>
+      #preview {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        margin-top: 24px;
+        padding: 10px;
+        width: 300px;
+        line-height: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="name">이름 : </label>
+    <input type="text" id="name" />
+    <br />
+    <label for="email">이메일 : </label>
+    <input type="email" id="email" />
+    <br />
+    <label for="password">비밀번호 : </label>
+    <input type="password" id="password" />
+    <br />
+    <input type="submit" onclick="handlePreview()" />
+
+    <script>
+      // 1. 간단한 회원 가입 폼 만들기
+      function handleSubmit() {
+        const name = document.getElementById("name").value;
+        console.log(name);
+
+        const email = document.getElementById("email").value;
+        console.log(email);
+
+        const password = document.getElementById("password").value;
+        console.log(password);
+
+        if (name.trim() === "") {
+          alert("이름을 입력하세요.");
+          return false;
+        }
+
+        const EMAIL_REGEX = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/;
+
+        if (!EMAIL_REGEX.test(email.trim())) {
+          alert("올바른 이메일을 입력하세요.");
+
+          return false;
+        }
+
+        const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+
+        if (!PASSWORD_REGEX.test(password.trim())) {
+          alert("올바른 비밀번호 형식을 따라 입력해주세요.");
+
+          return false;
+        }
+
+        alert("회원 가입이 완료되었습니다.");
+
+        return true;
+      }
+      // 3. 입력값 실시간 미리보기 출력 (입력창에 따라 결과 갱신)
+      function handlePreview() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const preview = document.createElement("div");
+        preview.setAttribute("id", "preview");
+
+        for (const span of [
+          { title: "이름", value: name },
+          { title: "이메일", value: email },
+          { title: "비밀번호", value: password },
+        ]) {
+          const wrapper = document.createElement("div");
+
+          const title = document.createElement("span");
+
+          title.innerText = span.title + " : ";
+
+          const value = document.createElement("span");
+
+          value.innerText = span.value;
+
+          wrapper.appendChild(title);
+          wrapper.appendChild(value);
+
+          preview.appendChild(wrapper);
+        }
+
+        document.body.appendChild(preview);
+      }
+
+      window.addEventListener("keydown", function (e) {
+        const key = e.key;
+
+        if (key === "Escape") {
+          const preview = document.getElementById("preview");
+
+          preview.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
