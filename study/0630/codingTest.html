@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Test</title>
+  </head>
+  <body>
+    <script>
+      //   계단처럼 별이 오른쪽 아래로 내려가는 형태 출력
+      function printStaircase(number) {
+        for (let i = 0; i < number; i++) {
+          const staircase = "*".padStart(i + 1, " ");
+
+          console.log(staircase);
+        }
+      }
+
+      printStaircase(4);
+
+      //   마름모 만들기 (대칭)
+      function printDiamond(number) {
+        for (let i = 0; i < number; i++) {
+          const t = number - i > i ? i : number - i;
+
+          const stars = "*".repeat(2 * t + 1).padStart(number / 2 - 1);
+
+          console.log(stars);
+        }
+      }
+
+      printDiamond(5);
+    </script>
+  </body>
+</html>
