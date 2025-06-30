@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM Exercise</title>
+  </head>
+  <body>
+    <!-- 버튼을 누르면 팝업창을 띄우는 기능 만들기 -->
+    <button onclick="openTheWindow()">새 창 열기</button>
+
+    <!-- 뒤로 가기 앞으로 가기  -->
+    <button onclick="forward()">앞으로 가기</button>
+    <button onclick="backward()">뒤로 가기</button>
+    <script>
+      // 버튼을 누르면 팝업창을 띄우는 기능 만들기
+      function openTheWindow() {
+        window.open(
+          "https://www.naver.com",
+          "popup",
+          `width=${screen.width}, height=${screen.height}`
+        );
+      }
+
+      // 5초 뒤에 자동으로 특정 url으로 이동하는 코드
+      function autoMovePage() {
+        setTimeout(() => {
+          location.href = "https://www.naver.com";
+        }, 5000);
+      }
+
+      //   autoMovePage();
+
+      // 브라우저 정보와 화면 해상도 콘솔에 출력 하기
+      console.log(screen.width);
+      console.log(screen.height);
+
+      console.log(history);
+
+      // 뒤로 가기 / 앞으로 가기 버튼 구현 (history api 사용)
+      function forward() {
+        // history.go(1);
+        history.forward();
+      }
+      function backward() {
+        // history.go(-1);
+        history.back();
+      }
+    </script>
+  </body>
+</html>
