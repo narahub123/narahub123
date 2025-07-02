@@ -1,13 +1,15 @@
 window.addEventListener("load", function () {
   const parent = document.body;
 
-  createCanvas(parent);
+  const canvas = createCanvas();
+
+  parent.prepend(canvas);
 });
 
 // canvas 생성
-function createCanvas(parent) {
+function createCanvas() {
   const canvas = document.createElement("canvas");
   canvas.setAttribute("id", "canvas");
 
-  parent.prepend(canvas);
+  return canvas;
 }
