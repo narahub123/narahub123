@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas 오각형</title>
+    <style>
+      canvas {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <button onclick="changeStat()">스탯 변경</button>
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const centerX = 150;
+      const centerY = 150;
+      const radius = 20;
+      const sides = 5; // 오각형
+      const angle = (2 * Math.PI) / sides;
+
+      const radiusArr = [25, 50, 75, 100];
+
+      const textArr = ["협업", "성장", "동기부여", "개인생활", "건강"];
+
+      const offset = (index) => {
+        return index === 0 ? 10 : 20;
+      };
+
+      // 가장 바깥쪽 다각형의 꼭짓점 위에 텍스트 추가
+      const outerRadius = Math.max(...radiusArr);
+      addVertexTexts(outerRadius);
+
+      for (const radius of radiusArr) {
+        createPolygon(radius);
+      }
+
+      function addText(text) {}
+
+      // createPolygon(20);
+      function createPolygon(radius) {
+        console.log(radius);
+
+        ctx.beginPath();
+
+        for (let i = 0; i <= sides; i++) {
+          const x = centerX + radius * Math.cos(i * angle - Math.PI / 2);
+          const y = centerY + radius * Math.sin(i * angle - Math.PI / 2);
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+
+        ctx.closePath();
+        ctx.strokeStyle = "#ddd";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.fillStyle = "transparent";
+        ctx.fill();
+      }
+
+      function addVertexTexts(radius) {
+        ctx.font = "12px Arial";
+        ctx.fillStyle = "#000";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        for (let i = 0; i < sides; i++) {
+          const x =
+            centerX + (radius + offset(i)) * Math.cos(i * angle - Math.PI / 2);
+          const y =
+            centerY + (radius + offset(i)) * Math.sin(i * angle - Math.PI / 2);
+          ctx.fillText(`${textArr[i]}`, x, y);
+        }
+      }
+
+      function createStatPolygon(stat) {
+        ctx.beginPath();
+
+        for (let i = 0; i <= sides; i++) {
+          const x = centerX + stat[i] * Math.cos(i * angle - Math.PI / 2);
+          const y = centerY + stat[i] * Math.sin(i * angle - Math.PI / 2);
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+
+        ctx.closePath();
+        ctx.strokeStyle = "#ddd";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.fillStyle = getRandomColor();
+        ctx.fill();
+      }
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+
+        let color = "#";
+
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * letters.length)];
+        }
+
+        return color;
+      }
+
+      const stats = [
+        [10, 40, 80, 60, 77],
+        [67, 90, 10, 20, 45],
+      ];
+
+      let currentNumber = 0;
+
+      createStatPolygon(stats[currentNumber]);
+
+      function changeStat() {
+        const from = stats[currentNumber];
+        const to = stats[1 - currentNumber];
+        currentNumber = 1 - currentNumber;
+
+        animateStatChange(from, to, 500);
+      }
+
+      function animateStatChange(from, to, duration = 500) {
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+          const elapsed = currentTime - startTime;
+          const t = Math.min(elapsed / duration, 1); // 0~1 사이 보간 값
+
+          const interpolatedStat = from.map((start, i) => {
+            return start + (to[i] - start) * t;
+          });
+
+          // 캔버스 클리어 및 배경 다각형 재그리기
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const radius of radiusArr) {
+            createPolygon(radius);
+          }
+          addVertexTexts(outerRadius);
+
+          // 보간된 stat으로 그리기
+          createStatPolygon(interpolatedStat);
+
+          if (t < 1) {
+            requestAnimationFrame(animate);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>
