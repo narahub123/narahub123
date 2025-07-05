@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사다리 게임</title>
+    <style>
+      #main {
+        width: 100%;
+      }
+
+      .selectors {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .btn {
+        width: 30px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: none;
+      }
+
+      .ladders {
+        height: 300px;
+      }
+
+      .results {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ghost_leg">
+      <div class="header">
+        <label for="branch">
+          <span>사다리 수</span>
+          <input
+            type="range"
+            name="branch"
+            id="branch"
+            min="2"
+            max="11"
+            step="1"
+          />
+          <span class="display"></span>
+        </label>
+        <label for=""></label>
+      </div>
+      <div class="main">
+        <div class="selectors"></div>
+        <div class="ladders"></div>
+        <div class="results"></div>
+      </div>
+    </div>
+    <script>
+      const ghostLeg = document.querySelector("ghost_leg");
+
+      const branch = document.getElementById("branch");
+
+      const display = document.querySelector(".display");
+
+      const selectors = document.querySelector(".selectors");
+
+      const results = document.querySelector(".results");
+
+      const resultArr = ["꽝", "당첨"];
+
+      branch.addEventListener("change", function (e) {
+        const value = e.target.value;
+
+        display.textContent = value;
+
+        selectors.innerHTML = "";
+        results.innerHTML = "";
+
+        Array.from({ length: Number(value) }).forEach((_, idx) => {
+          const select = createSelect(idx + 1);
+          selectors.appendChild(select);
+
+          const text = resultArr[Math.floor(Math.random() * resultArr.length)];
+
+          const result = createResult(text);
+
+          results.appendChild(result);
+        });
+      });
+
+      function createSelect(num) {
+        const wrapper = document.createElement("span");
+        wrapper.className = "wrapper";
+
+        const select = document.createElement("button");
+        select.className = "btn";
+
+        select.textContent = num;
+
+        wrapper.appendChild(select);
+
+        return wrapper;
+      }
+
+      function createResult(text) {
+        const wrapper = document.createElement("span");
+        wrapper.className = "wrapper";
+
+        const result = document.createElement("span");
+
+        result.textContent = text;
+
+        wrapper.appendChild(result);
+
+        return wrapper;
+      }
+    </script>
+  </body>
+</html>
