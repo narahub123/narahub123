@@ -1,5 +1,7 @@
 # JSON, XML, YAML 비교 정리
 
+- 이 기종간의 데이터 교환을 위해 탄생함 
+
 ## 데이터 포맷이란?
 
 - 시스템에서 데이터를 저장하거나 입출력할 때 사용하는 데이터 구조, 형식, 규칙을 의미함
@@ -89,6 +91,7 @@
 - **특징**
   - 들여쓰기가 매우 중요하며, Map(key-value) 구조 사용
   - 복잡한 객체나 참조 정의에 적합
+  - 환경 설정에 많이 쓰임 
 - **장점**
   - 가독성이 매우 좋음
   - 복잡한 데이터 구조를 쉽게 표현 가능
@@ -186,3 +189,5 @@
 [HTTPS란 무엇입니까?](https://www.cloudflare.com/ko-kr/learning/ssl/what-is-https/)
 
 [SSL 인증서란 무엇입니까?](https://www.cloudflare.com/ko-kr/learning/ssl/what-is-an-ssl-certificate/)
+
+[[네트워크/Network] SSL 통신 과정](https://sangminlog.tistory.com/entry/ssl-tls)
