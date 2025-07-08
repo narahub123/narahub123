@@ -3,13 +3,15 @@ import "./App.css";
 import * as D from "./data";
 import ClassComponent from "./ClassComponent";
 import ArrowComponent from "./ArrowComponent";
+import OnClick from "./pages/onClick";
 
 // 화살표 ㄷ함수 방식
 const App = () => {
   return (
     <ul>
       <ArrowComponent href="https://www.google.com" text="go to Google" />
-      <ArrowComponent href="https://www.naver.com" text="go to Naver" />
+      <ClassComponent href="https://www.naver.com" text="go to Naver" />
+      <OnClick />
     </ul>
   );
 };
