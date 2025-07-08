@@ -1,15 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
 import * as D from "./data";
+import ClassComponent from "./ClassComponent";
 
-export default function App() {
-  return (
-    <div>
-      <p>
-        {D.randomName()}, {D.randomJobTitle()}, {D.randomDayMonthYear()}
-      </p>
-      <img src={D.randomAvata()} height={50} alt="avatar" />
-      <img src={D.randomImage()} height={300} alt="random" />
-    </div>
-  );
+export default class App extends Component {
+  render() {
+    return (
+      <ul>
+        <ClassComponent href="https://www.google.com" text="go to Google" />
+        <ClassComponent href="https://www.naver.com" text="go to Naver" />
+      </ul>
+    );
+  }
 }
