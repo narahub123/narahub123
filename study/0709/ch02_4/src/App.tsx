@@ -1,4 +1,5 @@
 import "./App.css";
+import EventBubbling from "./pages/EventBubbling";
 import EventListener from "./pages/EventListener";
 import ReactOnClick from "./pages/ReactOnClick";
 
@@ -7,6 +8,7 @@ const App = () => {
     <div>
       <EventListener />
       <ReactOnClick />
+      <EventBubbling />
     </div>
   );
 };
