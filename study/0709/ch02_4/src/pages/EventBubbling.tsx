@@ -14,6 +14,7 @@ const EventBubbling = () => {
   };
 
   const onButtonClick = (e: SyntheticEvent) => {
+    e.stopPropagation();
     const { isTrusted, target, bubbles } = e;
 
     console.log("click event bubbles on <button>", isTrusted, target, bubbles);
