@@ -1,5 +1,17 @@
-const CopyMe = () => {
-  return <div>CopyMe</div>;
+import { SyntheticEvent } from "react";
+
+const ReactOnClick = () => {
+  const onClick = (e: SyntheticEvent) => {
+    const { isTrusted, target, bubbles } = e;
+
+    console.log("mouse click occurs on <button>", isTrusted, target, bubbles);
+  };
+  return (
+    <div>
+      <p>ReactOnClick</p>
+      <button onClick={onClick}>Click Me</button>
+    </div>
+  );
 };
 
-export default CopyMe;
+export default ReactOnClick;
