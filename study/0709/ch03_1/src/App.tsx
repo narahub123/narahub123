@@ -1,12 +1,10 @@
 import "./App.css";
-import Bootstrap from "./pages/Bootstrap";
-import Icon from "./pages/Icon";
+import Style from "./pages/Style";
 
 const App = () => {
   return (
     <div>
-      <Bootstrap />
-      <Icon />
+      <Style />
     </div>
   );
 };

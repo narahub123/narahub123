@@ -1,5 +1,18 @@
-const CopyMe = () => {
-  return <div>CopyMe</div>;
+const Style = () => {
+  return (
+    <div>
+      <h3>Style</h3>
+      <span className="material-icons" style={{ color: "purple" }}>
+        home
+      </span>
+      <span
+        className="material-icons"
+        style={{ fontSize: "250px", color: "red" }}
+      >
+        check_circle_outline
+      </span>
+    </div>
+  );
 };
 
-export default CopyMe;
+export default Style;
