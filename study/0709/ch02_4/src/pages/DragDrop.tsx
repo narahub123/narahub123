@@ -4,8 +4,8 @@ const DragDrop = () => {
   const onDragStart = (e: DragEvent<HTMLElement>) => {
     console.log("onDragStart", e.dataTransfer);
   };
-  const onDragEnter = (e: DragEvent<HTMLElement>) => {
-    console.log("onDragEnter", e.dataTransfer);
+  const onDragEnd = (e: DragEvent<HTMLElement>) => {
+    console.log("onDragEnd", e.dataTransfer);
   };
   const onDragOver = (e: DragEvent<HTMLElement>) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const DragDrop = () => {
   return (
     <div>
       <p>DragDrop</p>
-      <div draggable onDragStart={onDragStart} onDragEnter={onDragEnter}>
+      <div draggable onDragStart={onDragStart} onDragEnd={onDragEnd}>
         <h1>Drag Me</h1>
       </div>
       <div onDrop={onDrop} onDragOver={onDragOver}>
