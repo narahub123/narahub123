@@ -13,13 +13,13 @@ const root = ReactDOM.createRoot(
 const cards: CardData[] = [
   {
     skill: "Function",
-    icon: "home",
+    icon: "calculate",
     name: "Calculator",
     height: 5,
   },
   {
     skill: "Rotate",
-    icon: "home",
+    icon: "rotate_right",
     name: "Memory Game",
     height: 4,
   },
@@ -33,7 +33,7 @@ const cards: CardData[] = [
     skill: "Drag Event",
     icon: "home",
     name: "Drag and Drop",
-    height: 3,
+    height: 4,
   },
   {
     skill: "Stack",
