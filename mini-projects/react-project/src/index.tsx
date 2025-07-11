@@ -3,18 +3,51 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "@fontsource/material-icons";
 import { Masonry } from "./layouts";
+import { Card } from "./components";
+import { CardData } from "./types";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const cards: CardData[] = [
+  {
+    skill: "Function",
+    icon: "home",
+    name: "Calculator",
+    height: 5,
+  },
+  {
+    skill: "Rotate",
+    icon: "home",
+    name: "Memory Game",
+    height: 4,
+  },
+  {
+    skill: "DFS/BFS",
+    icon: "home",
+    name: "Ghost Leg",
+    height: 8,
+  },
+  {
+    skill: "Drag Event",
+    icon: "home",
+    name: "Drag and Drop",
+    height: 3,
+  },
+  {
+    skill: "Stack",
+    icon: "home",
+    name: "History",
+  },
+];
+
 root.render(
   <React.StrictMode>
     <Masonry>
-      <p className={`row-span-${5}`}>하나</p>
-      <p className={`row-span-${6}`}>둘</p>
-      <p className={`row-span-${7}`}>셋</p>
-      <p className={`row-span-${6}`}>넷</p>
-      <p className={`row-span-${10}`}>다섯</p>
+      {cards.map((card, index) => (
+        <Card card={card} key={index} />
+      ))}
     </Masonry>
   </React.StrictMode>
 );
