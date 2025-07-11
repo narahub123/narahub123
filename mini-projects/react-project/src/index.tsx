@@ -15,13 +15,13 @@ const cards: CardData[] = [
     skill: "Function",
     icon: "calculate",
     name: "Calculator",
-    height: 5,
+    height: 7,
   },
   {
     skill: "Rotate",
     icon: "rotate_right",
     name: "Memory Game",
-    height: 4,
+    height: 6,
   },
   {
     skill: "DFS/BFS",
@@ -33,7 +33,7 @@ const cards: CardData[] = [
     skill: "Drag Event",
     icon: "home",
     name: "Drag and Drop",
-    height: 4,
+    height: 9,
   },
   {
     skill: "Stack",
