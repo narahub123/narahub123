@@ -1,13 +1,18 @@
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 import { CardData } from "../types";
 import { Icon } from "./Icon";
 import { getRandomColor } from "../utils";
 
 type CardProps = {
   card: CardData;
+  onClick: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    card: CardData
+  ) => void;
+  style?: CSSProperties;
 };
 
-export const Card: FC<CardProps> = ({ card }) => {
+export const Card: FC<CardProps> = ({ card, onClick, style }) => {
   const { skill, icon, name, height = 6 } = card;
 
   const rowSpanClass = {
@@ -38,7 +43,8 @@ export const Card: FC<CardProps> = ({ card }) => {
         gap-3
         text-white
       `}
-      style={{ backgroundColor: getRandomColor() }}
+      style={{ backgroundColor: getRandomColor(), ...style }}
+      onClick={(e) => onClick(e, card)}
     >
       <p className="font-bold uppercase text-md">{skill}</p>
       <Icon iconName={icon} className="text-5xl" />
