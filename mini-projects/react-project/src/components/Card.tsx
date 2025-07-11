@@ -1,17 +1,16 @@
 import { FC } from "react";
 import { CardData } from "../types";
 import { Icon } from "./Icon";
+import { getRandomColor } from "../utils";
 
 type CardProps = {
   card: CardData;
 };
 
 export const Card: FC<CardProps> = ({ card }) => {
-  const { skill, icon, name, height = 4 } = card;
+  const { skill, icon, name, height = 6 } = card;
 
   const rowSpanClass = {
-    4: "row-span-4",
-    5: "row-span-5",
     6: "row-span-6",
     7: "row-span-7",
     8: "row-span-8",
@@ -20,10 +19,30 @@ export const Card: FC<CardProps> = ({ card }) => {
   }[height > 10 ? 10 : height];
 
   return (
-    <button className={`w-full border rounded-md ${rowSpanClass} shadow-md`}>
-      <p>{skill}</p>
-      <Icon iconName={icon} className="text-3xl" />
-      <p>{name}</p>
+    <button
+      className={`
+        ${rowSpanClass}
+        w-full
+        rounded-2xl
+        border
+        p-4
+        shadow-md
+        transition
+        duration-200
+        hover:shadow-xl
+        hover:scale-[1.015]
+        flex
+        flex-col
+        items-center
+        justify-center
+        gap-3
+        text-white
+      `}
+      style={{ backgroundColor: getRandomColor() }}
+    >
+      <p className="font-bold uppercase text-md">{skill}</p>
+      <Icon iconName={icon} className="text-5xl" />
+      <p className="text-xl font-bold">{name}</p>
     </button>
   );
 };
