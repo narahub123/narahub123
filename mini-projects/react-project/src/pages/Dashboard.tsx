@@ -136,7 +136,7 @@ export const Dashboard = () => {
         {cloneCard && cloneStyle && (
           <div
             style={cloneStyle}
-            className="overflow-hidden rounded-md shadow-lg pointer-events-none"
+            className="overflow-hidden rounded-md shadow-lg "
           >
             <Card
               card={cloneCard}
