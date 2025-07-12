@@ -11,6 +11,8 @@ export const MemoryGame = () => {
   const [cards, setCards] = useState<IFlipCard[]>([]);
   const [openCards, setOpenCards] = useState<IFlipCard[]>([]);
 
+  console.log(openCards);
+
   // 레벨에 따른 카드 생성
   useEffect(() => {
     if (!level) return;
@@ -40,8 +42,8 @@ export const MemoryGame = () => {
         setRemainingPairs((prev) => prev - 1);
       } else {
         setCards((prev) => {
-          const newCards = prev.map((c) => {
-            return openIndices && c.isFlipped
+          const newCards = prev.map((c, idx) => {
+            return openIndices.includes(idx)
               ? {
                   ...c,
                   isFlipped: false,
