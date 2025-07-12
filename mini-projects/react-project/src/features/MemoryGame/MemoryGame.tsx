@@ -38,6 +38,20 @@ export const MemoryGame = () => {
     setIsGameOn(true);
   };
 
+  const handleFlipCard = (card: IFlipCard) => {
+    setCards((prev) => {
+      const newCards = prev.map((c, idx) => {
+        if (idx === card.index && !c.isFlipped) {
+          return {
+            ...c,
+            isFlipped: true,
+          };
+        } else return c;
+      });
+      return newCards;
+    });
+  };
+
   return (
     <div className="w-screen h-screen">
       <GameControls
@@ -48,7 +62,12 @@ export const MemoryGame = () => {
         handleLevelChange={handleLevelChange}
         handleGameStart={handleGameStart}
       />
-      <GameBoard isGameOn={isGameOn} />
+      <GameBoard
+        isGameOn={isGameOn}
+        level={level}
+        cards={cards}
+        handleFlipCard={handleFlipCard}
+      />
     </div>
   );
 };
