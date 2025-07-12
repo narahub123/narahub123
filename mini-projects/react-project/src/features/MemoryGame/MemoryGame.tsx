@@ -40,7 +40,7 @@ export const MemoryGame = () => {
         setRemainingPairs((prev) => prev - 1);
       } else {
         setCards((prev) => {
-          const newCards = prev.map((c, idx) => {
+          const newCards = prev.map((c) => {
             return openIndices && c.isFlipped
               ? {
                   ...c,
@@ -103,7 +103,8 @@ export const MemoryGame = () => {
 
     // 열린 카드 배열에 추가
     setOpenCards((prev) => {
-      if (prev.some((c) => c.index === card.index)) return prev;
+      if (prev.some((c) => c.index === card.index) || card.isFlipped)
+        return prev;
       else return [...prev, card];
     });
   };
