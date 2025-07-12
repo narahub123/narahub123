@@ -29,7 +29,20 @@ export const GameControls: FC<GameControlsProps> = ({
             onChange={handleLevelChange}
             completedLevels={completedLevels}
           />
-          <StartButton disabled={!level} onClick={handleGameStart} />
+          <div className="flex flex-col">
+            <StartButton
+              disabled={!level || completedLevels.includes(level)}
+              onClick={handleGameStart}
+            />
+            {!level && (
+              <p className="mt-1 text-sm text-red-500">레벨을 선택해주세요.</p>
+            )}
+            {level && completedLevels.includes(level) && (
+              <p className="mt-1 text-sm text-red-500">
+                이미 완료한 레벨입니다.
+              </p>
+            )}
+          </div>
         </div>
       )}
     </header>
