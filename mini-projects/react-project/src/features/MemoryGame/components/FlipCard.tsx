@@ -15,7 +15,7 @@ export const FlipCard: FC<FlipCardProps> = ({ card, onClick, level }) => {
 
   return (
     <button
-      className={`relative w-full aspect-square rounded-lg  transition-transform duration-500`}
+      className={`relative w-full aspect-square rounded-lg  transition-transform duration-500 shadow-lg`}
       style={{
         transformStyle: "preserve-3d",
         transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -24,7 +24,7 @@ export const FlipCard: FC<FlipCardProps> = ({ card, onClick, level }) => {
     >
       {/* 앞면 */}
       <div
-        className="absolute inset-0 flex items-center justify-center w-full h-full bg-white border border-gray-300"
+        className="absolute inset-0 flex items-center justify-center w-full h-full bg-white border border-gray-300 rounded-lg"
         style={{
           backfaceVisibility: "hidden",
           fontSize,
@@ -35,7 +35,7 @@ export const FlipCard: FC<FlipCardProps> = ({ card, onClick, level }) => {
 
       {/* 뒷면 */}
       <div
-        className="absolute inset-0 flex items-center justify-center w-full h-full bg-blue-300"
+        className="absolute inset-0 flex items-center justify-center w-full h-full bg-blue-300 border border-gray-300 rounded-lg"
         style={{
           backfaceVisibility: "hidden",
           transform: "rotateY(180deg)",

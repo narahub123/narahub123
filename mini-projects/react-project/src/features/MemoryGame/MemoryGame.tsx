@@ -9,6 +9,7 @@ export const MemoryGame = () => {
   const [completedLevels, setCompletedLevels] = useState<number[]>([]);
   const [remainingPairs, setRemainingPairs] = useState(0);
   const [cards, setCards] = useState<IFlipCard[]>([]);
+  const [openCards, setOpenCards] = useState<IFlipCard[]>([]);
 
   // 레벨에 따른 카드 생성
   useEffect(() => {
@@ -26,6 +27,39 @@ export const MemoryGame = () => {
     setRemainingPairs(numOfPairs);
   }, [level]);
 
+  // 카드의 일치 여부 확인하기
+  useEffect(() => {
+    if (openCards.length !== 2) return;
+
+    const timer = setTimeout(() => {
+      const [card1, card2] = openCards;
+
+      const openIndices = openCards.map((o) => o.index);
+
+      if (card1.icon === card2.icon) {
+        setRemainingPairs((prev) => prev - 1);
+      } else {
+        setCards((prev) => {
+          const newCards = prev.map((c, idx) => {
+            return openIndices && c.isFlipped
+              ? {
+                  ...c,
+                  isFlipped: false,
+                }
+              : c;
+          });
+          return newCards;
+        });
+      }
+
+      setOpenCards([]);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [openCards]);
+
   const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const level = e.target.value === "" ? "" : Number(e.target.value);
 
@@ -39,6 +73,9 @@ export const MemoryGame = () => {
   };
 
   const handleFlipCard = (card: IFlipCard) => {
+    // 두 장 초과의 카드 추가 막기
+    if (openCards.length >= 2) return;
+
     setCards((prev) => {
       const newCards = prev.map((c, idx) => {
         if (idx === card.index && !c.isFlipped) {
@@ -49,6 +86,12 @@ export const MemoryGame = () => {
         } else return c;
       });
       return newCards;
+    });
+
+    // 열린 카드 배열에 추가
+    setOpenCards((prev) => {
+      if (prev.some((c) => c.index === card.index)) return prev;
+      else return [...prev, card];
     });
   };
 
