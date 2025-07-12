@@ -60,6 +60,19 @@ export const MemoryGame = () => {
     };
   }, [openCards]);
 
+  // 게임 종료 확인
+  useEffect(() => {
+    if (remainingPairs > 0 || !level) return;
+
+    setCompletedLevels((prev) => [...prev, level]);
+    setLevel((prev) => {
+      if (prev === "") return 1;
+      if (prev === 4) return "";
+      return prev + 1;
+    });
+    setIsGameOn(false);
+  }, [remainingPairs]);
+
   const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const level = e.target.value === "" ? "" : Number(e.target.value);
 
