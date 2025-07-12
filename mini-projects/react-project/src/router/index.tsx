@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Dashboard } from "../pages";
+import { MemoryGame } from "../features";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "memory-game",
-        element: <div></div>,
+        element: <MemoryGame />,
       },
     ],
   },
