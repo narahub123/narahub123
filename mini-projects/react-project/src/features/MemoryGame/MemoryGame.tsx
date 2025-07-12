@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GameBoard, GameControls } from "./components";
 
 export const MemoryGame = () => {
   const [isGameOn, setIsGameOn] = useState(false);
   const [level, setLevel] = useState<number | "">("");
   const [completedLevels, setCompletedLevels] = useState<number[]>([]);
+  const [remainingPairs, setRemainingPairs] = useState(0);
+
+  // 레벨에 따른 카드 생성 
+  useEffect(() => {
+    if (!level) return;
+
+    const numOfCards = Math.pow(level * 2, 2);
+
+    const numOfPairs = numOfCards / 2;
+
+    setRemainingPairs(numOfPairs);
+  }, [level]);
 
   const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const level = e.target.value === "" ? "" : Number(e.target.value);
@@ -24,6 +36,7 @@ export const MemoryGame = () => {
         isGameOn={isGameOn}
         level={level}
         completedLevels={completedLevels}
+        remainingPairs={remainingPairs}
         handleLevelChange={handleLevelChange}
         handleGameStart={handleGameStart}
       />
