@@ -12,13 +12,20 @@ export const MemoryGame = () => {
     setLevel(level);
   };
 
+  const handleGameStart = () => {
+    if (!level || completedLevels.includes(level)) return;
+
+    setIsGameOn(true);
+  };
+
   return (
     <div className="w-screen h-screen">
       <GameControls
         isGameOn={isGameOn}
         level={level}
-        handleLevelChange={handleLevelChange}
         completedLevels={completedLevels}
+        handleLevelChange={handleLevelChange}
+        handleGameStart={handleGameStart}
       />
       <GameBoard isGameOn={isGameOn} />
     </div>

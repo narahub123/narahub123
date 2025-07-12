@@ -1,11 +1,12 @@
 import { FC } from "react";
-import { LevelSelector } from "./LevelSelector";
+import { LevelSelector, StartButton } from "../components";
 
 type GameControlsProps = {
   isGameOn: boolean;
   level: number | "";
   completedLevels: number[];
   handleLevelChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleGameStart: () => void;
 };
 
 export const GameControls: FC<GameControlsProps> = ({
@@ -13,6 +14,7 @@ export const GameControls: FC<GameControlsProps> = ({
   level,
   completedLevels,
   handleLevelChange,
+  handleGameStart,
 }) => {
   return (
     <header className="w-full">
@@ -27,7 +29,7 @@ export const GameControls: FC<GameControlsProps> = ({
             onChange={handleLevelChange}
             completedLevels={completedLevels}
           />
-          <span className="">게임 시작 버튼</span>
+          <StartButton disabled={!level} onClick={handleGameStart} />
         </div>
       )}
     </header>
