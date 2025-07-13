@@ -24,8 +24,15 @@ export const GameBoard: FC<GameBoardProps> = ({
     4: "grid-cols-8",
   }[level];
 
+  const gridGap = {
+    1: "gap-4",
+    2: "gap-4",
+    3: "gap-4",
+    4: "gap-2",
+  }[level];
+
   return (
-    <main className={`grid w-full gap-4 ${gridCols} mt-4 p-4`}>
+    <main className={`grid w-full ${gridGap} ${gridCols} mt-4`}>
       {cards.map((card) => {
         return (
           <FlipCard
