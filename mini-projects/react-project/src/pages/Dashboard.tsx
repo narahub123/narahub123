@@ -17,6 +17,9 @@ export const Dashboard = () => {
   const cloneCardRef = useRef<HTMLDivElement | null>(null);
   const componentRef = useRef<HTMLDivElement | null>(null);
 
+  const [originalCardRect, setOriginalCardRect] =
+    useState<CSSProperties | null>(null);
+
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
   const [cloneStyle, setCloneStyle] = useState<CSSProperties | null>(null);
   const [isCentered, setIsCentered] = useState(false);
@@ -90,9 +93,6 @@ export const Dashboard = () => {
     const cloneCardElem = cloneCardRef.current;
 
     const handleTransitionEnd = (e: TransitionEvent) => {
-      console.log(`transitionend fired: propertyName=${e.propertyName}`);
-      console.log(`transitioned target: ${e.target}`);
-
       if (e.target === cloneCardElem && e.propertyName === "transform") {
         setIsCentered(true); // 클론 카드가 중앙에 위치했는지에 대한 상태 업데이트
       }
@@ -129,17 +129,84 @@ export const Dashboard = () => {
   };
 
   const resetClonePosition = () => {
-    setCloneStyle((prev) => ({
-      ...prev!,
-      transform: "translate(0px, 0px)",
-    }));
+    if (!InnerComponent) {
+      setCloneStyle((prev) => ({
+        ...prev!,
+        transform: "translate(0px, 0px)",
+      }));
 
-    setTimeout(() => {
-      setCloneCard(null);
-      setCloneStyle(null);
-      setIsCentered(false);
+      setTimeout(() => {
+        setCloneCard(null);
+        setCloneStyle(null);
+        setIsCentered(false);
+        setInnerComponent(null);
+      }, 500);
+    } else {
+      if (!cloneCardRef.current || !originalCardRect || !containerRef.current)
+        return;
+
+      const cloneElem = cloneCardRef.current;
+
+      const containerRect = containerRef.current.getBoundingClientRect();
+
+      if (!originalCardRect?.width || !originalCardRect?.height) return;
+
+      const { width, height } = originalCardRect;
+
+      const centerX = containerRect.width / 2 - Number(width) / 2;
+      const centerY = containerRect.height / 2 - Number(height) / 2;
+
+      // 첫 번째 애니메이션 실행 (크기 복귀)
+      setCloneStyle((prev) => ({
+        ...prev!,
+        top: centerY,
+        left: centerX,
+        width: originalCardRect.width,
+        height: originalCardRect.height,
+        transition: "all 0.5s ease",
+        transform: "translate(0, 0)",
+      }));
+
       setInnerComponent(null);
-    }, 500);
+      // 1단계 끝나면 실행되는 콜백
+      const onFirstTransitionEnd = (e: TransitionEvent) => {
+        if (e.propertyName !== "width") return;
+        const containerRect = containerRef.current?.getBoundingClientRect();
+        if (!originalCardRect || !containerRect) return;
+
+        const top = originalCardRect?.top ?? 0 - containerRect.top;
+        const left = originalCardRect?.left ?? 0 - containerRect.left;
+
+        // 2단계: 위치 복귀
+        setCloneStyle((prev) => ({
+          ...prev!,
+          top,
+          left,
+          transform: "translate(0, 0)",
+          transition: "all 0.3s ease",
+        }));
+
+        // 2단계 종료 후 cleanup
+        cloneCardRef.current?.addEventListener(
+          "transitionend",
+          () => {
+            setCloneCard(null);
+            setCloneStyle(null);
+            setIsCentered(false);
+            setOriginalCardRect(null);
+          },
+          { once: true }
+        );
+
+        // 1단계 이벤트 제거
+        cloneCardRef.current?.removeEventListener(
+          "transitionend",
+          onFirstTransitionEnd
+        );
+      };
+
+      cloneElem.addEventListener("transitionend", onFirstTransitionEnd);
+    }
   };
 
   const handleClick = (
@@ -181,6 +248,7 @@ export const Dashboard = () => {
           transform: "translate(0px, 0px)",
           zIndex: 10,
         });
+        setOriginalCardRect(rect);
 
         requestAnimationFrame(() => {
           moveCloneToCenter(startTop, startLeft, width, height, containerRect);
@@ -201,6 +269,7 @@ export const Dashboard = () => {
       transform: "translate(0px, 0px)",
       zIndex: 10,
     });
+    setOriginalCardRect(rect);
 
     requestAnimationFrame(() => {
       moveCloneToCenter(startTop, startLeft, width, height, containerRect);
