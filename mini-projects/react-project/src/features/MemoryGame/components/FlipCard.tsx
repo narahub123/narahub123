@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { IFlipCard } from "../types";
 import { useCardFontSize } from "../hooks";
 
@@ -9,9 +9,10 @@ type FlipCardProps = {
 };
 
 export const FlipCard: FC<FlipCardProps> = ({ card, onClick, level }) => {
+  const cardRef = useRef<HTMLButtonElement>(null);
   const { index, icon, isFlipped } = card;
 
-  const fontSize = useCardFontSize(level * 2);
+  const fontSize = useCardFontSize(cardRef, level * 2);
 
   return (
     <button
@@ -21,6 +22,7 @@ export const FlipCard: FC<FlipCardProps> = ({ card, onClick, level }) => {
         transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
       }}
       onClick={() => onClick(card)}
+      ref={cardRef}
     >
       {/* 앞면 */}
       <div
