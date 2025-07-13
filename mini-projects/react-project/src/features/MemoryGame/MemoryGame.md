@@ -86,10 +86,10 @@ MemoryGame/
 
 ### 레벨에 따른 카드 동적 생성
 
-![lv.1](https://github.com/user-attachments/assets/1ea14f4c-72fd-4ac7-8daa-d009ef45db0e)
-![lv.2](https://github.com/user-attachments/assets/7980100c-90b6-4c3d-92ff-0cfd9cde8656)
-![lv.3](https://github.com/user-attachments/assets/46ac5b16-96ea-480a-95e1-a630241afdfb)
-![lv.4](https://github.com/user-attachments/assets/531c37d6-b2fa-4f92-b4d4-2f2adec4de86)
+![lv.1](https://github.com/user-attachments/assets/5677a7e5-17a1-4d98-b36a-d167757ecb63)
+![lv.2](https://github.com/user-attachments/assets/8640024a-5276-4b9a-a94b-7af77b133f28)
+![lv.3](https://github.com/user-attachments/assets/7b151948-b15e-4f4a-ad1c-d16ce15a58b6)
+![lv.4](https://github.com/user-attachments/assets/e96f45dc-a88c-48c3-9888-71915094383a)
 
 ### 화면 변화
 
