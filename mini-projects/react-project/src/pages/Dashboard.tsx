@@ -1,4 +1,4 @@
-import { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { cards } from "../data";
 import { Card } from "../components";
 import { Masonry } from "../layouts";
@@ -6,9 +6,29 @@ import { CardData } from "../types";
 
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const cloneCardRef = useRef<HTMLDivElement | null>(null);
 
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
   const [cloneStyle, setCloneStyle] = useState<CSSProperties | null>(null);
+
+  useEffect(() => {
+    if (!cloneCard || !cloneCardRef.current) return;
+
+    const cloneCardElem = cloneCardRef.current;
+
+    const handleTransitionEnd = (e: TransitionEvent) => {
+      if (e.propertyName === "transform") {
+        console.log(e.currentTarget);
+        console.log("클론 카드 이동 완료");
+      }
+    };
+
+    cloneCardElem.addEventListener("transitionend", handleTransitionEnd);
+
+    return () => {
+      cloneCardElem.removeEventListener("transitionend", handleTransitionEnd);
+    };
+  }, [cloneCard]);
 
   // 중앙으로 이동시키는 스타일 설정
   const moveCloneToCenter = (
@@ -135,8 +155,10 @@ export const Dashboard = () => {
         ))}
         {cloneCard && cloneStyle && (
           <div
+            id="clone_card"
             style={cloneStyle}
-            className="overflow-hidden rounded-md shadow-lg "
+            className="overflow-hidden rounded-md shadow-lg"
+            ref={cloneCardRef}
           >
             <Card
               card={cloneCard}
