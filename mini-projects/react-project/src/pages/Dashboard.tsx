@@ -217,6 +217,7 @@ export const Dashboard = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     card: CardData
   ) => {
+    e.stopPropagation();
     const dom = e.currentTarget;
     const container = containerRef.current;
 
@@ -281,14 +282,13 @@ export const Dashboard = () => {
   };
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLElement;
+    if (!cloneCard) return;
 
-    // Card나 cloneCard가 아닌 부분만 클릭된 경우 닫기
-    if (
-      containerRef.current &&
-      !target.closest("button") && // 카드가 button인 경우
-      cloneCard
-    ) {
+    // 현재 클릭한 대상이 카드나 클론 카드 내부가 아니라면
+    const isInsideClone = cloneCardRef.current?.contains(e.target as Node);
+    const isInsideCardList = containerRef.current?.contains(e.target as Node);
+
+    if (!isInsideClone && isInsideCardList) {
       resetClonePosition();
     }
   };
