@@ -110,7 +110,7 @@ export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
     });
   };
 
-  const { width, height } = useReposiveSize({ aspectRatio: "3/4" });
+  const { width, height } = useReposiveSize({ aspectRatio: "100 / 111" });
 
   return (
     <div
