@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useState } from "react";
 import { GameBoard, GameControls } from "./components";
 import { IFlipCard } from "./types";
 import { createCards } from "./utils";
+import { useReposiveSize } from "./hooks";
 
 export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [isGameOn, setIsGameOn] = useState(false);
@@ -109,8 +110,10 @@ export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
     });
   };
 
+  const { width, height } = useReposiveSize({ aspectRatio: "3/4" });
+
   return (
-    <div className="w-screen h-screen" ref={ref}>
+    <div ref={ref} style={{ width, height }}>
       <GameControls
         isGameOn={isGameOn}
         level={level}
