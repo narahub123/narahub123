@@ -11,8 +11,8 @@ export const Dashboard = () => {
 
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
   const [cloneStyle, setCloneStyle] = useState<CSSProperties | null>(null);
+  const [isCentered, setIsCentered] = useState(false);
   const [innerComponent, setInnerComponent] = useState<ReactNode>(null);
-  // reactNode에 null 포함됨>
 
   useEffect(() => {
     if (!cloneCard || !cloneCardRef.current) return;
@@ -20,8 +20,13 @@ export const Dashboard = () => {
     const cloneCardElem = cloneCardRef.current;
 
     const handleTransitionEnd = (e: TransitionEvent) => {
-      if (e.propertyName === "transform") {
+      console.log(`transitionend fired: propertyName=${e.propertyName}`);
+      console.log(`transitioned target: ${e.target}`);
+
+      if (e.target === cloneCardElem && e.propertyName === "transform") {
         console.log("클론 카드 이동 완료");
+        setIsCentered(true); // 클론 카드가 중앙에 위치했는지에 대한 상태 업데이트
+
         if (cloneCard.skill === "Rotate") {
           setInnerComponent(<MemoryGame />);
         }
@@ -165,7 +170,7 @@ export const Dashboard = () => {
             className="overflow-hidden rounded-md shadow-lg"
             ref={cloneCardRef}
           >
-            {innerComponent ? (
+            {isCentered && innerComponent ? (
               innerComponent
             ) : (
               <Card
