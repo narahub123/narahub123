@@ -1,3 +1,4 @@
+import { MemoryGame } from "../features";
 import { CardData } from "../types";
 
 export const cards: CardData[] = [
@@ -12,6 +13,7 @@ export const cards: CardData[] = [
     icon: "rotate_right",
     name: "Memory Game",
     height: 6,
+    component: <MemoryGame />,
   },
   {
     skill: "DFS/BFS",
