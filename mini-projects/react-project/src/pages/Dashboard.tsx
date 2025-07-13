@@ -1,9 +1,8 @@
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
-import { cards } from "../data";
 import { Card } from "../components";
 import { Masonry } from "../layouts";
 import { CardData } from "../types";
-import { MemoryGame } from "../features";
+import { cards } from "../data";
 
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -18,14 +17,7 @@ export const Dashboard = () => {
   useEffect(() => {
     if (!isCentered || !cloneCard) return;
 
-    let innerComponent: ReactNode = null;
-
-    switch (cloneCard.skill) {
-      case "Rotate":
-        innerComponent = <MemoryGame />;
-    }
-
-    setInnerComponent(innerComponent);
+    setInnerComponent(cloneCard.component);
   }, [isCentered, cloneCard]);
 
   // 이동 완료 여부 확인
@@ -39,7 +31,6 @@ export const Dashboard = () => {
       console.log(`transitioned target: ${e.target}`);
 
       if (e.target === cloneCardElem && e.propertyName === "transform") {
-        console.log("클론 카드 이동 완료");
         setIsCentered(true); // 클론 카드가 중앙에 위치했는지에 대한 상태 업데이트
       }
     };
