@@ -14,6 +14,21 @@ export const Dashboard = () => {
   const [isCentered, setIsCentered] = useState(false);
   const [innerComponent, setInnerComponent] = useState<ReactNode>(null);
 
+  // 컴포넌트 삽입
+  useEffect(() => {
+    if (!isCentered || !cloneCard) return;
+
+    let innerComponent: ReactNode = null;
+
+    switch (cloneCard.skill) {
+      case "Rotate":
+        innerComponent = <MemoryGame />;
+    }
+
+    setInnerComponent(innerComponent);
+  }, [isCentered, cloneCard]);
+
+  // 이동 완료 여부 확인
   useEffect(() => {
     if (!cloneCard || !cloneCardRef.current) return;
 
@@ -26,10 +41,6 @@ export const Dashboard = () => {
       if (e.target === cloneCardElem && e.propertyName === "transform") {
         console.log("클론 카드 이동 완료");
         setIsCentered(true); // 클론 카드가 중앙에 위치했는지에 대한 상태 업데이트
-
-        if (cloneCard.skill === "Rotate") {
-          setInnerComponent(<MemoryGame />);
-        }
       }
     };
 
