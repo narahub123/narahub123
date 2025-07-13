@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/narahub123/mini-projects/react-project/static/css/main.f52a5e0f.css",
+    "main.js": "/narahub123/mini-projects/react-project/static/js/main.c3f1d11a.js",
+    "static/media/material-icons-latin-400-normal.woff": "/narahub123/mini-projects/react-project/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
+    "static/media/material-icons-latin-400-normal.woff2": "/narahub123/mini-projects/react-project/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
+    "index.html": "/narahub123/mini-projects/react-project/index.html",
+    "main.f52a5e0f.css.map": "/narahub123/mini-projects/react-project/static/css/main.f52a5e0f.css.map",
+    "main.c3f1d11a.js.map": "/narahub123/mini-projects/react-project/static/js/main.c3f1d11a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f52a5e0f.css",
+    "static/js/main.c3f1d11a.js"
+  ]
+}
