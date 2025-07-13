@@ -1,4 +1,12 @@
-import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
+import {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Card } from "../components";
 import { Masonry } from "../layouts";
 import { CardData } from "../types";
@@ -7,11 +15,14 @@ import { cards } from "../data";
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const cloneCardRef = useRef<HTMLDivElement | null>(null);
+  const componentRef = useRef<HTMLDivElement | null>(null);
 
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
   const [cloneStyle, setCloneStyle] = useState<CSSProperties | null>(null);
   const [isCentered, setIsCentered] = useState(false);
-  const [innerComponent, setInnerComponent] = useState<ReactNode>(null);
+  const [InnerComponent, setInnerComponent] = useState<
+    ForwardRefExoticComponent<RefAttributes<HTMLDivElement>> | null | undefined
+  >(null);
 
   // 컴포넌트 삽입
   useEffect(() => {
@@ -174,8 +185,8 @@ export const Dashboard = () => {
             className="overflow-hidden rounded-md shadow-lg"
             ref={cloneCardRef}
           >
-            {isCentered && innerComponent ? (
-              innerComponent
+            {isCentered && InnerComponent ? (
+              <InnerComponent ref={componentRef} />
             ) : (
               <Card
                 card={cloneCard}

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { MaterialIconName } from "./Icon";
 
 export type CardData = {
@@ -6,5 +6,5 @@ export type CardData = {
   icon: MaterialIconName;
   name: string;
   height?: number;
-  component?: ReactNode;
+  component?: ForwardRefExoticComponent<RefAttributes<HTMLDivElement>> | null;
 };
