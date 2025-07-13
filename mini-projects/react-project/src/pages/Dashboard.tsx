@@ -128,7 +128,7 @@ export const Dashboard = () => {
     });
   };
 
-  const resetClonePosition = () => {
+  const resetClonePosition = (onComplete?: () => void) => {
     if (!InnerComponent) {
       setCloneStyle((prev) => ({
         ...prev!,
@@ -140,6 +140,7 @@ export const Dashboard = () => {
         setCloneStyle(null);
         setIsCentered(false);
         setInnerComponent(null);
+        if (onComplete) onComplete();
       }, 500);
     } else {
       if (!cloneCardRef.current || !originalCardRect || !containerRef.current)
@@ -183,17 +184,20 @@ export const Dashboard = () => {
           top,
           left,
           transform: "translate(0, 0)",
-          transition: "all 0.3s ease",
+          transition: "all 0.5s ease",
         }));
 
         // 2단계 종료 후 cleanup
         cloneCardRef.current?.addEventListener(
           "transitionend",
           () => {
-            setCloneCard(null);
-            setCloneStyle(null);
-            setIsCentered(false);
-            setOriginalCardRect(null);
+            setTimeout(() => {
+              setCloneCard(null);
+              setCloneStyle(null);
+              setIsCentered(false);
+              setOriginalCardRect(null);
+              if (onComplete) onComplete();
+            }, 300);
           },
           { once: true }
         );
@@ -235,8 +239,7 @@ export const Dashboard = () => {
 
     // 기존 다른 카드가 있을 경우 → 원위치 복귀 후 새로운 카드 중앙으로
     if (cloneCard) {
-      resetClonePosition();
-      setTimeout(() => {
+      resetClonePosition(() => {
         setCloneCard(card);
         setCloneStyle({
           position: "absolute",
@@ -253,7 +256,8 @@ export const Dashboard = () => {
         requestAnimationFrame(() => {
           moveCloneToCenter(startTop, startLeft, width, height, containerRect);
         });
-      }, 500);
+      });
+
       return;
     }
 
