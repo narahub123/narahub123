@@ -13,7 +13,7 @@ export const cards: CardData[] = [
     icon: "rotate_right",
     name: "Memory Game",
     height: 6,
-    component: <MemoryGame />,
+    component: MemoryGame,
   },
   {
     skill: "DFS/BFS",

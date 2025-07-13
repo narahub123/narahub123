@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { GameBoard, GameControls } from "./components";
 import { IFlipCard } from "./types";
 import { createCards } from "./utils";
 
-export const MemoryGame = () => {
+export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [isGameOn, setIsGameOn] = useState(false);
   const [level, setLevel] = useState<number | "">("");
   const [completedLevels, setCompletedLevels] = useState<number[]>([]);
   const [remainingPairs, setRemainingPairs] = useState(0);
   const [cards, setCards] = useState<IFlipCard[]>([]);
   const [openCards, setOpenCards] = useState<IFlipCard[]>([]);
-
-  console.log(openCards);
 
   // 레벨에 따른 카드 생성
   useEffect(() => {
@@ -112,7 +110,7 @@ export const MemoryGame = () => {
   };
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen" ref={ref}>
       <GameControls
         isGameOn={isGameOn}
         level={level}
@@ -129,4 +127,4 @@ export const MemoryGame = () => {
       />
     </div>
   );
-};
+});
