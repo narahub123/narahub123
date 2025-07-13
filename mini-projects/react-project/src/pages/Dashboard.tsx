@@ -74,6 +74,8 @@ export const Dashboard = () => {
     setTimeout(() => {
       setCloneCard(null);
       setCloneStyle(null);
+      // setIsCentered(false);
+      // setInnerComponent(null);
     }, 500);
   };
 
