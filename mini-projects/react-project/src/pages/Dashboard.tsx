@@ -1,8 +1,9 @@
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { cards } from "../data";
 import { Card } from "../components";
 import { Masonry } from "../layouts";
 import { CardData } from "../types";
+import { MemoryGame } from "../features";
 
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -10,6 +11,8 @@ export const Dashboard = () => {
 
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
   const [cloneStyle, setCloneStyle] = useState<CSSProperties | null>(null);
+  const [innerComponent, setInnerComponent] = useState<ReactNode>(null);
+  // reactNode에 null 포함됨>
 
   useEffect(() => {
     if (!cloneCard || !cloneCardRef.current) return;
@@ -18,8 +21,10 @@ export const Dashboard = () => {
 
     const handleTransitionEnd = (e: TransitionEvent) => {
       if (e.propertyName === "transform") {
-        console.log(e.currentTarget);
         console.log("클론 카드 이동 완료");
+        if (cloneCard.skill === "Rotate") {
+          setInnerComponent(<MemoryGame />);
+        }
       }
     };
 
@@ -160,11 +165,15 @@ export const Dashboard = () => {
             className="overflow-hidden rounded-md shadow-lg"
             ref={cloneCardRef}
           >
-            <Card
-              card={cloneCard}
-              onClick={() => {}}
-              style={{ height: cloneStyle.height }}
-            />
+            {innerComponent ? (
+              innerComponent
+            ) : (
+              <Card
+                card={cloneCard}
+                onClick={() => {}}
+                style={{ height: cloneStyle.height }}
+              />
+            )}
           </div>
         )}
       </Masonry>
