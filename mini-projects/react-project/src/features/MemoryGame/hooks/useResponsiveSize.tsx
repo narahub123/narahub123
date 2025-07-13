@@ -1,10 +1,6 @@
 import { FC, useEffect, useLayoutEffect, useState } from "react";
 import { DEFAULT_HEIGHT_RATIO, DEFAULT_WIDTH_RATIO } from "../constants";
-
-export interface IComponentSize {
-  width: number | string;
-  height: number | string;
-}
+import { IComponentSize } from "../../../types";
 
 type useResponsiveSizeProps = {
   aspectRatio: string;

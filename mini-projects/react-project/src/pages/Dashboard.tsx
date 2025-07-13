@@ -24,6 +24,58 @@ export const Dashboard = () => {
     ForwardRefExoticComponent<RefAttributes<HTMLDivElement>> | null | undefined
   >(null);
 
+  const [cloneSize, setCloneSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+
+  // 사이즈 적용하기
+  useEffect(() => {
+    if (!cloneSize || !cloneCardRef.current || !cloneStyle) return;
+
+    const { width: newWidth, height: newHeight } = cloneSize;
+
+    const newTop = (window.innerHeight - newHeight) / 2;
+    const newLeft = (window.innerWidth - newWidth) / 2;
+
+    setCloneStyle((prev) => ({
+      ...prev!,
+      width: newWidth,
+      height: newHeight,
+      top: newTop,
+      left: newLeft,
+      transition: "all 0.3s ease",
+      transform: "translate(0px, 0px)", // 중앙 이동 후 크기 변경이므로 transform 초기화
+    }));
+  }, [cloneSize]);
+
+  // 컴포넌트 크기 가져오기
+  useEffect(() => {
+    if (!InnerComponent || !componentRef.current) return;
+
+    const updateSize = () => {
+      const component = componentRef.current;
+      if (!component) return;
+
+      const componentRect = component.getBoundingClientRect();
+      const { width, height } = componentRect;
+
+      setCloneSize({ width, height });
+    };
+
+    // 렌더 완료 후에 측정 : 이걸 적용안하면 32, 32 값이 나옴 이유는?
+    requestAnimationFrame(() => {
+      updateSize();
+    });
+
+    // 윈도우 리사이즈 감지
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
+  }, [InnerComponent]);
+
   // 컴포넌트 삽입
   useEffect(() => {
     if (!isCentered || !cloneCard) return;
@@ -85,8 +137,8 @@ export const Dashboard = () => {
     setTimeout(() => {
       setCloneCard(null);
       setCloneStyle(null);
-      // setIsCentered(false);
-      // setInnerComponent(null);
+      setIsCentered(false);
+      setInnerComponent(null);
     }, 500);
   };
 
@@ -182,7 +234,7 @@ export const Dashboard = () => {
           <div
             id="clone_card"
             style={cloneStyle}
-            className="overflow-hidden rounded-md shadow-lg"
+            className="shadow-lg overflow-hiddenrounded-md"
             ref={cloneCardRef}
           >
             {isCentered && InnerComponent ? (
