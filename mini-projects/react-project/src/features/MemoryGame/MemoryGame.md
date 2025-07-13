@@ -10,13 +10,13 @@
 
 ## ✨ 주요 기능
 
-- ✅ `3D rotateY`를 활용한 카드 뒤집기 효과
+- ✅ `3D rotateY`를 활용한 카드 뒤집기 효과 [FlipCard](./components/FlipCard.md)
 - ✅ 난이도(레벨) 선택 기능
 - ✅ 선택된 레벨에 따라 카드 수 동적 생성
 - ✅ 뒤집힌 카드 2장이 일치하는지 판별
 - ✅ 일치 시 유지 / 불일치 시 다시 닫힘
 - ✅ 모든 쌍을 맞추면 다음 레벨 자동 진입
-- ✅ 완료한 레벨은 선택 불가 및 `- completed` 표시
+- ✅ 완료한 레벨은 선택 불가 및 `- completed` 표시 [LevelSelector](./components/LevelSelector.md)
 - ✅ 반응형 카드 크기 및 폰트 크기 조절
 
 ---
@@ -32,24 +32,25 @@
 
 ## 🗂️ 폴더 구조
 
+```
 MemoryGame/
 ├── components/
-│ ├── FlipCard.tsx
-│ ├── GameBoard.tsx
-│ ├── GameControls.tsx
-│ ├── LevelSelector.tsx
-
-│ ├── RemainingPairs.tsx
-│ └── StartButton.tsx
+│   ├── FlipCard.tsx
+│   ├── GameBoard.tsx
+│   ├── GameControls.tsx
+│   ├── LevelSelector.tsx
+│   ├── RemainingPairs.tsx
+│   └── StartButton.tsx
 ├── constants/
 ├── data/
-│ └── cardIcons.ts
+│   └── cardIcons.ts
 ├── hooks/
-│ └── useCardFontSize.ts
+│   └── useCardFontSize.ts
 ├── types/
 ├── utils/
-│ └── cardUtils.ts (카드 생성 로직)
+│   └── cardUtils.ts
 └── MemoryGame.tsx
+```
 
 ---
 
@@ -75,9 +76,31 @@ MemoryGame/
 
 ## 💡 향후 개선 사항
 
+- 최소 너비 도입 하기
 - 애니메이션 향상 (카드 뒤집기 시 easing 추가 등)
 - 매칭 성공 시 간단한 효과(사운드/색상 변화 등)
 - 레벨 별 테마 도입
 - 리셋 기능 및 완료 후 리포트 페이지
 
 ---
+
+### 레벨에 따른 카드 동적 생성
+
+![lv.1](https://github.com/user-attachments/assets/1ea14f4c-72fd-4ac7-8daa-d009ef45db0e)
+![lv.2](https://github.com/user-attachments/assets/7980100c-90b6-4c3d-92ff-0cfd9cde8656)
+![lv.3](https://github.com/user-attachments/assets/46ac5b16-96ea-480a-95e1-a630241afdfb)
+![lv.4](https://github.com/user-attachments/assets/531c37d6-b2fa-4f92-b4d4-2f2adec4de86)
+
+### 화면 변화
+
+#### 레벨 선택 전
+
+![beforeLevel](https://github.com/user-attachments/assets/f7326886-16c3-4452-a5ba-7ac219a4cbdf)
+
+#### 레벨 선택 후
+
+![afterLevel](https://github.com/user-attachments/assets/bc732b90-75cb-4fc2-a75b-57893be95838)
+
+#### 게임 화면
+
+![onGame](https://github.com/user-attachments/assets/ae04e8fe-c60c-4808-890d-f9f555e78272)
