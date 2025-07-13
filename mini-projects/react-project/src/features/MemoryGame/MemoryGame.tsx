@@ -113,7 +113,11 @@ export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const { width, height } = useReposiveSize({ aspectRatio: "3/4" });
 
   return (
-    <div ref={ref} style={{ width, height }}>
+    <div
+      ref={ref}
+      className="p-4 bg-white rounded-xl"
+      style={{ width, height }}
+    >
       <GameControls
         isGameOn={isGameOn}
         level={level}
