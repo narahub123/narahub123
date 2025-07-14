@@ -9,8 +9,7 @@ export type ReactDivProps = DetailedHTMLProps<
 >;
 
 export type DivProps = ReactDivProps &
-  WidthHeight &
-  LeftRightTopBottom &
+  WidthHeight & { src?: string } & LeftRightTopBottom &
   MinMaxWidthHeight;
 
 export const Div: FC<DivProps> = ({
