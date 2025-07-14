@@ -4,7 +4,7 @@
 
 ---
 
-### ✅ MVC
+### ✅ MVC(Model-View-Controller)
 
 - Model + View + Controller를 합친 용어
 
@@ -12,7 +12,7 @@
 
 ![MVC 패턴 구조](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F7IE8f%2FbtqBRvw9sFF%2FAAAAAAAAAAAAAAAAAAAAADyozKU_PSiY0oJauHy6zZ2tha--rlkJYVjN88rRwZp7%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DfS0grk7II7jzMZ%252Bezj7YDaGlBX0%253D)
 
-- **Model**: 애플리케이션의 데이터와 비즈니스 로직을 담당
+- **Model**: 애플리케이션의 데이터와 비즈니스 로직을 담당, 데이터의 상태의 관리하고, 변경 사항을 알림
 - **View**: 사용자에게 보여지는 UI, Model을 관찰하여 상태 변경을 UI에 반영 (옵저버 패턴 활용)
   - 옵저버 패턴: 하나의 객체 상태(Model 또는 ViewModel)가 변경되면, 이를 구독한 View에 자동으로 알림을 보내 UI를 갱신하는 방식
 - **Controller**: 사용자 입력을 받아 Model을 변경하고 View를 선택하는 중재자
@@ -25,8 +25,9 @@
 
 **특징**
 
+- 역할분리 : 데이터, UI, 입력 처리로 명확히 분리
+- 양방향 의존 : View와 Model 간에 의존성이 존재함
 - Controller는 여러 View를 선택할 수 있음 (1:N 구조)
-- View와 Model 간에 의존성이 존재함
 
 **장점**
 
@@ -77,9 +78,7 @@
 
 ---
 
-### ✅ MVVM
-
-- Model + View + ViewModel을 합친 용어
+### ✅ MVVM(Model-View-ViewModel)
 
 **구조**
 
