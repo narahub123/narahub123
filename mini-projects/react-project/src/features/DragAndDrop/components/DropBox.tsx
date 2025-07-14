@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 export type DropBoxProps = {
-  setImages: React.Dispatch<React.SetStateAction<(File | FileList)[]>>;
+  setImages: React.Dispatch<React.SetStateAction<File[]>>;
 };
 
 export const DropBox: FC<DropBoxProps> = ({ setImages }) => {
@@ -27,9 +27,9 @@ export const DropBox: FC<DropBoxProps> = ({ setImages }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const files = e.dataTransfer.files;
+    const files = Array.from(e.dataTransfer.files);
 
-    setImages((prev) => [...prev, files]);
+    setImages((prev) => [...prev, ...files]);
 
     setIsIn((prev) => (prev !== false ? false : prev));
   };
