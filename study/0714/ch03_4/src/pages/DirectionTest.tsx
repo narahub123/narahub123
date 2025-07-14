@@ -23,11 +23,11 @@ const DirectionTest = () => {
           <Div className="flex flex-row-reverse p-4">{boxes}</Div>
         </Div>
         <Div className="mr-2">
-          <Subtitle>flex-column</Subtitle>
+          <Subtitle>flex-col</Subtitle>
           <Div className="flex flex-col p-4">{boxes}</Div>
         </Div>
         <Div className="mr-2">
-          <Subtitle>flex-column-reverse</Subtitle>
+          <Subtitle>flex-col-reverse</Subtitle>
           <Div className="flex flex-col-reverse p-4">{boxes}</Div>
         </Div>
       </Div>
