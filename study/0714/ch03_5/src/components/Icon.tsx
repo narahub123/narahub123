@@ -8,7 +8,7 @@ export type IconProps = {
 
 export const Icon: FC<IconProps> = ({ name, style, className }) => {
   return (
-    <span className={`"material-icons" ${className}`} style={style}>
+    <span className={`material-icons ${className}`} style={style}>
       {name}
     </span>
   );
