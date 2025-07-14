@@ -1,2 +1,1 @@
-export * from "./MemoryGame";
 export * from "./DragAndDrop";

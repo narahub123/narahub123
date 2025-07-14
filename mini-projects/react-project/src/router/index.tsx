@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Dashboard } from "../pages";
-import { MemoryGame } from "../features";
+import { DragAndDrop, MemoryGame } from "../features";
 
 const router = createBrowserRouter(
   [
@@ -14,6 +14,10 @@ const router = createBrowserRouter(
         {
           path: "memory-game",
           element: <MemoryGame />,
+        },
+        {
+          path: "drag-and-drop",
+          element: <DragAndDrop />,
         },
       ],
     },
