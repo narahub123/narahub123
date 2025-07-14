@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { DropBox } from "./components";
+import { ImageType } from "./types";
 
 export const DragAndDrop = () => {
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<ImageType[]>([]);
 
   console.log(images);
 
