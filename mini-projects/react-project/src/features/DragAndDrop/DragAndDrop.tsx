@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DropBox } from "./components";
+import { DropBox, ImagePreviewGrid } from "./components";
 import { ImageType } from "./types";
 
 export const DragAndDrop = () => {
@@ -10,7 +10,7 @@ export const DragAndDrop = () => {
   return (
     <div className="w-[50%]">
       <DropBox setImages={setImages} images={images} />
-      <div className="w-full">이미지 프리뷰</div>
+      <ImagePreviewGrid images={images} />
     </div>
   );
 };
