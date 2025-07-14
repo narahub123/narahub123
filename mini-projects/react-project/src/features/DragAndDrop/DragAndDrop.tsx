@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DropBox } from "./components";
 
 export const DragAndDrop = () => {
-  const [images, setImages] = useState<(File | FileList)[]>([]);
+  const [images, setImages] = useState<File[]>([]);
   return (
     <div className="w-[50%]">
       <DropBox setImages={setImages} />
