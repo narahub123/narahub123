@@ -1,8 +1,9 @@
 import { FC, useRef, useState } from "react";
+import { ImageType } from "../types";
 
 export type DropBoxProps = {
-  images: File[];
-  setImages: React.Dispatch<React.SetStateAction<File[]>>;
+  images: ImageType[];
+  setImages: React.Dispatch<React.SetStateAction<ImageType[]>>;
   quantity?: number;
   accept?: string;
   size?: number; // MB 단위
@@ -22,12 +23,12 @@ export const DropBox: FC<DropBoxProps> = ({
 
   const isValidFiles = (
     files: File[],
-    prevFiles: File[],
+    prevFiles: ImageType[],
     quantity: number,
     accept: string,
     size: number
   ): boolean => {
-    const combinedFiles: File[] = [...prevFiles, ...files];
+    const combinedFiles: any[] = [...prevFiles, ...files];
 
     if (!isValidFileQuantity(combinedFiles, quantity)) {
       console.log("한도 초과");
@@ -112,7 +113,7 @@ export const DropBox: FC<DropBoxProps> = ({
 
     if (!isValidFiles(files, images, quantity, accept, size)) return;
 
-    setImages((prev) => [...prev, ...files]);
+    // setImages((prev) => [...prev, ...files]);
 
     setIsIn((prev) => (prev !== false ? false : prev));
   };
@@ -130,7 +131,7 @@ export const DropBox: FC<DropBoxProps> = ({
 
     if (!isValidFiles(files, images, quantity, accept, size)) return;
 
-    setImages(files);
+    // setImages(files);
   };
 
   return (
