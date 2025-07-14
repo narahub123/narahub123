@@ -1,12 +1,18 @@
-import { Title } from "../components/Texts";
+import Basic from "./Basic";
+import Size from "./Size";
+import IconTest from "./IconTest";
 
-const CopyMe = () => {
+const ButtonTest = () => {
   return (
     <section className="mt-4">
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
+      <h2 className="text-5xl font-bold text-center">ButtonTest</h2>
+      <div className="mt-4">
+        <IconTest />
+        <Size />
+        <Basic />
+      </div>
     </section>
   );
 };
 
-export default CopyMe;
+export default ButtonTest;

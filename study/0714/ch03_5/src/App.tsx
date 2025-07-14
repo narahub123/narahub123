@@ -1,16 +1,14 @@
 import "./App.css";
-import CardContainer from "./pages/CardContainer";
-import DirectionTest from "./pages/DirectionTest";
-import JustifyCenterTest from "./pages/JustifyCenterTest";
-import UserContainer from "./pages/UserContainer";
+import ButtonTest from "./pages/ButtonTest";
+import InputTest from "./pages/InputTest";
+import ModalTest from "./pages/ModalTest";
 
 function App() {
   return (
     <main>
-      {/* <DirectionTest /> */}
-      {/* <JustifyCenterTest /> */}
-      <UserContainer />
-      <CardContainer />
+      <ButtonTest />
+      <InputTest />
+      <ModalTest />
     </main>
   );
 }
