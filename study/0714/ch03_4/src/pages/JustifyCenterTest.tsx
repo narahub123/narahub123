@@ -1,12 +1,28 @@
-import { Title } from "../components/Texts";
+import { Div } from "../components";
+import { Subtitle, Title } from "../components/Texts";
+import * as D from "../data";
 
-const CopyMe = () => {
+const JustifyCenterTest = () => {
+  const boxes = D.range(0, 5).map((index) => (
+    <Div key={index} className="w-4 h-4 m-1 bg-black" />
+  ));
   return (
     <section className="mt-4">
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
+      <Title>JustifyCenterTest</Title>
+      <div className="mt-4">
+        <Subtitle>flex flow-row justify-center</Subtitle>
+        <div className="flex flex-row justify-center h-40 bg-gray-300">
+          {boxes}
+        </div>
+      </div>
+      <div className="mt-4">
+        <Subtitle>flex flow-col justify-center</Subtitle>
+        <div className="flex flex-col justify-center h-40 bg-gray-300">
+          {boxes}
+        </div>
+      </div>
     </section>
   );
 };
 
-export default CopyMe;
+export default JustifyCenterTest;
