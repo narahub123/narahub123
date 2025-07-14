@@ -59,7 +59,7 @@
 
 - `preserve-3d`, `backface-visibility` 속성을 이용한 카드 회전 애니메이션 구현
 
-- [메모리 게임 설명 보러가기](./src/features/MemoryGame/MemoryGame.md)
+<a href="./src/features/MemoryGame/MemoryGame.md" target="_blank">🚀 메모리 게임 설명 보러가기</a>
 
 ### 🧮 기능 2: 자바스크립트 함수 및 정규 표현식을 이용한 계산기
 
@@ -106,7 +106,7 @@
 
 ## 📦 배포 주소
 
-- 👉 [프로젝트 바로가기](https://narahub123.github.io/narahub123/){:target="\_blank"}
+- <a href="https://narahub123.github.io/narahub123/" target="_blank">🚀 프로젝트 바로가기</a>
 
 ---
 
