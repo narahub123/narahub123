@@ -1,7 +1,14 @@
 import "./App.css";
+import Color from "./pages/Color";
+import Tailwindcss from "./pages/Tailwindcss";
 
 function App() {
-  return <div className="bg-black/70">안녕</div>;
+  return (
+    <div>
+      <Tailwindcss />
+      <Color />
+    </div>
+  );
 }
 
 export default App;
