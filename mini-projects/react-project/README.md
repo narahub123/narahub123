@@ -106,7 +106,7 @@
 
 ## 📦 배포 주소
 
-- 👉 [프로젝트 바로가기](https://narahub123.github.io/narahub123/)
+- 👉 [프로젝트 바로가기](https://narahub123.github.io/narahub123/){:target="\_blank"}
 
 ---
 
