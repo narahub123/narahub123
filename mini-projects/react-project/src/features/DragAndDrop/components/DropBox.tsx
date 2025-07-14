@@ -21,6 +21,26 @@ export const DropBox: FC<DropBoxProps> = ({
 
   const MEGA_BYTE = 1048576;
 
+  const handleFilesWithPreview = (
+    files: File[],
+    setImages: React.Dispatch<React.SetStateAction<ImageType[]>>
+  ) => {
+    for (const file of files) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          setImages((prev) => [
+            ...prev,
+            { file, preview: e.target!.result as string },
+          ]);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   const isValidFiles = (
     files: File[],
     prevFiles: ImageType[],
@@ -113,7 +133,7 @@ export const DropBox: FC<DropBoxProps> = ({
 
     if (!isValidFiles(files, images, quantity, accept, size)) return;
 
-    // setImages((prev) => [...prev, ...files]);
+    handleFilesWithPreview(files, setImages);
 
     setIsIn((prev) => (prev !== false ? false : prev));
   };
@@ -131,7 +151,7 @@ export const DropBox: FC<DropBoxProps> = ({
 
     if (!isValidFiles(files, images, quantity, accept, size)) return;
 
-    // setImages(files);
+    handleFilesWithPreview(files, setImages);
   };
 
   return (
