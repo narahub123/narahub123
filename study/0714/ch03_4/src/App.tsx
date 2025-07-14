@@ -1,12 +1,14 @@
 import "./App.css";
 import DirectionTest from "./pages/DirectionTest";
 import JustifyCenterTest from "./pages/JustifyCenterTest";
+import UserContainer from "./pages/UserContainer";
 
 function App() {
   return (
     <main>
       {/* <DirectionTest /> */}
-      <JustifyCenterTest />
+      {/* <JustifyCenterTest /> */}
+      <UserContainer />
     </main>
   );
 }
