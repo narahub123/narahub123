@@ -1,12 +1,26 @@
-import { Title } from "../components/Texts";
+import { FC } from "react";
+import * as D from "../data";
+import { Avatar, Div, DivProps } from "../components";
 
-const CopyMe = () => {
+export type UserProps = DivProps & {
+  user: D.IUser;
+};
+
+const User: FC<UserProps> = ({ user, ...props }) => {
+  const { name, email, jobTitle, avatar } = user;
   return (
-    <section className="mt-4">
-      <Title>CopyMe</Title>
-      <div className="mt-4"></div>
-    </section>
+    <Div {...props}>
+      <div className="flex p-2">
+        <Avatar src={avatar} size="2rem" />
+        <div className="ml-2">
+          {/* font-bold : 폰트에 따라 지원 되는 것도 있고 안되는 것도 있음 주의 */}
+          <p className="font-bold">{name}</p>
+          <p className="text-gray-500 line-clamp-1">{jobTitle}</p>
+          <p className="text-blue-500 underline">{email}</p>
+        </div>
+      </div>
+    </Div>
   );
 };
 
-export default CopyMe;
+export default User;
