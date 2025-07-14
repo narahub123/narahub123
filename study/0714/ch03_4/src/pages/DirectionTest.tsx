@@ -1,0 +1,38 @@
+import { Subtitle, Title, Div } from "../components";
+import * as D from "../data";
+
+const DirectionTest = () => {
+  const boxes = D.range(1, 9 + 1).map((number) => {
+    return (
+      <p key={number} className={`border-2 border-blue-300 p-1 mt-1 ml-1`}>
+        {number}
+      </p>
+    );
+  });
+
+  return (
+    <section className="mt-4">
+      <Title>DirectionTest</Title>
+      <Div className="flex flex-row mt-4">
+        <Div className="mr-2">
+          <Subtitle>flex-row</Subtitle>
+          <Div className="flex flex-row p-4">{boxes}</Div>
+        </Div>
+        <Div className="mr-2">
+          <Subtitle>flex-row-reverse</Subtitle>
+          <Div className="flex flex-row-reverse p-4">{boxes}</Div>
+        </Div>
+        <Div className="mr-2">
+          <Subtitle>flex-column</Subtitle>
+          <Div className="flex flex-col p-4">{boxes}</Div>
+        </Div>
+        <Div className="mr-2">
+          <Subtitle>flex-column-reverse</Subtitle>
+          <Div className="flex flex-col-reverse p-4">{boxes}</Div>
+        </Div>
+      </Div>
+    </section>
+  );
+};
+
+export default DirectionTest;
