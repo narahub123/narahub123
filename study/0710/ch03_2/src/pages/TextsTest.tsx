@@ -1,5 +1,5 @@
-const CopyMe = () => {
-  return <div>CopyMe</div>;
+const TextsTest = () => {
+  return <div>TextsTest</div>;
 };
 
-export default CopyMe;
+export default TextsTest;
