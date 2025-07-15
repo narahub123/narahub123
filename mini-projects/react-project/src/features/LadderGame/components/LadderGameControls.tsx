@@ -1,3 +1,9 @@
+import { LadderGameInputs } from "./LadderGameInputs";
+
 export const LadderGameControls = () => {
-  return <div className="w-full"></div>;
+  return (
+    <div className="w-full">
+      <LadderGameInputs />
+    </div>
+  );
 };
