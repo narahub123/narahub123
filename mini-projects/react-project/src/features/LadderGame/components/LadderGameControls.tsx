@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { LadderGameInputs } from "./LadderGameInputs";
+import { LadderGameButtonContainer } from "./LadderGameButtonContainer";
 
 export type LadderGameControlsProps = {
   participants: number;
@@ -25,6 +26,7 @@ export const LadderGameControls: FC<LadderGameControlsProps> = ({
         handleWinnersChange={handleWinnersChange}
         disabled={disabled}
       />
+      <LadderGameButtonContainer />
     </div>
   );
 };
