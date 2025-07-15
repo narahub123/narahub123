@@ -18,7 +18,7 @@ export const cards: CardData[] = [
   {
     skill: "DFS/BFS",
     icon: "home",
-    name: "Ghost Leg",
+    name: "Ladder Game",
     height: 8,
   },
   {
