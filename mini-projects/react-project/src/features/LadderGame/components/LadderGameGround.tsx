@@ -1,6 +1,7 @@
 import { FC } from "react";
 import {
   LadderGameLadderContainer,
+  LadderGameResultsContainer,
   LadderGameSelectorsContainer,
 } from "../components";
 
@@ -23,6 +24,7 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
         isStarted={isStarted}
         participants={participants}
       />
+      <LadderGameResultsContainer />
     </div>
   );
 };
