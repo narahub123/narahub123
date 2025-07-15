@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { DropBox, ImagePreviewGrid } from "./components";
 import { ImageType } from "./types";
+import { useReposiveSize } from "../MemoryGame/hooks";
 
-export const DragAndDrop = () => {
+export const DragAndDrop = forwardRef<HTMLDivElement>(({}, ref) => {
   const [images, setImages] = useState<ImageType[]>([]);
   const [message, setMessage] = useState("");
 
   console.log(images);
+  const { width, height } = useReposiveSize({ aspectRatio: "100 / 200" });
 
   return (
-    <div className="w-[50%] p-4">
+    <div
+      className="p-4 bg-white rounded-xl"
+      style={{ height, width }}
+      ref={ref}
+    >
       <DropBox
         setImages={setImages}
         images={images}
@@ -19,4 +25,4 @@ export const DragAndDrop = () => {
       <ImagePreviewGrid images={images} />
     </div>
   );
-};
+});

@@ -1,7 +1,6 @@
 import {
   CSSProperties,
   ForwardRefExoticComponent,
-  ReactNode,
   RefAttributes,
   useEffect,
   useRef,
@@ -196,6 +195,7 @@ export const Dashboard = () => {
               setCloneStyle(null);
               setIsCentered(false);
               setOriginalCardRect(null);
+              componentRef.current = null;
               if (onComplete) onComplete();
             }, 300);
           },
