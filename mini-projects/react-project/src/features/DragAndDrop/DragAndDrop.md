@@ -97,7 +97,7 @@ export default App;
 
 ![Image](https://github.com/user-attachments/assets/02479081-d85e-4827-87fb-9e5731b00db1)
 
-![Image](https://github.com/user-attachments/assets/6e4f304f-b5e1-4f2c-9643-0b70d0bc9d31)
+![Image](https://github.com/user-attachments/assets/bbc04d53-4491-4692-a5cf-ceb717ef59ea)
 
-![Image](https://github.com/user-attachments/assets/e46ddd8a-ab02-45af-b6d5-dd6b1b6b475e)
+![Image](https://github.com/user-attachments/assets/c008efcf-38fc-4255-afee-f1b8db803fdd)
 ---
