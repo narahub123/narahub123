@@ -8,3 +8,4 @@ export * from "./LadderGameSelectorsContainer";
 export * from "./LadderGameSelector";
 export * from "./LadderGameLadderContainer";
 export * from "./LadderGameResultsContainer";
+export * from "./LadderGameResult";
