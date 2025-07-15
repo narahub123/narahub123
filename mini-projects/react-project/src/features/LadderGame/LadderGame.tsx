@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LadderGameControls } from "./components";
 
 export const LadderGame = () => {
   const [participants, setParticipants] = useState(1);
@@ -20,6 +21,7 @@ export const LadderGame = () => {
 
   return (
     <div className="flex flex-col items-center w-screen h-screen p-4">
+      <LadderGameControls />
       <div className="w-full">
         <div className="flex flex-row justify-center w-full gap-4">
           <div className="flex items-center justify-center w-full gap-4">
