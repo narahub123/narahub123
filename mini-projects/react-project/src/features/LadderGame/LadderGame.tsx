@@ -19,38 +19,21 @@ export const LadderGame = () => {
     setIsStarted((prev) => (prev === true ? false : prev));
   };
 
+  const handleParticipantsChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setParticipants(parseInt(e.target.value));
+  const handleWinnersChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setWinners(parseInt(e.target.value));
+
   return (
     <div className="flex flex-col items-center w-screen h-screen p-4">
-      <LadderGameControls />
+      <LadderGameControls
+        participants={participants}
+        winners={winners}
+        handleParticipantsChange={handleParticipantsChange}
+        handleWinnersChange={handleWinnersChange}
+        disabled={isStarted}
+      />
       <div className="w-full">
-        <div className="flex flex-row justify-center w-full gap-4">
-          <div className="flex items-center justify-center w-full gap-4">
-            <p>참여 인원</p>
-            <input
-              type="number"
-              min={1}
-              max={10}
-              className="p-2 border-2"
-              value={participants}
-              placeholder="참여자 수"
-              onChange={(e) => setParticipants(parseInt(e.target.value))}
-              disabled={isStarted}
-            />
-          </div>
-          <div className="flex items-center justify-center w-full gap-4">
-            <p>당첨 인원</p>
-            <input
-              type="number"
-              min={1}
-              max={participants}
-              className="p-2 border-2"
-              value={winners}
-              placeholder="당첨자 수"
-              onChange={(e) => setWinners(parseInt(e.target.value))}
-              disabled={isStarted}
-            />
-          </div>
-        </div>
         <div className="flex flex-row justify-between w-full mt-4">
           <button
             className="px-4 py-2 text-white bg-red-400 rounded-lg hover:bg-red-500"
