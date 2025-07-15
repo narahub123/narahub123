@@ -12,7 +12,11 @@ export const LadderGameResultsContainer: FC<
   return (
     <div className="flex flex-row w-full justify-evenly">
       {Array.from({ length: participants }).map((_, index) => (
-        <LadderGameResult index={index} isStarted={isStarted} />
+        <LadderGameResult
+          index={index}
+          isStarted={isStarted}
+          key={`result-${index}`}
+        />
       ))}
     </div>
   );
