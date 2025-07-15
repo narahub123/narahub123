@@ -8,7 +8,7 @@ export const DragAndDrop = () => {
   console.log(images);
 
   return (
-    <div className="w-[50%]">
+    <div className="w-[50%] p-4">
       <DropBox setImages={setImages} images={images} />
       <ImagePreviewGrid images={images} />
     </div>
