@@ -1,9 +1,12 @@
 import { FC, useRef, useState } from "react";
 import { ImageType } from "../types";
+import { InvalidMessage } from "./InvalidMessage";
 
 export type DropBoxProps = {
   images: ImageType[];
   setImages: React.Dispatch<React.SetStateAction<ImageType[]>>;
+  message: string;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
   quantity?: number;
   accept?: string;
   size?: number; // MB 단위
@@ -15,6 +18,8 @@ export const DropBox: FC<DropBoxProps> = ({
   quantity = 4,
   accept = "image/*",
   size = 5,
+  message,
+  setMessage,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isIn, setIsIn] = useState(false);
@@ -51,7 +56,7 @@ export const DropBox: FC<DropBoxProps> = ({
     const combinedFiles: any[] = [...prevFiles, ...files];
 
     if (!isValidFileQuantity(combinedFiles, quantity)) {
-      console.log("한도 초과");
+      setMessage(`최대 ${quantity}개까지 업로드 가능합니다.`);
 
       return false;
     }
@@ -61,7 +66,7 @@ export const DropBox: FC<DropBoxProps> = ({
     );
 
     if (inValidFiles.length > 0) {
-      console.log("맞지 않는 파일");
+      setMessage("맞지 않는 파일");
 
       return false;
     }
@@ -156,13 +161,14 @@ export const DropBox: FC<DropBoxProps> = ({
 
   return (
     <div
-      className="flex items-center justify-center w-full border-2 border-blue-400 border-dashed cursor-pointer aspect-square rounded-2xl"
+      className="relative flex items-center justify-center w-full border-2 border-blue-400 border-dashed cursor-pointer aspect-square rounded-2xl"
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onClick={handleClick}
     >
+      <InvalidMessage message={message} setMessage={setMessage} />
       <p>사진을 드래그하세요.</p>
       <input
         type="file"
