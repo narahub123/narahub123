@@ -1,4 +1,4 @@
-import { MemoryGame } from "../features";
+import { DragAndDrop, MemoryGame } from "../features";
 import { CardData } from "../types";
 
 export const cards: CardData[] = [
@@ -26,6 +26,7 @@ export const cards: CardData[] = [
     icon: "home",
     name: "Drag and Drop",
     height: 9,
+    component: DragAndDrop,
   },
   {
     skill: "Stack",
