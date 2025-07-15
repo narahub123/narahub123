@@ -66,8 +66,6 @@ export const DropBox: FC<DropBoxProps> = ({
     );
 
     if (inValidFiles.length > 0) {
-      setMessage("맞지 않는 파일");
-
       return false;
     }
 
@@ -104,12 +102,17 @@ export const DropBox: FC<DropBoxProps> = ({
       }
     }
 
+    setMessage("형식에 맞지 않은 파일입니다.");
     return false;
   };
 
   // 파일 크기 검사
   const isValidFileSize = (file: File, size: number): boolean => {
     const fileSize = file.size;
+
+    if (fileSize > size * MEGA_BYTE) {
+      setMessage(`${size}MB이상은 올릴 수 없습니다.`);
+    }
 
     return fileSize <= size * MEGA_BYTE;
   };
