@@ -1,9 +1,19 @@
 import { FC } from "react";
+import { LadderGameSelector } from "./LadderGameSelector";
 
-export type LadderGameSelectorsContainerProps = {};
+export type LadderGameSelectorsContainerProps = {
+  isStarted: boolean;
+  participants: number;
+};
 
 export const LadderGameSelectorsContainer: FC<
   LadderGameSelectorsContainerProps
-> = ({}) => {
-  return <div className="flex flex-row w-full justify-evenly"></div>;
+> = ({ isStarted, participants }) => {
+  return (
+    <div className="flex flex-row w-full justify-evenly">
+      {Array.from({ length: participants }).map((_, index) => (
+        <LadderGameSelector index={index} isStarted={isStarted} />
+      ))}
+    </div>
+  );
 };
