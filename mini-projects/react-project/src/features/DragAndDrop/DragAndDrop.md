@@ -93,11 +93,15 @@ export default App;
 ---
 
 ## 🖥️ 예시 이미지
+드래그 앤 드롭을 했을 때 미리보기 구현 
 ![Image](https://github.com/user-attachments/assets/c1d05cfc-c4ab-4b44-85be-e0fa39b1224f)
 
+파일 개수가 정해진 개수를 초과한 경우 메시지 
 ![Image](https://github.com/user-attachments/assets/02479081-d85e-4827-87fb-9e5731b00db1)
 
+파일 형식에 맞지 않을 때의 메시지
 ![Image](https://github.com/user-attachments/assets/bbc04d53-4491-4692-a5cf-ceb717ef59ea)
 
+파일 크기가 정해진 크기보다 큰 경우의 메시지
 ![Image](https://github.com/user-attachments/assets/c008efcf-38fc-4255-afee-f1b8db803fdd)
 ---
