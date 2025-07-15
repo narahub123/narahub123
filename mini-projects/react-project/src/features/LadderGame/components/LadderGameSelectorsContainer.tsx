@@ -12,7 +12,11 @@ export const LadderGameSelectorsContainer: FC<
   return (
     <div className="flex flex-row w-full justify-evenly">
       {Array.from({ length: participants }).map((_, index) => (
-        <LadderGameSelector index={index} isStarted={isStarted} />
+        <LadderGameSelector
+          index={index}
+          isStarted={isStarted}
+          key={`selector-${index}`}
+        />
       ))}
     </div>
   );

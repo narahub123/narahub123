@@ -27,7 +27,7 @@ export const LadderGameButtonContainer: FC<LadderGameButtonContainerProps> = ({
   return (
     <div className="flex flex-row justify-between w-full mt-4">
       {buttons.map((button) => (
-        <div>
+        <div key={button.text}>
           <LadderGameButton button={button} />
         </div>
       ))}

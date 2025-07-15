@@ -41,6 +41,7 @@ export const LadderGameInputs: FC<LadderGameInputsProps> = ({
             onChange={onChange}
             disabled={disabled}
             max={max}
+            key={label}
           />
         );
       })}
