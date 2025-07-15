@@ -2,6 +2,7 @@ import { forwardRef, useState } from "react";
 import { DropBox, ImagePreviewGrid } from "./components";
 import { ImageType } from "./types";
 import { useReposiveSize } from "../MemoryGame/hooks";
+import { getRandomColor } from "../../utils";
 
 export const DragAndDrop = forwardRef<HTMLDivElement>(({}, ref) => {
   const [images, setImages] = useState<ImageType[]>([]);
@@ -13,7 +14,7 @@ export const DragAndDrop = forwardRef<HTMLDivElement>(({}, ref) => {
   return (
     <div
       className="p-4 bg-white rounded-xl"
-      style={{ height, width }}
+      style={{ height, width, backgroundColor: getRandomColor() }}
       ref={ref}
     >
       <DropBox
