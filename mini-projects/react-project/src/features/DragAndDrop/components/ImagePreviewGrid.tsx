@@ -7,7 +7,7 @@ export type ImagePreviewGridProps = {
 
 export const ImagePreviewGrid: FC<ImagePreviewGridProps> = ({ images }) => {
   return (
-    <div className="grid w-full grid-cols-2">
+    <div className="grid w-full grid-cols-2 mt-4 overflow-y-auto aspect-square">
       {images.map((image, index) => (
         <img key={`preview ${index}`} src={image.preview} className="w-fulll" />
       ))}
