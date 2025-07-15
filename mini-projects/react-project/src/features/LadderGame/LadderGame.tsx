@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LadderGameControls } from "./components";
+import { LadderGameControls, LadderGameGround } from "./components";
 
 export const LadderGame = () => {
   const [participants, setParticipants] = useState(1);
@@ -36,7 +36,7 @@ export const LadderGame = () => {
         initializeData={initializeData}
         disabled={isStarted}
       />
-
+      <LadderGameGround />
       <div className="flex flex-col w-full gap-4 mt-4">
         <div className="flex flex-row w-full justify-evenly">
           {Array.from({ length: participants }).map((_, index) => (
