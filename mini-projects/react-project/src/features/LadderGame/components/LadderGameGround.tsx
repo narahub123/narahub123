@@ -24,7 +24,10 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
         isStarted={isStarted}
         participants={participants}
       />
-      <LadderGameResultsContainer />
+      <LadderGameResultsContainer
+        isStarted={isStarted}
+        participants={participants}
+      />
     </div>
   );
 };

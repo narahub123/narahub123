@@ -37,55 +37,6 @@ export const LadderGame = () => {
         disabled={isStarted}
       />
       <LadderGameGround isStarted={isStarted} participants={participants} />
-      <div className="flex flex-col w-full gap-4 mt-4">
-        <div className="flex flex-row w-full justify-evenly">
-          {Array.from({ length: participants }).map((_, index) => (
-            <div
-              className="relative w-10 aspect-square"
-              key={`participant-${index}`}
-            >
-              <button
-                className={`absolute top-0 left-0 w-10 border-2 rounded-full aspect-square ${
-                  isStarted ? "hover:scale-110" : ""
-                }`}
-                disabled={!isStarted} // 시작전에는 클릭 금지
-              >
-                {index + 1}
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="w-full h-[300px] relative">
-          <div
-            className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 ${
-              isStarted ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <div className="flex flex-row w-full h-full justify-evenly">
-            {Array.from({ length: participants }).map((_, index) => (
-              <div
-                className="flex items-center justify-center w-10 h-full border-2"
-                key={`ladder-${index}`}
-              >
-                {index + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-row w-full justify-evenly">
-          {Array.from({ length: participants }).map((_, index) => (
-            // 게임이 시작되면 당첨과 꽝으로 변경되어야 함
-            // transition 적용 가능? 두 컴포넌트 사이의 overlay
-            // 위의 버튼 처럼 wrapper 필요함
-            <div
-              className="flex items-center justify-center w-10 border-2 rounded-full aspect-square"
-              key={`winner-${index}`}
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
