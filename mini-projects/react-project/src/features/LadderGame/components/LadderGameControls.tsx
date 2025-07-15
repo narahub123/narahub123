@@ -7,6 +7,8 @@ export type LadderGameControlsProps = {
   winners: number;
   handleParticipantsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleWinnersChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleGameStart: () => void;
+  initializeData: () => void;
   disabled: boolean;
 };
 
@@ -15,6 +17,8 @@ export const LadderGameControls: FC<LadderGameControlsProps> = ({
   winners,
   handleParticipantsChange,
   handleWinnersChange,
+  handleGameStart,
+  initializeData,
   disabled,
 }) => {
   return (
@@ -26,7 +30,10 @@ export const LadderGameControls: FC<LadderGameControlsProps> = ({
         handleWinnersChange={handleWinnersChange}
         disabled={disabled}
       />
-      <LadderGameButtonContainer />
+      <LadderGameButtonContainer
+        handleGameStart={handleGameStart}
+        initializeData={initializeData}
+      />
     </div>
   );
 };
