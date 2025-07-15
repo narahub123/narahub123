@@ -1,5 +1,8 @@
 import { FC } from "react";
-import { LadderGameSelectorsContainer } from "./LadderGameSelectorsContainer";
+import {
+  LadderGameLadderContainer,
+  LadderGameSelectorsContainer,
+} from "../components";
 
 export type LadderGameGroundProps = {
   isStarted: boolean;
@@ -13,6 +16,10 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
   return (
     <div className="flex flex-col w-full gap-4 mt-4">
       <LadderGameSelectorsContainer
+        isStarted={isStarted}
+        participants={participants}
+      />
+      <LadderGameLadderContainer
         isStarted={isStarted}
         participants={participants}
       />
