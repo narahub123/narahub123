@@ -4,7 +4,12 @@ export type LadderGameButtonType = {
   color: "primary" | "warning";
 };
 
-export type SelectorPosition = {
+export type Position = {
   centerX: number;
   centerY: number;
+};
+
+export type BridgePos = {
+  from: Position;
+  to: Position;
 };
