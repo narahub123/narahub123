@@ -35,7 +35,7 @@ function App() {
         </button>
         <span>{count}</span>
         <button className="p-4 m-4 bg-blue-500" onClick={countDown}>
-          카운트 증가
+          카운트 감소
         </button>
       </div>
       <div>
