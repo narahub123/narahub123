@@ -3,10 +3,10 @@
 // import { ProductListPage } from "./pages";
 
 import { useState } from "react";
-import { ApplyScrapPage, QuotationPage } from "./pages";
+import { ApplyScrapPage, QuotationPage, ScrapCompletePage } from "./pages";
 
 function App() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   // return <GreetingPage />;
   // return <ProductListPage />;
   return (
@@ -15,6 +15,8 @@ function App() {
         <ApplyScrapPage />
       ) : step === 1 ? (
         <QuotationPage />
+      ) : step === 2 ? (
+        <ScrapCompletePage />
       ) : (
         <div></div>
       )}
