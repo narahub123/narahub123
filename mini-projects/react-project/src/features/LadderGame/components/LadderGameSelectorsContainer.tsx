@@ -5,15 +5,16 @@ import { SelectorPosition } from "../types";
 export type LadderGameSelectorsContainerProps = {
   isStarted: boolean;
   participants: number;
+  selectorPositions: SelectorPosition[];
+  setSelectorPositions: React.Dispatch<
+    React.SetStateAction<SelectorPosition[]>
+  >;
 };
 
 export const LadderGameSelectorsContainer: FC<
   LadderGameSelectorsContainerProps
-> = ({ isStarted, participants }) => {
+> = ({ isStarted, participants, selectorPositions, setSelectorPositions }) => {
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [selectorPositions, setSelectorPositions] = useState<
-    SelectorPosition[]
-  >([]);
 
   useEffect(() => {
     const getSelectorPositions = () => {
