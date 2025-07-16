@@ -1,14 +1,14 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, forwardRef, useEffect, useRef } from "react";
 
 export type LadderGameSelectorProps = {
   index: number;
   isStarted: boolean;
 };
 
-export const LadderGameSelector: FC<LadderGameSelectorProps> = ({
-  index,
-  isStarted,
-}) => {
+export const LadderGameSelector = forwardRef<
+  HTMLButtonElement,
+  LadderGameSelectorProps
+>(({ index, isStarted }, ref) => {
   return (
     <div className="relative w-10 aspect-square" key={`participant-${index}`}>
       <button
@@ -16,9 +16,10 @@ export const LadderGameSelector: FC<LadderGameSelectorProps> = ({
           isStarted ? "hover:scale-110" : ""
         }`}
         disabled={!isStarted} // 시작전에는 클릭 금지
+        ref={ref}
       >
         {index + 1}
       </button>
     </div>
   );
-};
+});
