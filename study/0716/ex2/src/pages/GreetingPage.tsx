@@ -1,4 +1,4 @@
-import GreetingList from "../components/GreetingList";
+import { GreetingList } from "../components";
 
 const GreetingPage = () => {
   return (

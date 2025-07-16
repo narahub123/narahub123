@@ -1,4 +1,4 @@
-import { welcomeMessage } from "../data/messages";
+import { welcomeMessage } from "../data";
 
 const GreetingList = () => {
   return (
