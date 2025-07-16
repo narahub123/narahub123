@@ -1,23 +1,21 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { LadderGameSelector } from "./LadderGameSelector";
-import { SelectorPosition } from "../types";
+import { Position } from "../types";
 
 export type LadderGameSelectorsContainerProps = {
   isStarted: boolean;
   participants: number;
-  selectorPositions: SelectorPosition[];
-  setSelectorPositions: React.Dispatch<
-    React.SetStateAction<SelectorPosition[]>
-  >;
+  selectorPositions: Position[];
+  setPositions: React.Dispatch<React.SetStateAction<Position[]>>;
 };
 
 export const LadderGameSelectorsContainer: FC<
   LadderGameSelectorsContainerProps
-> = ({ isStarted, participants, selectorPositions, setSelectorPositions }) => {
+> = ({ isStarted, participants, selectorPositions, setPositions }) => {
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
-    const getSelectorPositions = () => {
+    const getPositions = () => {
       if (!selectorRefs.current) return;
 
       const selectors = selectorRefs.current;
@@ -37,14 +35,14 @@ export const LadderGameSelectorsContainer: FC<
           };
         });
 
-      setSelectorPositions(selectorPositions);
+      setPositions(selectorPositions);
     };
 
-    getSelectorPositions();
+    getPositions();
 
-    window.addEventListener("resize", getSelectorPositions);
+    window.addEventListener("resize", getPositions);
 
-    return () => window.removeEventListener("resize", getSelectorPositions);
+    return () => window.removeEventListener("resize", getPositions);
   }, [participants, selectorRefs.current]);
 
   console.log(selectorPositions);
