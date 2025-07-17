@@ -24,6 +24,8 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
   const [selected, setSelected] = useState(-1);
 
+  const [paths, setPaths] = useState<Position[]>([]);
+
   useEffect(() => {
     if (selectorPositions.length === 0) return;
 
@@ -84,11 +86,8 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
     const paths: Position[] = [];
 
-    console.log(selected);
-
     const getPaths = () => {
       const startPoint: Position = selectorPositions[selected];
-      console.log(startPoint);
 
       paths.push({ centerX: startPoint.centerX, centerY: 0 });
 
@@ -104,8 +103,6 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
             position.centerX === next!.centerX
         );
 
-        console.log(next);
-
         if (!next) {
           paths.push({
             centerX: paths[paths.length - 1].centerX,
@@ -114,8 +111,6 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
           next = undefined;
           break;
         }
-
-        console.log(next);
 
         paths.push(next);
 
@@ -131,7 +126,7 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
     getPaths();
 
-    console.log(paths);
+    setPaths(paths);
   }, [selected]);
 
   return (
@@ -148,6 +143,7 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
         participants={participants}
         selectorPositions={selectorPositions}
         bridges={bridges}
+        paths={paths}
       />
       <LadderGameResultsContainer
         isStarted={isStarted}

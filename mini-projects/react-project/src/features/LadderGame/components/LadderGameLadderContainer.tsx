@@ -7,6 +7,7 @@ export type LadderGameLadderContainerProps = {
   participants: number;
   selectorPositions: Position[];
   bridges: BridgePos[];
+  paths: Position[];
 };
 
 export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
@@ -14,6 +15,7 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
   participants,
   selectorPositions,
   bridges,
+  paths,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -69,10 +71,18 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         ctx.stroke();
       }
     }
-
     draw();
     drawBridge();
   }, [selectorPositions, participants, bridges]);
+
+  useEffect(() => {
+    if (paths.length === 0) return;
+    console.log(paths);
+
+    function drawPath() {}
+
+    drawPath();
+  }, [paths]);
 
   const ladderHeight = `h-[${LADDER_HEIGHT}]px`;
 
