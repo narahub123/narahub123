@@ -74,8 +74,6 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
     drawBridge();
   }, [selectorPositions, participants, bridges]);
 
-  console.log(bridges);
-
   const ladderHeight = `h-[${LADDER_HEIGHT}]px`;
 
   return (
