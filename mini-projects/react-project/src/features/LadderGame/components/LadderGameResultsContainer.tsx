@@ -4,11 +4,12 @@ import { LadderGameResult } from "./LadderGameResult";
 export type LadderGameResultsContainerProps = {
   participants: number;
   isStarted: boolean;
+  winners: boolean[];
 };
 
 export const LadderGameResultsContainer: FC<
   LadderGameResultsContainerProps
-> = ({ participants, isStarted }) => {
+> = ({ participants, isStarted, winners }) => {
   return (
     <div className="flex flex-row w-full justify-evenly">
       {Array.from({ length: participants }).map((_, index) => (
@@ -16,6 +17,7 @@ export const LadderGameResultsContainer: FC<
           index={index}
           isStarted={isStarted}
           key={`result-${index}`}
+          isWinner={winners[index]}
         />
       ))}
     </div>
