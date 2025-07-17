@@ -10,11 +10,13 @@ import { BRIDGES_MAX, LADDER_HEIGHT } from "../constants";
 export type LadderGameGroundProps = {
   isStarted: boolean;
   participants: number;
+  winners: boolean[];
 };
 
 export const LadderGameGround: FC<LadderGameGroundProps> = ({
   isStarted,
   participants,
+  winners,
 }) => {
   const [selectorPositions, setSelectorPositions] = useState<Position[]>([]);
 
@@ -148,6 +150,7 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
       <LadderGameResultsContainer
         isStarted={isStarted}
         participants={participants}
+        winners={winners}
       />
     </div>
   );

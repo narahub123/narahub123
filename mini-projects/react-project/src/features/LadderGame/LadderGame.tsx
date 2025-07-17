@@ -58,7 +58,11 @@ export const LadderGame = () => {
         initializeData={initializeData}
         disabled={isStarted}
       />
-      <LadderGameGround isStarted={isStarted} participants={participants} />
+      <LadderGameGround
+        isStarted={isStarted}
+        participants={participants}
+        winners={winners}
+      />
     </div>
   );
 };
