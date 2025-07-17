@@ -56,8 +56,8 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         ctx.lineWidth = 3;
         ctx.strokeStyle = "#777";
         ctx.beginPath();
-        ctx.moveTo(centerX - 18, 0);
-        ctx.lineTo(centerX - 18, 300);
+        ctx.moveTo(centerX, 0);
+        ctx.lineTo(centerX, 300);
         ctx.stroke();
       }
     }
@@ -68,8 +68,8 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         ctx.lineWidth = 3;
         ctx.strokeStyle = "#777";
         ctx.beginPath();
-        ctx.moveTo(from.centerX - 18, from.centerY);
-        ctx.lineTo(to.centerX - 18, to.centerY);
+        ctx.moveTo(from.centerX, from.centerY);
+        ctx.lineTo(to.centerX, to.centerY);
         ctx.stroke();
       }
     }
@@ -102,9 +102,9 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         const path = paths[i];
 
         if (i === 0) {
-          ctx.moveTo(path.centerX - 18, path.centerY);
+          ctx.moveTo(path.centerX, path.centerY);
         } else {
-          ctx.lineTo(path.centerX - 18, path.centerY);
+          ctx.lineTo(path.centerX, path.centerY);
         }
       }
 
@@ -118,13 +118,13 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
 
   return (
     <div className={`w-full ${ladderHeight} relative`} ref={containerRef}>
-      {/* <div
-        className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 ${
+      <div
+        className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 z-10 ${
           isStarted ? "opacity-0" : "opacity-100"
         }`}
-      /> */}
+      />
       <canvas
-        className={`flex flex-row w-full h-full justify-evenly`}
+        className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
         style={{
           width: `${rect?.width}`,
           height: `${rect?.height}`,
