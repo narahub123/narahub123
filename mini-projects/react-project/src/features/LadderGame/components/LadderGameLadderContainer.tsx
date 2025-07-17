@@ -19,6 +19,8 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pathRef = useRef<HTMLCanvasElement>(null);
+
   const [rect, setRect] = useState<{ width: number; height: number } | null>(
     null
   );
@@ -78,8 +80,36 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
   useEffect(() => {
     if (paths.length === 0) return;
     console.log(paths);
+    if (!pathRef.current) return;
+    const canvas = pathRef.current;
+    const ctx = pathRef.current?.getContext("2d")!;
 
-    function drawPath() {}
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    function drawPath() {
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "red";
+
+      ctx.beginPath();
+
+      for (let i = 0; i < paths.length; i++) {
+        const path = paths[i];
+
+        if (i === 0) {
+          ctx.moveTo(path.centerX - 18, path.centerY);
+        } else {
+          ctx.lineTo(path.centerX - 18  , path.centerY);
+        }
+      }
+
+      ctx.stroke();
+    }
 
     drawPath();
   }, [paths]);
@@ -100,6 +130,14 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
           height: `${rect?.height}`,
         }}
         ref={canvasRef}
+      ></canvas>
+      <canvas
+        className="absolute top-0 left-0 flex flex-row w-full h-full justify-evenly"
+        style={{
+          width: `${rect?.width}`,
+          height: `${rect?.height}`,
+        }}
+        ref={pathRef}
       ></canvas>
     </div>
   );
