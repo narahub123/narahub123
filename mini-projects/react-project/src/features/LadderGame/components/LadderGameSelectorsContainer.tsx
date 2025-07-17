@@ -36,6 +36,8 @@ export const LadderGameSelectorsContainer: FC<
           const centerX = left + width / 2;
           const centerY = top + height / 2;
 
+          console.log(centerX, centerY);
+
           return {
             centerX,
             centerY,

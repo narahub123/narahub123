@@ -1,4 +1,4 @@
-import { DragAndDrop, MemoryGame } from "../features";
+import { DragAndDrop, LadderGame, MemoryGame } from "../features";
 import { CardData } from "../types";
 
 export const cards: CardData[] = [
@@ -20,6 +20,7 @@ export const cards: CardData[] = [
     icon: "home",
     name: "Ladder Game",
     height: 8,
+    component: LadderGame,
   },
   {
     skill: "Drag Event",
