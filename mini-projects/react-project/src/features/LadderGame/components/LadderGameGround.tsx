@@ -16,9 +16,13 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
   isStarted,
   participants,
 }) => {
-  const [selectorPositions, setPositions] = useState<Position[]>([]);
+  const [selectorPositions, setSelectorPositions] = useState<Position[]>([]);
 
   const [bridges, setBridges] = useState<BridgePos[]>([]);
+
+  const [positions, setPositions] = useState<Position[]>([]);
+
+  const [selected, setSelected] = useState(-1);
 
   useEffect(() => {
     if (selectorPositions.length === 0) return;
@@ -58,13 +62,86 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
     setBridges(bridges);
   }, [selectorPositions]);
 
+  // 데이터 정리
+  useEffect(() => {
+    let positions: Position[] = [];
+    for (let i = 0; i < bridges.length; i++) {
+      const posis = Object.values(bridges[i]);
+
+      positions.push(...posis);
+    }
+
+    positions = positions
+      .sort((a: Position, b: Position) => a.centerY - b.centerY)
+      .sort((a: Position, b: Position) => a.centerX - b.centerX);
+
+    setPositions(positions);
+  }, [bridges]);
+
+  // 길찾기
+  useEffect(() => {
+    if (selected < 0) return;
+
+    const paths: Position[] = [];
+
+    console.log(selected);
+
+    const getPaths = () => {
+      const startPoint: Position = selectorPositions[selected];
+      console.log(startPoint);
+
+      paths.push({ centerX: startPoint.centerX, centerY: 0 });
+
+      let next: Position | undefined = {
+        centerX: startPoint.centerX,
+        centerY: 0,
+      };
+
+      while (next) {
+        next = positions.find(
+          (position) =>
+            next!.centerY < position.centerY &&
+            position.centerX === next!.centerX
+        );
+
+        console.log(next);
+
+        if (!next) {
+          paths.push({
+            centerX: paths[paths.length - 1].centerX,
+            centerY: 300,
+          });
+          next = undefined;
+          break;
+        }
+
+        console.log(next);
+
+        paths.push(next);
+
+        next = positions.find(
+          (position) =>
+            next?.centerX !== position.centerX &&
+            next?.centerY === position.centerY
+        )!;
+
+        paths.push(next);
+      }
+    };
+
+    getPaths();
+
+    console.log(paths);
+  }, [selected]);
+
   return (
     <div className="flex flex-col w-full gap-4 mt-4">
       <LadderGameSelectorsContainer
         isStarted={isStarted}
         participants={participants}
         selectorPositions={selectorPositions}
-        setPositions={setPositions}
+        setSelectorPositions={setSelectorPositions}
+        setSelected={setSelected}
       />
       <LadderGameLadderContainer
         isStarted={isStarted}

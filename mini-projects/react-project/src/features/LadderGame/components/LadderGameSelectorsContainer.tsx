@@ -6,12 +6,19 @@ export type LadderGameSelectorsContainerProps = {
   isStarted: boolean;
   participants: number;
   selectorPositions: Position[];
-  setPositions: React.Dispatch<React.SetStateAction<Position[]>>;
+  setSelectorPositions: React.Dispatch<React.SetStateAction<Position[]>>;
+  setSelected: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const LadderGameSelectorsContainer: FC<
   LadderGameSelectorsContainerProps
-> = ({ isStarted, participants, selectorPositions, setPositions }) => {
+> = ({
+  isStarted,
+  participants,
+  selectorPositions,
+  setSelectorPositions,
+  setSelected,
+}) => {
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
@@ -35,7 +42,7 @@ export const LadderGameSelectorsContainer: FC<
           };
         });
 
-      setPositions(selectorPositions);
+      setSelectorPositions(selectorPositions);
     };
 
     getPositions();
@@ -44,8 +51,6 @@ export const LadderGameSelectorsContainer: FC<
 
     return () => window.removeEventListener("resize", getPositions);
   }, [participants, selectorRefs.current]);
-
-  console.log(selectorPositions);
 
   return (
     <div className="flex flex-row w-full justify-evenly">
@@ -57,6 +62,7 @@ export const LadderGameSelectorsContainer: FC<
           ref={(el: HTMLButtonElement | null) => {
             selectorRefs.current[index] = el;
           }}
+          setSelected={setSelected}
         />
       ))}
     </div>
