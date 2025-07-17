@@ -1,12 +1,15 @@
 import { useContext } from "react";
-import { ThemeContext } from "../contexts";
+import { LanguageContext, ThemeContext } from "../contexts";
+import { languageData } from "../data";
 
 const Content = () => {
   const context = useContext(ThemeContext);
+  const context1 = useContext(LanguageContext);
 
-  if (!context) throw new Error("Provider 설치 확인해랴");
+  if (!context || !context1) throw new Error("Provider 설치 확인해랴");
 
   const { theme } = context;
+  const { language } = context1;
 
   return (
     <main
@@ -17,7 +20,7 @@ const Content = () => {
       }}
       className="flex items-center justify-center h-full"
     >
-      <p>현재 테마 : {theme}</p>
+      <p>{`${languageData[language].curTheme} : ${languageData[language][theme]}`}</p>
     </main>
   );
 };
