@@ -296,7 +296,7 @@ export const Dashboard = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen p-4 overflow-hidden"
+      className="relative w-full h-screen p-4 overflow-auto"
       onClick={handleContainerClick}
     >
       <Masonry>

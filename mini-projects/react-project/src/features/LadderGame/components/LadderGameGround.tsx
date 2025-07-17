@@ -71,8 +71,6 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
         bridges.push({ from, to });
       }
-
-      console.log(yPositions);
     }
 
     setBridges(bridges);
