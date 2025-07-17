@@ -1,3 +1,4 @@
 import useUserContext from "./useUserContext";
+import useThemeContext from "./useThemeContext";
 
-export { useUserContext };
+export { useUserContext, useThemeContext };

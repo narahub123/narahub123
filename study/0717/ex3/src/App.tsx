@@ -1,10 +1,13 @@
-import { ContextTest, RefTest } from "./pages";
+import { Header } from "./components";
+import { ThemeProvider } from "./contexts";
+import { ContextTest, RefTest, ThemeTest } from "./pages";
 
 function App() {
   return (
     <>
+      <ThemeTest />
       {/* <RefTest /> */}
-      <ContextTest />
+      {/* <ContextTest /> */}
     </>
   );
 }
