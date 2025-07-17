@@ -28,6 +28,7 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
   const [paths, setPaths] = useState<Position[]>([]);
 
+  // 다리 생성 하기
   useEffect(() => {
     if (selectorPositions.length === 0) return;
 
@@ -37,15 +38,24 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
       // 랜덤 다리 개수 생성
       const numOfBridges = Math.floor(Math.random() * (BRIDGES_MAX - 1) + 1);
 
-      const yPositions: number[] = [];
+      const froms = bridges.map((b) => b.from.centerY);
+
+      const yPositions: number[] = [...froms];
 
       // 랜덤 다리를 기반으로 시작점과 종료 점의 생성
       // x 위치는 정해져 있기 때문에 y만 생성하면 됨
       for (let j = 0; j < numOfBridges; j++) {
-        let yPosition = Math.random() * LADDER_HEIGHT;
+        // y 위치가 0 ~ 300 이었는데 20 ~ 280으로 변경함
+        let yPosition = Math.random() * (LADDER_HEIGHT - 40) + 20;
+
+        let attempts = 0;
+        const MAX_ATTEMPTS = 100;
 
         while (yPositions.some((y) => Math.abs(y - yPosition) < 20)) {
-          yPosition = Math.random() * LADDER_HEIGHT;
+          yPosition = Math.random() * (LADDER_HEIGHT - 40) + 20;
+          attempts++;
+
+          if (attempts > MAX_ATTEMPTS) break;
         }
 
         yPositions.push(yPosition);
@@ -61,6 +71,8 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
         bridges.push({ from, to });
       }
+
+      console.log(yPositions);
     }
 
     setBridges(bridges);
