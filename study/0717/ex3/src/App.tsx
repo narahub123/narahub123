@@ -1,9 +1,10 @@
-import { RefTest } from "./pages";
+import { ContextTest, RefTest } from "./pages";
 
 function App() {
   return (
     <>
-      <RefTest />
+      {/* <RefTest /> */}
+      <ContextTest />
     </>
   );
 }
