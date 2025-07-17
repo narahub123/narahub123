@@ -104,7 +104,7 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         if (i === 0) {
           ctx.moveTo(path.centerX - 18, path.centerY);
         } else {
-          ctx.lineTo(path.centerX - 18  , path.centerY);
+          ctx.lineTo(path.centerX - 18, path.centerY);
         }
       }
 
@@ -114,7 +114,7 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
     drawPath();
   }, [paths]);
 
-  const ladderHeight = `h-[${LADDER_HEIGHT}]px`;
+  const ladderHeight = `h-[${LADDER_HEIGHT}px]`;
 
   return (
     <div className={`w-full ${ladderHeight} relative`} ref={containerRef}>
@@ -124,7 +124,7 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         }`}
       /> */}
       <canvas
-        className="flex flex-row w-full h-full justify-evenly"
+        className={`flex flex-row w-full h-full justify-evenly`}
         style={{
           width: `${rect?.width}`,
           height: `${rect?.height}`,
@@ -132,7 +132,7 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
         ref={canvasRef}
       ></canvas>
       <canvas
-        className="absolute top-0 left-0 flex flex-row w-full h-full justify-evenly"
+        className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
         style={{
           width: `${rect?.width}`,
           height: `${rect?.height}`,
