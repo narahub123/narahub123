@@ -3,7 +3,7 @@ import { LadderGameInput } from "./LadderGameInput";
 
 export type LadderGameInputsProps = {
   participants: number;
-  winners: number;
+  numOfWinners: number;
   handleParticipantsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleWinnersChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled: boolean;
@@ -11,7 +11,7 @@ export type LadderGameInputsProps = {
 
 export const LadderGameInputs: FC<LadderGameInputsProps> = ({
   participants,
-  winners,
+  numOfWinners,
   handleParticipantsChange,
   handleWinnersChange,
   disabled,
@@ -24,7 +24,7 @@ export const LadderGameInputs: FC<LadderGameInputsProps> = ({
     },
     {
       label: "당첨 인원",
-      value: winners,
+      value: numOfWinners,
       onChange: handleWinnersChange,
       max: participants,
     },

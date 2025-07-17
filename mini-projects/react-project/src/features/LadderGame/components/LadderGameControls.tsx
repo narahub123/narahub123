@@ -4,7 +4,7 @@ import { LadderGameButtonContainer } from "./LadderGameButtonContainer";
 
 export type LadderGameControlsProps = {
   participants: number;
-  winners: number;
+  numOfWinners: number;
   handleParticipantsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleWinnersChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleGameStart: () => void;
@@ -14,7 +14,7 @@ export type LadderGameControlsProps = {
 
 export const LadderGameControls: FC<LadderGameControlsProps> = ({
   participants,
-  winners,
+  numOfWinners,
   handleParticipantsChange,
   handleWinnersChange,
   handleGameStart,
@@ -25,7 +25,7 @@ export const LadderGameControls: FC<LadderGameControlsProps> = ({
     <div className="w-full">
       <LadderGameInputs
         participants={participants}
-        winners={winners}
+        numOfWinners={numOfWinners}
         handleParticipantsChange={handleParticipantsChange}
         handleWinnersChange={handleWinnersChange}
         disabled={disabled}

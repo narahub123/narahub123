@@ -3,19 +3,41 @@ import { LadderGameControls, LadderGameGround } from "./components";
 
 export const LadderGame = () => {
   const [participants, setParticipants] = useState(1);
-  const [winners, setWinners] = useState(1);
+  const [numOfWinners, setNumOfWinners] = useState(1);
+  const [winners, setWinnners] = useState<boolean[]>([]);
   const [isStarted, setIsStarted] = useState(false);
+
+  const generateWinners = () => {
+    const arr = Array.from({ length: participants }).map(Boolean);
+
+    let i = 0;
+
+    while (arr.filter((b) => b === true).length < numOfWinners) {
+      const result = Math.floor(Math.random() * 2);
+
+      arr[i] = result === 0 ? false : true;
+
+      if (i === arr.length - 1) {
+        i = 0;
+      } else {
+        i++;
+      }
+    }
+
+    setWinnners(arr);
+  };
 
   // 게임 시작 시
   // 장막 제거
   // 당첨 번호 뽑기
   const handleGameStart = () => {
     setIsStarted((prev) => (prev === false ? true : prev));
+    generateWinners();
   };
 
   const initializeData = () => {
     setParticipants(1);
-    setWinners(1);
+    setNumOfWinners(1);
     setIsStarted((prev) => (prev === true ? false : prev));
   };
 
@@ -23,13 +45,13 @@ export const LadderGame = () => {
     setParticipants(parseInt(e.target.value));
 
   const handleWinnersChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setWinners(parseInt(e.target.value));
+    setNumOfWinners(parseInt(e.target.value));
 
   return (
     <div className="flex flex-col items-center w-screen h-screen p-4">
       <LadderGameControls
         participants={participants}
-        winners={winners}
+        numOfWinners={numOfWinners}
         handleParticipantsChange={handleParticipantsChange}
         handleWinnersChange={handleWinnersChange}
         handleGameStart={handleGameStart}
