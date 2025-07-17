@@ -3,7 +3,9 @@ import { useRef } from "react";
 const MyComponent = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const focusInput = () => {};
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
 
   return (
     <div className="p-4 space-x-4 border-2 border-gray-400 rounded-md shadow-md">
