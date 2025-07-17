@@ -146,7 +146,6 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
       <LadderGameSelectorsContainer
         isStarted={isStarted}
         participants={participants}
-        selectorPositions={selectorPositions}
         setSelectorPositions={setSelectorPositions}
         setSelected={setSelected}
       />

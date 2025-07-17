@@ -5,20 +5,13 @@ import { Position } from "../types";
 export type LadderGameSelectorsContainerProps = {
   isStarted: boolean;
   participants: number;
-  selectorPositions: Position[];
   setSelectorPositions: React.Dispatch<React.SetStateAction<Position[]>>;
   setSelected: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const LadderGameSelectorsContainer: FC<
   LadderGameSelectorsContainerProps
-> = ({
-  isStarted,
-  participants,
-  selectorPositions,
-  setSelectorPositions,
-  setSelected,
-}) => {
+> = ({ isStarted, participants, setSelectorPositions, setSelected }) => {
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
@@ -33,10 +26,8 @@ export const LadderGameSelectorsContainer: FC<
           const { left, top, width, height } =
             selector!.getBoundingClientRect();
 
-          const centerX = left + width / 2;
+          const centerX = left + width / 2 - window.innerWidth * 0.1 - 16;
           const centerY = top + height / 2;
-
-          console.log(centerX, centerY);
 
           return {
             centerX,
