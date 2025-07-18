@@ -33,4 +33,18 @@ export type LadderGameContextType = {
   setSelected: React.Dispatch<React.SetStateAction<number>>;
   paths: Position[];
   setPaths: React.Dispatch<React.SetStateAction<Position[]>>;
+  canvas: HTMLCanvasElement | null;
+  setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | null>>;
+  pathCanvas: HTMLCanvasElement | null;
+  setPathCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | null>>;
+  rect: {
+    width: number;
+    height: number;
+  } | null;
+  setRect: React.Dispatch<
+    React.SetStateAction<{
+      width: number;
+      height: number;
+    } | null>
+  >;
 };

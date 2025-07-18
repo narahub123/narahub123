@@ -9,13 +9,19 @@ export const LadderGameLadderContainer: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pathRef = useRef<HTMLCanvasElement>(null);
 
-  const [rect, setRect] = useState<{ width: number; height: number } | null>(
-    null
-  );
+  const {
+    isStarted,
+    participants,
+    selectorPositions,
+    bridges,
+    paths,
+    rect,
+    setRect,
+    setCanvas,
+    setPathCanvas,
+  } = useLadderGameContext();
 
-  const { isStarted, participants, selectorPositions, bridges, paths } =
-    useLadderGameContext();
-
+  // 컴포넌트 크기 측정
   useLayoutEffect(() => {
     if (!containerRef.current) return;
 
@@ -24,6 +30,7 @@ export const LadderGameLadderContainer: FC = () => {
     setRect({ width, height });
   }, []);
 
+  // 사다리 그리기
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -66,8 +73,10 @@ export const LadderGameLadderContainer: FC = () => {
     }
     draw();
     drawBridge();
+    setCanvas(canvas);
   }, [selectorPositions, participants, bridges]);
 
+  // 경로 그리기
   useEffect(() => {
     if (paths.length === 0) return;
     console.log(paths);
@@ -103,12 +112,14 @@ export const LadderGameLadderContainer: FC = () => {
     }
 
     drawPath();
+    setPathCanvas(canvas);
   }, [paths]);
 
   const ladderHeight = `h-[${LADDER_HEIGHT}px]`;
 
   return (
     <div className={`w-full ${ladderHeight} relative`} ref={containerRef}>
+      {/* 컴포넌트로 빼기 */}
       <div
         className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 z-10 ${
           isStarted ? "opacity-0" : "opacity-100"

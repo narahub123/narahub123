@@ -13,6 +13,11 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [positions, setPositions] = useState<Position[]>([]);
   const [selected, setSelected] = useState(-1);
   const [paths, setPaths] = useState<Position[]>([]);
+  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
+  const [pathCanvas, setPathCanvas] = useState<HTMLCanvasElement | null>(null);
+  const [rect, setRect] = useState<{ width: number; height: number } | null>(
+    null
+  );
 
   const value: LadderGameContextType = {
     participants,
@@ -33,6 +38,12 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
     setSelected,
     paths,
     setPaths,
+    canvas,
+    setCanvas,
+    rect,
+    setRect,
+    pathCanvas,
+    setPathCanvas,
   };
 
   // 당첨자 추첨
@@ -64,10 +75,27 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
     generateWinners();
   };
 
+  // 초기화 => 캔버스 초기화 구현 방법
   const initializeData = () => {
     setParticipants(1);
     setNumOfWinners(1);
+    setWinnners([]);
     setIsStarted((prev) => (prev === true ? false : prev));
+    setBridges([]);
+    setPaths([]);
+    setSelected(-1);
+    setPositions([]);
+    setSelectorPositions([]);
+    if (canvas && rect) {
+      const ctx = canvas.getContext("2d");
+
+      ctx?.clearRect(0, 0, rect.width, rect.height);
+    }
+    if (pathCanvas && rect) {
+      const ctx = pathCanvas.getContext("2d");
+
+      ctx?.clearRect(0, 0, rect.width, rect.height);
+    }
   };
 
   const handleParticipantsChange = (e: React.ChangeEvent<HTMLInputElement>) =>
