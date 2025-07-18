@@ -1,18 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { LadderGameSelector } from "./LadderGameSelector";
 import { Position } from "../types";
+import { useLadderGameContext } from "../hooks";
 
-export type LadderGameSelectorsContainerProps = {
-  isStarted: boolean;
-  participants: number;
-  setSelectorPositions: React.Dispatch<React.SetStateAction<Position[]>>;
-  setSelected: React.Dispatch<React.SetStateAction<number>>;
-};
+export type LadderGameSelectorsContainerProps = {};
 
-export const LadderGameSelectorsContainer: FC<
-  LadderGameSelectorsContainerProps
-> = ({ isStarted, participants, setSelectorPositions, setSelected }) => {
+export const LadderGameSelectorsContainer: FC = () => {
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const { isStarted, participants, setSelectorPositions, setSelected } =
+    useLadderGameContext();
 
   useEffect(() => {
     const getPositions = () => {

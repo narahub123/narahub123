@@ -6,27 +6,20 @@ import {
 } from "../components";
 import { BridgePos, Position } from "../types";
 import { BRIDGES_MAX, LADDER_HEIGHT } from "../constants";
+import { useLadderGameContext } from "../hooks";
 
-export type LadderGameGroundProps = {
-  isStarted: boolean;
-  participants: number;
-  winners: boolean[];
-};
+export type LadderGameGroundProps = {};
 
-export const LadderGameGround: FC<LadderGameGroundProps> = ({
-  isStarted,
-  participants,
-  winners,
-}) => {
-  const [selectorPositions, setSelectorPositions] = useState<Position[]>([]);
-
-  const [bridges, setBridges] = useState<BridgePos[]>([]);
-
-  const [positions, setPositions] = useState<Position[]>([]);
-
-  const [selected, setSelected] = useState(-1);
-
-  const [paths, setPaths] = useState<Position[]>([]);
+export const LadderGameGround: FC = () => {
+  const {
+    selectorPositions,
+    selected,
+    bridges,
+    positions,
+    setPaths,
+    setBridges,
+    setPositions,
+  } = useLadderGameContext();
 
   // 다리 생성 하기
   useEffect(() => {
@@ -143,24 +136,9 @@ export const LadderGameGround: FC<LadderGameGroundProps> = ({
 
   return (
     <div className="flex flex-col w-full gap-4 mt-4">
-      <LadderGameSelectorsContainer
-        isStarted={isStarted}
-        participants={participants}
-        setSelectorPositions={setSelectorPositions}
-        setSelected={setSelected}
-      />
-      <LadderGameLadderContainer
-        isStarted={isStarted}
-        participants={participants}
-        selectorPositions={selectorPositions}
-        bridges={bridges}
-        paths={paths}
-      />
-      <LadderGameResultsContainer
-        isStarted={isStarted}
-        participants={participants}
-        winners={winners}
-      />
+      <LadderGameSelectorsContainer />
+      <LadderGameLadderContainer />
+      <LadderGameResultsContainer />
     </div>
   );
 };

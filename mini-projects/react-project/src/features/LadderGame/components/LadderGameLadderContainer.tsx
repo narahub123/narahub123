@@ -1,22 +1,10 @@
 import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { BridgePos, Position } from "../types";
 import { LADDER_HEIGHT } from "../constants";
+import { useLadderGameContext } from "../hooks";
 
-export type LadderGameLadderContainerProps = {
-  isStarted: boolean;
-  participants: number;
-  selectorPositions: Position[];
-  bridges: BridgePos[];
-  paths: Position[];
-};
+export type LadderGameLadderContainerProps = {};
 
-export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
-  isStarted,
-  participants,
-  selectorPositions,
-  bridges,
-  paths,
-}) => {
+export const LadderGameLadderContainer: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pathRef = useRef<HTMLCanvasElement>(null);
@@ -24,6 +12,9 @@ export const LadderGameLadderContainer: FC<LadderGameLadderContainerProps> = ({
   const [rect, setRect] = useState<{ width: number; height: number } | null>(
     null
   );
+
+  const { isStarted, participants, selectorPositions, bridges, paths } =
+    useLadderGameContext();
 
   useLayoutEffect(() => {
     if (!containerRef.current) return;
