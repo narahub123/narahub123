@@ -11,3 +11,4 @@ export * from "./LadderGameResultsContainer";
 export * from "./LadderGameResult";
 export * from "./LadderGameLadderMask";
 export * from "./LadderGameLadder";
+export * from "./LadderGamePaths";
