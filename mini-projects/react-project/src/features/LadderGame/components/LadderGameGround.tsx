@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import {
   LadderGameLadderContainer,
   LadderGameResultsContainer,
   LadderGameSelectorsContainer,
 } from "../components";
 import { BridgePos, Position } from "../types";
-import { BRIDGES_MAX, LADDER_HEIGHT } from "../constants";
+import { BRIDGES_MAX } from "../constants";
 import { useLadderGameContext } from "../hooks";
 
 export type LadderGameGroundProps = {};
@@ -19,11 +19,12 @@ export const LadderGameGround: FC = () => {
     setPaths,
     setBridges,
     setPositions,
+    rect,
   } = useLadderGameContext();
 
   // 다리 생성 하기
   useEffect(() => {
-    if (selectorPositions.length === 0) return;
+    if (selectorPositions.length === 0 || !rect) return;
 
     const bridges: BridgePos[] = [];
 
@@ -39,13 +40,13 @@ export const LadderGameGround: FC = () => {
       // x 위치는 정해져 있기 때문에 y만 생성하면 됨
       for (let j = 0; j < numOfBridges; j++) {
         // y 위치가 0 ~ 300 이었는데 20 ~ 280으로 변경함
-        let yPosition = Math.random() * (LADDER_HEIGHT - 40) + 20;
+        let yPosition = Math.random() * (rect.height - 40) + 20;
 
         let attempts = 0;
         const MAX_ATTEMPTS = 100;
 
         while (yPositions.some((y) => Math.abs(y - yPosition) < 20)) {
-          yPosition = Math.random() * (LADDER_HEIGHT - 40) + 20;
+          yPosition = Math.random() * (rect.height - 40) + 20;
           attempts++;
 
           if (attempts > MAX_ATTEMPTS) break;
@@ -111,7 +112,7 @@ export const LadderGameGround: FC = () => {
         if (!next) {
           paths.push({
             centerX: paths[paths.length - 1].centerX,
-            centerY: 300,
+            centerY: rect?.height || 300,
           });
           next = undefined;
           break;
