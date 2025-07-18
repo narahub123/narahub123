@@ -1,6 +1,6 @@
 import { FC, useEffect, useLayoutEffect, useRef } from "react";
 import { useLadderGameContext } from "../hooks";
-import { LadderGameLadderMask } from "../components";
+import { LadderGameLadderMask, LadderGameLadder } from "../components";
 
 export type LadderGameLadderContainerProps = {};
 
@@ -28,52 +28,6 @@ export const LadderGameLadderContainer: FC = () => {
 
     setRect({ width, height });
   }, []);
-
-  // 사다리 그리기
-  useEffect(() => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ctx = canvasRef.current?.getContext("2d")!;
-
-    // 캔버스 기본 설정
-    // 기본 좌표계 크기 (논리 크기): 300px × 150px
-    // CSS 표시 크기: 브라우저가 자동으로 맞춤
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-
-    // 좌표계와 실제 보여지는 크기를 일치시킴
-    canvas.width = width;
-    canvas.height = height;
-
-    ctx.clearRect(0, 0, width, height);
-
-    function draw() {
-      for (var i = 0; i < selectorPositions.length; i++) {
-        const { centerX } = selectorPositions[i];
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "#777";
-        ctx.beginPath();
-        ctx.moveTo(centerX, 0);
-        ctx.lineTo(centerX, height);
-        ctx.stroke();
-      }
-    }
-
-    function drawBridge() {
-      for (var i = 0; i < bridges.length; i++) {
-        const { from, to } = bridges[i];
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "#777";
-        ctx.beginPath();
-        ctx.moveTo(from.centerX, from.centerY);
-        ctx.lineTo(to.centerX, to.centerY);
-        ctx.stroke();
-      }
-    }
-    draw();
-    drawBridge();
-    setCanvas(canvas);
-  }, [selectorPositions, participants, bridges]);
 
   // 경로 그리기
   useEffect(() => {
@@ -118,14 +72,7 @@ export const LadderGameLadderContainer: FC = () => {
     <div className={`w-full flex-1 relative`} ref={containerRef}>
       {/* 컴포넌트로 빼기 */}
       <LadderGameLadderMask />
-      <canvas
-        className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
-        style={{
-          width: `${rect?.width}`,
-          height: `${rect?.height}`,
-        }}
-        ref={canvasRef}
-      ></canvas>
+      <LadderGameLadder />
       <canvas
         className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
         style={{
