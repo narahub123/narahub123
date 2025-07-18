@@ -20,7 +20,7 @@ export type LadderGameContextType = {
   numOfWinners: number;
   setNumOfWinners: React.Dispatch<React.SetStateAction<number>>;
   winners: boolean[];
-  setWinnners: React.Dispatch<React.SetStateAction<boolean[]>>;
+  setWinners: React.Dispatch<React.SetStateAction<boolean[]>>;
   isStarted: boolean;
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>;
   selectorPositions: Position[];
