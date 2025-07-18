@@ -1,21 +1,17 @@
 import { FC } from "react";
 import { LadderGameInput } from "./LadderGameInput";
+import { useLadderGameContext } from "../hooks";
 
 export type LadderGameInputsProps = {
-  participants: number;
-  numOfWinners: number;
   handleParticipantsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleWinnersChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled: boolean;
 };
 
 export const LadderGameInputs: FC<LadderGameInputsProps> = ({
-  participants,
-  numOfWinners,
   handleParticipantsChange,
   handleWinnersChange,
-  disabled,
 }) => {
+  const { numOfWinners, participants, isStarted } = useLadderGameContext();
   const inputs = [
     {
       label: "참여인원",
@@ -39,7 +35,7 @@ export const LadderGameInputs: FC<LadderGameInputsProps> = ({
             label={label}
             value={value}
             onChange={onChange}
-            disabled={disabled}
+            disabled={isStarted}
             max={max}
             key={label}
           />

@@ -1,15 +1,12 @@
 import { FC } from "react";
 import { LadderGameResult } from "./LadderGameResult";
+import { useLadderGameContext } from "../hooks";
 
-export type LadderGameResultsContainerProps = {
-  participants: number;
-  isStarted: boolean;
-  winners: boolean[];
-};
+export type LadderGameResultsContainerProps = {};
 
-export const LadderGameResultsContainer: FC<
-  LadderGameResultsContainerProps
-> = ({ participants, isStarted, winners }) => {
+export const LadderGameResultsContainer: FC = () => {
+  const { participants, isStarted, winners } = useLadderGameContext();
+
   return (
     <div className="flex flex-row w-full justify-evenly">
       {Array.from({ length: participants }).map((_, index) => (
