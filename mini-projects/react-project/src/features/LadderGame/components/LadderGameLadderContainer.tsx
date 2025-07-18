@@ -55,7 +55,7 @@ export const LadderGameLadderContainer: FC = () => {
         ctx.strokeStyle = "#777";
         ctx.beginPath();
         ctx.moveTo(centerX, 0);
-        ctx.lineTo(centerX, 300);
+        ctx.lineTo(centerX, height);
         ctx.stroke();
       }
     }
