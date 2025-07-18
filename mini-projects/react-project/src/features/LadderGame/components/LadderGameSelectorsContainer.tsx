@@ -1,6 +1,5 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { LadderGameSelector } from "./LadderGameSelector";
-import { Position } from "../types";
 import { useLadderGameContext, useSelectorPositions } from "../hooks";
 
 export type LadderGameSelectorsContainerProps = {};

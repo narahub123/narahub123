@@ -1,20 +1,16 @@
 import { FC } from "react";
 import { LadderGameButton } from "./LadderGameButton";
 import { LadderGameButtonType } from "../types";
+import { useGameStart, useInitializeStates } from "../hooks";
 
-export type LadderGameButtonContainerProps = {
-  handleGameStart: () => void;
-  initializeData: () => void;
-};
+export const LadderGameButtonContainer: FC = () => {
+  const initializeStates = useInitializeStates();
+  const handleGameStart = useGameStart();
 
-export const LadderGameButtonContainer: FC<LadderGameButtonContainerProps> = ({
-  handleGameStart,
-  initializeData,
-}) => {
   const buttons: LadderGameButtonType[] = [
     {
       text: "초기화",
-      onClick: initializeData,
+      onClick: initializeStates,
       color: "warning",
     },
     {

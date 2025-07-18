@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useRef } from "react";
+import { FC, useLayoutEffect, useRef } from "react";
 import { useLadderGameContext } from "../hooks";
 import {
   LadderGameLadderMask,
