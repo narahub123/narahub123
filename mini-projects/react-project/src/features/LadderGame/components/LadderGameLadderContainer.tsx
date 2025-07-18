@@ -1,6 +1,6 @@
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { LADDER_HEIGHT } from "../constants";
+import { FC, useEffect, useLayoutEffect, useRef } from "react";
 import { useLadderGameContext } from "../hooks";
+import { LadderGameLadderMask } from "../components";
 
 export type LadderGameLadderContainerProps = {};
 
@@ -10,7 +10,6 @@ export const LadderGameLadderContainer: FC = () => {
   const pathRef = useRef<HTMLCanvasElement>(null);
 
   const {
-    isStarted,
     participants,
     selectorPositions,
     bridges,
@@ -118,11 +117,7 @@ export const LadderGameLadderContainer: FC = () => {
   return (
     <div className={`w-full flex-1 relative`} ref={containerRef}>
       {/* 컴포넌트로 빼기 */}
-      <div
-        className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 z-10 ${
-          isStarted ? "opacity-0" : "opacity-100"
-        }`}
-      />
+      <LadderGameLadderMask />
       <canvas
         className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
         style={{
