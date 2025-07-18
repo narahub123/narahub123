@@ -115,10 +115,8 @@ export const LadderGameLadderContainer: FC = () => {
     setPathCanvas(canvas);
   }, [paths]);
 
-  const ladderHeight = `h-[${LADDER_HEIGHT}px]`;
-
   return (
-    <div className={`w-full ${ladderHeight} relative`} ref={containerRef}>
+    <div className={`w-full flex-1 relative`} ref={containerRef}>
       {/* 컴포넌트로 빼기 */}
       <div
         className={`absolute top-0 left-0 w-full h-full bg-blue-400 transition-opacity duration-500 z-10 ${
