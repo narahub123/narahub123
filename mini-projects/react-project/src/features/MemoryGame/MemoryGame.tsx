@@ -3,7 +3,6 @@ import { GameBoard, GameControls } from "./components";
 import { IFlipCard } from "./types";
 import { createCards } from "./utils";
 import { useReposiveSize } from "./hooks";
-import { getRandomColor } from "../../utils";
 
 export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [isGameOn, setIsGameOn] = useState(false);
@@ -117,7 +116,7 @@ export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
     <div
       ref={ref}
       className="p-4 bg-white rounded-xl"
-      style={{ width, height, backgroundColor: getRandomColor() }}
+      style={{ width, height }}
     >
       <GameControls
         isGameOn={isGameOn}
