@@ -2,11 +2,6 @@ import { forwardRef, useState } from "react";
 import { LadderGameControls, LadderGameGround } from "./components";
 import { LadderGameProvider } from "./context/indext";
 import { BridgePos, LadderGameContextType, Position } from "./types";
-import {
-  generateWinners,
-  handleParticipantsChange,
-  handleWinnersChange,
-} from "./utils";
 
 export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [participants, setParticipants] = useState(1);
@@ -51,37 +46,6 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
     setPathCanvas,
   };
 
-  // 게임 시작 시
-  // 장막 제거
-  // 당첨 번호 뽑기
-  const handleGameStart = () => {
-    setIsStarted((prev) => (prev === false ? true : prev));
-    generateWinners(participants, numOfWinners, setWinners);
-  };
-
-  // 초기화 => 캔버스 초기화 구현 방법
-  const initializeData = () => {
-    setParticipants(1);
-    setNumOfWinners(1);
-    setWinners([]);
-    setIsStarted((prev) => (prev === true ? false : prev));
-    setBridges([]);
-    setPaths([]);
-    setSelected(-1);
-    setPositions([]);
-    setSelectorPositions([]);
-    if (canvas && rect) {
-      const ctx = canvas.getContext("2d");
-
-      ctx?.clearRect(0, 0, rect.width, rect.height);
-    }
-    if (pathCanvas && rect) {
-      const ctx = pathCanvas.getContext("2d");
-
-      ctx?.clearRect(0, 0, rect.width, rect.height);
-    }
-  };
-
   return (
     <LadderGameProvider value={value}>
       <div
@@ -93,10 +57,7 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
           height: "580px",
         }}
       >
-        <LadderGameControls
-          handleGameStart={handleGameStart}
-          initializeData={initializeData}
-        />
+        <LadderGameControls />
         <LadderGameGround />
       </div>
     </LadderGameProvider>
