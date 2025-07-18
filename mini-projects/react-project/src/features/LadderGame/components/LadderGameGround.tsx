@@ -135,7 +135,7 @@ export const LadderGameGround: FC = () => {
   }, [selected]);
 
   return (
-    <div className="flex flex-col w-full gap-4 mt-4">
+    <div className="flex flex-col flex-1 w-full gap-4 mt-4">
       <LadderGameSelectorsContainer />
       <LadderGameLadderContainer />
       <LadderGameResultsContainer />
