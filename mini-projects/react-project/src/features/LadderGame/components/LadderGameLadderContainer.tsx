@@ -15,14 +15,22 @@ export const LadderGameLadderContainer: FC = () => {
   useLayoutEffect(() => {
     if (!containerRef.current) return;
 
-    const { width, height } = containerRef.current.getBoundingClientRect();
+    const getContainerRect = () => {
+      if (!containerRef.current) return;
+      const { width, height } = containerRef.current.getBoundingClientRect();
 
-    setRect({ width, height });
+      setRect({ width, height });
+    };
+
+    getContainerRect();
+
+    window.addEventListener("resize", getContainerRect);
+
+    return () => window.removeEventListener("resize", getContainerRect);
   }, []);
 
   return (
     <div className={`w-full flex-1 relative`} ref={containerRef}>
-      {/* 컴포넌트로 빼기 */}
       <LadderGameLadderMask />
       <LadderGameLadder />
       <LadderGamePaths />

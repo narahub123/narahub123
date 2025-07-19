@@ -2,6 +2,7 @@ import { forwardRef, useState } from "react";
 import { LadderGameControls, LadderGameGround } from "./components";
 import { LadderGameProvider } from "./context/indext";
 import { BridgePos, LadderGameContextType, Position } from "./types";
+import { useReposiveSize } from "../MemoryGame/hooks";
 
 export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [participants, setParticipants] = useState(1);
@@ -46,15 +47,16 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
     setPathCanvas,
   };
 
+  const { width, height } = useReposiveSize({ aspectRatio: "6/5" });
+
   return (
     <LadderGameProvider value={value}>
       <div
         className="flex flex-col items-center w-full p-4 bg-white rounded-lg"
         ref={ref}
         style={{
-          maxWidth: 800,
-          width: `${window.innerWidth * 0.8}px`,
-          height: "580px",
+          width,
+          height,
         }}
       >
         <LadderGameControls />
