@@ -11,7 +11,7 @@ const useGeneratePaths = () => {
 
     const paths: Position[] = [];
 
-    const getPaths = () => {
+    const traceGreedyPaths = () => {
       const startPoint: number = selectorPositions[selected];
 
       paths.push({ centerX: startPoint, centerY: 0 });
@@ -49,7 +49,7 @@ const useGeneratePaths = () => {
       }
     };
 
-    getPaths();
+    traceGreedyPaths();
 
     setPaths(paths);
   }, [selected, selectorPositions, positions, rect]);
