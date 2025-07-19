@@ -1,12 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import {
   LadderGameLadderContainer,
   LadderGameResultsContainer,
   LadderGameSelectorsContainer,
 } from "../components";
-import { Position } from "../types";
 import {
-  useLadderGameContext,
   useSortPositions,
   useGenerateLadder,
   useGeneratePaths,
@@ -15,9 +13,6 @@ import {
 export type LadderGameGroundProps = {};
 
 export const LadderGameGround: FC = () => {
-  const { selectorPositions, selected, positions, setPaths, rect } =
-    useLadderGameContext();
-
   // 다리 생성 하기
   useGenerateLadder();
 

@@ -57,11 +57,7 @@ export const LadderGameLadder = () => {
 
   return (
     <canvas
-      className={`absolute top-0 left-0  flex flex-row w-full h-full justify-evenly`}
-      style={{
-        width: `${rect?.width}`,
-        height: `${rect?.height}`,
-      }}
+      className={`absolute top-0 left-0  w-full h-full `}
       ref={canvasRef}
     ></canvas>
   );
