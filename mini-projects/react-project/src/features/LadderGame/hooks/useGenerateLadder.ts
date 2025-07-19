@@ -38,11 +38,11 @@ const useGenerateLadder = () => {
         yPositions.push(yPosition);
 
         const from = {
-          centerX: selectorPositions[i].centerX,
+          centerX: selectorPositions[i],
           centerY: yPosition,
         };
         const to = {
-          centerX: selectorPositions[i + 1].centerX,
+          centerX: selectorPositions[i + 1],
           centerY: yPosition,
         };
 

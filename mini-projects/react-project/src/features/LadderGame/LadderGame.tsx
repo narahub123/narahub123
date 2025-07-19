@@ -9,7 +9,7 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [numOfWinners, setNumOfWinners] = useState(1);
   const [winners, setWinners] = useState<boolean[]>([]);
   const [isStarted, setIsStarted] = useState(false);
-  const [selectorPositions, setSelectorPositions] = useState<Position[]>([]);
+  const [selectorPositions, setSelectorPositions] = useState<number[]>([]);
   const [bridges, setBridges] = useState<BridgePos[]>([]);
   const [positions, setPositions] = useState<Position[]>([]);
   const [selected, setSelected] = useState(-1);

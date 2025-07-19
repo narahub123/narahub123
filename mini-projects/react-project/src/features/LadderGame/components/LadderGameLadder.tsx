@@ -27,7 +27,7 @@ export const LadderGameLadder = () => {
 
     function draw() {
       for (var i = 0; i < selectorPositions.length; i++) {
-        const { centerX } = selectorPositions[i];
+        const centerX = selectorPositions[i];
         ctx.lineWidth = 3;
         ctx.strokeStyle = "#777";
         ctx.beginPath();

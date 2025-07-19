@@ -12,12 +12,12 @@ const useGeneratePaths = () => {
     const paths: Position[] = [];
 
     const getPaths = () => {
-      const startPoint: Position = selectorPositions[selected];
+      const startPoint: number = selectorPositions[selected];
 
-      paths.push({ centerX: startPoint.centerX, centerY: 0 });
+      paths.push({ centerX: startPoint, centerY: 0 });
 
       let next: Position | undefined = {
-        centerX: startPoint.centerX,
+        centerX: startPoint,
         centerY: 0,
       };
 
