@@ -5,16 +5,16 @@ import { useLadderGameContext, useSelectorPositions } from "../hooks";
 export type LadderGameSelectorsContainerProps = {};
 
 export const LadderGameSelectorsContainer: FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const selectorRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const { isStarted, participants, setSelectorPositions, setSelected } =
-    useLadderGameContext();
+  const { isStarted, participants, setSelected } = useLadderGameContext();
 
   // 버튼 위치 알아내기
-  useSelectorPositions({ selectorRefs });
+  useSelectorPositions({ selectorRefs, containerRef });
 
   return (
-    <div className="flex flex-row w-full justify-evenly">
+    <div className="flex flex-row w-full justify-evenly" ref={containerRef}>
       {Array.from({ length: participants }).map((_, index) => (
         <LadderGameSelector
           index={index}

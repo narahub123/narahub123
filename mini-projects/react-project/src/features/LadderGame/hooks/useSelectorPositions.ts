@@ -3,30 +3,32 @@ import useLadderGameContext from "./useLadderGameContext";
 
 type useSelectorPositionsProps = {
   selectorRefs: React.RefObject<(HTMLButtonElement | null)[]>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
 };
 
-const useSelectorPositions = ({ selectorRefs }: useSelectorPositionsProps) => {
+const useSelectorPositions = ({
+  selectorRefs,
+  containerRef,
+}: useSelectorPositionsProps) => {
   const { setSelectorPositions, participants } = useLadderGameContext();
 
   useEffect(() => {
     const getPositions = () => {
-      if (!selectorRefs.current) return;
+      if (!selectorRefs.current || !containerRef.current) return;
+
+      const containerLeft = containerRef.current.getBoundingClientRect().left;
 
       const selectors = selectorRefs.current;
 
       const selectorPositions = selectors
         .filter((s) => s !== null)
         .map((selector) => {
-          const { left, top, width, height } =
-            selector!.getBoundingClientRect();
+          const { left, width } = selector!.getBoundingClientRect();
 
-          const centerX = left + width / 2 - window.innerWidth * 0.1 - 16;
-          const centerY = top + height / 2;
+          // centerX를 canvas 내의 위치로 변경해야 함
+          const centerX = left + width / 2 - containerLeft;
 
-          return {
-            centerX,
-            centerY,
-          };
+          return centerX;
         });
 
       setSelectorPositions(selectorPositions);
