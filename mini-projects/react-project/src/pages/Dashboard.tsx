@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Card } from "../components";
+import { Card, CloneCard } from "../components";
 import { CardData } from "../types";
 import { DashboardProvider } from "../contexts";
 import { CardsContainer } from "../components";
@@ -14,7 +14,6 @@ import { useCloneReset } from "../hooks";
 
 export const Dashboard = () => {
   const cloneCardRef = useRef<HTMLDivElement | null>(null);
-  const componentRef = useRef<HTMLDivElement | null>(null);
 
   // 기존 위치로 되돌아가기 위한 상태
   const [originalCardRect, setOriginalCardRect] =
@@ -39,7 +38,9 @@ export const Dashboard = () => {
     setOriginalCardRect,
     cloneCard,
     setCloneCard,
+    cloneStyle,
     setCloneStyle,
+    InnerComponent,
   };
 
   console.log(cloneStyle);
@@ -310,25 +311,7 @@ export const Dashboard = () => {
     <DashboardProvider value={value}>
       <main>
         <CardsContainer />
-
-        {cloneCard && cloneStyle && (
-          <div
-            id="clone_card"
-            style={cloneStyle}
-            className="shadow-lg overflow-hiddenrounded-md"
-            ref={cloneCardRef}
-          >
-            {isCentered && InnerComponent ? (
-              <InnerComponent ref={componentRef} />
-            ) : (
-              <Card
-                card={cloneCard}
-                onClick={() => {}}
-                style={{ height: cloneStyle.height }}
-              />
-            )}
-          </div>
-        )}
+        <CloneCard />
       </main>
     </DashboardProvider>
   );
