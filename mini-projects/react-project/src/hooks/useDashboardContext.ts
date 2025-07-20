@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DashboardContext } from "../contexts";
 
-const useDashboardContext = () => {
+export const useDashboardContext = () => {
   const context = useContext(DashboardContext);
 
   if (!context) {
@@ -10,5 +10,3 @@ const useDashboardContext = () => {
 
   return context;
 };
-
-export default useDashboardContext;

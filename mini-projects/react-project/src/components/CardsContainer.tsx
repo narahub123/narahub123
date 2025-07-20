@@ -1,18 +1,17 @@
 import { FC } from "react";
+import { Card } from "../components";
 import { Masonry } from "../layouts";
 import { cards } from "../data";
-import { Card } from "./Card";
+import { useCardClickHandler } from "../hooks";
 
-type CardsContainerProps = {};
+export const CardsContainer: FC = () => {
+  const handleClick = useCardClickHandler({});
 
-const CardsContainer: FC<CardsContainerProps> = ({}) => {
   return (
     <Masonry>
       {cards.map((card, index) => (
-        <Card key={index} card={card} onClick={() => {}} />
+        <Card key={index} card={card} onClick={(e) => handleClick(e, card)} />
       ))}
     </Masonry>
   );
 };
-
-export default CardsContainer;
