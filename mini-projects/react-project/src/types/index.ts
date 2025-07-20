@@ -10,7 +10,6 @@ export interface IComponentSize {
 }
 
 export interface IDashboard {
-  containerRef: React.RefObject<HTMLDivElement | null>;
   cloneCardRef: React.RefObject<HTMLDivElement | null>;
   cloneCard: CardData | null;
   setCloneCard: React.Dispatch<React.SetStateAction<CardData | null>>;
