@@ -6,15 +6,14 @@ import {
   useRef,
   useState,
 } from "react";
-import { Card, CloneCard } from "../components";
+import { CloneCard } from "../components";
 import { CardData } from "../types";
 import { DashboardProvider } from "../contexts";
 import { CardsContainer } from "../components";
-import { useCloneReset } from "../hooks";
 
 export const Dashboard = () => {
   const cloneCardRef = useRef<HTMLDivElement | null>(null);
-
+  const componentRef = useRef<HTMLDivElement | null>(null);
   // 기존 위치로 되돌아가기 위한 상태
   const [originalCardRect, setOriginalCardRect] =
     useState<CSSProperties | null>(null);
@@ -34,6 +33,7 @@ export const Dashboard = () => {
 
   const value = {
     cloneCardRef,
+    componentRef,
     originalCardRect,
     setOriginalCardRect,
     cloneCard,
@@ -41,9 +41,12 @@ export const Dashboard = () => {
     cloneStyle,
     setCloneStyle,
     InnerComponent,
+    setInnerComponent,
+    cloneSize,
+    setCloneSize,
   };
 
-  console.log(cloneStyle);
+  console.log(cloneStyle, cloneCard);
 
   // // 사이즈 적용하기
   // useEffect(() => {

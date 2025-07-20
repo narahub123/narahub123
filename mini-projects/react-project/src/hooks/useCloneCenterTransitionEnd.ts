@@ -1,0 +1,33 @@
+import { useEffect } from "react";
+import { useDashboardContext } from "./useDashboardContext";
+
+export const useCloneCenterTransitionEnd = () => {
+  const { cloneCardRef, cloneCard, setInnerComponent } = useDashboardContext();
+
+  useEffect(() => {
+    if (!cloneCardRef.current || !cloneCard) return;
+
+    const cloneCardElem = cloneCardRef.current;
+
+    const handleCloneCenterTransitionend = (e: TransitionEvent) => {
+      if (
+        e.target === cloneCardElem &&
+        e.propertyName === "transform" &&
+        cloneCard.component
+      ) {
+        setInnerComponent(cloneCard.component);
+      }
+    };
+
+    cloneCardElem.addEventListener(
+      "transitionend",
+      handleCloneCenterTransitionend
+    );
+
+    return () =>
+      cloneCardElem.removeEventListener(
+        "transitionend",
+        handleCloneCenterTransitionend
+      );
+  }, [cloneCardRef.current]);
+};
