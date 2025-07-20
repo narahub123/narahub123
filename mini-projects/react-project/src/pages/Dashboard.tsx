@@ -326,6 +326,8 @@ export const Dashboard = () => {
     const isInsideContainer = containerRef.current.contains(target);
 
     if (!isInsideCloneCard && isInsideContainer) {
+      console.log("여기 옮");
+
       const cloneElem = cloneCardRef.current;
       const { top, left, width, height } = originalCardRect;
 
@@ -344,6 +346,8 @@ export const Dashboard = () => {
         // transitionend 이벤트를 호출하는 property 중 transform에만 반응하기 위한 검사
         if (e.propertyName !== "transform") return;
 
+        console.log("여기옴?");
+
         setCloneCard(null);
         setOriginalCardRect(null);
         setCloneStyle(null);
@@ -351,9 +355,9 @@ export const Dashboard = () => {
 
       // 이동 완료 후에는 cloneCard를 비워야 함
       cloneElem.addEventListener("transitionend", clearCloneRecord);
-      cloneElem.removeEventListener("transitionend", clearCloneRecord);
     }
   };
+
   return (
     <DashboardProvider value={value}>
       <div

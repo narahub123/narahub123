@@ -9,7 +9,7 @@ export const useCloneReset = () => {
     cloneCardRef,
   } = useDashboardContext();
 
-  const resetClone = () => {
+  const resetClone = (onComplete?: () => void) => {
     if (!originalCardRect || !cloneCardRef.current) return;
 
     const cloneElem = cloneCardRef.current;
@@ -33,6 +33,7 @@ export const useCloneReset = () => {
       setCloneCard(null);
       setOriginalCardRect(null);
       setCloneStyle(null);
+      if (onComplete) onComplete();
     };
 
     // 이동 완료 후에는 cloneCard를 비워야 함
