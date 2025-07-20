@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { CloneCard } from "../components";
-import { CardData } from "../types";
+import { CardData, IRect } from "../types";
 import { DashboardProvider } from "../contexts";
 import { CardsContainer } from "../components";
 
@@ -15,8 +15,7 @@ export const Dashboard = () => {
   const cloneCardRef = useRef<HTMLDivElement | null>(null);
   const componentRef = useRef<HTMLDivElement | null>(null);
   // 기존 위치로 되돌아가기 위한 상태
-  const [originalCardRect, setOriginalCardRect] =
-    useState<CSSProperties | null>(null);
+  const [originalCardRect, setOriginalCardRect] = useState<IRect | null>(null);
 
   // 클론 카드와 관련된 상태들
   const [cloneCard, setCloneCard] = useState<CardData | null>(null);
@@ -48,7 +47,7 @@ export const Dashboard = () => {
     setIsCentered,
   };
 
-  console.log(cloneStyle, cloneCard);
+  console.log(cloneStyle);
 
   // // 사이즈 적용하기
   // useEffect(() => {
