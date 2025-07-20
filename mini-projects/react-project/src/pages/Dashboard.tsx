@@ -11,6 +11,7 @@ import { Masonry } from "../layouts";
 import { CardData } from "../types";
 import { cards } from "../data";
 import { DashboardProvider } from "../contexts";
+import CardsContainer from "../components/CardsContainer";
 
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -303,29 +304,26 @@ export const Dashboard = () => {
         className="relative w-full h-screen p-4 overflow-auto"
         onClick={handleContainerClick}
       >
-        <Masonry>
-          {cards.map((card, index) => (
-            <Card key={index} card={card} onClick={handleClick} />
-          ))}
-          {cloneCard && cloneStyle && (
-            <div
-              id="clone_card"
-              style={cloneStyle}
-              className="shadow-lg overflow-hiddenrounded-md"
-              ref={cloneCardRef}
-            >
-              {isCentered && InnerComponent ? (
-                <InnerComponent ref={componentRef} />
-              ) : (
-                <Card
-                  card={cloneCard}
-                  onClick={() => {}}
-                  style={{ height: cloneStyle.height }}
-                />
-              )}
-            </div>
-          )}
-        </Masonry>
+        <CardsContainer />
+
+        {cloneCard && cloneStyle && (
+          <div
+            id="clone_card"
+            style={cloneStyle}
+            className="shadow-lg overflow-hiddenrounded-md"
+            ref={cloneCardRef}
+          >
+            {isCentered && InnerComponent ? (
+              <InnerComponent ref={componentRef} />
+            ) : (
+              <Card
+                card={cloneCard}
+                onClick={() => {}}
+                style={{ height: cloneStyle.height }}
+              />
+            )}
+          </div>
+        )}
       </div>
     </DashboardProvider>
   );
