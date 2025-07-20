@@ -43,6 +43,7 @@ export const Card: FC<CardProps> = ({ card, onClick, style }) => {
         gap-3
         text-white
       `}
+      id="card"
       style={{ backgroundColor: getRandomColor(), ...style }}
       onClick={(e) => onClick(e, card)}
     >

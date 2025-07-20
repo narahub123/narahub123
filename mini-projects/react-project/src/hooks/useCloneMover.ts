@@ -12,7 +12,6 @@ export const useCloneMover = () => {
     if (!containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
-    console.log(containerRect);
 
     const centerX = containerRect.width / 2 - width / 2;
     const centerY = containerRect.height / 2 - height / 2;
