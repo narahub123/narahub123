@@ -1,7 +1,7 @@
 import { useDashboardContext } from "./useDashboardContext";
 
 export const useCloneMover = () => {
-  const { containerRef, setCloneStyle } = useDashboardContext();
+  const { setCloneStyle } = useDashboardContext();
 
   const moveCloneToCenter = (
     top: number,
@@ -9,12 +9,8 @@ export const useCloneMover = () => {
     width: number,
     height: number
   ) => {
-    if (!containerRef.current) return;
-
-    const containerRect = containerRef.current.getBoundingClientRect();
-
-    const centerX = containerRect.width / 2 - width / 2;
-    const centerY = containerRect.height / 2 - height / 2;
+    const centerX = window.innerWidth / 2 - width / 2;
+    const centerY = window.innerHeight / 2 - height / 2;
 
     setCloneStyle({
       position: "absolute",
