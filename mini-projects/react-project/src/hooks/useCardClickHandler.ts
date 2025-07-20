@@ -4,14 +4,20 @@ import { useCloneMover, useCloneReset, useDashboardContext } from "../hooks";
 type useCardClickHandlerProps = {};
 
 export const useCardClickHandler = ({}: useCardClickHandlerProps) => {
-  const { setCloneCard, setCloneStyle, setOriginalCardRect, cloneCard } =
-    useDashboardContext();
+  const {
+    setCloneCard,
+    setCloneStyle,
+    setOriginalCardRect,
+    cloneCard,
+    cloneCardRef,
+  } = useDashboardContext();
 
   const moveCloneToCenter = useCloneMover();
   const resetClone = useCloneReset();
 
   const createAndMoveClone = (card: CardData, originalCardRect: DOMRect) => {
     const { top, left, width, height } = originalCardRect;
+    console.log("createAndMoveClone");
 
     setCloneCard(card);
     setCloneStyle({
@@ -34,6 +40,8 @@ export const useCardClickHandler = ({}: useCardClickHandlerProps) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     card: CardData
   ) => {
+    console.log("handleClick 호출됨");
+
     e.stopPropagation();
     if (!e.currentTarget) return;
     // e.target과 e.currentTarget의 차이점 구별하기

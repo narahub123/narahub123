@@ -9,6 +9,13 @@ export interface IComponentSize {
   height: number | string;
 }
 
+export interface IRect {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+}
+
 export interface IDashboard {
   cloneCardRef: React.RefObject<HTMLDivElement | null>;
   componentRef: React.RefObject<HTMLDivElement | null>;
@@ -16,10 +23,8 @@ export interface IDashboard {
   setCloneCard: React.Dispatch<React.SetStateAction<CardData | null>>;
   cloneStyle: CSSProperties | null;
   setCloneStyle: React.Dispatch<React.SetStateAction<CSSProperties | null>>;
-  originalCardRect: CSSProperties | null;
-  setOriginalCardRect: React.Dispatch<
-    React.SetStateAction<CSSProperties | null>
-  >;
+  originalCardRect: IRect | null;
+  setOriginalCardRect: React.Dispatch<React.SetStateAction<IRect | null>>;
   InnerComponent:
     | ForwardRefExoticComponent<RefAttributes<HTMLDivElement>>
     | null
