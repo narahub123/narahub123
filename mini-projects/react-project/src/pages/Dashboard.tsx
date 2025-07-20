@@ -10,6 +10,7 @@ import { Card } from "../components";
 import { CardData } from "../types";
 import { DashboardProvider } from "../contexts";
 import { CardsContainer } from "../components";
+import { useCloneReset } from "../hooks";
 
 export const Dashboard = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -35,10 +36,12 @@ export const Dashboard = () => {
 
   const value = {
     containerRef,
+    cloneCardRef,
     originalCardRect,
+    setOriginalCardRect,
+    cloneCard,
     setCloneCard,
     setCloneStyle,
-    setOriginalCardRect,
   };
 
   console.log(cloneStyle);
@@ -305,12 +308,58 @@ export const Dashboard = () => {
   //   }
   // };
 
+  // 컨테이너 클릭 시 카드가 아닌 부분을 클릭한 경우 초기화
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (
+      !cloneCard ||
+      !containerRef.current ||
+      !cloneCardRef.current ||
+      !originalCardRect
+    )
+      return;
+
+    const target = e.target as Node;
+
+    // 클릭한 위치가 클론 카드인지 확인
+    const isInsideCloneCard = cloneCardRef.current.contains(target);
+    // 클릭 한 위치가 컨테이너 안인지 확인
+    const isInsideContainer = containerRef.current.contains(target);
+
+    if (!isInsideCloneCard && isInsideContainer) {
+      const cloneElem = cloneCardRef.current;
+      const { top, left, width, height } = originalCardRect;
+
+      // 기존 위치로 돌아감
+      setCloneStyle({
+        position: "absolute",
+        width,
+        height,
+        top,
+        left,
+        transition: "transform 0.5s ease",
+        transform: `translate(0px, 0px)`,
+      });
+
+      const clearCloneRecord = (e: TransitionEvent) => {
+        // transitionend 이벤트를 호출하는 property 중 transform에만 반응하기 위한 검사
+        if (e.propertyName !== "transform") return;
+
+        setCloneCard(null);
+        setOriginalCardRect(null);
+        setCloneStyle(null);
+      };
+
+      // 이동 완료 후에는 cloneCard를 비워야 함
+      cloneElem.addEventListener("transitionend", clearCloneRecord);
+      cloneElem.removeEventListener("transitionend", clearCloneRecord);
+    }
+  };
   return (
     <DashboardProvider value={value}>
       <div
         ref={containerRef}
         className="relative w-full h-screen p-4 overflow-auto"
-        // onClick={handleContainerClick}
+        onClick={handleContainerClick}
       >
         <CardsContainer />
 
