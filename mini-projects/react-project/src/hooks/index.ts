@@ -6,3 +6,4 @@ export * from "./useContainerClickHandler";
 export * from "./useCloneCenterTransitionEnd";
 export * from "./useMeasureComponentSize";
 export * from "./useUpdatePosition";
+export * from "./useInjectComponent";

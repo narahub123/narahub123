@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import {
   useDashboardContext,
+  useInjectComponent,
   useMeasureComponentSize,
   useUpdatePosition,
 } from "../hooks";
@@ -11,8 +12,11 @@ export const CloneCard = () => {
   const { cloneCard, cloneStyle, cloneCardRef, InnerComponent, componentRef } =
     useDashboardContext();
 
-  // 클론 카드의 중앙 이동이 완료됐으면 InnerComponent 추가
+  // 클론 카드의 중앙 이동이 완료 여부 상태 변환
   useCloneCenterTransitionEnd();
+
+  // InnerComponent 추가
+  useInjectComponent();
 
   // InnerComponent가 삽입되면 해당 컴포넌트의 사이즈 측정
   useMeasureComponentSize();

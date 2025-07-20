@@ -41,4 +41,6 @@ export interface IDashboard {
       height: number;
     } | null>
   >;
+  isCentered: boolean;
+  setIsCentered: React.Dispatch<React.SetStateAction<boolean>>;
 }

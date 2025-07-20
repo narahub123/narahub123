@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDashboardContext } from "./useDashboardContext";
 
 export const useCloneCenterTransitionEnd = () => {
-  const { cloneCardRef, cloneCard, setInnerComponent } = useDashboardContext();
+  const { cloneCardRef, cloneCard, setIsCentered } = useDashboardContext();
 
   useEffect(() => {
     if (!cloneCardRef.current || !cloneCard) return;
@@ -15,7 +15,7 @@ export const useCloneCenterTransitionEnd = () => {
         e.propertyName === "transform" &&
         cloneCard.component
       ) {
-        setInnerComponent(cloneCard.component);
+        setIsCentered(true);
       }
     };
 
@@ -29,5 +29,5 @@ export const useCloneCenterTransitionEnd = () => {
         "transitionend",
         handleCloneCenterTransitionend
       );
-  }, [cloneCardRef.current]);
+  }, [cloneCard]);
 };

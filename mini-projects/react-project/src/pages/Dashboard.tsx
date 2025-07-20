@@ -44,6 +44,8 @@ export const Dashboard = () => {
     setInnerComponent,
     cloneSize,
     setCloneSize,
+    isCentered,
+    setIsCentered,
   };
 
   console.log(cloneStyle, cloneCard);
