@@ -11,6 +11,7 @@ export interface IComponentSize {
 
 export interface IDashboard {
   cloneCardRef: React.RefObject<HTMLDivElement | null>;
+  componentRef: React.RefObject<HTMLDivElement | null>;
   cloneCard: CardData | null;
   setCloneCard: React.Dispatch<React.SetStateAction<CardData | null>>;
   cloneStyle: CSSProperties | null;
@@ -23,4 +24,21 @@ export interface IDashboard {
     | ForwardRefExoticComponent<RefAttributes<HTMLDivElement>>
     | null
     | undefined;
+  setInnerComponent: React.Dispatch<
+    React.SetStateAction<
+      | ForwardRefExoticComponent<RefAttributes<HTMLDivElement>>
+      | null
+      | undefined
+    >
+  >;
+  cloneSize: {
+    width: number;
+    height: number;
+  } | null;
+  setCloneSize: React.Dispatch<
+    React.SetStateAction<{
+      width: number;
+      height: number;
+    } | null>
+  >;
 }

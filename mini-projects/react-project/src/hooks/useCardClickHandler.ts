@@ -21,7 +21,7 @@ export const useCardClickHandler = ({}: useCardClickHandlerProps) => {
       width,
       height,
       transform: "translate(0px, 0px)",
-      transition: "transform 0.5s ease",
+      transition: "all 0.5s ease",
     });
     setOriginalCardRect(originalCardRect);
 
