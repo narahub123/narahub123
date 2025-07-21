@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { UseIdExample, UseLayoutEffectExample } from "../components";
+import {
+  UseIdExample,
+  UseLayoutEffectExample,
+  UseTransitionExample,
+} from "../components";
 
 const HookTest = () => {
   const [color, setColor] = useState("yellow");
@@ -15,6 +19,7 @@ const HookTest = () => {
       <UseLayoutEffectExample color={color} />
       <button onClick={handleColor}>색상 변경</button>
       <UseIdExample />
+      <UseTransitionExample />
     </div>
   );
 };

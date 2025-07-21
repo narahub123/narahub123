@@ -4,3 +4,4 @@ export * from "./useHandleClick";
 export * from "./useHandleCount";
 export * from "./useStyleBox";
 export * from "./useStyleBoxWithEffect";
+export * from "./useChangeHandler";
