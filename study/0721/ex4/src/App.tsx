@@ -1,11 +1,12 @@
 import "./App.css";
-import { CallbackTest, MemoTest } from "./pages";
+import { CallbackTest, HookTest, MemoTest } from "./pages";
 
 function App() {
   return (
     <>
       {/* <MemoTest /> */}
-      <CallbackTest />
+      {/* <CallbackTest /> */}
+      <HookTest />
     </>
   );
 }
