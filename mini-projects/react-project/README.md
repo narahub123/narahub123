@@ -61,20 +61,22 @@
 
 <a href="./src/features/MemoryGame/MemoryGame.md" target="_blank">🚀 메모리 게임 설명 보러가기</a>
 
-### 🧮 기능 2: 자바스크립트 함수 및 정규 표현식을 이용한 계산기
+### 🧮 기능 2: 자바스크립트 함수 및 정규 표현식을 이용한 계산기(예정)
 
 - 자바스크립트 이벤트 및 함수 기반의 연산 입력 처리
 - 정규 표현식을 이용한 연산자 및 피연산자 분리
 
-### 🖼️ 기능 3: Drag & Drop 방식의 사진 업로드(예정)
+### 🖼️ 기능 3: Drag & Drop 방식의 사진 업로드
 
 - `drag` 이벤트를 활용한 외부 이미지 업로드
 - Cloudinary API 연동을 통한 이미지 업로드 기능 실습
+  <a href="./src/features/DragAndDrop/DragAndDrop.md" target="_blank">🚀 드래그 앤 드롭 설명
 
-### 🪜 기능 4: BFS / DFS를 이용한 사다리 타기(예정)
+### 🪜 기능 4: BFS / DFS를 이용한 사다리 타기
 
 - DFS/BFS를 이용한 경로 탐색 로직 구현
 - `border` 또는 `canvas`를 활용한 시각적 사다리 구현
+  <a href="./src/features/LadderGame//LadderGame.md" target="_blank">🚀 사다리 타기 설명
 
 ---
 
