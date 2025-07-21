@@ -1,10 +1,11 @@
 import "./App.css";
-import { MemoTest } from "./pages";
+import { CallbackTest, MemoTest } from "./pages";
 
 function App() {
   return (
     <>
-      <MemoTest />
+      {/* <MemoTest /> */}
+      <CallbackTest />
     </>
   );
 }
