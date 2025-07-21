@@ -1,9 +1,11 @@
 import { useState } from "react";
 import {
+  CustomInput,
   UseIdExample,
   UseLayoutEffectExample,
   UseTransitionExample,
 } from "../components";
+import ParentComponent from "../components/ParentComponent";
 
 const HookTest = () => {
   const [color, setColor] = useState("yellow");
@@ -20,6 +22,7 @@ const HookTest = () => {
       <button onClick={handleColor}>색상 변경</button>
       <UseIdExample />
       <UseTransitionExample />
+      <ParentComponent />
     </div>
   );
 };
