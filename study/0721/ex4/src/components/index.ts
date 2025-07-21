@@ -5,6 +5,7 @@ import Parent from "./Parent";
 import Child from "./Child";
 import UseCallbackExample from "./UseCallbackExample";
 import UseLayoutEffectExample from "./UseLayoutEffectExample";
+import UseIdExample from "./UseIdExample";
 
 export {
   ExpensiveComponent,
@@ -14,4 +15,5 @@ export {
   Child,
   UseCallbackExample,
   UseLayoutEffectExample,
+  UseIdExample,
 };
