@@ -82,10 +82,12 @@
 
 ## 🖼️ 데모 화면
 
-| 주요 화면   | 캡처 예시                                                                                       |
+| 주요 화면   | 캡처                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------- |
 | 대시보드    | ![dashboard](https://github.com/user-attachments/assets/7dc0be3b-4172-495d-8b8f-a0565b7ba4ca)   |
 | 메모리 게임 | ![memory-game](https://github.com/user-attachments/assets/6b401a51-5e9b-40da-a882-5d489da03057) |
+| 드래그 앤 드롭 | ![drag_and_drop](https://github.com/user-attachments/assets/efaa78be-1c31-40b7-8fa7-aefa152fbcca) |
+| 사다리 게임 | ![ladder-game](https://github.com/user-attachments/assets/ad5a7267-fdcb-4fd7-a7b6-6016c04fb7b0) |
 
 ---
 
