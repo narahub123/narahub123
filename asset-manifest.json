@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/narahub123/static/css/main.d96f8140.css",
-    "main.js": "/narahub123/static/js/main.bc9d343b.js",
+    "main.js": "/narahub123/static/js/main.9a9d48ca.js",
     "static/media/material-icons-latin-400-normal.woff": "/narahub123/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
     "static/media/material-icons-latin-400-normal.woff2": "/narahub123/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
     "index.html": "/narahub123/index.html",
     "main.d96f8140.css.map": "/narahub123/static/css/main.d96f8140.css.map",
-    "main.bc9d343b.js.map": "/narahub123/static/js/main.bc9d343b.js.map"
+    "main.9a9d48ca.js.map": "/narahub123/static/js/main.9a9d48ca.js.map"
   },
   "entrypoints": [
     "static/css/main.d96f8140.css",
-    "static/js/main.bc9d343b.js"
+    "static/js/main.9a9d48ca.js"
   ]
 }
