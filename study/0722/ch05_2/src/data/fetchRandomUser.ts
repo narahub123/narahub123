@@ -18,8 +18,8 @@ const convertRandomUser = (result: unknown) => {
 
 export const fetchRandomUser = (): Promise<IRandomUser> =>
   new Promise((resolve, reject) => {
-    fetch(`https://randomuser.me/api`)
-      .then((res) => res.json)
+    fetch(`https://randomuser.me/api/`)
+      .then((res) => res.json())
       .then((data: unknown) => {
         console.log(data);
 
