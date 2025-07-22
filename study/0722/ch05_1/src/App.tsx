@@ -1,7 +1,8 @@
 import "./App.css";
 import { ReduxClock } from "./pages/ReduxClock";
 import { UseReducerClock } from "./pages/UseReducerClock";
-import { Provider as ReduxProvider, useStore } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
+import { useStore } from "./store";
 
 function App() {
   const store = useStore();
