@@ -12,10 +12,12 @@ export const ReduxClock = () => {
   });
 
   return (
-    <Div className="">
-      <Title>Redux Clock</Title>
-      <Title>{today.toLocaleTimeString()}</Title>
-      <Subtitle>{today.toLocaleDateString()}</Subtitle>
+    <Div className="flex flex-col items-center justify-center mt-16">
+      <Title className="text-5xl">Redux Clock</Title>
+      <Title className="mt-4 text-3xl">{today.toLocaleTimeString()}</Title>
+      <Subtitle className="mt-4 text-2xl">
+        {today.toLocaleDateString()}
+      </Subtitle>
     </Div>
   );
 };

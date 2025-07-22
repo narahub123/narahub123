@@ -9,7 +9,7 @@ function App() {
 
   return (
     <ReduxProvider store={store}>
-      <main>
+      <main className="p-8">
         <UseReducerClock />
         <ReduxClock />
       </main>
