@@ -24,6 +24,7 @@ export const Div: FC<DivProps> = ({
   minHeight,
   maxHeight,
   style: _style,
+  src,
   ...props
 }) => {
   const style = {
@@ -38,6 +39,7 @@ export const Div: FC<DivProps> = ({
     maxWidth,
     minHeight,
     maxHeight,
+    backgroundImage: src && `url(${src})`,
   };
 
   return <div {...props} style={style} />;
