@@ -23,6 +23,6 @@ export const reducer = (state: T.State = initialState, action: T.Actions) => {
     case "@remoteUser/changePicture":
       return { ...state, picture: action.payload };
   }
-  
+
   return state;
 };
