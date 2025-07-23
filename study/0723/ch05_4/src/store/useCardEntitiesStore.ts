@@ -5,11 +5,12 @@ export const useCardEntitiesStore = create<CardEntitiesState>((set) => ({
   cardEntities: {},
   addCard: (card) =>
     set((state) => ({
-      ...state,
       cardEntities: {
+        ...state.cardEntities,
         [card.uuid]: card,
       },
     })),
+
   removeCard: (uuid) =>
     set((state) => {
       const newCardEntities = { ...state.cardEntities };

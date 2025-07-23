@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { List } from "../../types";
 import { Icon } from "../../components";
+import { useCards } from "../../store";
+import ListCard from "../ListCard";
 
 export type BoardListProps = {
   list: List;
@@ -8,6 +10,22 @@ export type BoardListProps = {
 };
 
 const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
+  const { cards, onPrependCard, onAppendCard, onRemoveCard } = useCards(
+    list.uuid
+  );
+
+  const children = useMemo(
+    () =>
+      cards.map((card, index) => (
+        <ListCard
+          key={card.uuid}
+          card={card}
+          onRemove={() => onRemoveCard(card.uuid)}
+        />
+      )),
+    [cards, onRemoveCard]
+  );
+
   return (
     <div {...props} className="p-2 m-2 border border-gray-300 rounded-lg">
       <div className="flex justify-between mb-2">
@@ -20,7 +38,20 @@ const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
             className="btn-error btn-xs"
             onClick={onRemoveList}
           />
+          <div className="flex">
+            <Icon
+              name="post_add"
+              className="btn-success btn-xs"
+              onClick={onPrependCard}
+            />
+            <Icon
+              name="playlist_add"
+              className="ml-2 btn-success btn-xs"
+              onClick={onAppendCard}
+            />
+          </div>
         </div>
+        <div className="flex flex-col p-2">{children}</div>
       </div>
     </div>
   );
