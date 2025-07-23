@@ -5,14 +5,20 @@ export const useListEntitiesStore = create<ListEntitiesState>((set) => ({
   listEntities: {},
   addList: (list) =>
     set((state) => ({
-      ...state.listEntities,
-      [list.uuid]: list,
+      ...state,
+      listEntities: {
+        ...state.listEntities,
+        [list.uuid]: list,
+      },
     })),
   removeList: (uuid) =>
     set((state) => {
-      const newState = { ...state.listEntities };
-      delete newState[uuid];
+      const newListEntities = { ...state.listEntities };
+      delete newListEntities[uuid];
 
-      return newState;
+      return {
+        ...state,
+        listEntities: newListEntities,
+      };
     }),
 }));
