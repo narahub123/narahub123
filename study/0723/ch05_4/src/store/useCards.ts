@@ -5,17 +5,15 @@ import { UUID } from "../types";
 import * as D from "../data";
 
 export const useCards = (listid: UUID) => {
-  const orders = useListidCardidOrdersStore(
+  const listidCardidOrders = useListidCardidOrdersStore(
     (state) => state.listidCardidOrders
   );
-
-  const listidCardidOrders = useMemo(() => orders, [orders]);
 
   const cardEntities = useCardEntitiesStore((state) => state.cardEntities);
 
   const cards = useMemo(
     () =>
-      listidCardidOrders[listid].map(
+      (listidCardidOrders[listid] ?? []).map(
         (uuid) =>
           cardEntities[
             uuid as `${string}-${string}-${string}-${string}-${string}`
@@ -35,7 +33,7 @@ export const useCards = (listid: UUID) => {
 
     addCard(card);
     prependCardidToListid({ listid, cardid: card.uuid });
-  }, [listid]);
+  }, [listid, addCard, prependCardidToListid]);
 
   const appendCardidToListid = useListidCardidOrdersStore(
     (state) => state.appendCardidToListid
@@ -46,7 +44,7 @@ export const useCards = (listid: UUID) => {
 
     addCard(card);
     appendCardidToListid({ listid, cardid: card.uuid });
-  }, [listid]);
+  }, [listid, addCard, appendCardidToListid]);
 
   const removeCard = useCardEntitiesStore((state) => state.removeCard);
 

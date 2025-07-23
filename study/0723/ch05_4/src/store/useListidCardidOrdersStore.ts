@@ -25,25 +25,35 @@ export const useListidCardidOrdersStore = create<ListidCarditOrdersState>(
     prependCardidToListid: (listidCardids) =>
       set((state) => ({
         ...state,
-        [listidCardids.listid]: [
-          listidCardids.cardid,
-          ...state.listidCardidOrders[listidCardids.listid],
-        ],
+        listidCardidOrders: {
+          ...state.listidCardidOrders,
+          [listidCardids.listid]: [
+            listidCardids.cardid,
+            ...(state.listidCardidOrders[listidCardids.listid] ?? []),
+          ],
+        },
       })),
     appendCardidToListid: (listidCardids) =>
       set((state) => ({
         ...state,
-        [listidCardids.listid]: [
-          ...state.listidCardidOrders[listidCardids.listid],
-          listidCardids.cardid,
-        ],
+        listidCardidOrders: {
+          ...state.listidCardidOrders,
+          [listidCardids.listid]: [
+            ...(state.listidCardidOrders[listidCardids.listid] ?? []),
+            listidCardids.cardid,
+          ],
+        },
       })),
     removeCardidFromListid: (listidCardids) =>
       set((state) => ({
         ...state,
-        [listidCardids.listid]: state.listidCardidOrders[
-          listidCardids.listid
-        ].filter((id) => id !== listidCardids.cardid),
+        listidCardidOrders: {
+          ...state.listidCardidOrders,
+          [listidCardids.listid]:
+            state.listidCardidOrders[listidCardids.listid]?.filter(
+              (id) => id !== listidCardids.cardid
+            ) ?? [],
+        },
       })),
   })
 );
