@@ -1,3 +1,4 @@
+import * as U from "../utils";
 import {
   createContext,
   FC,
@@ -35,7 +36,12 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
 
   const signup = useCallback(
     (email: string, password: string, callback?: Callback) => {
+      const user = { email, password };
+
       setLoggedUser((notUsed) => ({ email, password }));
+
+      // localStorage에 저장
+      U.writeObjectP("user", user).finally(() => callback && callback());
 
       callback && callback();
     },
