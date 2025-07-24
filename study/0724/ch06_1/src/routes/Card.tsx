@@ -1,8 +1,32 @@
-export const CopyMe = () => {
+import { useCallback } from "react";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+import { Button } from "../theme/daisyui";
+
+export const Card = () => {
+  const location = useLocation();
+  const params = useParams();
+  const navigate = useNavigate();
+  const [search] = useSearchParams();
+
+  const goback = useCallback(() => navigate(-1), [navigate]);
+
   return (
-    <section className="mt-4">
-      <h2 className="text-5xl font-bold text-center">CopyMe</h2>
-      <div className="mt-4"></div>
-    </section>
+    <div>
+      <p>location : {JSON.stringify(location, null, 2)}</p>
+      <p>params : {JSON.stringify(params, null, 2)}</p>
+      <p>cardid : {params["cardid"]}</p>
+      <p>
+        from : {search.get("from")}, to: {search.get("to")}
+      </p>
+      <p></p>
+      <Button onClick={goback} className="mt-4 btn-primary btn-xs">
+        GO BACK
+      </Button>
+    </div>
   );
 };

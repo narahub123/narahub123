@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { NoMatch, Home } from "../routes";
+import { NoMatch, Home, Card } from "../routes";
 import { Board } from "../pages";
 
 export const RoutesSetup = () => {
@@ -8,6 +8,7 @@ export const RoutesSetup = () => {
       <Route path="/" element={<Home />} />
       <Route path="/welcome" element={<Home title="Welcome to our site." />} />
       <Route path="/board" element={<Board />} />
+      <Route path="/board/card/:cardid" element={<Card />} />
       <Route path="*" element={<NoMatch />} />
     </Routes>
   );
