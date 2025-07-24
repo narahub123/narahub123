@@ -1,8 +1,9 @@
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { List } from "../../types";
 import { Div, Icon } from "../../components";
 import { useCards } from "../../store";
 import ListCard from "../ListCard";
+import { useNavigate } from "react-router-dom";
 
 export type BoardListProps = {
   list: List;
@@ -14,6 +15,15 @@ const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
     list.uuid
   );
 
+  const navigate = useNavigate();
+
+  const cardClicked = useCallback(
+    (cardid: string) => () => {
+      navigate(`/board/card/${cardid}`);
+    },
+    [navigate]
+  );
+
   const children = useMemo(
     () =>
       cards.map((card, index) => (
@@ -21,6 +31,7 @@ const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
           key={card.uuid}
           card={card}
           onRemove={() => onRemoveCard(card.uuid)}
+          onClick={cardClicked(card.uuid)}
         />
       )),
     [cards, onRemoveCard]
