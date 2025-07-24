@@ -1,10 +1,7 @@
-const CopyMe = () => {
-  return (
-    <section className="mt-4">
-      <h2 className="text-5xl font-bold text-center">CopyMe</h2>
-      <div className="mt-4"></div>
-    </section>
-  );
+import { Outlet } from "react-router-dom";
+
+const Layout = () => {
+  return <Outlet />;
 };
 
-export default CopyMe;
+export default Layout;
