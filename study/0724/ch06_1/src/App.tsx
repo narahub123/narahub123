@@ -1,12 +1,15 @@
 import "./App.css";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd/dist/core";
-import { Board } from "./pages";
+import { BrowserRouter } from "react-router-dom";
+import { RoutesSetup } from "./routes";
 
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
-      <Board />
+      <BrowserRouter>
+        <RoutesSetup />
+      </BrowserRouter>
     </DndProvider>
   );
 }
