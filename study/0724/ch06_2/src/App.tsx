@@ -2,7 +2,7 @@ import "./App.css";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd/dist/core";
 import { BrowserRouter } from "react-router-dom";
-import { RoutesSetup } from "./routes";
+import { RoutesSetup } from "./routes/RoutesSetup";
 
 function App() {
   return (
