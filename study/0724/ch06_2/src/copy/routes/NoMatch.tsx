@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../theme/daisyui";
+import { Button } from "../../theme/daisyui";
 
 export const NoMatch = () => {
   const navigate = useNavigate();
