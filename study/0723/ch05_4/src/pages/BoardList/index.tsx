@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { List } from "../../types";
-import { Icon } from "../../components";
+import { Div, Icon } from "../../components";
 import { useCards } from "../../store";
 import ListCard from "../ListCard";
 
@@ -27,11 +27,16 @@ const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
   );
 
   return (
-    <div {...props} className="p-2 m-2 border border-gray-300 rounded-lg">
-      <div className="flex justify-between mb-2">
+    <Div
+      {...props}
+      className="p-2 m-2 border border-gray-300 rounded-lg"
+      minWidth="13rem"
+    >
+      <div className="mb-2 ">
         <p className="w-32 text-sm font-bold underline line-clamp-1">
           {list.title}
         </p>
+
         <div className="flex justify-between ml-2">
           <Icon
             name="remove"
@@ -53,7 +58,7 @@ const BoardList: FC<BoardListProps> = ({ list, onRemoveList, ...props }) => {
         </div>
         <div className="flex flex-col p-2">{children}</div>
       </div>
-    </div>
+    </Div>
   );
 };
 
