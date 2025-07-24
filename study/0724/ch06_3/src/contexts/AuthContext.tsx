@@ -3,6 +3,7 @@ import {
   FC,
   PropsWithChildren,
   useCallback,
+  useContext,
   useState,
 } from "react";
 
@@ -62,4 +63,8 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
     logout,
   };
   return <AuthContext value={value}>{children}</AuthContext>;
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
 };
