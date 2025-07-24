@@ -3,6 +3,8 @@ import { useListidOrdersStore } from "./useListidOrdersStore";
 import { useListEntitiesStore } from "./useListEntitiesStore";
 import { useListidCardidOrdersStore } from "./useListidCardidOrdersStore";
 import { useCardEntitiesStore } from "./useCardEntitiesStore";
+import { DropResult } from "@hello-pangea/dnd";
+import * as U from "../utils";
 
 export const useLists = () => {
   const listidOrders = useListidOrdersStore((state) => state.listidOrders);
@@ -30,13 +32,16 @@ export const useLists = () => {
     (state) => state.setListidCardids
   );
 
-  const onCreateList = useCallback((uuid: string, title: string) => {
-    const list = { uuid, title };
+  const onCreateList = useCallback(
+    (uuid: string, title: string) => {
+      const list = { uuid, title };
 
-    addListidToOrders(list.uuid);
-    addList(list);
-    setListidCardids({ listid: list.uuid, cardids: [] });
-  }, []);
+      addListidToOrders(list.uuid);
+      addList(list);
+      setListidCardids({ listid: list.uuid, cardids: [] });
+    },
+    [addListidToOrders, addList, setListidCardids]
+  );
 
   const removeList = useListEntitiesStore((state) => state.removeList);
 
@@ -48,7 +53,7 @@ export const useLists = () => {
 
   const onRemoveList = useCallback(
     (listid: string) => {
-      listidCardidOrders[listid].forEach((cardid) =>
+      (listidCardidOrders[listid] ?? []).forEach((cardid) =>
         removeCard(
           cardid as `${string}-${string}-${string}-${string}-${string}`
         )
@@ -57,8 +62,77 @@ export const useLists = () => {
       removeList(listid);
       removeListidFromOrders(listid);
     },
-    [listidCardidOrders]
+    [listidCardidOrders, removeCard, removeList, removeListidFromOrders]
   );
 
-  return { lists, onCreateList, onRemoveList };
+  const setListidOrders = useListidOrdersStore(
+    (state) => state.setListidOrders
+  );
+
+  const onMoveList = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const newOrders = listidOrders.map((item, index) =>
+        index === dragIndex
+          ? listidOrders[hoverIndex]
+          : index === hoverIndex
+          ? listidOrders[dragIndex]
+          : item
+      );
+
+      setListidOrders(newOrders);
+    },
+    [listidOrders, setListidOrders]
+  );
+
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      console.log("onDragEnd result", result);
+
+      const destinationListid = result.destination?.droppableId;
+      const destinationCardIndex = result.destination?.index;
+      if (destinationListid === undefined || destinationCardIndex === undefined)
+        return;
+
+      const sourceListid = result.source.droppableId;
+      const sourceCardIndex = result.source.index;
+
+      if (destinationListid === sourceListid) {
+        const cardidOrders = listidCardidOrders[destinationListid];
+
+        setListidCardids({
+          listid: destinationListid,
+          cardids: U.swapItemsInArray(
+            cardidOrders,
+            sourceCardIndex,
+            destinationCardIndex
+          ),
+        });
+      } else {
+        const sourceCardidOrders = listidCardidOrders[sourceListid];
+
+        setListidCardids({
+          listid: sourceListid,
+          cardids: U.removeItemAtIndexInArray(
+            sourceCardidOrders,
+            sourceCardIndex
+          ),
+        });
+
+        const destinationCardidOrders =
+          listidCardidOrders[destinationListid] ?? [];
+
+        setListidCardids({
+          listid: destinationListid,
+          cardids: U.insertItemAtIndexInArray(
+            destinationCardidOrders,
+            destinationCardIndex,
+            result.draggableId
+          ),
+        });
+      }
+    },
+    [listidCardidOrders, setListidCardids]
+  );
+
+  return { lists, onCreateList, onRemoveList, onMoveList, onDragEnd };
 };

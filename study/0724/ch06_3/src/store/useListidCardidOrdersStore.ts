@@ -8,6 +8,7 @@ export const useListidCardidOrdersStore = create<ListidCarditOrdersState>(
       set((state) => ({
         ...state,
         listidCardidOrders: {
+          ...state.listidCardidOrders,
           [listidCardids.listid]: listidCardids.cardids,
         },
       })),
