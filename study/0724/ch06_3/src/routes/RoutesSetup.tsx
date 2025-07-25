@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import LandingPage from "./LandingPage";
 import { NoMatch } from "./NoMatch";
 import { Login, Logout, RequireAuth, SignUp } from "./Auth";
+import { Card } from "./Card";
 
 export const RoutesSetup = () => {
   return (
@@ -16,6 +17,15 @@ export const RoutesSetup = () => {
             // 로그인한 사용자만 볼 수 있는 페이지
             <RequireAuth>
               <Board />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/board/card/:cardid"
+          element={
+            // 로그인한 사용자만 볼 수 있는 페이지
+            <RequireAuth>
+              <Card />
             </RequireAuth>
           }
         />
