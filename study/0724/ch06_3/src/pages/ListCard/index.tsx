@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { ICard } from "../../data";
-import { Avatar, CardDraggable, Div, Icon } from "../../components";
+import { Avatar, CardDraggable, Div } from "../../components";
+import { Icon } from "../../theme/daisyui";
 
 export type ListCardProps = {
   card: ICard;
@@ -30,7 +31,7 @@ const ListCard: FC<ListCardProps> = ({
         <Div src={image} className="relative h-20">
           <Icon
             name="remove"
-            className="absolte right-1 top-1 btn-primary btn-xs"
+            className="absolute right-1 top-1 btn-primary btn-xs"
             onClick={onRemove}
           />
         </Div>

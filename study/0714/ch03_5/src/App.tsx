@@ -8,7 +8,7 @@ function App() {
     <main>
       <ButtonTest />
       <InputTest />
-      <ModalTest />
+      {/* <ModalTest /> */}
     </main>
   );
 }
