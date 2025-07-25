@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from "react";
 import * as D from "../../data";
-import { Icon } from "../../components";
+import { Icon } from "../../theme/daisyui";
 
 export type CreateListFormProps = {
   onCreateList: (uuid: string, title: string) => void;

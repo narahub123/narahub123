@@ -15,7 +15,7 @@ export const CardDroppable: FC<PropsWithChildren<CardDroppableProps>> = ({
         <div
           {...provided.droppableProps}
           ref={provided.innerRef}
-          className="flex p-2 felx-col"
+          className="flex flex-col p-2"
         >
           {children} {provided.placeholder}
         </div>
