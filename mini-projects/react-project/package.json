@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b gh-pages -f -r https://github.com/narahub123/narahub123.git"
+    "deploy": "gh-pages -d build -b gh-pages -f -r https://github.com/narahub123/narahub123.git --dest react-project"
   },
   "eslintConfig": {
     "extends": [
