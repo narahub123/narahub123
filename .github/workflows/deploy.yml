@@ -1,0 +1,54 @@
+# .github/workflows/deploy.yml
+
+name: Deploy Multiple Projects to GitHub Pages
+
+# main 브랜치에 push 이벤트가 발생했을 때 이 워크플로우를 실행합니다.
+on:
+  push:
+    branches:
+      - main # 사용하는 주 브랜치 이름 (main 또는 master)
+
+# 워크플로우 실행에 필요한 권한을 설정합니다.
+permissions:
+  contents: write # gh-pages 브랜치에 코드를 푸시하기 위해 필요합니다.
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✅ Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22" # 사용하는 노드 버전
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json" # 캐시를 위해 여러 lock 파일 경로 지정
+
+      # --- project1 빌드 ---
+      - name: 📦 Install and Build Project 1
+        run: |
+          cd mini-projects/react-project
+          npm install
+          npm run build
+
+      # --- 빌드 결과물을 한 곳으로 모으기 ---
+      - name: 📂 Prepare deployment directory
+        run: |
+          mkdir -p deploy/react-project
+          # 올바른 소스 경로로 수정
+          cp -r mini-projects/react-project/build/* deploy/react-project/
+
+          # 루트 경로에 README.md 같은 파일을 두고 싶다면 여기에 추가
+          # cp README.md deploy/
+
+      # --- gh-pages 브랜치로 배포 ---
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy # 배포할 폴더를 지정
+          # user_name: 'github-actions[bot]' # 커밋 사용자 이름 (선택)
+          # user_email: 'github-actions[bot]@users.noreply.github.com' # 커밋 사용자 이메일 (선택)
+          # cname: your-custom-domain.com # 커스텀 도메인이 있을 경우 (선택)
