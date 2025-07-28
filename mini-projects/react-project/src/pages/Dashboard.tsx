@@ -2,7 +2,6 @@ import {
   CSSProperties,
   ForwardRefExoticComponent,
   RefAttributes,
-  useEffect,
   useRef,
   useState,
 } from "react";

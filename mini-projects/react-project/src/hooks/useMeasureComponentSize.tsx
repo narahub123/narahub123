@@ -18,5 +18,5 @@ export const useMeasureComponentSize = () => {
     };
 
     requestAnimationFrame(() => getSize());
-  }, [InnerComponent]);
+  }, [InnerComponent, componentRef, setCloneSize]);
 };

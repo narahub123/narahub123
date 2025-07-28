@@ -1,16 +1,9 @@
 import { CardData } from "../types";
 import { useCloneMover, useCloneReset, useDashboardContext } from "../hooks";
 
-type useCardClickHandlerProps = {};
-
-export const useCardClickHandler = ({}: useCardClickHandlerProps) => {
-  const {
-    setCloneCard,
-    setCloneStyle,
-    setOriginalCardRect,
-    cloneCard,
-    cloneCardRef,
-  } = useDashboardContext();
+export const useCardClickHandler = () => {
+  const { setCloneCard, setCloneStyle, setOriginalCardRect, cloneCard } =
+    useDashboardContext();
 
   const moveCloneToCenter = useCloneMover();
   const resetClone = useCloneReset();

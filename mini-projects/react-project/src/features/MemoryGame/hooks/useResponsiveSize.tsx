@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { DEFAULT_HEIGHT_RATIO, DEFAULT_WIDTH_RATIO } from "../constants";
 import { IComponentSize } from "../../../types";
 

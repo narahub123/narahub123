@@ -30,7 +30,7 @@ export const useCardFontSize = (
 
     window.addEventListener("resize", updateFontSize);
     return () => window.removeEventListener("resize", updateFontSize);
-  }, [cardsPerRow]);
+  }, [cardsPerRow, cardRef]);
 
   return fontSize;
 };

@@ -19,5 +19,5 @@ export const useUpdatePosition = () => {
     };
 
     requestAnimationFrame(() => sizeUp());
-  }, [cloneSize]);
+  }, [cloneSize, setCloneStyle]);
 };

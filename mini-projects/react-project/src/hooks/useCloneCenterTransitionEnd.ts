@@ -29,5 +29,5 @@ export const useCloneCenterTransitionEnd = () => {
         "transitionend",
         handleCloneCenterTransitionend
       );
-  }, [cloneCard]);
+  }, [cloneCard, cloneCardRef, setIsCentered]);
 };

@@ -22,7 +22,7 @@ const useMeasureContainerSize = (
     window.addEventListener("resize", getContainerRect);
 
     return () => window.removeEventListener("resize", getContainerRect);
-  }, [containerRef.current]);
+  }, [containerRef.current, setRect]);
 };
 
 export default useMeasureContainerSize;

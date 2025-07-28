@@ -39,7 +39,7 @@ const useSelectorPositions = ({
     window.addEventListener("resize", getPositions);
 
     return () => window.removeEventListener("resize", getPositions);
-  }, [participants, selectorRefs.current]);
+  }, [participants, selectorRefs.current, setSelectorPositions]);
 };
 
 export default useSelectorPositions;

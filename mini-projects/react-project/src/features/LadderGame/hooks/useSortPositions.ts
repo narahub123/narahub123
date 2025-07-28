@@ -18,7 +18,7 @@ const useSortPositions = () => {
       .sort((a: Position, b: Position) => a.centerX - b.centerX);
 
     setPositions(positions);
-  }, [bridges]);
+  }, [bridges, setPositions]);
 };
 
 export default useSortPositions;

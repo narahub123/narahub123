@@ -7,5 +7,5 @@ export const useInjectComponent = () => {
     if (!isCentered || !cloneCard) return;
 
     if (cloneCard.component) setInnerComponent(cloneCard.component);
-  }, [isCentered]);
+  }, [isCentered, cloneCard, setInnerComponent]);
 };

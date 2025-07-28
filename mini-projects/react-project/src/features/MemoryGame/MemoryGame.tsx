@@ -72,7 +72,7 @@ export const MemoryGame = forwardRef<HTMLDivElement>(({}, ref) => {
       return prev + 1;
     });
     setIsGameOn(false);
-  }, [remainingPairs]);
+  }, [remainingPairs, level]);
 
   const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const level = e.target.value === "" ? "" : Number(e.target.value);
