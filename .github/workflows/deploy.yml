@@ -31,7 +31,6 @@ jobs:
         run: |
           cd mini-projects/react-project
           npm install
-          npm run build
           CI=false npm run build
 
       # --- 빌드 결과물을 한 곳으로 모으기 ---
