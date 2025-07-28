@@ -34,9 +34,9 @@
 ![Visitor Count](https://profile-counter.glitch.me/narahub123/count.svg)
 
 | 기술       | 수준       | 경험 |
-| ---------- | ---------- | ---- |
-| JavaScript | ⭐⭐⭐⭐⭐ | 3년  |
-| React      | ⭐⭐⭐⭐   | 2년  |
+| ---------- | ----------| ---- |
+| JavaScript | ⭐⭐⭐   | 2년  |
+| React      | ⭐⭐⭐   | 1년  |
 
 ### 미니 프로젝트 1
 - 미니프로젝트 갤러리 
