@@ -1,5 +1,5 @@
 {
-  "homepage": "https://narahub123.github.io/narahub123/react-project",
+  "homepage": "https://narahub123.github.io/narahub123",
   "name": "react-project",
   "version": "0.1.0",
   "private": true,
@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b gh-pages -f -r https://github.com/narahub123/narahub123.git --dest react-project"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
