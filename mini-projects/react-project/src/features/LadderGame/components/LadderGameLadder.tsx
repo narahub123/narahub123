@@ -51,7 +51,7 @@ export const LadderGameLadder = () => {
     draw();
     drawBridge();
     setCanvas(canvas);
-  }, [selectorPositions, bridges]);
+  }, [selectorPositions, bridges, setCanvas]);
 
   if (!rect) return null;
 

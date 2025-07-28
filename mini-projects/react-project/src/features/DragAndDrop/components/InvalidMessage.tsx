@@ -19,7 +19,7 @@ export const InvalidMessage: FC<InvalidMessageProps> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [message]);
+  }, [message, setMessage]);
 
   if (!message) return null;
 

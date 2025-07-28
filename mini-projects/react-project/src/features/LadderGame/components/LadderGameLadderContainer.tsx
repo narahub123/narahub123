@@ -1,5 +1,5 @@
-import { FC, useLayoutEffect, useRef } from "react";
-import { useLadderGameContext, useMeasureContainerSize } from "../hooks";
+import { FC, useRef } from "react";
+import { useMeasureContainerSize } from "../hooks";
 import {
   LadderGameLadderMask,
   LadderGameLadder,

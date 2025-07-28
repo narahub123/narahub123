@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useLadderGameContext from "./useLadderGameContext";
 import { BridgePos } from "../types";
 import { BRIDGES_MAX } from "../constants";
@@ -51,7 +51,7 @@ const useGenerateLadder = () => {
     }
 
     setBridges(bridges);
-  }, [selectorPositions]);
+  }, [selectorPositions, rect, setBridges]);
 };
 
 export default useGenerateLadder;
