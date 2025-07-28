@@ -27,7 +27,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/react-project",
+    basename: "/narahub123/react-project",
   }
 );
 
