@@ -1,8 +1,29 @@
+import { useCallback, useState } from "react";
+import { Button } from "../../theme/daisyui";
+import { del } from "../../server";
+
 export const DeleteTest = () => {
+  const [data, setData] = useState<object>({});
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const deleteTest = useCallback(() => {
+    del("/test/1234")
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((error) => setErrorMessage(error.message));
+  }, []);
+
   return (
-    <section className="mt-4">
-      <h2 className="text-5xl font-bold text-center">DeleteTest</h2>
-      <div className="mt-4"></div>
-    </section>
+    <div className="mt-4 mb-4">
+      <div className="flex justify-center mb-4">
+        <Button onClick={deleteTest} className="mr-12 btn-primary">
+          DELETE ID 1234
+        </Button>
+      </div>
+      <div className="mt-4 text-center">
+        <p>data: {JSON.stringify(data, null, 2)}</p>
+        {errorMessage && <p>error: {errorMessage}</p>}
+      </div>
+    </div>
   );
 };

@@ -11,7 +11,7 @@ export const NavigationBar = () => {
         <Link to="/" className="btn btn-link">
           Home
         </Link>
-        <Link to="/test" className="btn btn-link">
+        <Link to="/rest" className="btn btn-link">
           Rest Test
         </Link>
         {loggedUser && (

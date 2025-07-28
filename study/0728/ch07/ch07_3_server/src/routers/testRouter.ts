@@ -47,7 +47,7 @@ export const testRouter = (...args: any[]) => {
 
         const { insertedId } = insertResult;
 
-        const findResult = await test.findOne({ id: insertedId });
+        const findResult = await test.findOne({ _id: insertedId });
 
         res.json({ ok: true, body: findResult });
       } catch (e) {
