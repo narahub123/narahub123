@@ -7,7 +7,7 @@ import { useCardClickHandler, useContainerClickHandler } from "../hooks";
 export const CardsContainer: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   // card를 클릭한 경우
-  const handleClick = useCardClickHandler({});
+  const handleClick = useCardClickHandler();
 
   // 컨테이너 클릭 시 카드가 아닌 부분을 클릭한 경우 초기화
   const handleContainerClick = useContainerClickHandler(containerRef);
