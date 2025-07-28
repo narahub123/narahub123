@@ -37,3 +37,7 @@
 | ---------- | ---------- | ---- |
 | JavaScript | ⭐⭐⭐⭐⭐ | 3년  |
 | React      | ⭐⭐⭐⭐   | 2년  |
+
+### 미니 프로젝트 1
+- 미니프로젝트 갤러리 
+- [배포 페이지 링크](https://narahub123.github.io/narahub123/react-project) 
