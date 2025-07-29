@@ -6,6 +6,7 @@ import { NoMatch } from "./NoMatch";
 import { Login, Logout, RequireAuth, SignUp } from "./Auth";
 import { Card } from "./Card";
 import RestTest from "./RestTest";
+import { Oauth } from "../pages/Callback";
 
 export const RoutesSetup = () => {
   return (
@@ -44,6 +45,9 @@ export const RoutesSetup = () => {
         }
       />
       <Route path="*" element={<NoMatch />} />
+      <Route path="/callback">
+        <Route path="oauth" element={<Oauth />} />
+      </Route>
     </Routes>
   );
 };

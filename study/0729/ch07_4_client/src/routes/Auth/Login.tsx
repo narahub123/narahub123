@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import * as U from "../../utils";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts";
+import { oauthObj } from "../../data/oauth";
 
 type LoginFormType = Record<"email" | "password", string>;
 
@@ -38,6 +39,25 @@ export const Login = () => {
       .catch((e) => {}); // 오류 무시
   }, []);
 
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event.data.url) {
+        console.log(event.data.url);
+        navigate(event.data.url);
+      }
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
+  const onOauthClick = (oauth: "google" | "kakao" | "github") => {
+    const url = `${oauthObj[oauth].link}?client_id=${oauthObj[oauth].client_id}&redirect_uri=${process.env.REACT_APP_BASE_URL}/oauth&response_type=code&scope=${oauthObj[oauth].scope}&state=${oauth}`;
+
+    // window.open 사용법 정리할 것
+    window.open(url, "oauth", "popup");
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 border border-gray-300 shadow-xl rounded-xl">
       <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
@@ -66,6 +86,9 @@ export const Login = () => {
           >
             LOGIN
           </button>
+          <button onClick={() => onOauthClick("google")}>구글 로그인</button>
+          <button onClick={() => onOauthClick("kakao")}>카카오 로그인</button>
+          <button onClick={() => onOauthClick("github")}>깃허브 로그인</button>
         </div>
 
         <div className="mt-6 text-gray-800">
