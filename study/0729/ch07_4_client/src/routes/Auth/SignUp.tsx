@@ -1,14 +1,13 @@
 import { useCallback, useState } from "react";
-import * as D from "../../data";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts";
 
 type SignUpFormType = Record<"email" | "password" | "confirmPassword", string>;
 
 const initialFormState = {
-  email: D.randomEmail(),
-  password: "1",
-  confirmPassword: "1",
+  email: "",
+  password: "",
+  confirmPassword: "",
 };
 
 export const SignUp = () => {

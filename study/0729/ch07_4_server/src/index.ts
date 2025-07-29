@@ -23,4 +23,4 @@ const connectCallback = (db: MongoDB) => {
   });
 };
 
-connectAndUseDB(connectCallback, "mydb");
+connectAndUseDB(connectCallback, "test");

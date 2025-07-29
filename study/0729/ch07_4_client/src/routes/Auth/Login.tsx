@@ -70,7 +70,7 @@ export const Login = () => {
 
         <div className="mt-6 text-gray-800">
           Create account?
-          <Link to="/login" className="btn btn-link btn-primary">
+          <Link to="/signup" className="btn btn-link btn-primary">
             SIGN UP
           </Link>
         </div>

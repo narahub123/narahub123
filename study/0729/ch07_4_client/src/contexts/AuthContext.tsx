@@ -1,3 +1,4 @@
+import { post } from "../server";
 import * as U from "../utils";
 import {
   createContext,
@@ -5,6 +6,7 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -33,17 +35,34 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   const [loggedUser, setLoggedUser] = useState<LoggedUser | undefined>(
     undefined
   );
+  const [jwt, setJwt] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const signup = useCallback(
     (email: string, password: string, callback?: Callback) => {
       const user = { email, password };
 
-      setLoggedUser((notUsed) => ({ email, password }));
+      post("/auth/signup", user)
+        .then((res) => res.json())
+        .then(
+          (result: { ok: boolean; body?: string; errorMessage?: string }) => {
+            const { ok, body, errorMessage } = result;
 
-      // localStorage에 저장
-      U.writeObjectP("user", user).finally(() => callback && callback());
-
-      callback && callback();
+            if (ok) {
+              U.writeStringP("jwt", body ?? "").finally(() => {
+                setJwt(body ?? "");
+                setLoggedUser((notUsed) => user);
+                // localStorage에 저장
+                U.writeObjectP("user", user).finally(
+                  () => callback && callback()
+                );
+              });
+            } else {
+              setErrorMessage(errorMessage ?? "");
+            }
+          }
+        )
+        .catch((e: Error) => setErrorMessage(e.message));
     },
     []
   );
@@ -62,7 +81,17 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
     callback && callback();
   }, []);
 
+  useEffect(() => {
+    U.readStringP("jwt")
+      .then((jwt) => setJwt(jwt ?? ""))
+      .catch(() => {
+        // 오류 무시
+      });
+  }, []);
+
   const value = {
+    jwt,
+    errorMessage,
     loggedUser,
     signup,
     login,
