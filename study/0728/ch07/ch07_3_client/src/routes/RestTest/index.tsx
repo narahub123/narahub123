@@ -6,10 +6,13 @@ import { PutTest } from "./PutTest";
 const RestTest = () => {
   return (
     <div>
-      <p className="test-3xl text-center text-bold">RestTest</p>
+      <p className="test-3xl text-center font-bold">RestTest</p>
       <DeleteTest />
+      <hr />
       <PutTest />
+      <hr />
       <PostTest />
+      <hr />
       <GetTest />
     </div>
   );

@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { MongoDB } from "../mongodb";
+import { ObjectId } from "mongodb";
 
 export const testRouter = (...args: any[]) => {
   const db: MongoDB = args[0];
@@ -25,7 +26,7 @@ export const testRouter = (...args: any[]) => {
 
       try {
         // id 값을 가진 데이터만 요청하는 경우
-        const findResult = await test.findOne({ id });
+        const findResult = await test.findOne({ _id: new ObjectId(id) });
 
         res.json({ ok: true, body: findResult });
       } catch (e) {
@@ -36,14 +37,14 @@ export const testRouter = (...args: any[]) => {
     .post("/", async (req: Request, res: Response) => {
       const { body } = req;
       try {
-        try {
-          await test.drop();
-        } catch (error) {
-          // 오류 무시
-        }
+        // try {
+        //   await test.drop();
+        // } catch (error) {
+        //   // 오류 무시
+        // }
 
         // req.body의 데이터를 저장하기를 요청하는 경우
-        const insertResult = await test.insertOne({ id: "1234", ...body });
+        const insertResult = await test.insertOne({ ...body });
 
         const { insertedId } = insertResult;
 
@@ -60,39 +61,39 @@ export const testRouter = (...args: any[]) => {
       const { id } = req.params;
       const { body } = req;
 
+      console.log(id, body);
+
       try {
         // id 값을 가진 데이터의 수정을 요청하는 경우
         const updateResult = await test.findOneAndUpdate(
-          { id },
+          { _id: new ObjectId(id) },
           { $set: body },
           { returnDocument: "after" }
         );
 
-        return res.json({ ok: true, body: updateResult && updateResult });
+        res.json({ ok: true, body: updateResult && updateResult });
       } catch (e) {
         if (e instanceof Error) {
           res.json({ ok: false, errorMessage: e.message });
         }
       }
-
-      res.json({ ok: true, body, id });
     })
     .delete("/:id", async (req: Request, res: Response) => {
       const { id } = req.params;
 
+      console.log(id);
+
       try {
         // id 값을 가진 데이터의 삭제을 요청하는 경우
-        await test.deleteOne({ id });
+        await test.deleteOne({ _id: new ObjectId(id) });
 
         // await test.findOneAndDelete({ id });
 
-        res.json({ ok: true });
+        res.json({ ok: true, id });
       } catch (e) {
         if (e instanceof Error) {
           res.json({ ok: false, errorMessage: e.message });
         }
       }
-
-      res.json({ ok: true, id });
     });
 };
