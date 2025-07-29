@@ -13,8 +13,7 @@ makeDir(getPublicDirPath());
 const connectCallback = (db: MongoDB) => {
   const hostname = process.env.REACT_APP_BASE_URL || "";
 
-  console.log(process.env.REACT_APP_PORTW);
-  
+  console.log(process.env.REACT_APP_PORT);
 
   const PORT = Number(process.env.REACT_APP_PORT) || 3000;
 
