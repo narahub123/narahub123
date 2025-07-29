@@ -1,21 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
 import { get } from "../../server";
 import { Button } from "../../theme/daisyui";
+import { useAuth } from "../../contexts";
 
 export const GetTest = () => {
   const [data, setData] = useState<object | null>(null);
   const [id, setId] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const { jwt } = useAuth();
+
   const getAllTest = useCallback(() => {
-    get("/test")
+    get("/test", jwt)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((error) => setErrorMessage(error.message));
   }, []);
 
   const getTest = useCallback(() => {
-    get(`/test/${id}`)
+    get(`/test/${id}`, jwt)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((error) => setErrorMessage(error.message));

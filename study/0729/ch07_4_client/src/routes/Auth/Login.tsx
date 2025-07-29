@@ -42,7 +42,7 @@ export const Login = () => {
     <div className="flex flex-col min-h-screen bg-gray-100 border border-gray-300 shadow-xl rounded-xl">
       <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
         <div className="w-full px-6 py-8 text-black bg-white rounded shadow-sm">
-          <h1 className="mb-8 text-2xl text-center text-primary">Sign Up</h1>
+          <h1 className="mb-8 text-2xl text-center text-primary">Log In</h1>
           <input
             type="text"
             className="w-full p-3 mb-4 input input-primary"

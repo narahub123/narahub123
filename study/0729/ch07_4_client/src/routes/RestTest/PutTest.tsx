@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Button } from "../../theme/daisyui";
 import { put } from "../../server";
 import * as D from "../../data";
+import { useAuth } from "../../contexts";
 
 type Body = Record<"id" | string, any>;
 
@@ -16,8 +17,10 @@ export const PutTest = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [id, setId] = useState("");
 
+  const { jwt } = useAuth();
+
   const putTest = useCallback(() => {
-    put(`/test/${id}`, D.makeRandomCard())
+    put(`/test/${id}`, D.makeRandomCard(), jwt)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((error) => setErrorMessage(error.message));

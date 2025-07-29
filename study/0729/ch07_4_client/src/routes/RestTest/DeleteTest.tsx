@@ -1,14 +1,17 @@
 import { useCallback, useState } from "react";
 import { Button } from "../../theme/daisyui";
 import { del } from "../../server";
+import { useAuth } from "../../contexts";
 
 export const DeleteTest = () => {
   const [data, setData] = useState<object | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [id, setId] = useState("");
 
+  const { jwt } = useAuth();
+
   const deleteTest = useCallback(() => {
-    del(`/test/${id}`)
+    del(`/test/${id}`, jwt)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((error) => setErrorMessage(error.message));

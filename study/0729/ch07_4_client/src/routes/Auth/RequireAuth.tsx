@@ -8,11 +8,11 @@ export const RequireAuth: FC<PropsWithChildren<RequireAuthProps>> = ({
   children,
 }) => {
   const navigate = useNavigate();
-  const { loggedUser } = useAuth();
+  const { jwt } = useAuth();
 
   useEffect(() => {
-    if (!loggedUser) navigate(-1);
-  }, [loggedUser, navigate]);
+    if (!jwt) navigate("/login");
+  }, [jwt, navigate]);
 
   return <>{children}</>; // 허가된 사용자: chilren이 element가 되도록 함
 };
