@@ -7,7 +7,7 @@ export const oauthObj = {
   },
   kakao: {
     client_id: process.env.REACT_APP_KAKAO_CLIENT_ID || "",
-    client_secret: process.env.REACT_APP_GOOGLE_SECRET || "",
+    client_secret: process.env.REACT_APP_KAKAO_SECRET || "",
     token: "https://kauth.kakao.com/oauth/token",
     userInfo: "https://kapi.kakao.com/v2/user/me",
   },
