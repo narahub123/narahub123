@@ -1,6 +1,6 @@
 function solution(number, limit, power) {
     // 각 기사들의 공격력 
-    const divisors = [];
+    let answer = 0;
     
     for(let i = 1; i <= number; i++){
         
@@ -13,15 +13,10 @@ function solution(number, limit, power) {
             else if(i % j === 0) divisor += 2;
         }    
         
-        divisors.push(divisor);
+        answer += divisor <= limit ? divisor : power;
     }
     
     
-    // 기사단의 무기 구매 
-    const sum = divisors.reduce((acc, cur) => {
-        if(cur <= limit) return acc + cur;
-        else return acc + power;
-    }, 0);
     
-    return sum;
+    return answer;
 }
