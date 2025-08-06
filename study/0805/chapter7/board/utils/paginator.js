@@ -1,4 +1,5 @@
 const lodash = require("lodash"); // 다운로드 필요
+const getRange = require("./getRange");
 
 const PAGE_LIST_SIZE = 10;
 
@@ -30,7 +31,7 @@ module.exports = ({ totalCount, page, perPage = 10 }) => {
   const hasNext = page < totalPage;
 
   const paginator = {
-    pageList: lodash.range(startPage, endPage + 1),
+    pageList: getRange(startPage, endPage + 1),
     page,
     prevPage: page - 1,
     nextPage: page + 1,
