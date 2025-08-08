@@ -1,8 +1,9 @@
-import { WidgetButton } from "./components";
+import { AuthMenu, WidgetButton } from "./components";
 
 function App() {
   return (
     <div className="App">
+      <AuthMenu />
       <WidgetButton />
     </div>
   );
