@@ -1,5 +1,11 @@
+import { WidgetButton } from "./components";
+
 function App() {
-  return <div className="App">앱</div>;
+  return (
+    <div className="App">
+      <WidgetButton />
+    </div>
+  );
 }
 
 export default App;
