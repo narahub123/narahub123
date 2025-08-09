@@ -1,10 +1,11 @@
 import { useOpenStore, useAuthStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Input, Link, OauthButtonContainer } from "../components";
+import { Icon, Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const LoginModal = () => {
+  const [isCheck, setIsCheck] = useState(false);
   // 로그인 모달 여닫힘 상태
   const isOpen = useOpenStore((state) => state.isLoginModalOpen);
   // 로그인 모달 여닫힘 상태 변경 함수
@@ -72,6 +73,11 @@ const LoginModal = () => {
     setLoginInfo(id, value);
   };
 
+  // 아이디 저장하기
+  const handleCheck = () => {
+    setIsCheck((prev) => !prev);
+  };
+
   console.log(loginInfo);
 
   return (
@@ -96,6 +102,23 @@ const LoginModal = () => {
                   entity={loginInfo}
                 />
               ))}
+              <div className="flex justify-between text-sm">
+                <div className="flex items-center gap-1" onClick={handleCheck}>
+                  {isCheck ? (
+                    <Icon
+                      name="check_box"
+                      className="text-lg cursor-pointer select-none"
+                    />
+                  ) : (
+                    <Icon
+                      name="check_box_outline_blank"
+                      className="text-lg cursor-pointer select-none"
+                    />
+                  )}
+                  <label className="select-none">이메일 저장하기</label>
+                </div>
+                <Link text="이메일/비밀번호 찾기" onClick={() => {}} />
+              </div>
               <Button className="w-full btn btn-primary" disabled={!canSend}>
                 로그인
               </Button>
@@ -105,7 +128,7 @@ const LoginModal = () => {
             <OauthButtonContainer />
           </div>
           <hr className="w-full" />
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 text-sm">
             <p>계정이 없으신가요?</p>
             <Link text="회원가입하러가기" onClick={handleSignup} />
           </div>
