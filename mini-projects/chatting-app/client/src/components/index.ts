@@ -9,6 +9,8 @@ import ImageUploader from "./ImageUploader";
 import ProfileImageUploader from "./ProfileImageUploader";
 import Input from "./Input";
 import LoginModal from "./LoginModal";
+import OauthButton from "./OauthButton";
+import OauthButtonContainer from "./OauthButtonContainer";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -27,4 +29,6 @@ export {
   ProfileImageUploader,
   Input,
   LoginModal,
+  OauthButton,
+  OauthButtonContainer,
 };

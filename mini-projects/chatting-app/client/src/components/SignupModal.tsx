@@ -1,6 +1,6 @@
 import { useOpenStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Link } from "../components";
+import { Link, OauthButton, OauthButtonContainer } from "../components";
 import { oauths } from "../data";
 import { OauthType } from "../types";
 import { SERVER_URL } from "../constants";
@@ -35,15 +35,6 @@ const SignupModal = () => {
     setIsSignupModalOpen(false);
   };
 
-  // Oauth 회원 가입
-  const handleSocialSignup = (social: OauthType) => {
-    const oauth = oauths[social];
-
-    const url = `${oauth.url}?client_id=${oauth.client_id}&redirect_uri=${SERVER_URL}/auth/oauth&response_type=code&scope=${oauth.scope}&state=${oauth.type}`;
-
-    window.open(url, "oauth", "popup");
-  };
-
   return (
     <Modal open={isOpen}>
       <ModalContent
@@ -58,21 +49,8 @@ const SignupModal = () => {
             {/* 이메일 회원가입 모달창 열림 */}
             <Button onClick={handleEmailSignup}>이메일 회원가입</Button>
           </div>
-          <div className="flex gap-4">
-            {/* 각 소셜 로그인 프로세스 진행 */}
-            {Object.values(oauths).map((social) => (
-              <button
-                key={social.type}
-                onClick={() => handleSocialSignup(social.type as OauthType)}
-              >
-                <img
-                  src={social.logo}
-                  alt={`${social.type} 로고 이미지`}
-                  style={{ width: 30, aspectRatio: 1 / 1 }}
-                />
-              </button>
-            ))}
-          </div>
+          {/* 각 소셜 로그인 프로세스 진행 */}
+          <OauthButtonContainer />
         </div>
         <div className="flex justify-center gap-2">
           <h2 className="font-bold">이미 계정이 있으신가요?</h2>

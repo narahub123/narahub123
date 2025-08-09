@@ -4,6 +4,7 @@ import {
   KAKAO_CLIENT_ID,
   NAVER_CLIENT_ID,
 } from "../constants";
+import { OauthInfoType, OauthType } from "../types";
 import { github, google, kakao, naver } from "./images";
 
 export const signupFieldList = [
@@ -45,7 +46,7 @@ export const loginList = [
 ];
 
 // 타입 설정할 것
-export const oauths = {
+export const oauths: Record<OauthType, OauthInfoType> = {
   google: {
     type: "google",
     logo: google,

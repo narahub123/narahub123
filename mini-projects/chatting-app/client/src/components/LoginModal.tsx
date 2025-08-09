@@ -1,6 +1,6 @@
 import { useSignupStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Input, Link } from "../components";
+import { Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
 
 const LoginModal = () => {
@@ -26,7 +26,7 @@ const LoginModal = () => {
               <Button className="w-full">로그인</Button>
             </div>
             <hr className="w-full" />
-            <div>소셜 로그인</div>
+            <OauthButtonContainer />
           </div>
           <hr className="w-full" />
           <div className="flex justify-center gap-2">
