@@ -1,10 +1,11 @@
-import React, { FC, useState } from "react";
+import { FC } from "react";
 import ImageUploader from "./ImageUploader";
 import ProfileImage from "./ProfileImage";
-import { ImageType } from "../types";
+import { useSignupStore } from "../stores";
 
 const ProfileImageUploader: FC = () => {
-  const [image, setImage] = useState<ImageType | null>(null);
+  const image = useSignupStore((state) => state.user.profile_image);
+  const setImage = useSignupStore((state) => state.setProfileImage);
 
   return (
     <div className="relative">

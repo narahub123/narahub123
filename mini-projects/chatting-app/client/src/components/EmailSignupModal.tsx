@@ -1,16 +1,21 @@
 import { FC } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { useOpenStore } from "../stores";
+import { useOpenStore, useSignupStore } from "../stores";
 import ProfileImageUploader from "./ProfileImageUploader";
 
 const EmailSignupModal: FC = () => {
+  // 이메일 회원가입 모달창 여닫기 상태
   const isOpen = useOpenStore((state) => state.isEmailSignupModalOpen);
+  // 이메일 회원가입 모달창 여닫기 상태 변경
   const setIsEmailSignupModalOpen = useOpenStore(
     (state) => state.setIsEmailSignupModalOpen
   );
+  // 회원가입 모달창 여닫기 상태 변경ㄴ
   const setIsSignupModalOpen = useOpenStore(
     (state) => state.setIsSignupModalOpen
   );
+  // 회원가입 사용자 정보 삭제
+  const cleanSignupUser = useSignupStore((state) => state.cleanSignupUser);
 
   // 이메일 회원가입 취소 함수
   const handleCancel = () => {
@@ -18,6 +23,8 @@ const EmailSignupModal: FC = () => {
     setIsEmailSignupModalOpen(false);
     // 회원가입 모달창 열기
     setIsSignupModalOpen(true);
+    // 회원가입 사용자 정보 삭제
+    cleanSignupUser();
   };
 
   return (
