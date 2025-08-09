@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore } from "../stores";
+import ProfileImageUploader from "./ProfileImageUploader";
 
 const EmailSignupModal: FC = () => {
   const isOpen = useOpenStore((state) => state.isEmailSignupModalOpen);
@@ -11,8 +12,11 @@ const EmailSignupModal: FC = () => {
     (state) => state.setIsSignupModalOpen
   );
 
+  // 이메일 회원가입 취소 함수
   const handleCancel = () => {
+    // 이메일 회원 가입 모달창 닫기
     setIsEmailSignupModalOpen(false);
+    // 회원가입 모달창 열기
     setIsSignupModalOpen(true);
   };
 
@@ -28,12 +32,9 @@ const EmailSignupModal: FC = () => {
               <div className="w-28 flex justify-center">
                 <label htmlFor="profile_image">프로필 사진</label>
               </div>
-              <input
-                type="file"
-                name="profile_image"
-                id="profile_image"
-                className="border p-2"
-              />
+              <div className="flex-1 flex justify-center">
+                <ProfileImageUploader />
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-28 flex justify-center">
