@@ -3,9 +3,9 @@ import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Icon, Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
 import { useEffect, useState } from "react";
+import { useLocalStorageCheck } from "../hooks";
 
 const LoginModal = () => {
-  const [isCheck, setIsCheck] = useState(false);
   // 로그인 모달 여닫힘 상태
   const isOpen = useOpenStore((state) => state.isLoginModalOpen);
   // 로그인 모달 여닫힘 상태 변경 함수
@@ -38,6 +38,7 @@ const LoginModal = () => {
   // 로그인 정보 전송 가능 상태 변경 함수
   const setCanSend = useAuthStore((state) => state.setCanSend);
 
+  // 입력값들의 유효성 결과
   useEffect(() => {
     if (!loginInfo.email && !loginInfo.userId) return;
 
@@ -51,6 +52,8 @@ const LoginModal = () => {
 
     console.log(fields);
   }, [loginInfo.email, loginInfo.userId, loginInfo.password, loginInfo]);
+
+  const { savedEmail, setSavedEmail } = useLocalStorageCheck();
 
   // 회원가입으로 이동하기
   const handleSignup = () => {
@@ -78,17 +81,19 @@ const LoginModal = () => {
     setLoginInfo(id, value);
   };
 
-  // 아이디 저장하기
-  const handleCheck = () => {
-    setIsCheck((prev) => !prev);
-  };
-
   // 비밀번호 재설정 모달 열기
   const handleOpenResetPasswordModal = () => {
     // 로그인 모달 닫기
     setIsLoginModalOpen(false);
     // 비밀번호 재설정 모달 열기
     setIsResetPasswordModal(true);
+  };
+
+  // 아이디 저장하기
+  const handleCheck = (email?: string) => {
+    if (email === undefined) return;
+
+    setSavedEmail(email);
   };
 
   console.log(loginInfo);
@@ -116,8 +121,11 @@ const LoginModal = () => {
                 />
               ))}
               <div className="flex justify-between text-sm">
-                <div className="flex items-center gap-1" onClick={handleCheck}>
-                  {isCheck ? (
+                <div
+                  className="flex items-center gap-1"
+                  onClick={() => handleCheck(savedEmail ? "" : loginInfo.email)}
+                >
+                  {savedEmail ? (
                     <Icon
                       name="check_box"
                       className="text-lg cursor-pointer select-none"

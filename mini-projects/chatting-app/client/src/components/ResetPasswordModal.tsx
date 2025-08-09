@@ -6,9 +6,13 @@ import { Input } from "../components";
 const initialValue = { email: "", password: "" };
 
 const ResetPasswordModal = () => {
+  // 입력값
   const [value, setValue] = useState(initialValue);
+  // api 요청 가능 여부 상태
   const [canSend, setCanSend] = useState(false);
+  // 이메일 유효성 여부 상태(api 전송 후의 결과)
   const [isValid, setIsValid] = useState(false);
+
   // 비밀번호 재설정 모달 여닫기 상태
   const isOpen = useOpenStore((state) => state.isResetPasswordModalOpen);
 
@@ -69,8 +73,6 @@ const ResetPasswordModal = () => {
   const handlePasswordCheck = () => {
     setIsValid((prev) => (prev !== true ? true : prev));
   };
-
-  console.log(value);
 
   return (
     <Modal open={isOpen}>
