@@ -1,1 +1,4 @@
-export const auths = [{ text: "회원가입" }, { text: "로그인" }];
+export const auths = [
+  { id: "signup", text: "회원가입" },
+  { id: "login", text: "로그인" },
+];

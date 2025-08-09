@@ -1,15 +1,22 @@
 import { useOpenStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Link, OauthButton, OauthButtonContainer } from "../components";
-import { oauths } from "../data";
-import { OauthType } from "../types";
-import { SERVER_URL } from "../constants";
+import { Link, OauthButtonContainer } from "../components";
 
 const SignupModal = () => {
+  // 회원가입 여닫기 상태
   const isOpen = useOpenStore((state) => state.isSignupModalOpen);
+
+  // 회원가입 모달 여닫기 상태 변경 함수
   const setIsSignupModalOpen = useOpenStore(
     (state) => state.setIsSignupModalOpen
   );
+
+  // 로그인 모달 여닫기 상태 변경 함수
+  const setIsLoginModalOpen = useOpenStore(
+    (state) => state.setIsLoginModalOpen
+  );
+
+  // 이메일 회원가입 모달 여닫기 상태 변경 함수
   const setIsEmailSignupModalOpen = useOpenStore(
     (state) => state.setIsEmailSignupModalOpen
   );
@@ -27,6 +34,7 @@ const SignupModal = () => {
     // 회원가입 모달 닫기
     setIsSignupModalOpen(false);
     // 로그인 모달 열기
+    setIsLoginModalOpen(true);
   };
 
   // 회원가입 취소 함수
@@ -49,8 +57,10 @@ const SignupModal = () => {
             {/* 이메일 회원가입 모달창 열림 */}
             <Button onClick={handleEmailSignup}>이메일 회원가입</Button>
           </div>
+          <hr className="w-full" />
           {/* 각 소셜 로그인 프로세스 진행 */}
           <OauthButtonContainer />
+          <hr className="w-full" />
         </div>
         <div className="flex justify-center gap-2">
           <h2 className="font-bold">이미 계정이 있으신가요?</h2>

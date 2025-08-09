@@ -17,6 +17,7 @@ const OauthButtonContainer: FC = () => {
     <div className="flex items-center gap-8">
       {Object.values(oauths).map((oauth) => (
         <OauthButton
+          key={oauth.client_id}
           oauth={oauth}
           onClick={() => handleSocialSignup(oauth.type)}
         />

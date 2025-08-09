@@ -17,4 +17,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isEmailSignupModalOpen,
     })),
+  isLoginModalOpen: false,
+  setIsLoginModalOpen: (isLoginModalOpen: boolean) =>
+    set(() => ({
+      isLoginModalOpen,
+    })),
 }));
