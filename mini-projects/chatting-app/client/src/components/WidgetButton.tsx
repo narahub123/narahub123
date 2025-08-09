@@ -1,12 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Icon } from "../components";
-import { useLoginStore, useWidgetButtonStore } from "../stores";
+import { useLoginStore, useOpenStore } from "../stores";
 
 const WidgetButton: FC = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
-  const setIsAuthMenuOpen = useWidgetButtonStore(
-    (state) => state.setIsAuthMenuOpen
-  );
+  const setIsAuthMenuOpen = useOpenStore((state) => state.setIsAuthMenuOpen);
 
   const handleAuthMenu = () => {
     setIsAuthMenuOpen((prev: boolean) => !prev);

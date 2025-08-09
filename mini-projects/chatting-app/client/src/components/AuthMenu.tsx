@@ -1,8 +1,8 @@
 import { auths } from "../data";
-import { useWidgetButtonStore } from "../stores";
+import { useOpenStore } from "../stores";
 
 const AuthMenu = () => {
-  const isOpen = useWidgetButtonStore((state) => state.isAuthMenuOpen);
+  const isOpen = useOpenStore((state) => state.isAuthMenuOpen);
 
   if (!isOpen) return null;
 

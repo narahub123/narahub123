@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { WidgetButtonState } from "../types";
+import { OpenState } from "../types";
 
-export const useWidgetButtonStore = create<WidgetButtonState>((set) => ({
+export const useOpenStore = create<OpenState>((set) => ({
   isAuthMenuOpen: false,
   setIsAuthMenuOpen: (updater) =>
     set((state) => ({
