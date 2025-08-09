@@ -11,7 +11,12 @@ export const Modal: FC<ModalProps> = ({
   className: _className,
   ...props
 }) => {
-  const className = ["modal", open ? "modal-open" : "", _className].join(" ");
+  const className = [
+    "modal",
+    open ? "modal-open" : "",
+    "select-none",
+    _className,
+  ].join(" ");
   return <div {...props} className={className} />;
 };
 
@@ -36,7 +41,7 @@ export const ModalContent: FC<ModalContentProps> = ({
 
   const closeIconClassName =
     _closeIconClassName ??
-    "btn btn-sm bg-transparent border-none hover:bg-gray-100";
+    "btn text-lg btn-sm bg-transparent border-none hover:bg-gray-100";
   return (
     <div {...props} className={className}>
       <Div className="absolute" right="0.5rem" top="0.5rem">

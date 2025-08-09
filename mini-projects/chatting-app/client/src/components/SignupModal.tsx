@@ -59,12 +59,11 @@ const SignupModal = () => {
               이메일 회원가입
             </Button>
           </div>
-          <hr className="w-full" />
           {/* 각 소셜 로그인 프로세스 진행 */}
           <OauthButtonContainer />
           <hr className="w-full" />
-          <div className="flex justify-center gap-2">
-            <h2 className="font-bold">이미 계정이 있으신가요?</h2>
+          <div className="flex gap-2 text-sm">
+            <p>이미 계정이 있으신가요?</p>
             <Link text="로그인하러가기" onClick={handleLogin} />
           </div>
         </div>

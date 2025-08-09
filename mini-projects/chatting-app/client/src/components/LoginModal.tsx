@@ -147,7 +147,6 @@ const LoginModal = () => {
                 로그인
               </Button>
             </div>
-            <hr className="w-full" />
             {/* 각 소셜 로그인 프로세스 진행 */}
             <OauthButtonContainer />
           </div>
