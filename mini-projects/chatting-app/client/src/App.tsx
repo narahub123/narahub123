@@ -1,6 +1,7 @@
 import {
   AuthMenu,
   EmailSignupModal,
+  LoginModal,
   SignupModal,
   WidgetButton,
 } from "./components";
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       <EmailSignupModal />
       <SignupModal />
+      <LoginModal />
       <AuthMenu />
       <WidgetButton />
     </div>

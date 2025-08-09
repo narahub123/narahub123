@@ -8,6 +8,7 @@ import Link from "./Link";
 import ImageUploader from "./ImageUploader";
 import ProfileImageUploader from "./ProfileImageUploader";
 import Input from "./Input";
+import LoginModal from "./LoginModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -25,4 +26,5 @@ export {
   ImageUploader,
   ProfileImageUploader,
   Input,
+  LoginModal,
 };
