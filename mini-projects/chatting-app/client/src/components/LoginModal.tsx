@@ -2,6 +2,7 @@ import { useOpenStore, useAuthStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
+import { useEffect } from "react";
 
 const LoginModal = () => {
   // 로그인 모달 여닫힘 상태
@@ -25,6 +26,26 @@ const LoginModal = () => {
   // 로그인 정보 업데이트 함수
   const setLoginInfo = useAuthStore((state) => state.setLoginInfo);
 
+  // 로그인 정보 전송 가능 여부 상태
+  const canSend = useAuthStore((state) => state.canSend);
+
+  // 로그인 정보 전송 가능 상태 변경 함수
+  const setCanSend = useAuthStore((state) => state.setCanSend);
+
+  useEffect(() => {
+    if (!loginInfo.email && !loginInfo.userId) return;
+
+    const fields = Object.values(loginInfo).filter((field) => field);
+
+    if (fields.length === 2) {
+      setCanSend(true);
+    } else {
+      setCanSend(false);
+    }
+
+    console.log(fields);
+  }, [loginInfo.email, loginInfo.userId, loginInfo.password, loginInfo]);
+
   // 회원가입으로 이동하기
   const handleSignup = () => {
     // 로그인 모달 닫기
@@ -39,6 +60,8 @@ const LoginModal = () => {
     setIsLoginModalOpen(false);
     // 입력된 회원정보 삭제
     cleanLoginInfo();
+    // canSend 초기화
+    setCanSend(false);
   };
 
   // 로그인 정보 입력
@@ -73,7 +96,9 @@ const LoginModal = () => {
                   entity={loginInfo}
                 />
               ))}
-              <Button className="w-full">로그인</Button>
+              <Button className="w-full btn btn-primary" disabled={!canSend}>
+                로그인
+              </Button>
             </div>
             <hr className="w-full" />
             {/* 각 소셜 로그인 프로세스 진행 */}
