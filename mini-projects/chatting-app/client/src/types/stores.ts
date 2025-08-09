@@ -25,11 +25,19 @@ export type SignupUserType = {
   profile_image: ImageType | null; // 프로필 사진
 };
 
+export type LoginUserType = {
+  userId?: string;
+  email?: string;
+  password: string;
+};
+
 export type SignupState = {
   user: SignupUserType; // 회원가입 사용자 정보
+  login: LoginUserType;
   canSend: boolean; // 회원가입 버튼 유효성 통과 여부 상태
   setProfileImage: (profileImage: ImageType) => void; // 이미지 변경
   cleanSignupUser: () => void; // 회원가입 사용자 정보 삭제
   setUserInfo: (id: string, value: string) => void;
+  setLoginInfo: (id: string, value: string) => void;
   setCanSend: (canSend: boolean) => void;
 };

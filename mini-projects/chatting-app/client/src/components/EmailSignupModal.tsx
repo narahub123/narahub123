@@ -64,6 +64,7 @@ const EmailSignupModal: FC = () => {
     cleanSignupUser();
   };
 
+  // 입력 값 업데이트 함수
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
     const value = e.target.value;
@@ -79,13 +80,8 @@ const EmailSignupModal: FC = () => {
         </div>
         <div className="flex justify-center">
           <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="flex justify-center w-28">
-                <label htmlFor="profile_image">프로필 사진</label>
-              </div>
-              <div className="flex justify-center flex-1">
-                <ProfileImageUploader />
-              </div>
+            <div className="flex justify-center flex-1">
+              <ProfileImageUploader />
             </div>
             {signupFieldList.map((input) => (
               <Input

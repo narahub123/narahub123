@@ -10,9 +10,17 @@ const initialState = {
   password_confirm: "",
 };
 
+const loginInitialState = {
+  email: "",
+  userId: "",
+  password: "",
+};
+
 export const useSignupStore = create<SignupState>((set) => ({
   // 회원가입 사용자 정보
   user: initialState,
+  // 로그인 사용자 정보
+  login: loginInitialState,
   // 회원가입 정보 전송 가능 여부 상태
   canSend: false,
   // 이미지 변경
@@ -40,5 +48,13 @@ export const useSignupStore = create<SignupState>((set) => ({
   setCanSend: (canSend: boolean) =>
     set(() => ({
       canSend,
+    })),
+  // 로그인 사용자 정보 입력
+  setLoginInfo: (id: string, value: string) =>
+    set((state) => ({
+      login: {
+        ...state.login,
+        [id]: value,
+      },
     })),
 }));

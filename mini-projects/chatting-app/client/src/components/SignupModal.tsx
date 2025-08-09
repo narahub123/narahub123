@@ -53,18 +53,20 @@ const SignupModal = () => {
           <h2 className="text-2xl font-bold">환영합니다!</h2>
         </div>
         <div className="flex flex-col items-center gap-4">
-          <div className="">
+          <div className="w-full">
             {/* 이메일 회원가입 모달창 열림 */}
-            <Button onClick={handleEmailSignup}>이메일 회원가입</Button>
+            <Button onClick={handleEmailSignup} className="w-full">
+              이메일 회원가입
+            </Button>
           </div>
           <hr className="w-full" />
           {/* 각 소셜 로그인 프로세스 진행 */}
           <OauthButtonContainer />
           <hr className="w-full" />
-        </div>
-        <div className="flex justify-center gap-2">
-          <h2 className="font-bold">이미 계정이 있으신가요?</h2>
-          <Link text="로그인하러가기" onClick={handleLogin} />
+          <div className="flex justify-center gap-2">
+            <h2 className="font-bold">이미 계정이 있으신가요?</h2>
+            <Link text="로그인하러가기" onClick={handleLogin} />
+          </div>
         </div>
       </ModalContent>
     </Modal>

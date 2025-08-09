@@ -16,8 +16,14 @@ const LoginModal = () => {
     (state) => state.setIsSignupModalOpen
   );
 
+  // 입력된 회원정보 삭제 함수
+  const cleanUserInfo = useSignupStore((state) => state.cleanSignupUser);
+
   // 사용자 입력 정보
-  const user = useSignupStore((state) => state.user);
+  const user = useSignupStore((state) => state.login);
+
+  // 로그인 정보 업데이트 함수
+  const setLoginInfo = useSignupStore((state) => state.setLoginInfo);
 
   // 회원가입으로 이동하기
   const handleSignup = () => {
@@ -31,7 +37,19 @@ const LoginModal = () => {
   const handleLoginCancel = () => {
     // 로그인 모달 닫기
     setIsLoginModalOpen(false);
+    // 입력된 회원정보 삭제
+    cleanUserInfo();
   };
+
+  // 로그인 정보 입력
+  const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setLoginInfo(id, value);
+  };
+
+  console.log(user);
 
   return (
     <Modal open={isOpen}>
@@ -51,7 +69,7 @@ const LoginModal = () => {
                   field={login.field}
                   placeholder={login.placeholder}
                   type={login.type}
-                  onChange={() => {}}
+                  onChange={handleLogin}
                   entity={user}
                 />
               ))}
