@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { ImageType, SignupState } from "../types";
+import { ImageType, AuthState } from "../types";
 
-const initialState = {
+const signupInitialState = {
   profile_image: null,
   userId: "",
   username: "",
@@ -16,9 +16,9 @@ const loginInitialState = {
   password: "",
 };
 
-export const useSignupStore = create<SignupState>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   // 회원가입 사용자 정보
-  user: initialState,
+  signup: signupInitialState,
   // 로그인 사용자 정보
   login: loginInitialState,
   // 회원가입 정보 전송 가능 여부 상태
@@ -26,21 +26,21 @@ export const useSignupStore = create<SignupState>((set) => ({
   // 이미지 변경
   setProfileImage: (profileImage: ImageType) =>
     set((state) => ({
-      user: {
-        ...state.user,
+      signup: {
+        ...state.signup,
         profile_image: profileImage,
       },
     })),
   // 회원가입 사용자 정보 삭제
-  cleanSignupUser: () =>
+  cleanSignupInfo: () =>
     set(() => ({
-      user: initialState,
+      signup: signupInitialState,
     })),
   // 사용자 정보 입력
-  setUserInfo: (id: string, value: string) =>
+  setSignupInfo: (id: string, value: string) =>
     set((state) => ({
-      user: {
-        ...state.user,
+      signup: {
+        ...state.signup,
         [id]: value,
       },
     })),
@@ -56,5 +56,10 @@ export const useSignupStore = create<SignupState>((set) => ({
         ...state.login,
         [id]: value,
       },
+    })),
+  // 회원가입 사용자 정보 삭제
+  cleanLoginInfo: () =>
+    set(() => ({
+      login: loginInitialState,
     })),
 }));

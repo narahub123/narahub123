@@ -1,4 +1,4 @@
-import { useOpenStore, useSignupStore } from "../stores";
+import { useOpenStore, useAuthStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
@@ -17,13 +17,13 @@ const LoginModal = () => {
   );
 
   // 입력된 회원정보 삭제 함수
-  const cleanUserInfo = useSignupStore((state) => state.cleanSignupUser);
+  const cleanLoginInfo = useAuthStore((state) => state.cleanLoginInfo);
 
   // 사용자 입력 정보
-  const user = useSignupStore((state) => state.login);
+  const loginInfo = useAuthStore((state) => state.login);
 
   // 로그인 정보 업데이트 함수
-  const setLoginInfo = useSignupStore((state) => state.setLoginInfo);
+  const setLoginInfo = useAuthStore((state) => state.setLoginInfo);
 
   // 회원가입으로 이동하기
   const handleSignup = () => {
@@ -38,7 +38,7 @@ const LoginModal = () => {
     // 로그인 모달 닫기
     setIsLoginModalOpen(false);
     // 입력된 회원정보 삭제
-    cleanUserInfo();
+    cleanLoginInfo();
   };
 
   // 로그인 정보 입력
@@ -49,7 +49,7 @@ const LoginModal = () => {
     setLoginInfo(id, value);
   };
 
-  console.log(user);
+  console.log(loginInfo);
 
   return (
     <Modal open={isOpen}>
@@ -70,7 +70,7 @@ const LoginModal = () => {
                   placeholder={login.placeholder}
                   type={login.type}
                   onChange={handleLogin}
-                  entity={user}
+                  entity={loginInfo}
                 />
               ))}
               <Button className="w-full">로그인</Button>

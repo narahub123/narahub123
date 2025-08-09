@@ -1,9 +1,8 @@
 import { FC, useEffect } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { useOpenStore, useSignupStore } from "../stores";
-import ProfileImageUploader from "./ProfileImageUploader";
+import { useOpenStore, useAuthStore } from "../stores";
+import { ProfileImageUploader, Input } from "../components";
 import { signupFieldList } from "../data";
-import Input from "./Input";
 
 const EmailSignupModal: FC = () => {
   // 이메일 회원가입 모달창 여닫기 상태
@@ -18,28 +17,28 @@ const EmailSignupModal: FC = () => {
     (state) => state.setIsSignupModalOpen
   );
   // 회원가입 사용자 정보 삭제
-  const cleanSignupUser = useSignupStore((state) => state.cleanSignupUser);
+  const cleanSignupInfo = useAuthStore((state) => state.cleanSignupInfo);
 
   // 회원가입 사용자 입력 정보 추가
-  const setSignupUserInfo = useSignupStore((state) => state.setUserInfo);
+  const setSignupInfo = useAuthStore((state) => state.setSignupInfo);
 
   // 회원 정보 전송 가능 여부 상태
-  const canSend = useSignupStore((state) => state.canSend);
+  const canSend = useAuthStore((state) => state.canSend);
 
   // 회원 정보 전송 가능 상태 변경
-  const setCanSend = useSignupStore((state) => state.setCanSend);
+  const setCanSend = useAuthStore((state) => state.setCanSend);
 
   // 회원가입 사용자 정보
-  const user = useSignupStore((state) => state.user);
+  const signupInfo = useAuthStore((state) => state.signup);
 
-  console.log(user);
+  console.log(signupInfo);
 
   // 회원가입 정보 유효성 완료 여부 확인
   // 실제로는 유효성 검사의 결과로 확인해야 함
   useEffect(() => {
-    console.log(Object.values(user));
+    console.log(Object.values(signupInfo));
 
-    const canSend = Object.values(user).every((field, idx) => {
+    const canSend = Object.values(signupInfo).every((field, idx) => {
       if (idx === 0) return true;
 
       return field !== "";
@@ -47,11 +46,11 @@ const EmailSignupModal: FC = () => {
 
     setCanSend(canSend);
   }, [
-    user.userId,
-    user.username,
-    user.email,
-    user.password,
-    user.password_confirm,
+    signupInfo.userId,
+    signupInfo.username,
+    signupInfo.email,
+    signupInfo.password,
+    signupInfo.password_confirm,
   ]);
 
   // 이메일 회원가입 취소 함수
@@ -61,7 +60,7 @@ const EmailSignupModal: FC = () => {
     // 회원가입 모달창 열기
     setIsSignupModalOpen(true);
     // 회원가입 사용자 정보 삭제
-    cleanSignupUser();
+    cleanSignupInfo();
   };
 
   // 입력 값 업데이트 함수
@@ -69,7 +68,7 @@ const EmailSignupModal: FC = () => {
     const id = e.target.id;
     const value = e.target.value;
 
-    setSignupUserInfo(id, value);
+    setSignupInfo(id, value);
   };
 
   return (
@@ -90,7 +89,7 @@ const EmailSignupModal: FC = () => {
                 placeholder={input.placeholder}
                 type={input.type}
                 onChange={handleChange}
-                entity={user}
+                entity={signupInfo}
               />
             ))}
           </div>
