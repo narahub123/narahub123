@@ -26,9 +26,18 @@ const SignupModal = () => {
     // 로그인 모달 열기
   };
 
+  // 회원가입 취소 함수
+  const handleSignupCancel = () => {
+    // 회원가입 모달 닫기
+    setIsSignupModalOpen(false);
+  };
+
   return (
     <Modal open={isOpen}>
-      <ModalContent className="space-y-8">
+      <ModalContent
+        className="space-y-8"
+        onCloseIconClicked={handleSignupCancel}
+      >
         <div className="flex justify-center">
           <h2 className="text-2xl font-bold">환영합니다!</h2>
         </div>
