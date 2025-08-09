@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore, useSignupStore } from "../stores";
 import ProfileImageUploader from "./ProfileImageUploader";
+import { signupFieldList } from "../data";
+import Input from "./Input";
 
 const EmailSignupModal: FC = () => {
   // 이메일 회원가입 모달창 여닫기 상태
@@ -21,10 +23,36 @@ const EmailSignupModal: FC = () => {
   // 회원가입 사용자 입력 정보 추가
   const setSignupUserInfo = useSignupStore((state) => state.setUserInfo);
 
+  // 회원 정보 전송 가능 여부 상태
+  const canSend = useSignupStore((state) => state.canSend);
+
+  // 회원 정보 전송 가능 상태 변경
+  const setCanSend = useSignupStore((state) => state.setCanSend);
+
   // 회원가입 사용자 정보
   const user = useSignupStore((state) => state.user);
 
   console.log(user);
+
+  // 회원가입 정보 유효성 완료 여부 확인
+  // 실제로는 유효성 검사의 결과로 확인해야 함
+  useEffect(() => {
+    console.log(Object.values(user));
+
+    const canSend = Object.values(user).every((field, idx) => {
+      if (idx === 0) return true;
+
+      return field !== "";
+    });
+
+    setCanSend(canSend);
+  }, [
+    user.userId,
+    user.username,
+    user.email,
+    user.password,
+    user.password_confirm,
+  ]);
 
   // 이메일 회원가입 취소 함수
   const handleCancel = () => {
@@ -52,95 +80,32 @@ const EmailSignupModal: FC = () => {
         <div className="flex justify-center">
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
+              <div className="flex justify-center w-28">
                 <label htmlFor="profile_image">프로필 사진</label>
               </div>
-              <div className="flex-1 flex justify-center">
+              <div className="flex justify-center flex-1">
                 <ProfileImageUploader />
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
-                <label htmlFor="userId">사용자 아이디</label>
-              </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  name="userId"
-                  id="userId"
-                  className="border p-2 w-full"
-                  onChange={handleChange}
-                  value={user.userId}
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
-                <label htmlFor="username">사용자 이름</label>
-              </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="border p-2 w-full"
-                  onChange={handleChange}
-                  value={user.username}
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
-                <label htmlFor="email">이메일</label>
-              </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  className="border p-2 w-full"
-                  onChange={handleChange}
-                  value={user.email}
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
-                <label htmlFor="password">비밀번호</label>
-              </div>
-              <div className="flex-1">
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="border p-2 w-full"
-                  onChange={handleChange}
-                  value={user.password}
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-28 flex justify-center">
-                <label htmlFor="password_confirm">비밀번호 확인</label>
-              </div>
-              <div className="flex-1">
-                <input
-                  type="password"
-                  name="password_confirm"
-                  id="password_confirm"
-                  className="border p-2 w-full"
-                  onChange={handleChange}
-                  value={user.password_confirm}
-                />
-              </div>
-            </div>
+            {signupFieldList.map((input) => (
+              <Input
+                key={input.field}
+                field={input.field}
+                label={input.label}
+                type={input.type}
+                onChange={handleChange}
+                entity={user}
+              />
+            ))}
           </div>
         </div>
-        <div className="w-full flex justify-between">
-          <Button className="btn btn-error text-white" onClick={handleCancel}>
+        <div className="flex justify-between w-full">
+          <Button className="text-white btn btn-error" onClick={handleCancel}>
             취소
           </Button>
-          <Button className="btn btn-primary">회원가입</Button>
+          <Button className="btn btn-primary" disabled={!canSend}>
+            회원가입
+          </Button>
         </div>
       </ModalContent>
     </Modal>
