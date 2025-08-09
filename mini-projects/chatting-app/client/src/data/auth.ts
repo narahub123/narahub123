@@ -9,25 +9,37 @@ import { github, google, kakao, naver } from "./images";
 export const signupFieldList = [
   {
     field: "userId",
-    label: "사용자 아이디",
+    placeholder: "사용자 아이디",
   },
   {
     field: "username",
-    label: "사용자 이름",
+    placeholder: "사용자 이름",
   },
   {
     field: "email",
-    label: "이메일",
+    placeholder: "이메일",
     type: "email",
   },
   {
     field: "password",
-    label: "비밀번호",
+    placeholder: "비밀번호",
     type: "password",
   },
   {
     field: "password_confirm",
-    label: "비밀번호 확인",
+    placeholder: "비밀번호 확인",
+    type: "password",
+  },
+];
+
+export const loginList = [
+  {
+    field: "email",
+    placeholder: "이메일",
+  },
+  {
+    field: "password",
+    placeholder: "비밀번호",
     type: "password",
   },
 ];

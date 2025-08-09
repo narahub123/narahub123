@@ -1,6 +1,7 @@
 import { useSignupStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Input, Link } from "../components";
+import { loginList } from "../data";
 
 const LoginModal = () => {
   const user = useSignupStore((state) => state.user);
@@ -13,19 +14,15 @@ const LoginModal = () => {
         <div className="space-y-4">
           <div className="flex flex-col items-center gap-4">
             <div className="space-y-4">
-              <Input
-                field="email"
-                label="이메일"
-                onChange={() => {}}
-                entity={user}
-              />
-              <Input
-                field="password"
-                label="비밀번호"
-                onChange={() => {}}
-                type="password"
-                entity={user}
-              />
+              {loginList.map((login) => (
+                <Input
+                  field={login.field}
+                  placeholder={login.placeholder}
+                  type={login.type}
+                  onChange={() => {}}
+                  entity={user}
+                />
+              ))}
               <Button className="w-full">로그인</Button>
             </div>
             <hr className="w-full" />

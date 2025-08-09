@@ -91,7 +91,7 @@ const EmailSignupModal: FC = () => {
               <Input
                 key={input.field}
                 field={input.field}
-                label={input.label}
+                placeholder={input.placeholder}
                 type={input.type}
                 onChange={handleChange}
                 entity={user}
