@@ -12,4 +12,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isSignupModalOpen,
     })),
+  isEmailSignupModalOpen: false,
+  setIsEmailSignupModalOpen: (isEmailSignupModalOpen: boolean) =>
+    set(() => ({
+      isEmailSignupModalOpen,
+    })),
 }));

@@ -8,4 +8,6 @@ export type OpenState = {
   setIsAuthMenuOpen: (updater: (prev: boolean) => boolean) => void;
   isSignupModalOpen: boolean;
   setIsSignupModalOpen: (isOpen: boolean) => void;
+  isEmailSignupModalOpen: boolean;
+  setIsEmailSignupModalOpen: (isOpen: boolean) => void;
 };

@@ -3,6 +3,17 @@ import { Button, Modal, ModalContent } from "../theme/daisyui";
 
 const SignupModal = () => {
   const isOpen = useOpenStore((state) => state.isSignupModalOpen);
+  const setIsSignupModalOpen = useOpenStore(
+    (state) => state.setIsSignupModalOpen
+  );
+  const setIsEmailSignupModalOpen = useOpenStore(
+    (state) => state.setIsEmailSignupModalOpen
+  );
+
+  const handleEmailSignup = () => {
+    setIsSignupModalOpen(false);
+    setIsEmailSignupModalOpen(true);
+  };
 
   return (
     <Modal open={isOpen}>
@@ -13,7 +24,7 @@ const SignupModal = () => {
         <div className="flex flex-col items-center gap-4">
           <div className="">
             {/* 이메일 회원가입 모달창 열림 */}
-            <Button>이메일 회원가입</Button>
+            <Button onClick={handleEmailSignup}>이메일 회원가입</Button>
           </div>
           <div className="space-x-4">
             {/* 각 소셜 로그인 프로세스 진행 */}
