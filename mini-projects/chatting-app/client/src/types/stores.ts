@@ -25,7 +25,9 @@ export type SignupUserType = {
 
 export type SignupState = {
   user: SignupUserType; // 회원가입 사용자 정보
+  canSend: boolean; // 회원가입 버튼 유효성 통과 여부 상태
   setProfileImage: (profileImage: ImageType) => void; // 이미지 변경
   cleanSignupUser: () => void; // 회원가입 사용자 정보 삭제
   setUserInfo: (id: string, value: string) => void;
+  setCanSend: (canSend: boolean) => void;
 };
