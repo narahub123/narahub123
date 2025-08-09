@@ -6,16 +6,25 @@ import ProfileImageUploader from "./ProfileImageUploader";
 const EmailSignupModal: FC = () => {
   // 이메일 회원가입 모달창 여닫기 상태
   const isOpen = useOpenStore((state) => state.isEmailSignupModalOpen);
+
   // 이메일 회원가입 모달창 여닫기 상태 변경
   const setIsEmailSignupModalOpen = useOpenStore(
     (state) => state.setIsEmailSignupModalOpen
   );
-  // 회원가입 모달창 여닫기 상태 변경ㄴ
+  // 회원가입 모달창 여닫기 상태 변경
   const setIsSignupModalOpen = useOpenStore(
     (state) => state.setIsSignupModalOpen
   );
   // 회원가입 사용자 정보 삭제
   const cleanSignupUser = useSignupStore((state) => state.cleanSignupUser);
+
+  // 회원가입 사용자 입력 정보 추가
+  const setSignupUserInfo = useSignupStore((state) => state.setUserInfo);
+
+  // 회원가입 사용자 정보
+  const user = useSignupStore((state) => state.user);
+
+  console.log(user);
 
   // 이메일 회원가입 취소 함수
   const handleCancel = () => {
@@ -25,6 +34,13 @@ const EmailSignupModal: FC = () => {
     setIsSignupModalOpen(true);
     // 회원가입 사용자 정보 삭제
     cleanSignupUser();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setSignupUserInfo(id, value);
   };
 
   return (
@@ -53,6 +69,8 @@ const EmailSignupModal: FC = () => {
                   name="userId"
                   id="userId"
                   className="border p-2 w-full"
+                  onChange={handleChange}
+                  value={user.userId}
                 />
               </div>
             </div>
@@ -66,6 +84,8 @@ const EmailSignupModal: FC = () => {
                   name="username"
                   id="username"
                   className="border p-2 w-full"
+                  onChange={handleChange}
+                  value={user.username}
                 />
               </div>
             </div>
@@ -79,6 +99,8 @@ const EmailSignupModal: FC = () => {
                   name="email"
                   id="email"
                   className="border p-2 w-full"
+                  onChange={handleChange}
+                  value={user.email}
                 />
               </div>
             </div>
@@ -92,6 +114,8 @@ const EmailSignupModal: FC = () => {
                   name="password"
                   id="password"
                   className="border p-2 w-full"
+                  onChange={handleChange}
+                  value={user.password}
                 />
               </div>
             </div>
@@ -105,6 +129,8 @@ const EmailSignupModal: FC = () => {
                   name="password_confirm"
                   id="password_confirm"
                   className="border p-2 w-full"
+                  onChange={handleChange}
+                  value={user.password_confirm}
                 />
               </div>
             </div>

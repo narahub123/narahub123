@@ -26,4 +26,11 @@ export const useSignupStore = create<SignupState>((set) => ({
     set(() => ({
       user: initialState,
     })),
+  setUserInfo: (id: string, value: string) =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        [id]: value,
+      },
+    })),
 }));

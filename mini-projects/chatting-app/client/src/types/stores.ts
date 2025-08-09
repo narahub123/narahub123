@@ -27,4 +27,5 @@ export type SignupState = {
   user: SignupUserType; // 회원가입 사용자 정보
   setProfileImage: (profileImage: ImageType) => void; // 이미지 변경
   cleanSignupUser: () => void; // 회원가입 사용자 정보 삭제
+  setUserInfo: (id: string, value: string) => void;
 };
