@@ -7,4 +7,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set((state) => ({
       isAuthMenuOpen: updater(state.isAuthMenuOpen),
     })),
+  isSignupModalOpen: false,
+  setIsSignupModalOpen: (isSignupModalOpen: boolean) =>
+    set(() => ({
+      isSignupModalOpen,
+    })),
 }));
