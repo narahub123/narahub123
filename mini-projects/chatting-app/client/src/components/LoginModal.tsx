@@ -18,6 +18,11 @@ const LoginModal = () => {
     (state) => state.setIsSignupModalOpen
   );
 
+  // 비밀번호 재설정 여닫기 상태 변경 함수
+  const setIsResetPasswordModal = useOpenStore(
+    (state) => state.setIsResetPasswordModalOpen
+  );
+
   // 입력된 회원정보 삭제 함수
   const cleanLoginInfo = useAuthStore((state) => state.cleanLoginInfo);
 
@@ -78,6 +83,14 @@ const LoginModal = () => {
     setIsCheck((prev) => !prev);
   };
 
+  // 비밀번호 재설정 모달 열기
+  const handleOpenResetPasswordModal = () => {
+    // 로그인 모달 닫기
+    setIsLoginModalOpen(false);
+    // 비밀번호 재설정 모달 열기
+    setIsResetPasswordModal(true);
+  };
+
   console.log(loginInfo);
 
   return (
@@ -117,7 +130,10 @@ const LoginModal = () => {
                   )}
                   <label className="select-none">이메일 저장하기</label>
                 </div>
-                <Link text="비밀번호 재설정" onClick={() => {}} />
+                <Link
+                  text="비밀번호 재설정"
+                  onClick={handleOpenResetPasswordModal}
+                />
               </div>
               <Button className="w-full btn btn-primary" disabled={!canSend}>
                 로그인
