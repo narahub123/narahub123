@@ -33,13 +33,22 @@ jobs:
           npm install
           CI=false npm run build
           cp build/index.html build/404.html
+      # --- project2 빌드 ---
+      - name: 📦 Install and Build Project 2
+        run: |
+          cd mini-projects/chatting-app/client
+          npm install
+          CI=false npm run build
+          cp build/index.html build/404.html
 
       # --- 빌드 결과물을 한 곳으로 모으기 ---
       - name: 📂 Prepare deployment directory
         run: |
           mkdir -p deploy/react-project
+          mkdir -p deploy/chatting-app
           # 올바른 소스 경로로 수정
           cp -r mini-projects/react-project/build/* deploy/react-project/
+          cp -r mini-projects/chatting-app/client/build/* deploy/chatting-app/
 
           # 루트 경로에 README.md 같은 파일을 두고 싶다면 여기에 추가
           # cp README.md deploy/
