@@ -1,5 +1,10 @@
+import { auths } from "../data";
+import { useWidgetButtonStore } from "../stores";
+
 const AuthMenu = () => {
-  const auths = [{ text: "회원가입" }, { text: "로그인" }];
+  const isOpen = useWidgetButtonStore((state) => state.isAuthMenuOpen);
+
+  if (!isOpen) return null;
 
   return (
     <ul className="border border-blue-300 fixed bottom-6 right-24 shadow-md">
