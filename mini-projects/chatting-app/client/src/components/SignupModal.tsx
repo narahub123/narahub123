@@ -1,5 +1,6 @@
 import { useOpenStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
+import { Link } from "../components";
 
 const SignupModal = () => {
   const isOpen = useOpenStore((state) => state.isSignupModalOpen);
@@ -10,9 +11,19 @@ const SignupModal = () => {
     (state) => state.setIsEmailSignupModalOpen
   );
 
+  // 이메일 로그인 호출 함수
   const handleEmailSignup = () => {
+    // signup 모달 닫기
     setIsSignupModalOpen(false);
+    // email 회원가입 모달 열기
     setIsEmailSignupModalOpen(true);
+  };
+
+  // 로그인 모달 호출 함수
+  const handleLogin = () => {
+    // 회원가입 모달 닫기
+    setIsSignupModalOpen(false);
+    // 로그인 모달 열기
   };
 
   return (
@@ -33,6 +44,10 @@ const SignupModal = () => {
             <Button>네이버</Button>
             <Button>깃허브</Button>
           </div>
+        </div>
+        <div className="flex gap-2 justify-center">
+          <h2 className="font-bold">이미 계정이 있으신가요?</h2>
+          <Link text="로그인하러가기" onClick={handleLogin} />
         </div>
       </ModalContent>
     </Modal>
