@@ -117,7 +117,7 @@ const LoginModal = () => {
                   )}
                   <label className="select-none">이메일 저장하기</label>
                 </div>
-                <Link text="이메일/비밀번호 찾기" onClick={() => {}} />
+                <Link text="비밀번호 재설정" onClick={() => {}} />
               </div>
               <Button className="w-full btn btn-primary" disabled={!canSend}>
                 로그인

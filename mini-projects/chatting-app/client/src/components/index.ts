@@ -11,6 +11,7 @@ import Input from "./Input";
 import LoginModal from "./LoginModal";
 import OauthButton from "./OauthButton";
 import OauthButtonContainer from "./OauthButtonContainer";
+import ResetPasswordModal from "./ResetPasswordModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -31,4 +32,5 @@ export {
   LoginModal,
   OauthButton,
   OauthButtonContainer,
+  ResetPasswordModal,
 };

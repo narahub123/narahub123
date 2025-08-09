@@ -2,6 +2,7 @@ import {
   AuthMenu,
   EmailSignupModal,
   LoginModal,
+  ResetPasswordModal,
   SignupModal,
   WidgetButton,
 } from "./components";
@@ -9,6 +10,7 @@ import {
 function App() {
   return (
     <div className="App">
+      <ResetPasswordModal />
       <EmailSignupModal />
       <SignupModal />
       <LoginModal />
