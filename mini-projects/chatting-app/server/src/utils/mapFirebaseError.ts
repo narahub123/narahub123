@@ -1,10 +1,15 @@
-import { FirebaseError } from "firebase-admin/lib/utils/error";
 import * as FE from "../errors/firebase-error";
 import * as HE from "../errors/http-errors";
 
 export function mapFirebaseError(err: unknown) {
-  if (err instanceof FirebaseError) {
-    switch (err.code) {
+  // FirebaseError 타입은 런타임에 확인 불가하므로 프로퍼티로 체크
+  if (
+    typeof err === "object" &&
+    err !== null &&
+    "code" in err &&
+    typeof (err as any).code === "string"
+  ) {
+    switch ((err as any).code) {
       case "permission-denied":
         return new FE.FirebasePermissionDeniedError();
       case "not-found":
