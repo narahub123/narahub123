@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { startServer } from "./app";
 import routes from "./routes";
+import { errorHandler } from "./middlewares";
 
 const app = express();
 
@@ -22,3 +23,5 @@ app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.use("/", routes());
 
 startServer(app);
+
+app.use(errorHandler);
