@@ -4,6 +4,7 @@ import { asyncWrapper } from "../utils";
 import { plainToInstance } from "class-transformer";
 import {
   EmailCheckRequest,
+  LoginCheckRequest,
   SignupCheckRequest,
 } from "../dtos/request/userRequest";
 import { validate } from "class-validator";
@@ -68,6 +69,34 @@ export const signup = asyncWrapper(
       success: true,
       code: "EMAIL_SIGNUP_SUCCEEDED",
       message: "회원 가입 성공",
+      timestamp: new Date().toISOString(),
+    });
+  }
+);
+
+export const login = asyncWrapper(
+  "login",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const dto = plainToInstance(LoginCheckRequest, req.body);
+
+    const errors = await validate(dto);
+
+    if (errors.length > 0) {
+      const message = errors
+        .map((err) => Object.values(err.constraints || {}).join(", "))
+        .join("; ");
+
+      return next(new BadRequestError(message));
+    }
+
+    const user = await userService.login(dto);
+
+    // userSession 등록 해야 함
+
+    res.status(200).json({
+      success: true,
+      code: "LOGIN_SUCCEEDED",
+      message: "로그인 성공",
       timestamp: new Date().toISOString(),
     });
   }

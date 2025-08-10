@@ -5,3 +5,8 @@ export interface SignupInfo {
   password: string;
   profileImage?: string;
 }
+
+export interface LoginInfo {
+  email: string;
+  password: string;
+}

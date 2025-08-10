@@ -22,3 +22,12 @@ export class SignupCheckRequest {
 
   profileImage?: File;
 }
+
+export class LoginCheckRequest {
+  @IsNotEmpty({ message: "이메일 필수" })
+  @IsEmail({}, { message: "유효하지 않은 이메일 형식" })
+  email!: string;
+
+  @IsNotEmpty({ message: "비밀번호 필수" })
+  password!: string;
+}

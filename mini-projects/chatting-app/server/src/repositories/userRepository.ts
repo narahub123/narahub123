@@ -7,7 +7,7 @@ import {
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
-import { SignupInfo } from "../types";
+import { LoginInfo, SignupInfo } from "../types";
 
 class UserRepository {
   private userCollection: CollectionReference<DocumentData>;
@@ -44,6 +44,20 @@ class UserRepository {
       });
 
       return result;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  async login(loginInfo: LoginInfo): Promise<QuerySnapshot<DocumentData>> {
+    try {
+      const user = await this.userCollection
+        .where("email", "==", loginInfo.email)
+        .where("password", "==", loginInfo.password)
+        .limit(1)
+        .get();
+
+      return user;
     } catch (err) {
       throw mapFirebaseError(err);
     }

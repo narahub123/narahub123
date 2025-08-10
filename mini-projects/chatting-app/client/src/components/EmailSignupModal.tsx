@@ -130,6 +130,10 @@ const EmailSignupModal: FC = () => {
       setIsEmailSignupModalOpen(false);
       // 로그인 열기
       setIsLoginModalOpen(true);
+      // 회원가입 사용자 정보 삭제
+      cleanSignupInfo();
+      // canSend 초기화
+      setCanSend(false);
     }
   };
 

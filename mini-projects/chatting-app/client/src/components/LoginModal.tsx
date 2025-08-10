@@ -4,6 +4,7 @@ import { Icon, Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
 import { useEffect, useState } from "react";
 import { useLocalStorageCheck } from "../hooks";
+import { SERVER_URL } from "../constants";
 
 const LoginModal = () => {
   // 로그인 모달 여닫힘 상태
@@ -74,7 +75,7 @@ const LoginModal = () => {
   };
 
   // 로그인 정보 입력
-  const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
     const value = e.target.value;
 
@@ -96,6 +97,27 @@ const LoginModal = () => {
     setSavedEmail(email);
   };
 
+  // 로그인
+  const handleLogin = async () => {
+    const response = await fetch(`${SERVER_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginInfo),
+    });
+
+    if (!response.ok) {
+      throw new Error("회원가입 실패");
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      // 로그인 모달 닫기
+      setIsLoginModalOpen(false);
+    }
+  };
   console.log(loginInfo);
 
   return (
@@ -116,7 +138,7 @@ const LoginModal = () => {
                   field={login.field}
                   placeholder={login.placeholder}
                   type={login.type}
-                  onChange={handleLogin}
+                  onChange={handleLoginInput}
                   entity={loginInfo}
                 />
               ))}
@@ -143,7 +165,11 @@ const LoginModal = () => {
                   onClick={handleOpenResetPasswordModal}
                 />
               </div>
-              <Button className="w-full btn btn-primary" disabled={!canSend}>
+              <Button
+                className="w-full btn btn-primary"
+                disabled={!canSend}
+                onClick={handleLogin}
+              >
                 로그인
               </Button>
             </div>
