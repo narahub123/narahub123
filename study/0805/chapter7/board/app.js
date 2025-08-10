@@ -31,7 +31,7 @@ app.set("views", __dirname + "/views");
 app.get("/", async (req, res) => {
   // 페이지
   const page = parseInt(req.query.page) || 1;
-
+9
   // 검색어
   const search = req.query.search || "";
 
