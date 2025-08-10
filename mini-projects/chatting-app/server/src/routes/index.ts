@@ -1,17 +1,16 @@
 import { Router } from "express";
 import authRouter from "./authRouter";
 import chatRouter from "./chatRouter";
-import classroomRouter from "./classroomRouter";
-import notificationRouter from "./notificationRouter";
 import userRouter from "./userRouter";
+import chatroomRouter from "./chatroomRouter";
+import notificationRouter from "./notificationRouter";
 
 const router = Router();
 
-export default (): Router => {
-  authRouter(router);
-  chatRouter(router);
-  classroomRouter(router);
-  notificationRouter(router);
-  userRouter(router);
-  return router;
-};
+router.use("/auth", authRouter());
+router.use("/users", userRouter);
+router.use("/chatrooms", chatroomRouter);
+router.use("/chats", chatRouter);
+router.use("/notifications", notificationRouter);
+
+export default () => router;
