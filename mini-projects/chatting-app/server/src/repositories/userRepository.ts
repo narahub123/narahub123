@@ -7,6 +7,16 @@ class UserRepository {
   constructor() {
     this.userCollection = db.collection("users");
   }
+
+  async getUserByEmail(email: string) {
+    try {
+      const snapshot = await this.userCollection
+        .where("email", "==", email)
+        .get();
+
+      return snapshot;
+    } catch (error) {}
+  }
 }
 
 export default new UserRepository();

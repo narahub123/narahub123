@@ -3,6 +3,7 @@ import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore, useAuthStore } from "../stores";
 import { ProfileImageUploader, Input } from "../components";
 import { signupFieldList } from "../data";
+import { SERVER_URL } from "../constants";
 
 const EmailSignupModal: FC = () => {
   // 이메일 회원가입 모달창 여닫기 상태
@@ -32,6 +33,30 @@ const EmailSignupModal: FC = () => {
   const signupInfo = useAuthStore((state) => state.signup);
 
   console.log(signupInfo);
+  // 이메일 중복 체크
+  useEffect(() => {
+    if (!signupInfo.email) return;
+
+    const checkEmailDuplicate = async () => {
+      try {
+        const response = await fetch(
+          `${SERVER_URL}/auth/email-duplication-check?email=${signupInfo.email}`
+        );
+
+        if (!response.ok) {
+          throw new Error("중복 확인 실패");
+        }
+
+        const data = await response.json();
+
+        console.log(data);
+      } catch (error) {
+        console.error("에러 발생", error);
+      }
+    };
+
+    checkEmailDuplicate();
+  }, [signupInfo.email]);
 
   // 회원가입 정보 유효성 완료 여부 확인
   // 실제로는 유효성 검사의 결과로 확인해야 함
