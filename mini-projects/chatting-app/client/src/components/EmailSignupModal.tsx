@@ -23,6 +23,11 @@ const EmailSignupModal: FC = () => {
   // 회원가입 사용자 입력 정보 추가
   const setSignupInfo = useAuthStore((state) => state.setSignupInfo);
 
+  // 로그인 모달 여닫기 상태 변화
+  const setIsLoginModalOpen = useOpenStore(
+    (state) => state.setIsLoginModalOpen
+  );
+
   // 회원 정보 전송 가능 여부 상태
   const canSend = useAuthStore((state) => state.canSend);
 
@@ -96,6 +101,38 @@ const EmailSignupModal: FC = () => {
     setSignupInfo(id, value);
   };
 
+  // 회원가입
+  const handleSignup = async () => {
+    const body = {
+      profileImage: signupInfo.profile_image || "",
+      email: signupInfo.email,
+      username: signupInfo.username,
+      userId: signupInfo.userId,
+      password: signupInfo.password,
+    };
+
+    const response = await fetch(`${SERVER_URL}/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error("회원가입 실패");
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      // email signup 닫기
+      setIsEmailSignupModalOpen(false);
+      // 로그인 열기
+      setIsLoginModalOpen(true);
+    }
+  };
+
   return (
     <Modal open={isOpen}>
       <ModalContent className="space-y-8">
@@ -123,7 +160,11 @@ const EmailSignupModal: FC = () => {
           <Button className="text-white btn btn-error" onClick={handleCancel}>
             취소
           </Button>
-          <Button className="btn btn-primary" disabled={!canSend}>
+          <Button
+            className="btn btn-primary"
+            disabled={!canSend}
+            onClick={handleSignup}
+          >
             회원가입
           </Button>
         </div>

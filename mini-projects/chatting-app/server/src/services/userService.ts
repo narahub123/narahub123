@@ -1,4 +1,5 @@
 import userRepository from "../repositories/userRepository";
+import { SignupInfo } from "../types";
 
 class UserService {
   async getUserByEmail(email: string) {
@@ -17,6 +18,14 @@ class UserService {
 
     // 중복여부 반환: empty이면 false, empty가 아니면 true
     return !result.empty;
+  }
+
+  async createUser(signupInfo: SignupInfo) {
+    // 이메일 중복 검사
+
+    // userId 중복 검사
+
+    await userRepository.createUser(signupInfo);
   }
 }
 

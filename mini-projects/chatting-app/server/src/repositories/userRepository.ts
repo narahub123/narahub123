@@ -2,9 +2,12 @@ import {
   CollectionReference,
   DocumentData,
   QuerySnapshot,
+  WriteResult,
+  Timestamp,
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
+import { SignupInfo } from "../types";
 
 class UserRepository {
   private userCollection: CollectionReference<DocumentData>;
@@ -21,6 +24,26 @@ class UserRepository {
         .get();
 
       return snapshot;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  async createUser(signupInfo: SignupInfo): Promise<WriteResult> {
+    const userRef = this.userCollection.doc(signupInfo.email);
+
+    try {
+      const result = await userRef.create({
+        ...signupInfo,
+        createdAt: Timestamp.now(),
+        emailVerified: false,
+        role: "USER",
+        status: "OFFLINE",
+        friends: [],
+        chatrooms: [],
+      });
+
+      return result;
     } catch (err) {
       throw mapFirebaseError(err);
     }
