@@ -4,11 +4,15 @@ import cors from "cors";
 import { startServer } from "./app";
 import routes from "./routes";
 import { errorHandler } from "./middlewares";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 // cors
 app.use(cors());
+
+// 쿠키
+app.use(cookieParser());
 
 // json 변환?
 app.use(express.json());
