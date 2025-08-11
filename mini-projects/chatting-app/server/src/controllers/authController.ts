@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { userService } from "../services";
+import { userService, userSessionService } from "../services";
 import { asyncWrapper, jwtSignP } from "../utils";
 import { plainToInstance } from "class-transformer";
 import {
@@ -106,6 +106,9 @@ export const login = asyncWrapper(
       secure: process.env.NODE_ENV === "prod", // https에서만 쿠키 전송
       sameSite: "lax",
     });
+
+    // 사용자 세션 생성
+    await userSessionService.createUserSession(user.userId, refreshToken);
 
     // 응답
     res.status(200).json({
