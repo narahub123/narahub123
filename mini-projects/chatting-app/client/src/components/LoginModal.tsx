@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { useOpenStore, useAuthStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Icon, Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
-import { useEffect, useState } from "react";
 import { useLocalStorageCheck } from "../hooks";
 import { SERVER_URL } from "../constants";
+import { saveLoginState } from "../utils";
 
 const LoginModal = () => {
   // 로그인 모달 여닫힘 상태
@@ -52,7 +53,13 @@ const LoginModal = () => {
     }
 
     console.log(fields);
-  }, [loginInfo.email, loginInfo.userId, loginInfo.password, loginInfo]);
+  }, [
+    loginInfo.email,
+    loginInfo.userId,
+    loginInfo.password,
+    loginInfo,
+    setCanSend,
+  ]);
 
   const { savedEmail, setSavedEmail } = useLocalStorageCheck();
 
@@ -114,6 +121,9 @@ const LoginModal = () => {
     const data = await response.json();
 
     if (data.success) {
+      // 로그인 상태 로컬 스토리지에 저장
+      saveLoginState();
+
       // 로그인 모달 닫기
       setIsLoginModalOpen(false);
     }

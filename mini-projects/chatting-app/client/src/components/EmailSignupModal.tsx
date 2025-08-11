@@ -81,6 +81,8 @@ const EmailSignupModal: FC = () => {
     signupInfo.email,
     signupInfo.password,
     signupInfo.password_confirm,
+    setCanSend,
+    signupInfo,
   ]);
 
   // 이메일 회원가입 취소 함수
