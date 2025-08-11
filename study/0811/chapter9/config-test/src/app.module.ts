@@ -15,6 +15,8 @@ console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
       isGlobal: true,
       envFilePath: `${process.cwd()}/envs/${process.env.NODE_ENV}.env`, // 환경 변수 경로 지정
       load: [config],
+      cache: true,
+      expandVariables: true,
     }),
     WeatherModule,
   ], // ConfigModule 전역 모듈 설정
