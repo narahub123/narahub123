@@ -1,18 +1,22 @@
 import { JWT_SECRET_KEY } from "../constants";
 import jwt from "jsonwebtoken";
 
+// jwtOptions
+const jwtOptions = (
+  expiresIn: jwt.SignOptions["expiresIn"]
+): jwt.SignOptions => ({
+  algorithm: "HS256",
+  expiresIn,
+  issuer: "chappting-app",
+});
+
+// jwt 생성
 export const jwtSignP = async (
   payload: string | Buffer | object,
   expiresIn: jwt.SignOptions["expiresIn"]
 ) => {
   try {
-    const options: jwt.SignOptions = {
-      algorithm: "HS256",
-      expiresIn,
-      issuer: "chappting-app",
-    };
-
-    return jwt.sign(payload, JWT_SECRET_KEY, options);
+    return jwt.sign(payload, JWT_SECRET_KEY, jwtOptions(expiresIn));
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
       throw new Error("JWT 형식 오류");

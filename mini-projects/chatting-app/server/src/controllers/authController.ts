@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { userService } from "../services";
-import { asyncWrapper } from "../utils";
+import { asyncWrapper, jwtSignP } from "../utils";
 import { plainToInstance } from "class-transformer";
 import {
   EmailCheckRequest,
@@ -9,7 +9,6 @@ import {
 } from "../dtos/request/userRequest";
 import { validate } from "class-validator";
 import { BadRequestError } from "../errors";
-import { SignupInfo } from "../types";
 
 export const checkEmailDuplicate = asyncWrapper(
   "checkEmailDuplicate",
@@ -89,12 +88,26 @@ export const login = asyncWrapper(
       return next(new BadRequestError(message));
     }
 
-    const user = await userService.login(dto);
+    // 사용자 정보 가져오기
+    const user = (await userService.login(dto)).docs[0].data();
 
-    
+    const payload = {
+      userId: user.userId,
+      email: user.email,
+    };
 
-    // userSession 등록 해야 함
+    const accessToken = await jwtSignP(payload, "10m");
+    const refreshToken = await jwtSignP(payload, "1h");
 
+    // 헤데에 쿠키를 담아서 전송
+    res.cookie("accessToken", accessToken, {
+      maxAge: 600000, // 10분
+      httpOnly: true, // javascript에서 접근 불가
+      secure: process.env.NODE_ENV === "prod", // https에서만 쿠키 전송
+      sameSite: "lax",
+    });
+
+    // 응답
     res.status(200).json({
       success: true,
       code: "LOGIN_SUCCEEDED",
