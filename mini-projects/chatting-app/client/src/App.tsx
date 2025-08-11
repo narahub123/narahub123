@@ -6,8 +6,10 @@ import {
   SignupModal,
   WidgetButton,
 } from "./components";
+import { useLoginCheck } from "./hooks";
 
 function App() {
+  useLoginCheck();
   return (
     <div className="App">
       <ResetPasswordModal />

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useOpenStore, useAuthStore } from "../stores";
+import { useOpenStore, useAuthStore, useLoginStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { Icon, Input, Link, OauthButtonContainer } from "../components";
 import { loginList } from "../data";
@@ -39,6 +39,9 @@ const LoginModal = () => {
 
   // 로그인 정보 전송 가능 상태 변경 함수
   const setCanSend = useAuthStore((state) => state.setCanSend);
+
+  // 로그인 상태 정보 변경 함수
+  const setIsLoggedin = useLoginStore((state) => state.setIsLoggedIn);
 
   // 입력값들의 유효성 결과
   useEffect(() => {
@@ -123,6 +126,9 @@ const LoginModal = () => {
     if (data.success) {
       // 로그인 상태 로컬 스토리지에 저장
       saveLoginState();
+
+      // 로그인 상태 변경
+      setIsLoggedin(true);
 
       // 로그인 모달 닫기
       setIsLoginModalOpen(false);

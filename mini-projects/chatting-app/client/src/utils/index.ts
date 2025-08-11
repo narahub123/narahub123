@@ -1,3 +1,1 @@
-import { saveLoginState } from "./localStorageUtils";
-
-export { saveLoginState };
+export * from "./localStorageUtils";
