@@ -7,4 +7,6 @@ export declare class AuthController {
     login(req: any, res: any): Promise<any>;
     login2(req: any, res: any): Promise<any>;
     testGuard(): string;
+    login3(req: any): any;
+    testGuardWithSession(req: any): any;
 }
