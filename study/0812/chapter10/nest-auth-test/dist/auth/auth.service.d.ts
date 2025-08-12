@@ -4,4 +4,10 @@ export declare class AuthService {
     private userService;
     constructor(userService: UserService);
     register(userDto: CreateUserDto): Promise<import("../user/user.entitiy").User>;
+    validateUser(email: string, password: string): Promise<{
+        id?: number;
+        email: string;
+        username: string;
+        createdDt: Date;
+    } | null>;
 }

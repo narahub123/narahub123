@@ -5,7 +5,7 @@ content-type: application/json
 {
     "username": "andy",
     "password": "test1234",
-    "email": "andy-podo"
+    "email": "andy1@podo.com"
 }
 
 ### GetUser

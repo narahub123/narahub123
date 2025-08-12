@@ -69,6 +69,17 @@ let AuthService = class AuthService {
             throw new common_1.HttpException('서버 에러', 500);
         }
     }
+    async validateUser(email, password) {
+        const user = await this.userService.getUser(email);
+        if (!user) {
+            return null;
+        }
+        const { password: hashedPassword, ...userInfo } = user;
+        if (bcrypt.compareSync(password, hashedPassword)) {
+            return userInfo;
+        }
+        return null;
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

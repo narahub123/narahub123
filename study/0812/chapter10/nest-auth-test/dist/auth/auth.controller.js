@@ -16,6 +16,7 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const user_dto_1 = require("../user/user.dto");
+const auth_guard_1 = require("./auth.guard");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -23,6 +24,26 @@ let AuthController = class AuthController {
     }
     async register(userDto) {
         return await this.authService.register(userDto);
+    }
+    async login(req, res) {
+        const userInfo = await this.authService.validateUser(req.body.email, req.body.password);
+        if (userInfo) {
+            res.cookie('login', JSON.stringify(userInfo), {
+                httpOnly: false,
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+            });
+        }
+        return res.send({ message: 'login success' });
+    }
+    async login2(req, res) {
+        res.cookie('login', JSON.stringify(req.user), {
+            httpOnly: true,
+            maxAge: 1000 * 10,
+        });
+        return res.send({ message: 'login2 success' });
+    }
+    testGuard() {
+        return '로그인된 때만 이 글이 보입니다.';
     }
 };
 exports.AuthController = AuthController;
@@ -33,6 +54,30 @@ __decorate([
     __metadata("design:paramtypes", [user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.LoginGuard),
+    (0, common_1.Post)('login2'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login2", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.LoginGuard),
+    (0, common_1.Get)('test-guard'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "testGuard", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

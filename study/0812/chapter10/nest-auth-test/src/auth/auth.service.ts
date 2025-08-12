@@ -38,4 +38,23 @@ export class AuthService {
       throw new HttpException('서버 에러', 500);
     }
   }
+
+  // 사용자 인증
+  async validateUser(email: string, password: string) {
+    // 이메일을 이용한 사용자 정보 가져오긴
+    const user = await this.userService.getUser(email);
+
+    if (!user) {
+      return null;
+    }
+
+    const { password: hashedPassword, ...userInfo } = user;
+
+    // 비밀번호 일치 시 사용자 정보 반환
+    if (bcrypt.compareSync(password, hashedPassword)) {
+      return userInfo;
+    }
+
+    return null;
+  }
 }
