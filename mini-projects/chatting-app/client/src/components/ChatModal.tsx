@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useLoginStore, useOpenStore } from "../stores";
-import fetchWithAuth from "../utils/fetchWithAuth";
+import { fetchWithAuth } from "../utils";
 
 const ChatModal: FC = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
@@ -24,7 +24,7 @@ const ChatModal: FC = () => {
     fetchUserData();
   }, [isLoggedIn]);
   return (
-    <Modal open={isChatModalOpen}>
+    <Modal open>
       <ModalContent>채팅창</ModalContent>
     </Modal>
   );

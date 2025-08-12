@@ -1,7 +1,7 @@
 import { SERVER_URL } from "../constants";
 import { checkLoginState, removeLoginState } from "../utils";
 
-const fetchWithAuth = async (
+export const fetchWithAuth = async (
   url: string,
   options: RequestInit = {},
   body: any = null
@@ -46,5 +46,3 @@ const fetchWithAuth = async (
 
   return result;
 };
-
-export default fetchWithAuth;
