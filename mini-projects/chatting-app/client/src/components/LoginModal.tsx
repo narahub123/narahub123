@@ -43,6 +43,9 @@ const LoginModal = () => {
   // 로그인 상태 정보 변경 함수
   const setIsLoggedin = useLoginStore((state) => state.setIsLoggedIn);
 
+  // chat 모달 여닫기 상태 변경 함수
+  const setIsChatModalOpen = useOpenStore((state) => state.setIsChatModalOpen);
+
   // 입력값들의 유효성 결과
   useEffect(() => {
     if (!loginInfo.email && !loginInfo.userId) return;
@@ -132,6 +135,9 @@ const LoginModal = () => {
 
       // 로그인 모달 닫기
       setIsLoginModalOpen(false);
+
+      // chat 모달 열기
+      setIsChatModalOpen(true);
     }
   };
   console.log(loginInfo);
