@@ -1,14 +1,18 @@
 import { SERVER_URL } from "../constants";
-import { checkLoginState, removeLoginState } from "../utils";
+import { getLoginState, removeLoginState } from "../utils";
 
 export const fetchWithAuth = async (
   url: string,
   options: RequestInit = {},
   body: any = null
 ) => {
-  const isLoggedIn = checkLoginState();
+  const accessToken = getLoginState();
 
-  if (!isLoggedIn) throw new Error("로그인이 필요합니다.");
+  if (!accessToken) {
+    console.log("로그인 필요");
+
+    return;
+  }
 
   const makeRquest = async (body: any = null) => {
     let response = await fetch(`${SERVER_URL}${url}`, {
@@ -17,6 +21,7 @@ export const fetchWithAuth = async (
       method: options.method ? options.method : body ? "POST" : "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
         ...(options.headers || {}),
       },
       credentials: "include",

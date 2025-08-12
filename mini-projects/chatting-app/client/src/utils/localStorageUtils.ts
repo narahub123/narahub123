@@ -1,4 +1,4 @@
-// 로컬 스토리지에 로그인 상태 저장
+// 로컬 스토리지에 accessToken 저장
 export const saveLoginState = (accessToken: string) => {
   try {
     localStorage.setItem("accessToken", accessToken);
@@ -7,7 +7,7 @@ export const saveLoginState = (accessToken: string) => {
   }
 };
 
-// 로컬 스토리지에서 loggedIn이 존재하는지 여부를 확인하는 함수
+// 로컬 스토리지에서 accessToken이 존재하는지 여부를 확인하는 함수
 export const checkLoginState = (): boolean => {
   try {
     return Boolean(localStorage.getItem("accessToken"));
@@ -17,7 +17,17 @@ export const checkLoginState = (): boolean => {
   }
 };
 
-// 로컬 스토리지에서 loggedIn 삭제
+// 로컬 스토리지에서 accessToken 가져오기
+export const getLoginState = () => {
+  try {
+    return localStorage.getItem("accessToken");
+  } catch (error) {
+    console.log("토큰 가져오기 실패", error);
+    return "";
+  }
+};
+
+// 로컬 스토리지에서 accessToken 삭제
 export const removeLoginState = () => {
   try {
     localStorage.removeItem("loggedIn");
