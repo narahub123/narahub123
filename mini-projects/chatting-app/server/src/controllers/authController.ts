@@ -99,14 +99,6 @@ export const login = asyncWrapper(
     const accessToken = await jwtSignP(payload, "10m");
     const refreshToken = await jwtSignP(payload, "1h");
 
-    // 헤데에 쿠키를 담아서 전송
-    res.cookie("accessToken", accessToken, {
-      maxAge: 600000, // 10분
-      httpOnly: true, // javascript에서 접근 불가
-      secure: process.env.NODE_ENV === "prod", // https에서만 쿠키 전송
-      sameSite: "lax",
-    });
-
     // 사용자 세션 생성
     await userSessionService.createUserSession(user.userId, refreshToken);
 
@@ -116,6 +108,9 @@ export const login = asyncWrapper(
       code: "LOGIN_SUCCEEDED",
       message: "로그인 성공",
       timestamp: new Date().toISOString(),
+      data: {
+        accessToken,
+      },
     });
   }
 );

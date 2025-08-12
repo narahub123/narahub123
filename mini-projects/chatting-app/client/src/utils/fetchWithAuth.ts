@@ -6,9 +6,9 @@ export const fetchWithAuth = async (
   options: RequestInit = {},
   body: any = null
 ) => {
-  const isLogggedIn = checkLoginState();
+  const isLoggedIn = checkLoginState();
 
-  if (!isLogggedIn) throw new Error("로그인이 필요합니다.");
+  if (!isLoggedIn) throw new Error("로그인이 필요합니다.");
 
   const makeRquest = async (body: any = null) => {
     let response = await fetch(`${SERVER_URL}${url}`, {
@@ -29,15 +29,12 @@ export const fetchWithAuth = async (
   let result = await makeRquest(body);
 
   if (result.success && result.code === "ACCESS_TOKEN_REISSUED") {
-    const newAccessToken = result.data?.accessToken;
-
-    if (!newAccessToken) {
-      throw new Error("토큰 재발급 실패");
-    }
-
-    localStorage.setItem("accessToken", newAccessToken);
-
-    result = await makeRquest(body);
+    // const newAccessToken = result.data?.accessToken;
+    // if (!newAccessToken) {
+    //   throw new Error("토큰 재발급 실패");
+    // }
+    // localStorage.setItem("accessToken", newAccessToken);
+    // result = await makeRquest(body);
   }
 
   if (!result.success && result.code === "LOGOUT") {

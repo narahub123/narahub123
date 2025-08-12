@@ -124,11 +124,11 @@ const LoginModal = () => {
       throw new Error("회원가입 실패");
     }
 
-    const data = await response.json();
+    const res = await response.json();
 
-    if (data.success) {
+    if (res.success) {
       // 로그인 상태 로컬 스토리지에 저장
-      saveLoginState();
+      saveLoginState(res.data.accessToken);
 
       // 로그인 상태 변경
       setIsLoggedin(true);

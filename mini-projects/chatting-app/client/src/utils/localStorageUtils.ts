@@ -1,7 +1,7 @@
 // 로컬 스토리지에 로그인 상태 저장
-export const saveLoginState = () => {
+export const saveLoginState = (accessToken: string) => {
   try {
-    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("accessToken", accessToken);
   } catch (error) {
     console.error("login 상태 저장 실패", error);
   }
@@ -10,7 +10,7 @@ export const saveLoginState = () => {
 // 로컬 스토리지에서 loggedIn이 존재하는지 여부를 확인하는 함수
 export const checkLoginState = (): boolean => {
   try {
-    return localStorage.getItem("loggedIn") === "true";
+    return Boolean(localStorage.getItem("accessToken"));
   } catch (error) {
     console.error("login 정보 호출 실패", error);
     return false;

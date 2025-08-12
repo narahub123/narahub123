@@ -12,7 +12,8 @@ const app = express();
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // 허용할 클라이언트 도메인
-    methods: ["GET, POST, PUT, PATCH, DELETE"], // 허용할 HTTP 메서드
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // 허용할 HTTP 메서드
+    allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true, // 쿠키 및 인증 정보를 포함한 요청 허용
   })
 );

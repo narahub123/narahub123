@@ -7,8 +7,6 @@ const ChatModal: FC = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const isChatModalOpen = useOpenStore((state) => state.isChatModalOpen);
   useEffect(() => {
-    if (!isLoggedIn) return;
-
     const fetchUserData = async () => {
       const response = await fetchWithAuth("/users/me");
 
@@ -22,9 +20,9 @@ const ChatModal: FC = () => {
     };
 
     fetchUserData();
-  }, [isLoggedIn]);
+  }, []);
   return (
-    <Modal open>
+    <Modal open={isChatModalOpen}>
       <ModalContent>채팅창</ModalContent>
     </Modal>
   );

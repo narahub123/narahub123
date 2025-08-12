@@ -8,7 +8,7 @@ import notificationRouter from "./notificationRouter";
 const router = Router();
 
 router.use("/auth", authRouter());
-router.use("/users", userRouter);
+router.use("/users", userRouter());
 router.use("/chatrooms", chatroomRouter);
 router.use("/chats", chatRouter);
 router.use("/notifications", notificationRouter);
