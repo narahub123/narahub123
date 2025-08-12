@@ -1,5 +1,10 @@
 import { JWT_SECRET_KEY } from "../constants";
-import jwt from "jsonwebtoken";
+import jwt, {
+  JsonWebTokenError,
+  JwtPayload,
+  NotBeforeError,
+  TokenExpiredError,
+} from "jsonwebtoken";
 
 // jwtOptions
 const jwtOptions = (
@@ -18,13 +23,33 @@ export const jwtSignP = async (
   try {
     return jwt.sign(payload, JWT_SECRET_KEY, jwtOptions(expiresIn));
   } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
+    if (err instanceof JsonWebTokenError) {
       throw new Error("JWT 형식 오류");
     }
-    if (err instanceof jwt.NotBeforeError) {
+    if (err instanceof NotBeforeError) {
       throw new Error("아직 유효하지 않은 토큰");
     }
-    if (err instanceof jwt.TokenExpiredError) {
+    if (err instanceof TokenExpiredError) {
+      throw new Error("만료된 토큰");
+    }
+
+    throw err;
+  }
+};
+
+export const jwtVerifyP = async (token: string) => {
+  const secret = process.env.JWT_SECRET_KEY as string;
+
+  try {
+    return jwt.verify(token, secret) as JwtPayload;
+  } catch (err) {
+    if (err instanceof JsonWebTokenError) {
+      throw new Error("JWT 형식 오류");
+    }
+    if (err instanceof NotBeforeError) {
+      throw new Error("아직 유효하지 않은 토큰");
+    }
+    if (err instanceof TokenExpiredError) {
       throw new Error("만료된 토큰");
     }
 

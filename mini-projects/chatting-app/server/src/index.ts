@@ -5,6 +5,8 @@ import { startServer } from "./app";
 import routes from "./routes";
 import { errorHandler } from "./middlewares";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
@@ -13,7 +15,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL, // 허용할 클라이언트 도메인
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // 허용할 HTTP 메서드
-    allowedHeaders: ["Authorization", "Content-Type"],
+    allowedHeaders: ["Authorization", "Content-Type", "x-session-id"],
     credentials: true, // 쿠키 및 인증 정보를 포함한 요청 허용
   })
 );

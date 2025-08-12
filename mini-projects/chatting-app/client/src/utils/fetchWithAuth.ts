@@ -1,14 +1,14 @@
 import { SERVER_URL } from "../constants";
-import { getLoginState, removeLoginState } from "../utils";
+import { getLoginState, removeLoginState, saveLoginState } from "../utils";
 
 export const fetchWithAuth = async (
   url: string,
   options: RequestInit = {},
   body: any = null
 ) => {
-  const accessToken = getLoginState();
+  const { accessToken, sessionId } = getLoginState();
 
-  if (!accessToken) {
+  if (!accessToken || !sessionId) {
     console.log("로그인 필요");
 
     return;
@@ -22,6 +22,7 @@ export const fetchWithAuth = async (
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
+        "x-session-id": sessionId,
         ...(options.headers || {}),
       },
       credentials: "include",
@@ -34,12 +35,12 @@ export const fetchWithAuth = async (
   let result = await makeRquest(body);
 
   if (result.success && result.code === "ACCESS_TOKEN_REISSUED") {
-    // const newAccessToken = result.data?.accessToken;
-    // if (!newAccessToken) {
-    //   throw new Error("토큰 재발급 실패");
-    // }
-    // localStorage.setItem("accessToken", newAccessToken);
-    // result = await makeRquest(body);
+    const { accessToken, sessionId } = result.data!;
+    if (!accessToken || !sessionId) {
+      throw new Error("토큰 재발급 실패");
+    }
+    saveLoginState({ accessToken, sessionId });
+    result = await makeRquest(body);
   }
 
   if (!result.success && result.code === "LOGOUT") {

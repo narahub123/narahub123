@@ -10,7 +10,7 @@ class UserService {
       throw new Error("Not Found");
     }
 
-    return result;
+    return result.docs[0].data()!;
   }
 
   // 이메일 중복 여부 검사

@@ -100,7 +100,10 @@ export const login = asyncWrapper(
     const refreshToken = await jwtSignP(payload, "1h");
 
     // 사용자 세션 생성
-    await userSessionService.createUserSession(user.userId, refreshToken);
+    const sessionId = await userSessionService.createUserSession(
+      user.userId,
+      refreshToken
+    );
 
     // 응답
     res.status(200).json({
@@ -110,6 +113,7 @@ export const login = asyncWrapper(
       timestamp: new Date().toISOString(),
       data: {
         accessToken,
+        sessionId,
       },
     });
   }

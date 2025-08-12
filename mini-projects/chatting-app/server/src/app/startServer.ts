@@ -1,6 +1,6 @@
 import { dbConnectionCheck } from "../utils";
-import dotenv from "dotenv";
 import { Express } from "express";
+import dotenv from "dotenv";
 
 dotenv.config();
 

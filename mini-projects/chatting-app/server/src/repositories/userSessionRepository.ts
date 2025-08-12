@@ -19,15 +19,38 @@ class UseSessionRepository {
   async createUserSession(
     userId: string,
     refreshToken: string
-  ): Promise<WriteResult> {
+  ): Promise<string> {
     try {
       const userSession = {
+        userId,
         refreshToken,
         createdAt: FieldValue.serverTimestamp(),
         expiredAt: Timestamp.fromDate(new Date(Date.now() + 1000 * 60 * 60)),
       };
 
-      return await this.userSessionCollection.doc(userId).set(userSession);
+      const docRef = this.userSessionCollection.doc();
+
+      await docRef.set(userSession);
+
+      return docRef.id;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 사용자 세션 가져오기
+  async getUserSessionById(sessionId: string) {
+    try {
+      return await this.userSessionCollection.doc(sessionId).get();
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 사용자 세션 삭제하기
+  async deleteUserSessionById(sessionId: string): Promise<WriteResult> {
+    try {
+      return await this.userSessionCollection.doc(sessionId).delete();
     } catch (err) {
       throw mapFirebaseError(err);
     }

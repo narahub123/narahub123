@@ -4,6 +4,6 @@ import { asyncWrapper } from "../utils";
 export const getUserInfo = asyncWrapper(
   "getUserInfo",
   async (req: Request, res: Response) => {
-    console.log(req.headers.authorization);
+    console.log(req.user);
   }
 );

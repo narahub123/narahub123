@@ -128,7 +128,7 @@ const LoginModal = () => {
 
     if (result.success) {
       // 로그인 상태 로컬 스토리지에 저장
-      saveLoginState(result.data.accessToken);
+      saveLoginState(result.data);
 
       // 로그인 상태 변경
       setIsLoggedin(true);

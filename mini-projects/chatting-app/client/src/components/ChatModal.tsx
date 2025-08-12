@@ -6,7 +6,10 @@ import { fetchWithAuth } from "../utils";
 const ChatModal: FC = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const isChatModalOpen = useOpenStore((state) => state.isChatModalOpen);
+
   useEffect(() => {
+    if (!isLoggedIn) return;
+
     const fetchUserData = async () => {
       const response = await fetchWithAuth("/users/me");
 

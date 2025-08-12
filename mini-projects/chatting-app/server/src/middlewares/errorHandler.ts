@@ -1,8 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { CustomAPIError } from "../errors";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export const errorHandler = (
   err: { error: CustomAPIError | any; failureMessage: string } | any,
