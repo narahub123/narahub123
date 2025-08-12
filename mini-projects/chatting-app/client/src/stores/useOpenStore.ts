@@ -27,4 +27,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isResetPasswordModalOpen,
     })),
+  isChatModalOpen: false,
+  setIsChatModalOpen: (isChatModalOpen: boolean) =>
+    set(() => ({
+      isChatModalOpen,
+    })),
 }));

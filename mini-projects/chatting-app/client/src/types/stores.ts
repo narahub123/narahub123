@@ -16,6 +16,8 @@ export type OpenState = {
   setIsLoginModalOpen: (isOpen: boolean) => void;
   isResetPasswordModalOpen: boolean;
   setIsResetPasswordModalOpen: (isOpen: boolean) => void;
+  isChatModalOpen: boolean;
+  setIsChatModalOpen: (isOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
