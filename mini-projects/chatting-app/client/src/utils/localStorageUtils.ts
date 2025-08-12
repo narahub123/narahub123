@@ -16,3 +16,12 @@ export const checkLoginState = (): boolean => {
     return false;
   }
 };
+
+// 로컬 스토리지에서 loggedIn 삭제
+export const removeLoginState = () => {
+  try {
+    localStorage.removeItem("loggedIn");
+  } catch (error) {
+    console.error("login 정보 삭제 실패", error);
+  }
+};
