@@ -15,13 +15,20 @@ const passport_1 = require("@nestjs/passport");
 const session_serializer_1 = require("./session.serializer");
 const local_strategy_1 = require("./local.strategy");
 const google_strategy_1 = require("./google.strategy");
+const kakao_strategy_1 = require("./kakao.strategy");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [user_module_1.UserModule, passport_1.PassportModule.register({ session: true })],
-        providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, session_serializer_1.SessionSerializer, google_strategy_1.GoogleStrategy],
+        providers: [
+            auth_service_1.AuthService,
+            local_strategy_1.LocalStrategy,
+            session_serializer_1.SessionSerializer,
+            google_strategy_1.GoogleStrategy,
+            kakao_strategy_1.KakaoStrategy,
+        ],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);

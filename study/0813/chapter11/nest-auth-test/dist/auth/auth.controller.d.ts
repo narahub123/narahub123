@@ -11,4 +11,6 @@ export declare class AuthController {
     testGuardWithSession(req: any): any;
     googleAuth(req: any): Promise<void>;
     gooleAuthRedirect(req: any, res: any): Promise<any>;
+    kakaoAuth(req: any): Promise<void>;
+    kakaoAuthRedirect(req: any, res: any): Promise<any>;
 }

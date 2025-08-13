@@ -6,10 +6,17 @@ import { PassportModule } from '@nestjs/passport';
 import { SessionSerializer } from './session.serializer';
 import { LocalStrategy } from './local.strategy';
 import { GoogleStrategy } from './google.strategy';
+import { KakaoStrategy } from './kakao.strategy';
 
 @Module({
   imports: [UserModule, PassportModule.register({ session: true })], // 패스포트 모둘 추가
-  providers: [AuthService, LocalStrategy, SessionSerializer, GoogleStrategy], // 프로바이더 설정 추가
+  providers: [
+    AuthService,
+    LocalStrategy,
+    SessionSerializer,
+    GoogleStrategy,
+    KakaoStrategy,
+  ], // 프로바이더 설정 추가
   controllers: [AuthController],
 })
 export class AuthModule {}

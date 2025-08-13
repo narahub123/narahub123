@@ -12,6 +12,7 @@ import { CreateUserDto } from 'src/user/user.dto';
 import {
   AuthenticatedGuard,
   GoogleAuthGuard,
+  KakaoAuthGuard,
   LocalAuthGuard,
   LoginGuard,
 } from './auth.guard';
@@ -79,11 +80,23 @@ export class AuthController {
 
   @UseGuards(GoogleAuthGuard)
   @Get('to-google')
-  async googleAuth(@Request()  req) {}
+  async googleAuth(@Request() req) {}
 
   @UseGuards(GoogleAuthGuard)
   @Get('google')
   async gooleAuthRedirect(@Request() req, @Response() res) {
+    const { user } = req;
+
+    return res.send(user);
+  }
+
+  @UseGuards(KakaoAuthGuard)
+  @Get('to-kakao')
+  async kakaoAuth(@Request() req) {}
+
+  @UseGuards(KakaoAuthGuard)
+  @Get('kakao')
+  async kakaoAuthRedirect(@Request() req, @Response() res) {
     const { user } = req;
 
     return res.send(user);

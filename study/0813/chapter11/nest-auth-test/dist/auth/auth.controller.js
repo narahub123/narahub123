@@ -56,6 +56,11 @@ let AuthController = class AuthController {
         const { user } = req;
         return res.send(user);
     }
+    async kakaoAuth(req) { }
+    async kakaoAuthRedirect(req, res) {
+        const { user } = req;
+        return res.send(user);
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -122,6 +127,23 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "gooleAuthRedirect", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.KakaoAuthGuard),
+    (0, common_1.Get)('to-kakao'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "kakaoAuth", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.KakaoAuthGuard),
+    (0, common_1.Get)('kakao'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "kakaoAuthRedirect", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
