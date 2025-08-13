@@ -8,7 +8,14 @@ import {
   SignupCheckRequest,
 } from "../dtos/request/userRequest";
 import { validate } from "class-validator";
-import { BadRequestError } from "../errors";
+import {
+  BadRequestError,
+  ForbiddenError,
+  InternalServerError,
+} from "../errors";
+import { OauthType } from "../types";
+import { oauths } from "../data";
+import { OAUTH_GRANT_TYPE, OAUTH_REDIRECT_URI } from "../constants";
 
 export const checkEmailDuplicate = asyncWrapper(
   "checkEmailDuplicate",
@@ -116,5 +123,124 @@ export const login = asyncWrapper(
         sessionId,
       },
     });
+  }
+);
+
+export const oauth = asyncWrapper(
+  "oauth",
+  async (req: Request, res: Response) => {
+    const { state, code } = req.query;
+
+    // state나 code가 없는 경우 에러 핸들링 추가할 것!!
+    if (!state || !code) return;
+
+    // state를 통한 oauth 타입 확인
+    const oauthType = state.toString() as OauthType;
+
+    const { client_id, client_secret, token_url, userInfo_url } =
+      oauths[oauthType];
+
+    console.log(client_id, client_secret, token_url, userInfo_url);
+
+    const requestBody = {
+      code: code as string, // 인증 코드
+      client_id: client_id,
+      client_secret: client_secret || "",
+      redirect_uri: OAUTH_REDIRECT_URI,
+      grant_type: OAUTH_GRANT_TYPE,
+    };
+
+    // 토큰 요청
+    try {
+      const response = await fetch(token_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+        body: new URLSearchParams(requestBody).toString(),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text(); // 응답 본문을 텍스트로 가져오기
+        console.error(`Error: ${response.status}, ${errorText}`);
+        throw new ForbiddenError(
+          "Oauth 액세스 토큰 취득 실패",
+          "ACCESS_TOKEN_RETRIEVAL_FAILED"
+        );
+      }
+
+      const result = await response.json();
+
+      console.log(result);
+
+      const access_token = result.access_token;
+
+      try {
+        const response = await fetch(userInfo_url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text(); // 응답 본문을 텍스트로 가져오기
+          console.error(`Error: ${response.status}, ${errorText}`);
+
+          throw new InternalServerError(
+            "사용자 정보 취득 실패",
+            "OAUTH_USER_INFO_RETRIVAL_FAILED"
+          );
+        }
+
+        // Oauth에서 얻은 사용자 정보
+        const result = await response.json();
+
+        let oauthUserInfo: {
+          email: string;
+          username: string;
+          profileImage: string;
+        } = { email: "", username: "", profileImage: "" };
+
+        console.log("사용자 정보", result);
+
+        if (state.toString() === "google") {
+          oauthUserInfo = {
+            email: result.email,
+            username: result.name,
+            profileImage: result.picture,
+          };
+        } else if (state.toString() === "kakao") {
+          oauthUserInfo = {
+            email: result.kakao_account.email,
+            username: result.properties.nickname,
+            profileImage: result.properties.profile_image,
+          };
+        } else if (state.toString() === "github") {
+          oauthUserInfo = {
+            email: "",
+            username: result.name,
+            profileImage: result.avatar_url,
+          };
+        }
+
+        console.log(oauthUserInfo);
+
+        // DB에서 얻은 사용자 정보
+        const user = await userService.getUserByEmail(oauthUserInfo.email);
+
+        console.log(user);
+
+        // 기존 사용자인 경우: 로그인
+        if (user) {
+        } else {
+          // 기존 사용자가 아닌 경우 : 회원 가입
+          return res.redirect(
+            "http://localhost:3000/callback/oauth?login=false"
+          );
+        }
+      } catch (err) {}
+    } catch (err) {}
   }
 );
