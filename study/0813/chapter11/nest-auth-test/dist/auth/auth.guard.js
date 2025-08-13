@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthenticatedGuard = exports.LocalAuthGuard = exports.LoginGuard = void 0;
+exports.GoogleAuthGuard = exports.AuthenticatedGuard = exports.LocalAuthGuard = exports.LoginGuard = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const passport_1 = require("@nestjs/passport");
@@ -61,4 +61,15 @@ exports.AuthenticatedGuard = AuthenticatedGuard;
 exports.AuthenticatedGuard = AuthenticatedGuard = __decorate([
     (0, common_1.Injectable)()
 ], AuthenticatedGuard);
+let GoogleAuthGuard = class GoogleAuthGuard extends (0, passport_1.AuthGuard)('google') {
+    async canActivate(context) {
+        const result = (await super.canActivate(context));
+        const request = context.switchToHttp().getRequest();
+        return result;
+    }
+};
+exports.GoogleAuthGuard = GoogleAuthGuard;
+exports.GoogleAuthGuard = GoogleAuthGuard = __decorate([
+    (0, common_1.Injectable)()
+], GoogleAuthGuard);
 //# sourceMappingURL=auth.guard.js.map

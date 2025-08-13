@@ -51,6 +51,11 @@ let AuthController = class AuthController {
     testGuardWithSession(req) {
         return req.user;
     }
+    async googleAuth(req) { }
+    async gooleAuthRedirect(req, res) {
+        const { user } = req;
+        return res.send(user);
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -100,6 +105,23 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "testGuardWithSession", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.GoogleAuthGuard),
+    (0, common_1.Get)('to-google'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "googleAuth", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.GoogleAuthGuard),
+    (0, common_1.Get)('google'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "gooleAuthRedirect", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

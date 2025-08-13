@@ -9,7 +9,12 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
-import { AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
+import {
+  AuthenticatedGuard,
+  GoogleAuthGuard,
+  LocalAuthGuard,
+  LoginGuard,
+} from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -70,5 +75,17 @@ export class AuthController {
   @Get('test-guard2')
   testGuardWithSession(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('to-google')
+  async googleAuth(@Request()  req) {}
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('google')
+  async gooleAuthRedirect(@Request() req, @Response() res) {
+    const { user } = req;
+
+    return res.send(user);
   }
 }

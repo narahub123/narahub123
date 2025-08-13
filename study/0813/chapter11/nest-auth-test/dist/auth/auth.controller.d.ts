@@ -9,4 +9,6 @@ export declare class AuthController {
     testGuard(): string;
     login3(req: any): any;
     testGuardWithSession(req: any): any;
+    googleAuth(req: any): Promise<void>;
+    gooleAuthRedirect(req: any, res: any): Promise<any>;
 }
