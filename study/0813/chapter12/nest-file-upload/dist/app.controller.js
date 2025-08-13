@@ -16,6 +16,7 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const platform_express_1 = require("@nestjs/platform-express");
+const multer_options_1 = require("./multer.options");
 let AppController = class AppController {
     appService;
     constructor(appService) {
@@ -25,7 +26,7 @@ let AppController = class AppController {
         return this.appService.getHello();
     }
     fileUpload(file) {
-        console.log(file.buffer.toString('utf-8'));
+        console.log(file);
         return 'File Upload';
     }
 };
@@ -38,7 +39,7 @@ __decorate([
 ], AppController.prototype, "getHello", null);
 __decorate([
     (0, common_1.Post)('file-upload'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', multer_options_1.multerOption)),
     __param(0, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
