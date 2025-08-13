@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useLoginStore, useOpenStore } from "../stores";
 import { fetchWithAuth } from "../utils";
+import ChatSidebar from "./ChatSidebar";
+import ChatMain from "./ChatMain";
 
 const ChatModal: FC = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
@@ -26,7 +28,10 @@ const ChatModal: FC = () => {
   }, []);
   return (
     <Modal open={isChatModalOpen}>
-      <ModalContent>채팅창</ModalContent>
+      <ModalContent className="flex p-0 rounded-none">
+        <ChatSidebar />
+        <ChatMain />
+      </ModalContent>
     </Modal>
   );
 };
