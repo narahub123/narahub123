@@ -27,7 +27,7 @@ let AppController = class AppController {
     }
     fileUpload(file) {
         console.log(file);
-        return 'File Upload';
+        return `${file.originalname} File Upload check http://localhost:3000/uploads/${file.filename}`;
     }
 };
 exports.AppController = AppController;
