@@ -16,6 +16,7 @@ const session_serializer_1 = require("./session.serializer");
 const local_strategy_1 = require("./local.strategy");
 const google_strategy_1 = require("./google.strategy");
 const kakao_strategy_1 = require("./kakao.strategy");
+const github_strategy_1 = require("./github.strategy");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -28,6 +29,7 @@ exports.AuthModule = AuthModule = __decorate([
             session_serializer_1.SessionSerializer,
             google_strategy_1.GoogleStrategy,
             kakao_strategy_1.KakaoStrategy,
+            github_strategy_1.GithubStrategy,
         ],
         controllers: [auth_controller_1.AuthController],
     })

@@ -20,4 +20,8 @@ declare const KakaoAuthGuard_base: import("@nestjs/passport").Type<import("@nest
 export declare class KakaoAuthGuard extends KakaoAuthGuard_base {
     canActivate(context: ExecutionContext): Promise<boolean>;
 }
+declare const GithubAuthGuard_base: import("@nestjs/passport").Type<import("@nestjs/passport").IAuthGuard>;
+export declare class GithubAuthGuard extends GithubAuthGuard_base {
+    canActivate(context: ExecutionContext): Promise<boolean>;
+}
 export {};

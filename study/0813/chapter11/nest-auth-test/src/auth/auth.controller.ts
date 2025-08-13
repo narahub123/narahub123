@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
 import {
   AuthenticatedGuard,
+  GithubAuthGuard,
   GoogleAuthGuard,
   KakaoAuthGuard,
   LocalAuthGuard,
@@ -101,4 +102,17 @@ export class AuthController {
 
     return res.send(user);
   }
+
+  @UseGuards(GithubAuthGuard)
+  @Get('to-github')
+  async githubAuth(@Request() req) {}
+
+  @UseGuards(GithubAuthGuard)
+  @Get('github')
+  async githubAuthRedirect(@Request() req, @Response() res) {
+    const { user } = req;
+
+    return res.send(user);
+  }
+
 }

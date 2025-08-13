@@ -9,31 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KakaoStrategy = void 0;
+exports.GithubStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-const passport_kakao_1 = require("passport-kakao");
+const passport_github2_1 = require("passport-github2");
 const user_service_1 = require("../user/user.service");
-let KakaoStrategy = class KakaoStrategy extends (0, passport_1.PassportStrategy)(passport_kakao_1.Strategy) {
+let GithubStrategy = class GithubStrategy extends (0, passport_1.PassportStrategy)(passport_github2_1.Strategy) {
     userService;
     constructor(userService) {
         super({
-            clientID: process.env.KAKAO_CLIENT_ID,
-            callbackURL: 'http://localhost:3000/auth/kakao',
+            clientID: process.env.KAKAO_CLIENT_ID || '',
+            clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
+            callbackURL: 'http://localhost:3000/auth/github',
         });
         this.userService = userService;
     }
     async validate(accessToken, refreshToken, profile) {
-        const providerId = 'kakao';
-        const email = profile._json.kakao_account.email;
-        const name = profile.displayName;
-        const user = await this.userService.findByEmailOrSave(email, name, providerId);
+        console.log(profile);
+        const { displayName, profileUrl } = profile;
+        const providerId = 'github';
+        const user = await this.userService.findByEmailOrSave(profileUrl, displayName, providerId);
         return user;
     }
 };
-exports.KakaoStrategy = KakaoStrategy;
-exports.KakaoStrategy = KakaoStrategy = __decorate([
+exports.GithubStrategy = GithubStrategy;
+exports.GithubStrategy = GithubStrategy = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService])
-], KakaoStrategy);
-//# sourceMappingURL=kakao.strategy.js.map
+], GithubStrategy);
+//# sourceMappingURL=github.strategy.js.map

@@ -7,6 +7,7 @@ import { SessionSerializer } from './session.serializer';
 import { LocalStrategy } from './local.strategy';
 import { GoogleStrategy } from './google.strategy';
 import { KakaoStrategy } from './kakao.strategy';
+import { GithubStrategy } from './github.strategy';
 
 @Module({
   imports: [UserModule, PassportModule.register({ session: true })], // 패스포트 모둘 추가
@@ -16,6 +17,7 @@ import { KakaoStrategy } from './kakao.strategy';
     SessionSerializer,
     GoogleStrategy,
     KakaoStrategy,
+    GithubStrategy,
   ], // 프로바이더 설정 추가
   controllers: [AuthController],
 })

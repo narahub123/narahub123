@@ -13,4 +13,7 @@ export declare class AuthController {
     gooleAuthRedirect(req: any, res: any): Promise<any>;
     kakaoAuth(req: any): Promise<void>;
     kakaoAuthRedirect(req: any, res: any): Promise<any>;
+    githubAuth(req: any): Promise<void>;
+    githubAuthRedirect(req: any, res: any): Promise<any>;
+    s: any;
 }
