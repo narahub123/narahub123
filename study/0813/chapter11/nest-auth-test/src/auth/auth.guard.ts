@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
@@ -52,5 +53,16 @@ export class AuthenticatedGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     return request.isAuthenticated(); // 세션에서 정보를 읽어서 인증 확인
+  }
+}
+
+@Injectable()
+export class GoogleAuthGuard extends AuthGuard('gooogle') {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const result = (await super.canActivate(context)) as boolean;
+
+    const request = context.switchToHttp().getRequest();
+
+    return result;
   }
 }
