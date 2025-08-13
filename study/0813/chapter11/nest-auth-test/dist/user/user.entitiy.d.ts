@@ -4,4 +4,5 @@ export declare class User {
     password: string;
     username: string;
     createdDt: Date;
+    providerId: string;
 }

@@ -31,8 +31,8 @@ let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrateg
         console.log(refreshToken);
         const providerId = id;
         const email = emails?.[0].value;
-        console.log(providerId, email, name?.familyName, name?.givenName);
-        return profile;
+        const user = await this.userService.findByEmailOrSave(email, name?.familyName + name?.givenName, providerId);
+        return user;
     }
 };
 exports.GoogleStrategy = GoogleStrategy;

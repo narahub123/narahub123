@@ -9,5 +9,6 @@ export declare class AuthService {
         email: string;
         username: string;
         createdDt: Date;
+        providerId: string;
     } | null>;
 }

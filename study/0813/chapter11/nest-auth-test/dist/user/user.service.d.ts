@@ -7,4 +7,5 @@ export declare class UserService {
     getUser(email: string): Promise<User | null>;
     updateUser(email: any, _user: any): Promise<void>;
     deleteUser(email: string): Promise<import("typeorm").DeleteResult>;
+    findByEmailOrSave(email: any, username: any, providerId: any): Promise<User>;
 }
