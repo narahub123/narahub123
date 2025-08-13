@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
+import { User } from 'src/user/user.entitiy';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -23,8 +24,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     const providerId = id;
     const email = emails?.[0].value;
 
-    console.log(providerId, email, name?.familyName, name?.givenName);
+    const user: User = await this.userService.findByEmailOrSave(
+      email,
+      name?.familyName! + name?.givenName!,
+      providerId,
+    );
 
-    return profile;
+    return user;
   }
 }
