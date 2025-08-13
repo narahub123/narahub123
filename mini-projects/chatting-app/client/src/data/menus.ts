@@ -15,3 +15,18 @@ export const sidebars = [
     alt: "대화 목록",
   },
 ];
+
+export const windowControllers = [
+  {
+    name: "horizontal_rule",
+    title: "최소화",
+  },
+  {
+    name: "square",
+    title: "최대화",
+  },
+  {
+    name: "close",
+    title: "닫기",
+  },
+];
