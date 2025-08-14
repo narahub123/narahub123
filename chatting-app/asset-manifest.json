@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/narahub123/chatting-app/static/css/main.1ec772f2.css",
-    "main.js": "/narahub123/chatting-app/static/js/main.310ece57.js",
+    "main.css": "/narahub123/chatting-app/static/css/main.5ba82953.css",
+    "main.js": "/narahub123/chatting-app/static/js/main.c84cb0e2.js",
     "static/media/material-icons-latin-400-normal.woff": "/narahub123/chatting-app/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
     "static/media/material-icons-latin-400-normal.woff2": "/narahub123/chatting-app/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
     "index.html": "/narahub123/chatting-app/index.html",
-    "main.1ec772f2.css.map": "/narahub123/chatting-app/static/css/main.1ec772f2.css.map",
-    "main.310ece57.js.map": "/narahub123/chatting-app/static/js/main.310ece57.js.map"
+    "main.5ba82953.css.map": "/narahub123/chatting-app/static/css/main.5ba82953.css.map",
+    "main.c84cb0e2.js.map": "/narahub123/chatting-app/static/js/main.c84cb0e2.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ec772f2.css",
-    "static/js/main.310ece57.js"
+    "static/css/main.5ba82953.css",
+    "static/js/main.c84cb0e2.js"
   ]
 }
