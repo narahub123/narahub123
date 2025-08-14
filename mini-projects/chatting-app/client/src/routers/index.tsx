@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Fragment } from "react/jsx-runtime";
+import { OauthCallback } from "../components";
 
 export const router = createBrowserRouter(
   [
@@ -13,7 +13,7 @@ export const router = createBrowserRouter(
       children: [
         {
           path: "oauth",
-          element: <Fragment />,
+          element: <OauthCallback />,
         },
       ],
     },

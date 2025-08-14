@@ -13,6 +13,12 @@ class UserService {
     return result.docs[0].data()!;
   }
 
+  async checkUserExistence(email: string) {
+    const result = await userRepository.getUserByEmail(email);
+
+    return !result || result.empty ? false : true;
+  }
+
   // 이메일 중복 여부 검사
   async checkEmailDuplicate(email: string): Promise<boolean> {
     const result = await userRepository.getUserByEmail(email);

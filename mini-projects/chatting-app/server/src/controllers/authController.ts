@@ -228,16 +228,24 @@ export const oauth = asyncWrapper(
         console.log(oauthUserInfo);
 
         // DB에서 얻은 사용자 정보
-        const user = await userService.getUserByEmail(oauthUserInfo.email);
+        const isExisting = await userService.checkUserExistence(
+          oauthUserInfo.email
+        );
 
-        console.log(user);
+        console.log(isExisting);
 
         // 기존 사용자인 경우: 로그인
-        if (user) {
+        if (isExisting) {
+          console.log("로그인 성공 ");
+
+          return res.redirect(
+            "http://localhost:3000/narahub123/chatting-app/callback/oauth?login=true"
+          );
         } else {
+          console.log("로그인 실패");
           // 기존 사용자가 아닌 경우 : 회원 가입
           return res.redirect(
-            "http://localhost:3000/callback/oauth?login=false"
+            `http://localhost:3000/narahub123/chatting-app/callback/oauth?login=false&email=${oauthUserInfo.email}&username=${oauthUserInfo.username}&profileImage=${oauthUserInfo.profileImage}`
           );
         }
       } catch (err) {}

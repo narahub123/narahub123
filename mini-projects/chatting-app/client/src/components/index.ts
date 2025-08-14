@@ -15,6 +15,7 @@ import ResetPasswordModal from "./ResetPasswordModal";
 import ChatModal from "./ChatModal";
 import ChatMain from "./ChatMain";
 import ChatSidebar from "./ChatSidebar";
+import OauthCallback from "./OauthCallback";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -39,4 +40,5 @@ export {
   ChatModal,
   ChatMain,
   ChatSidebar,
+  OauthCallback,
 };

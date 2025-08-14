@@ -46,6 +46,34 @@ const LoginModal = () => {
   // chat 모달 여닫기 상태 변경 함수
   const setIsChatModalOpen = useOpenStore((state) => state.setIsChatModalOpen);
 
+  // 이메일 회원가입 여닫기 상태 변경 함수
+  const setIsEmailSignupModalOpen = useOpenStore(
+    (state) => state.setIsEmailSignupModalOpen
+  );
+
+  const setSignupInfo = useAuthStore((state) => state.setSignupInfo);
+
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      console.log("메시지", e.data.type);
+      if (e.data.type === "oauth-success") {
+        setIsLoginModalOpen(false);
+        setIsChatModalOpen(true);
+      } else if (e.data.type === "oauth-fail") {
+        setIsLoginModalOpen(false);
+        setIsEmailSignupModalOpen(true);
+
+        Object.keys(e.data.info).forEach((key) => {
+          setSignupInfo(key, e.data.info[key]);
+        });
+      }
+    };
+
+    window.addEventListener("message", handler);
+
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
   // 입력값들의 유효성 결과
   useEffect(() => {
     if (!loginInfo.email && !loginInfo.userId) return;
