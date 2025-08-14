@@ -6,6 +6,18 @@ function App() {
   const [connection, setConnection] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (user) return;
+    let username = window.prompt("이름을 작성해주세요.");
+
+    if (!username) {
+      username = window.prompt("이름을 작성해주세요.");
+    } else {
+      setUser(username);
+    }
+  }, []);
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:3000/");
@@ -35,7 +47,7 @@ function App() {
   const sendMessage = () => {
     if (!message) return;
 
-    webSocket?.send(message);
+    webSocket?.send(`${user}-${message}`);
 
     setMessage("");
   };
@@ -90,7 +102,7 @@ function App() {
       <div className="mt-4">
         <ul className="space-y-2">
           {messages.map((m, index) => (
-            <li key={index} className="p-2 bg-blue-50">
+            <li key={index} className="p-2 bg-yellow-200 rounded-md max-w-80">
               {m}
             </li>
           ))}

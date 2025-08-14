@@ -4,8 +4,9 @@ const server = new WebSocket.Server({ port: 3000 });
 server.on("connection", (ws) => {
   ws.send("connected");
 
-  ws.on("message", (message) => {
-    ws.send(`${message}`);
+  ws.on("message", (msg) => {
+    const [user, message] = msg.split("-");
+    ws.send(`${user}-${message}`);
   });
 
   ws.on("close", () => {
