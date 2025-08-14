@@ -13,7 +13,10 @@ const OauthCallback = () => {
       {
         type: isLoggedIn ? "oauth-success" : "oauth-fail",
         info: isLoggedIn
-          ? undefined
+          ? {
+              accessToken: search.get("accessToken"),
+              sessionId: search.get("sessionId"),
+            }
           : {
               email: search.get("email"),
               username: search.get("username"),

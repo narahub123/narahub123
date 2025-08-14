@@ -7,10 +7,12 @@ export const auths = [
 
 export const sidebars = [
   {
+    type: "friends",
     src: defaultProfile,
     alt: "친구 목록",
   },
   {
+    type: "chats",
     src: chatIcon,
     alt: "대화 목록",
   },

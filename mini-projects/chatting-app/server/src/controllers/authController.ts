@@ -228,18 +228,31 @@ export const oauth = asyncWrapper(
         console.log(oauthUserInfo);
 
         // DB에서 얻은 사용자 정보
-        const isExisting = await userService.checkUserExistence(
+        const user = await userService.getUserByEmailWithoutError(
           oauthUserInfo.email
         );
 
-        console.log(isExisting);
+        console.log(user);
 
         // 기존 사용자인 경우: 로그인
-        if (isExisting) {
+        if (user) {
           console.log("로그인 성공 ");
+          const payload = {
+            userId: user.userId,
+            email: user.email,
+          };
+
+          const accessToken = await jwtSignP(payload, "10m");
+          const refreshToken = await jwtSignP(payload, "1h");
+
+          // 사용자 세션 생성
+          const sessionId = await userSessionService.createUserSession(
+            user.userId,
+            refreshToken
+          );
 
           return res.redirect(
-            "http://localhost:3000/narahub123/chatting-app/callback/oauth?login=true"
+            `http://localhost:3000/narahub123/chatting-app/callback/oauth?login=true&accessToken=${accessToken}&sessionId=${sessionId}`
           );
         } else {
           console.log("로그인 실패");

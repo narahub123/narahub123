@@ -57,6 +57,12 @@ const LoginModal = () => {
     const handler = (e: MessageEvent) => {
       console.log("메시지", e.data.type);
       if (e.data.type === "oauth-success") {
+        // 로그인 상태 로컬 스토리지에 저장
+        saveLoginState(e.data.info);
+
+        // 로그인 상태 변경
+        setIsLoggedin(true);
+
         setIsLoginModalOpen(false);
         setIsChatModalOpen(true);
       } else if (e.data.type === "oauth-fail") {
