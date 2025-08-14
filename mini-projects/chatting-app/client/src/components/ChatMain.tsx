@@ -1,9 +1,15 @@
+import { FC } from "react";
 import { Icon } from "../components";
 import { windowControllers } from "../data";
 import { useLoginStore, useOpenStore } from "../stores";
 import { removeLoginState } from "../utils";
+import { PageType } from "../types";
 
-const ChatMain = () => {
+interface ChatMainProps {
+  curPage: PageType;
+}
+
+const ChatMain: FC<ChatMainProps> = ({ curPage }) => {
   const setIsChatModalOpen = useOpenStore((state) => state.setIsChatModalOpen);
   const setIsLogggedIn = useLoginStore((state) => state.setIsLoggedIn);
 
@@ -31,7 +37,11 @@ const ChatMain = () => {
           ))}
         </div>
       </div>
-      <section>목록</section>
+      {curPage === "friends" ? (
+        <section>친구 목록</section>
+      ) : (
+        <section>채팅 목록</section>
+      )}
     </main>
   );
 };

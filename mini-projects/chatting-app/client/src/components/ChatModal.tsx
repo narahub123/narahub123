@@ -1,11 +1,13 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useLoginStore, useOpenStore } from "../stores";
 import { fetchWithAuth } from "../utils";
 import ChatSidebar from "./ChatSidebar";
 import ChatMain from "./ChatMain";
+import { PageType } from "../types";
 
 const ChatModal: FC = () => {
+  const [curPage, setCurPage] = useState<PageType>("friends");
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const isChatModalOpen = useOpenStore((state) => state.isChatModalOpen);
 
@@ -29,8 +31,8 @@ const ChatModal: FC = () => {
   return (
     <Modal open={isChatModalOpen}>
       <ModalContent className="flex p-0 rounded-none">
-        <ChatSidebar />
-        <ChatMain />
+        <ChatSidebar setCurPage={setCurPage} />
+        <ChatMain curPage={curPage} />
       </ModalContent>
     </Modal>
   );
