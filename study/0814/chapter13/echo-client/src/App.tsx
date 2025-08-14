@@ -1,24 +1,101 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useRef, useState } from "react";
 
 function App() {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
+  const [connection, setConnection] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:3000/");
+
+    setWebSocket(ws);
+
+    ws.onopen = () => {
+      console.log("Websocket 연결됨");
+    };
+
+    ws.onmessage = function (event) {
+      const message = event.data;
+
+      if (message === "connected") {
+        setConnection("접속 완료");
+        return;
+      }
+
+      setMessages((prev) => [message, ...prev]);
+    };
+
+    ws.onclose = () => {
+      setConnection("접속 종료");
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (!message) return;
+
+    webSocket?.send(message);
+
+    setMessage("");
+  };
+
+  const webSocketClose = () => {
+    webSocket?.close();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    setMessage(value);
+  };
+
+  // enter 클릭 시 메시지 전송
+  const handleKeydown = (e: React.KeyboardEvent) => {
+    // enter가 눌리고 shift 키는 눌리지 않는 경우
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // enter의 본래 기능 봉쇄
+      if (!message) return;
+      sendMessage();
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <h1>화면</h1>
+      <div>
+        <textarea
+          ref={textareaRef}
+          className="border"
+          onChange={handleChange}
+          onKeyDown={handleKeydown}
+          value={message}
+        ></textarea>
+      </div>
+      <div className="space-x-4">
+        <button
+          className="btn btn-primary"
+          onClick={sendMessage}
+          disabled={!message}
         >
-          Learn React
-        </a>
-      </header>
+          전송
+        </button>
+        <button className="btn btn-warning" onClick={webSocketClose}>
+          종료
+        </button>
+      </div>
+      <div>
+        <p>{connection}</p>
+      </div>
+      <div className="mt-4">
+        <ul className="space-y-2">
+          {messages.map((m, index) => (
+            <li key={index} className="p-2 bg-blue-50">
+              {m}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
