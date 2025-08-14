@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Icon } from "../components";
+import { ChatroomList, FriendList, Icon } from "../components";
 import { windowControllers } from "../data";
 import { useLoginStore, useOpenStore } from "../stores";
 import { removeLoginState } from "../utils";
@@ -37,11 +37,7 @@ const ChatMain: FC<ChatMainProps> = ({ curPage }) => {
           ))}
         </div>
       </div>
-      {curPage === "friends" ? (
-        <section>친구 목록</section>
-      ) : (
-        <section>채팅 목록</section>
-      )}
+      {curPage === "friends" ? <FriendList /> : <ChatroomList />}
     </main>
   );
 };

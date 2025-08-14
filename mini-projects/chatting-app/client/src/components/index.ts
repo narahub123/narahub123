@@ -16,6 +16,8 @@ import ChatModal from "./ChatModal";
 import ChatMain from "./ChatMain";
 import ChatSidebar from "./ChatSidebar";
 import OauthCallback from "./OauthCallback";
+import ChatroomList from "./ChatroomList";
+import FriendList from "./FriendList";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -41,4 +43,6 @@ export {
   ChatMain,
   ChatSidebar,
   OauthCallback,
+  ChatroomList,
+  FriendList,
 };
