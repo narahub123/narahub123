@@ -1,6 +1,7 @@
 import {
   AuthMenu,
   ChatModal,
+  Chatroom,
   EmailSignupModal,
   LoginModal,
   ResetPasswordModal,
@@ -13,6 +14,7 @@ function App() {
   useLoginCheck();
   return (
     <div className="App">
+      <Chatroom />
       <ChatModal />
       <ResetPasswordModal />
       <EmailSignupModal />

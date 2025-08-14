@@ -5,6 +5,7 @@ import { startServer } from "./app";
 import routes from "./routes";
 import { errorHandler } from "./middlewares";
 import cookieParser from "cookie-parser";
+
 import dotenv from "dotenv";
 dotenv.config();
 
