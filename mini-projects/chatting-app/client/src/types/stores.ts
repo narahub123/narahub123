@@ -20,6 +20,8 @@ export type OpenState = {
   setIsChatModalOpen: (isOpen: boolean) => void;
   isChatroomOpen: boolean;
   setIsChatroomOpen: (isOpen: boolean) => void;
+  isChatroomCreateModalOpen: boolean;
+  setIsChatroomCreateModalOpen: (isChatroomCreateModalOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
