@@ -32,7 +32,7 @@ const ChatroomModal = () => {
         return;
       }
 
-      setMessages((prev) => [message, ...prev]);
+      setMessages((prev) => [...prev, message]);
     };
 
     ws.onclose = () => {
@@ -74,11 +74,19 @@ const ChatroomModal = () => {
         <h2>채팅방</h2>
         <div>
           <ul className="space-y-2">
-            {messages.map((message) => (
-              <li className="p-2 bg-blue-100 rounded-md max-w-60" key={message}>
-                {message}
-              </li>
-            ))}
+            {messages.map((message, idx) => {
+              const [userId, chat] = message.split("-");
+
+              const isMyself = user?.userId === userId;
+
+              const position = isMyself ? "justify-end" : "justify-start";
+              const bgColor = isMyself ? "bg-yellow-100" : "bg-blue-100";
+              return (
+                <li className={`flex ${position}`} key={`message-${idx}`}>
+                  <p className={`p-2 ${bgColor} rounded-md max-w-60`}>{chat}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex items-center mt-2 space-x-4">

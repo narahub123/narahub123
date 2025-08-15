@@ -12,7 +12,11 @@ export default (
     ws.on("message", (msg) => {
       const [user, message] = msg.toString().split("-");
 
-      ws.send(`${user}-${message}`);
+      webSocket.clients.forEach((client) => {
+        client.send(`${user}-${message}`);
+      });
+
+      console.log("메시지 전송");
     });
 
     ws.on("close", () => {
