@@ -68,3 +68,9 @@ export type UserState = {
   setUserInfo: (user: UserInfo) => void;
   clearUserInfo: () => void;
 };
+
+export type ChatroomsState = {
+  openChatrooms: string[];
+  addOpenChatroom: (roomId: string) => void;
+  deleteOpenChatroom: (roomId: string) => void;
+};

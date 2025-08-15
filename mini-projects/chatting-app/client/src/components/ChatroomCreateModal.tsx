@@ -4,6 +4,7 @@ import Input from "./Input";
 import { ChatroomDto } from "../types";
 import { useOpenStore } from "../stores";
 import { fetchWithAuth } from "../utils";
+import { useChatroomsStore } from "../stores/useChatroomsStore";
 
 const ChatroomCreateModal = () => {
   const [chatroom, setChatroom] = useState<ChatroomDto>({
@@ -23,6 +24,8 @@ const ChatroomCreateModal = () => {
   const setIsChatroomCreateModalOpen = useOpenStore(
     (state) => state.setIsChatroomCreateModalOpen
   );
+
+  const addOpenChatroom = useChatroomsStore((state) => state.addOpenChatroom);
 
   const onClose = () => {
     setIsChatroomCreateModalOpen(false);
@@ -62,6 +65,8 @@ const ChatroomCreateModal = () => {
     const roomId = response.data.roomId;
 
     setIsChatroomCreateModalOpen(false);
+
+    addOpenChatroom(roomId);
   };
 
   return (

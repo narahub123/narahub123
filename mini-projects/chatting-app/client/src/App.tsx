@@ -10,9 +10,20 @@ import {
   WidgetButton,
 } from "./components";
 import { useLoginCheck } from "./hooks";
+import { useChatroomsStore } from "./stores/useChatroomsStore";
 
 function App() {
+  const openChatrooms = useChatroomsStore((state) => state.openChatrooms);
+  const deleteOpenChatroom = useChatroomsStore(
+    (state) => state.deleteOpenChatroom
+  );
+
   useLoginCheck();
+
+  const onClose = (roomId: string) => {
+    deleteOpenChatroom(roomId);
+  };
+
   return (
     <div className="App">
       <ChatModal />
@@ -23,7 +34,9 @@ function App() {
       <AuthMenu />
       <WidgetButton />
       <ChatroomCreateModal />
-      <ChatroomModal />
+      {openChatrooms.map((openChatroom) => (
+        <ChatroomModal roomId={openChatroom} onClose={onClose} />
+      ))}
     </div>
   );
 }

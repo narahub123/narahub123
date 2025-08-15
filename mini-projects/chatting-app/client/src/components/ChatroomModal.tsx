@@ -1,23 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { useOpenStore } from "../stores";
 import { useUserStore } from "../stores/useUserStore";
 import { Chat } from "../types";
 
-const ChatroomModal = () => {
+interface ChatroomModalProps {
+  roomId: string;
+  isOpen?: boolean;
+  onClose: (roomId: string) => void;
+}
+
+const ChatroomModal: FC<ChatroomModalProps> = ({
+  roomId,
+  isOpen = true,
+  onClose,
+}) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<Chat[]>([]);
   const [message, setMessage] = useState("");
 
-  const isChatroomOpen = useOpenStore((state) => state.isChatroomOpen);
-
-  const setIsChatroomOpen = useOpenStore((state) => state.setIsChatroomOpen);
-
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3301/");
+    const ws = new WebSocket(`ws://localhost:3301?roomId=${roomId}`);
 
     setWebsocket(ws);
 
@@ -71,15 +76,11 @@ const ChatroomModal = () => {
     }
   };
 
-  const handleClose = () => {
-    setIsChatroomOpen(false);
-  };
-
-  return (
-    <Modal open={isChatroomOpen}>
+  return isOpen ? (
+    <Modal open={isOpen}>
       <ModalContent>
         <div className="flex justify-end">
-          <button onClick={handleClose}>닫기</button>
+          <button onClick={() => onClose(roomId)}>닫기</button>
         </div>
         <h2>채팅방</h2>
         <div>
@@ -113,7 +114,7 @@ const ChatroomModal = () => {
         </div>
       </ModalContent>
     </Modal>
-  );
+  ) : null;
 };
 
 export default ChatroomModal;
