@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore } from "../stores";
 
-const Chatroom = () => {
+const ChatroomModal = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
@@ -95,4 +95,4 @@ const Chatroom = () => {
   );
 };
 
-export default Chatroom;
+export default ChatroomModal;
