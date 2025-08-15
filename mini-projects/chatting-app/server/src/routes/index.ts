@@ -9,8 +9,8 @@ const router = Router();
 
 router.use("/auth", authRouter());
 router.use("/users", userRouter());
-router.use("/chatrooms", chatroomRouter);
-router.use("/chats", chatRouter);
-router.use("/notifications", notificationRouter);
+router.use("/chatrooms", chatroomRouter());
+router.use("/chats", chatRouter());
+router.use("/notifications", notificationRouter());
 
 export default () => router;

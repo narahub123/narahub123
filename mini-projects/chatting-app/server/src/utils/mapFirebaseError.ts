@@ -3,6 +3,8 @@ import * as HE from "../errors/http-errors";
 
 export function mapFirebaseError(err: unknown) {
   // FirebaseError 타입은 런타임에 확인 불가하므로 프로퍼티로 체크
+  console.log(err);
+
   if (
     typeof err === "object" &&
     err !== null &&

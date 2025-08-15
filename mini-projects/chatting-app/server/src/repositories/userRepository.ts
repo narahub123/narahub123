@@ -4,6 +4,7 @@ import {
   QuerySnapshot,
   WriteResult,
   Timestamp,
+  FieldValue,
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
@@ -58,6 +59,16 @@ class UserRepository {
         .get();
 
       return user;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  async updateUserChatrooms(email: string, roomId: string): Promise<void> {
+    try {
+      await this.userCollection.doc(email).update({
+        chatrooms: FieldValue.arrayUnion(roomId),
+      });
     } catch (err) {
       throw mapFirebaseError(err);
     }

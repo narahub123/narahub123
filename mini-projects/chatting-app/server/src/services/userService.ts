@@ -48,6 +48,10 @@ class UserService {
 
     return user;
   }
+
+  async updateUserChatrooms(email: string, roomId: string) {
+    await userRepository.updateUserChatrooms(email, roomId);
+  }
 }
 
 export default new UserService();
