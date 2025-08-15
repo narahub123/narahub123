@@ -2,11 +2,14 @@ import { FC } from "react";
 import { useOpenStore } from "../stores";
 
 const ChatroomList: FC = () => {
-  const setIsChatroomOpen = useOpenStore((state) => state.setIsChatroomOpen);
+  const setIsChatroomCreateModalOpen = useOpenStore(
+    (state) => state.setIsChatroomCreateModalOpen
+  );
 
   const handleOpen = () => {
-    setIsChatroomOpen(true);
+    setIsChatroomCreateModalOpen(true);
   };
+
   return (
     <section>
       <div>

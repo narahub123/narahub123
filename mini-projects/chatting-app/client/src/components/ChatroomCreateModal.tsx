@@ -2,13 +2,27 @@ import { useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import Input from "./Input";
 import { ChatroomDto } from "../types";
+import { useOpenStore } from "../stores";
+import { fetchWithAuth } from "../utils";
 
 const ChatroomCreateModal = () => {
   const [chatroom, setChatroom] = useState<ChatroomDto>({
     name: "",
     intro: "",
-    max: 3,
+    capacity: 3,
   });
+
+  const isChatroomCreateModalOpen = useOpenStore(
+    (state) => state.isChatroomCreateModalOpen
+  );
+
+  const setIsChatroomCreateModalOpen = useOpenStore(
+    (state) => state.setIsChatroomCreateModalOpen
+  );
+
+  const onClose = () => {
+    setIsChatroomCreateModalOpen(false);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
@@ -20,9 +34,34 @@ const ChatroomCreateModal = () => {
     }));
   };
 
+  const handleCreateChatroom = async () => {
+    console.log("눌림");
+
+    const response = await fetchWithAuth(
+      "/chatrooms/group",
+      {
+        method: "POST",
+      },
+      {
+        body: chatroom,
+      }
+    );
+
+    if (!response.success) {
+      console.log("채팅방 생성 실패");
+      return;
+    }
+
+    // 채팅방 모달 열기
+    // 어떤 정보를 응답 받아야 하는지 생각해볼 것
+  };
+
   return (
-    <Modal open>
-      <ModalContent className="space-y-4 max-w-[320px]">
+    <Modal open={isChatroomCreateModalOpen}>
+      <ModalContent
+        className="space-y-4 max-w-[320px]"
+        onCloseIconClicked={onClose}
+      >
         <div className="flex justify-center">
           <h2 className="text-xl font-bold">채팅방 만들기</h2>
         </div>
@@ -49,7 +88,11 @@ const ChatroomCreateModal = () => {
           />
         </div>
         <div className="flex justify-end">
-          <Button disabled={!chatroom.name} className="w-full btn btn-primary">
+          <Button
+            disabled={!chatroom.name}
+            className="w-full btn btn-primary"
+            onClick={handleCreateChatroom}
+          >
             채팅방 만들기
           </Button>
         </div>

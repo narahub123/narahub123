@@ -14,5 +14,5 @@ export interface Chat {
 export interface ChatroomDto {
   name: string;
   intro: string;
-  max: number;
+  capacity: number;
 }
