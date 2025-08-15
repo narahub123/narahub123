@@ -10,3 +10,9 @@ export interface Chat {
   userId: string;
   text: string;
 }
+
+export interface ChatroomDto {
+  name: string;
+  intro: string;
+  max: number;
+}

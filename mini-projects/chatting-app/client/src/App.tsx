@@ -1,6 +1,7 @@
 import {
   AuthMenu,
   ChatModal,
+  ChatroomCreateModal,
   ChatroomModal,
   EmailSignupModal,
   LoginModal,
@@ -21,6 +22,7 @@ function App() {
       <LoginModal />
       <AuthMenu />
       <WidgetButton />
+      <ChatroomCreateModal />
       <ChatroomModal />
     </div>
   );

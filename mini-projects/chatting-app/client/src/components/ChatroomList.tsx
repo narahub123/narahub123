@@ -10,7 +10,7 @@ const ChatroomList: FC = () => {
   return (
     <section>
       <div>
-        <button onClick={handleOpen}>채팅방 열기</button>
+        <button onClick={handleOpen}>채팅방 생성</button>
       </div>
     </section>
   );

@@ -19,6 +19,7 @@ import OauthCallback from "./OauthCallback";
 import ChatroomList from "./ChatroomList";
 import FriendList from "./FriendList";
 import ChatroomModal from "./ChatroomModal";
+import ChatroomCreateModal from "./ChatroomCreateModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -47,4 +48,5 @@ export {
   ChatroomList,
   FriendList,
   ChatroomModal,
+  ChatroomCreateModal,
 };
