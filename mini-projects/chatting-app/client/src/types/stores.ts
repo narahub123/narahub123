@@ -48,3 +48,21 @@ export type AuthState = {
   setLoginInfo: (id: string, value: string) => void;
   cleanLoginInfo: () => void;
 };
+
+export interface UserInfo {
+  userId: string;
+  username: string;
+  profileImage: string;
+  createdAt: Date;
+  emailVerified: boolean;
+  role: "USER" | "ADMIN";
+  status: string;
+  friends: string[];
+  chatrooms: string[];
+}
+
+export type UserState = {
+  user: UserInfo | null;
+  setUserInfo: (user: UserInfo) => void;
+  clearUserInfo: () => void;
+};
