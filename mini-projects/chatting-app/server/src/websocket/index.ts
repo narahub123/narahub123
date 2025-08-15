@@ -10,10 +10,10 @@ export default (
     ws.send("connected");
 
     ws.on("message", (msg) => {
-      const [user, message] = msg.toString().split("-");
+      const message = JSON.parse(msg.toString());
 
       webSocket.clients.forEach((client) => {
-        client.send(`${user}-${message}`);
+        client.send(JSON.stringify(message));
       });
 
       console.log("메시지 전송");

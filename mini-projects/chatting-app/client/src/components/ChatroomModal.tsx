@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore } from "../stores";
 import { useUserStore } from "../stores/useUserStore";
+import { Chat } from "../types";
 
 const ChatroomModal = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Chat[]>([]);
   const [message, setMessage] = useState("");
 
   const isChatroomOpen = useOpenStore((state) => state.isChatroomOpen);
@@ -25,12 +26,14 @@ const ChatroomModal = () => {
     };
 
     ws.onmessage = (event) => {
-      const message = event.data;
+      let message = event.data;
 
       if (message === "connected") {
         // setConnection("접속 완료");
         return;
       }
+
+      message = JSON.parse(message);
 
       setMessages((prev) => [...prev, message]);
     };
@@ -41,9 +44,16 @@ const ChatroomModal = () => {
   }, []);
 
   const handleClick = () => {
-    if (!websocket || !message) return;
+    if (!websocket || !message || !user) return;
     console.log("클릭함");
-    websocket.send(`${user?.userId}-${message}`);
+
+    const msg: Chat = {
+      roomId: "1",
+      userId: user.userId,
+      text: message,
+    };
+
+    websocket.send(JSON.stringify(msg));
     setMessage("");
   };
 
@@ -75,7 +85,7 @@ const ChatroomModal = () => {
         <div>
           <ul className="space-y-2">
             {messages.map((message, idx) => {
-              const [userId, chat] = message.split("-");
+              const { roomId, userId, text } = message;
 
               const isMyself = user?.userId === userId;
 
@@ -83,7 +93,7 @@ const ChatroomModal = () => {
               const bgColor = isMyself ? "bg-yellow-100" : "bg-blue-100";
               return (
                 <li className={`flex ${position}`} key={`message-${idx}`}>
-                  <p className={`p-2 ${bgColor} rounded-md max-w-60`}>{chat}</p>
+                  <p className={`p-2 ${bgColor} rounded-md max-w-60`}>{text}</p>
                 </li>
               );
             })}

@@ -4,3 +4,9 @@ export type ImageType = {
 };
 
 export type PageType = "friends" | "chats";
+
+export interface Chat {
+  roomId: string;
+  userId: string;
+  text: string;
+}
