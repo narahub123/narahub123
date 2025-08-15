@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore } from "../stores";
+import { useUserStore } from "../stores/useUserStore";
 
 const ChatroomModal = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -11,6 +12,8 @@ const ChatroomModal = () => {
   const isChatroomOpen = useOpenStore((state) => state.isChatroomOpen);
 
   const setIsChatroomOpen = useOpenStore((state) => state.setIsChatroomOpen);
+
+  const user = useUserStore((state) => state.user);
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:3301/");
@@ -40,7 +43,7 @@ const ChatroomModal = () => {
   const handleClick = () => {
     if (!websocket || !message) return;
     console.log("클릭함");
-    websocket.send(`id-${message}`);
+    websocket.send(`${user?.userId}-${message}`);
     setMessage("");
   };
 
