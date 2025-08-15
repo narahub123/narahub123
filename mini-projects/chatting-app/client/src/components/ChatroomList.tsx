@@ -1,7 +1,19 @@
 import { FC } from "react";
+import { useOpenStore } from "../stores";
 
 const ChatroomList: FC = () => {
-  return <section>채팅 목록</section>;
+  const setIsChatroomOpen = useOpenStore((state) => state.setIsChatroomOpen);
+
+  const handleOpen = () => {
+    setIsChatroomOpen(true);
+  };
+  return (
+    <section>
+      <div>
+        <button onClick={handleOpen}>채팅방 열기</button>
+      </div>
+    </section>
+  );
 };
 
 export default ChatroomList;

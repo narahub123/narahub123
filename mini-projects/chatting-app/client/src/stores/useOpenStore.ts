@@ -32,4 +32,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isChatModalOpen,
     })),
+  isChatroomOpen: false,
+  setIsChatroomOpen: (isChatroomOpen: boolean) =>
+    set(() => ({
+      isChatroomOpen,
+    })),
 }));

@@ -14,7 +14,6 @@ function App() {
   useLoginCheck();
   return (
     <div className="App">
-      <Chatroom />
       <ChatModal />
       <ResetPasswordModal />
       <EmailSignupModal />
@@ -22,6 +21,7 @@ function App() {
       <LoginModal />
       <AuthMenu />
       <WidgetButton />
+      <Chatroom />
     </div>
   );
 }

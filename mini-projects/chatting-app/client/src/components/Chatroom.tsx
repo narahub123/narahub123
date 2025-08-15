@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
+import { useOpenStore } from "../stores";
 
 const Chatroom = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [message, setMessage] = useState("");
+
+  const isChatroomOpen = useOpenStore((state) => state.isChatroomOpen);
+
+  const setIsChatroomOpen = useOpenStore((state) => state.setIsChatroomOpen);
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:3301/");
@@ -53,9 +58,16 @@ const Chatroom = () => {
     }
   };
 
+  const handleClose = () => {
+    setIsChatroomOpen(false);
+  };
+
   return (
-    <Modal open>
+    <Modal open={isChatroomOpen}>
       <ModalContent>
+        <div className="flex justify-end">
+          <button onClick={handleClose}>닫기</button>
+        </div>
         <h2>채팅방</h2>
         <div>
           <ul className="space-y-2">
