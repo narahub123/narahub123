@@ -1,10 +1,15 @@
 import { FC } from "react";
 import { useOpenStore } from "../stores";
+import { useUserStore } from "../stores/useUserStore";
+import { useChatroomsStore } from "../stores/useChatroomsStore";
 
 const ChatroomList: FC = () => {
   const setIsChatroomCreateModalOpen = useOpenStore(
     (state) => state.setIsChatroomCreateModalOpen
   );
+  const chatrooms = useUserStore((state) => state.user?.chatrooms);
+
+  const addOpenChatroom = useChatroomsStore((state) => state.addOpenChatroom);
 
   const handleOpen = () => {
     setIsChatroomCreateModalOpen(true);
@@ -14,6 +19,19 @@ const ChatroomList: FC = () => {
     <section>
       <div>
         <button onClick={handleOpen}>채팅방 생성</button>
+      </div>
+      <div>
+        <ul>
+          {chatrooms?.map((chatroom) => (
+            <li
+              key={chatroom}
+              className="p-2 cursor-pointer"
+              onClick={() => addOpenChatroom(chatroom)}
+            >
+              {chatroom}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

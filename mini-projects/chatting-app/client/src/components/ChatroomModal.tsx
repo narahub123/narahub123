@@ -82,7 +82,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
         <div className="flex justify-end">
           <button onClick={() => onClose(roomId)}>닫기</button>
         </div>
-        <h2>채팅방</h2>
+        <h2>채팅방({roomId})</h2>
         <div>
           <ul className="space-y-2">
             {messages.map((message, idx) => {

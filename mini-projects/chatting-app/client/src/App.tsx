@@ -35,7 +35,11 @@ function App() {
       <WidgetButton />
       <ChatroomCreateModal />
       {openChatrooms.map((openChatroom) => (
-        <ChatroomModal roomId={openChatroom} onClose={onClose} />
+        <ChatroomModal
+          roomId={openChatroom}
+          onClose={onClose}
+          key={openChatroom}
+        />
       ))}
     </div>
   );
