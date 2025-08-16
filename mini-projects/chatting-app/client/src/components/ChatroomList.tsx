@@ -9,7 +9,9 @@ const ChatroomList: FC = () => {
   );
   const chatrooms = useUserStore((state) => state.user?.chatrooms);
 
-  const addOpenChatroom = useChatroomsStore((state) => state.addOpenChatroom);
+  const addConnectedChatroom = useChatroomsStore(
+    (state) => state.addConnectedChatroom
+  );
 
   const handleOpen = () => {
     setIsChatroomCreateModalOpen(true);
@@ -26,7 +28,7 @@ const ChatroomList: FC = () => {
             <li
               key={chatroom}
               className="p-2 cursor-pointer"
-              onClick={() => addOpenChatroom(chatroom)}
+              onClick={() => addConnectedChatroom(chatroom)}
             >
               {chatroom}
             </li>

@@ -2,14 +2,14 @@ import { create } from "zustand";
 import { ChatroomsState } from "../types";
 
 export const useChatroomsStore = create<ChatroomsState>((set) => ({
-  openChatrooms: [],
-  addOpenChatroom: (roomId: string) =>
+  connectedChatrooms: [],
+  addConnectedChatroom: (roomId: string) =>
     set((state) => ({
-      openChatrooms: [...state.openChatrooms, roomId],
+      connectedChatrooms: [...state.connectedChatrooms, roomId],
     })),
-  deleteOpenChatroom: (roomId: string) =>
+  deleteConnectedChatroom: (roomId: string) =>
     set((state) => ({
-      openChatrooms: state.openChatrooms.filter(
+      connectedChatrooms: state.connectedChatrooms.filter(
         (openChatroom) => openChatroom !== roomId
       ),
     })),

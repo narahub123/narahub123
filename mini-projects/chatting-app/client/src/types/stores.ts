@@ -70,7 +70,7 @@ export type UserState = {
 };
 
 export type ChatroomsState = {
-  openChatrooms: string[];
-  addOpenChatroom: (roomId: string) => void;
-  deleteOpenChatroom: (roomId: string) => void;
+  connectedChatrooms: string[];
+  addConnectedChatroom: (roomId: string) => void;
+  deleteConnectedChatroom: (roomId: string) => void;
 };

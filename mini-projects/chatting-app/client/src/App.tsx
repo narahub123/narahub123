@@ -13,15 +13,17 @@ import { useLoginCheck } from "./hooks";
 import { useChatroomsStore } from "./stores/useChatroomsStore";
 
 function App() {
-  const openChatrooms = useChatroomsStore((state) => state.openChatrooms);
-  const deleteOpenChatroom = useChatroomsStore(
-    (state) => state.deleteOpenChatroom
+  const connectedChatrooms = useChatroomsStore(
+    (state) => state.connectedChatrooms
+  );
+  const deleteConnectedChatroom = useChatroomsStore(
+    (state) => state.deleteConnectedChatroom
   );
 
   useLoginCheck();
 
   const onClose = (roomId: string) => {
-    deleteOpenChatroom(roomId);
+    deleteConnectedChatroom(roomId);
   };
 
   return (
@@ -34,11 +36,11 @@ function App() {
       <AuthMenu />
       <WidgetButton />
       <ChatroomCreateModal />
-      {openChatrooms.map((openChatroom) => (
+      {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal
-          roomId={openChatroom}
+          roomId={connectedChatroom}
           onClose={onClose}
-          key={openChatroom}
+          key={connectedChatroom}
         />
       ))}
     </div>
