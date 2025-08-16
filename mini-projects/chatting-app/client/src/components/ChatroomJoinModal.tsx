@@ -86,6 +86,9 @@ const ChatroomJoinModal: FC = () => {
       // 가입할 채팅방 초기화
       setJoinChatroom("");
 
+      // 가입 모달 닫기
+      setIsChatroomJoinModalOpen(false);
+
       // 해당 채팅방 열기
       addConnectedChatroom(joinChatroomId);
     } catch (err) {
