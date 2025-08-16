@@ -7,7 +7,7 @@ export interface ChatroomCreateType {
   roomProfileImage: string;
   roomCoverImage: string;
   creator: string;
-  participants: string[];
+  participants: ChatroomUserInfo[];
   roomType: "group" | "private";
   isSecret: boolean;
   roomPassword?: string;

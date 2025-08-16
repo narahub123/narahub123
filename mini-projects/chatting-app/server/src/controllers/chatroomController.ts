@@ -9,7 +9,8 @@ export const createGroupChatroom = asyncWrapper(
   "createGroupChatroom",
   async (req: Request, res: Response) => {
     const user = req.user;
-    console.log(req.body);
+
+    const { chatroom, userInfo } = req.body;
 
     const {
       roomTitle,
@@ -19,7 +20,7 @@ export const createGroupChatroom = asyncWrapper(
       roomCoverImage,
       isSecret,
       roomPassword,
-    } = req.body;
+    } = chatroom;
 
     // dto로 유효성 검사 할 것
 
@@ -30,7 +31,15 @@ export const createGroupChatroom = asyncWrapper(
       roomProfileImage,
       roomCoverImage,
       creator: user.userId,
-      participants: [user.userId],
+      participants: [
+        {
+          email: user.email,
+          username: userInfo.username,
+          profileImage: userInfo.profileImage,
+          joinedAt: new Date(),
+          lastEnteredAt: new Date(),
+        },
+      ],
       roomType: "group",
       isSecret,
       roomPassword,
