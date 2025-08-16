@@ -62,6 +62,20 @@ class ChatroomRepository {
       throw mapFirebaseError(err);
     }
   }
+
+  // 채팅방 대화 조회
+  async getChatroomChatsById(roomId: string) {
+    try {
+      return await this.chatroomCollection
+        .doc(roomId)
+        .collection("chats")
+        .orderBy("createdAt", "desc")
+        .limitToLast(20)
+        .get();
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
 }
 
 export default new ChatroomRepository();

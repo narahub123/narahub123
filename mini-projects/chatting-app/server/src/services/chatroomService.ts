@@ -51,7 +51,7 @@ class ChatroomService {
     };
   }
 
-  // 이메일 사용해 채팅방의 사용자 존재 여부 확인 
+  // 이메일 사용해 채팅방의 사용자 존재 여부 확인
   async findUserInChatroomByEmail(roomId: string, email: string) {
     try {
       const chatroom = await this.getChatroomInfoById(roomId);
@@ -64,7 +64,7 @@ class ChatroomService {
     }
   }
 
-  // 채팅방 가입하기 
+  // 채팅방 가입하기
   async joinChatroom(roomId: string, userInfo: ChatroomUserInfo) {
     try {
       // 기존 가입자인지 여부 확인하기
@@ -78,6 +78,13 @@ class ChatroomService {
     } catch (error) {
       throw error;
     }
+  }
+
+  // 채팅방 대화 가져오기
+  async getChatroomChatsById(roomId: string) {
+    const snapshot = await chatroomRepository.getChatroomChatsById(roomId);
+
+    return snapshot.docs.map((doc) => doc.data()) ?? [];
   }
 }
 

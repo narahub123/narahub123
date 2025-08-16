@@ -1,7 +1,8 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
-import { Chat } from "../types";
+import { Chat, ChatroomInfo } from "../types";
+import { fetchWithAuth } from "../utils";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -16,10 +17,29 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
-  const [messages, setMessages] = useState<Chat[]>([]);
-  const [message, setMessage] = useState("");
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [chat, setChat] = useState("");
+  const [chatroom, setChatroom] = useState<ChatroomInfo>();
 
   const user = useUserStore((state) => state.user);
+
+  useEffect(() => {
+    const fetchChatroomData = async () => {
+      const response = await fetchWithAuth(`/chatrooms/${roomId}`);
+
+      if (!response.success) {
+        console.error("채팅방 정보 조회 실패");
+        return;
+      }
+
+      const { chats, ...rest } = response.data.chatroom;
+
+      setChats(chats);
+      setChatroom(rest);
+    };
+
+    fetchChatroomData();
+  }, []);
 
   useEffect(() => {
     const ws = new WebSocket(`ws://localhost:3301?roomId=${roomId}`);
@@ -31,16 +51,16 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     };
 
     ws.onmessage = (event) => {
-      let message = event.data;
+      let chat = event.data;
 
-      if (message === "connected") {
+      if (chat === "connected") {
         // setConnection("접속 완료");
         return;
       }
 
-      message = JSON.parse(message);
+      chat = JSON.parse(chat);
 
-      setMessages((prev) => [...prev, message]);
+      setChats((prev) => [...prev, chat]);
     };
 
     ws.onclose = () => {
@@ -49,23 +69,23 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   }, []);
 
   const handleClick = () => {
-    if (!websocket || !message || !user) return;
+    if (!websocket || !chat || !user) return;
     console.log("클릭함");
 
     const msg: Chat = {
       roomId: "1",
       userId: user.userId,
-      text: message,
+      text: chat,
     };
 
     websocket.send(JSON.stringify(msg));
-    setMessage("");
+    setChat("");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
-    setMessage(value);
+    setChat(value);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -82,18 +102,18 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
         <div className="flex justify-end">
           <button onClick={() => onClose(roomId)}>닫기</button>
         </div>
-        <h2>채팅방({roomId})</h2>
+        <h2>{`${chatroom?.roomTitle}(${roomId})`}</h2>
         <div>
           <ul className="space-y-2">
-            {messages.map((message, idx) => {
-              const { roomId, userId, text } = message;
+            {(chats ?? []).map((chat, idx) => {
+              const { roomId, userId, text } = chat;
 
               const isMyself = user?.userId === userId;
 
               const position = isMyself ? "justify-end" : "justify-start";
               const bgColor = isMyself ? "bg-yellow-100" : "bg-blue-100";
               return (
-                <li className={`flex ${position}`} key={`message-${idx}`}>
+                <li className={`flex ${position}`} key={`chat-${idx}`}>
                   <p className={`p-2 ${bgColor} rounded-md max-w-60`}>{text}</p>
                 </li>
               );
@@ -106,9 +126,9 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
             ref={inputRef}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            value={message}
+            value={chat}
           />
-          <Button onClick={handleClick} disabled={!message}>
+          <Button onClick={handleClick} disabled={!chat}>
             전송
           </Button>
         </div>

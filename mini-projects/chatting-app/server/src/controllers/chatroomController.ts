@@ -81,3 +81,28 @@ export const getGroupChatrooms = asyncWrapper(
     });
   }
 );
+
+// 채팅방 조회
+export const getChatroomInfo = asyncWrapper(
+  "getChatroomInfo",
+  async (req: Request, res: Response) => {
+    const { roomid } = req.params;
+
+    const chatroom = await chatroomService.getChatroomInfoById(roomid);
+
+    const chats = await chatroomService.getChatroomChatsById(roomid);
+
+    res.status(200).json({
+      success: true,
+      message: "채팅방 정보 조회 성공",
+      code: "CHATROOM_INFO_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+      data: {
+        chatroom: {
+          ...chatroom,
+          chats,
+        },
+      },
+    });
+  }
+);
