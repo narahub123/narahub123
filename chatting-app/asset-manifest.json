@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/narahub123/chatting-app/static/css/main.9c7ff35c.css",
-    "main.js": "/narahub123/chatting-app/static/js/main.adf1ddfa.js",
+    "main.js": "/narahub123/chatting-app/static/js/main.1a9bae5b.js",
     "static/media/material-icons-latin-400-normal.woff": "/narahub123/chatting-app/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
     "static/media/material-icons-latin-400-normal.woff2": "/narahub123/chatting-app/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
     "index.html": "/narahub123/chatting-app/index.html",
     "main.9c7ff35c.css.map": "/narahub123/chatting-app/static/css/main.9c7ff35c.css.map",
-    "main.adf1ddfa.js.map": "/narahub123/chatting-app/static/js/main.adf1ddfa.js.map"
+    "main.1a9bae5b.js.map": "/narahub123/chatting-app/static/js/main.1a9bae5b.js.map"
   },
   "entrypoints": [
     "static/css/main.9c7ff35c.css",
-    "static/js/main.adf1ddfa.js"
+    "static/js/main.1a9bae5b.js"
   ]
 }
