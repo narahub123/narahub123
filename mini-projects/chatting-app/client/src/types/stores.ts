@@ -22,6 +22,10 @@ export type OpenState = {
   setIsChatroomOpen: (isOpen: boolean) => void;
   isChatroomCreateModalOpen: boolean;
   setIsChatroomCreateModalOpen: (isChatroomCreateModalOpen: boolean) => void;
+  isOpenChatroomListModalOpen: boolean;
+  setIsOpenChatroomListModalOpen: (
+    isOpenChatroomListModalOpen: boolean
+  ) => void;
 };
 
 export type SignupInfoType = {

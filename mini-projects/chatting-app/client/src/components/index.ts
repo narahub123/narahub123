@@ -20,6 +20,7 @@ import ChatroomList from "./ChatroomList";
 import FriendList from "./FriendList";
 import ChatroomModal from "./ChatroomModal";
 import ChatroomCreateModal from "./ChatroomCreateModal";
+import OpenChatroomListModal from "./OpenChatroomListModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -49,4 +50,5 @@ export {
   FriendList,
   ChatroomModal,
   ChatroomCreateModal,
+  OpenChatroomListModal,
 };

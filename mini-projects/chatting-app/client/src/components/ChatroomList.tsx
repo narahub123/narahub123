@@ -9,6 +9,10 @@ const ChatroomList: FC = () => {
   );
   const chatrooms = useUserStore((state) => state.user?.chatrooms);
 
+  const setIsOpenChatroomModalOpen = useOpenStore(
+    (state) => state.setIsOpenChatroomListModalOpen
+  );
+
   const addConnectedChatroom = useChatroomsStore(
     (state) => state.addConnectedChatroom
   );
@@ -17,10 +21,15 @@ const ChatroomList: FC = () => {
     setIsChatroomCreateModalOpen(true);
   };
 
+  const handleOpenChatrooomList = () => {
+    setIsOpenChatroomModalOpen(true);
+  };
+
   return (
     <section>
-      <div>
+      <div className="space-x-4">
         <button onClick={handleOpen}>채팅방 생성</button>
+        <button onClick={handleOpenChatrooomList}>채팅방 목록</button>
       </div>
       <div>
         <ul>

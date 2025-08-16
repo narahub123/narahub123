@@ -25,7 +25,9 @@ const ChatroomCreateModal = () => {
     (state) => state.setIsChatroomCreateModalOpen
   );
 
-  const addOpenChatroom = useChatroomsStore((state) => state.addOpenChatroom);
+  const addConnectedChatroom = useChatroomsStore(
+    (state) => state.addConnectedChatroom
+  );
 
   const onClose = () => {
     setIsChatroomCreateModalOpen(false);
@@ -66,7 +68,7 @@ const ChatroomCreateModal = () => {
 
     setIsChatroomCreateModalOpen(false);
 
-    addOpenChatroom(roomId);
+    addConnectedChatroom(roomId);
   };
 
   return (

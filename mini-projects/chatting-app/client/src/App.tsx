@@ -5,6 +5,7 @@ import {
   ChatroomModal,
   EmailSignupModal,
   LoginModal,
+  OpenChatroomListModal,
   ResetPasswordModal,
   SignupModal,
   WidgetButton,
@@ -43,6 +44,7 @@ function App() {
           key={connectedChatroom}
         />
       ))}
+      <OpenChatroomListModal />
     </div>
   );
 }

@@ -42,4 +42,10 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isChatroomCreateModalOpen,
     })),
+
+  isOpenChatroomListModalOpen: false,
+  setIsOpenChatroomListModalOpen: (isOpenChatroomListModalOpen: boolean) =>
+    set(() => ({
+      isOpenChatroomListModalOpen,
+    })),
 }));
