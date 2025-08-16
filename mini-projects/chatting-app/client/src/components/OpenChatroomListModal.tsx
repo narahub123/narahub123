@@ -3,16 +3,12 @@ import { Modal, ModalContent } from "../theme/daisyui";
 import { useChatroomsStore } from "../stores/useChatroomsStore";
 import { fetchWithAuth } from "../utils";
 import { useOpenStore } from "../stores";
-import { useUserStore } from "../stores/useUserStore";
 import ChatroomItem from "./ChatroomItem";
 
 const OpenChatroomListModal = () => {
-  const userId = useUserStore((state) => state.user?.userId);
   const openChatrooms = useChatroomsStore((state) => state.openChatrooms);
   const setOpenChatrooms = useChatroomsStore((state) => state.setOpenChatrooms);
-  const addConnectedChatroom = useChatroomsStore(
-    (state) => state.addConnectedChatroom
-  );
+
   const isOpenChatroomModalOpen = useOpenStore(
     (state) => state.isOpenChatroomListModalOpen
   );

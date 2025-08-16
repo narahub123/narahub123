@@ -2,6 +2,7 @@ import {
   AuthMenu,
   ChatModal,
   ChatroomCreateModal,
+  ChatroomJoinModal,
   ChatroomModal,
   EmailSignupModal,
   LoginModal,
@@ -38,6 +39,7 @@ function App() {
       <WidgetButton />
       <ChatroomCreateModal />
       <OpenChatroomListModal />
+      <ChatroomJoinModal />
       {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal
           roomId={connectedChatroom}

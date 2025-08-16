@@ -2,6 +2,7 @@ import { FC } from "react";
 import { IChatroom } from "../types";
 import { useUserStore } from "../stores/useUserStore";
 import { useChatroomsStore } from "../stores/useChatroomsStore";
+import { useOpenStore } from "../stores";
 
 interface ChatroomItemProps {
   chatroom: IChatroom;
@@ -14,12 +15,26 @@ const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
   const addConnectedChatroom = useChatroomsStore(
     (state) => state.addConnectedChatroom
   );
+  const setIsChatroomJoinModalOpen = useOpenStore(
+    (state) => state.setIsChatroomJoinModalOpen
+  );
+
+  const setJoinChatroom = useChatroomsStore((state) => state.setJoinChatroom);
+
+  const joinOpenChatroom = (roomId: string) => {
+    setJoinChatroom(roomId);
+    setIsChatroomJoinModalOpen(true);
+  };
+
+  const isMember = participants.includes(userId);
 
   return (
     <li
       key={chatroom.roomId}
       className="py-2 border-b cursor-pointer"
-      onClick={() => addConnectedChatroom(roomId)}
+      onClick={() =>
+        isMember ? addConnectedChatroom(roomId) : joinOpenChatroom(roomId)
+      }
     >
       <div className="flex gap-2">
         <span>{isSecret ? "비밀" : "오픈"}</span>
@@ -32,7 +47,7 @@ const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
         <span>
           {participants.length} / {roomCapacity}
         </span>
-        <span>{participants.includes(userId!) ? "가입" : "비가입"}</span>
+        <span>{isMember ? "가입" : "비가입"}</span>
       </div>
     </li>
   );

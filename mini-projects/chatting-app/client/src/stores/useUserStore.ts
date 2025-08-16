@@ -15,4 +15,13 @@ export const useUserStore = create<UserState>((set) => ({
       ...state,
       user: null,
     })),
+  // 채팅방 추가
+  addChatroom: (roomId: string) =>
+    set((state) => ({
+      ...state,
+      user: {
+        ...state.user!,
+        chatrooms: [...state.user!.chatrooms, roomId],
+      },
+    })),
 }));

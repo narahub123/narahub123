@@ -26,6 +26,8 @@ export type OpenState = {
   setIsOpenChatroomListModalOpen: (
     isOpenChatroomListModalOpen: boolean
   ) => void;
+  isChatroomJoinModalOpen: boolean;
+  setIsChatroomJoinModalOpen: (isChatroomJoinModalOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
@@ -71,6 +73,7 @@ export type UserState = {
   user: UserInfo | null;
   setUserInfo: (user: UserInfo) => void;
   clearUserInfo: () => void;
+  addChatroom: (roomId: string) => void;
 };
 
 export type ChatroomsState = {
@@ -80,7 +83,10 @@ export type ChatroomsState = {
   deleteConnectedChatroom: (roomId: string) => void;
   // 오픈 채팅방 목록
   openChatrooms: IChatroom[];
-  setOpenChatrooms: (roomIds: IChatroom[]) => void;
+  setOpenChatrooms: (openChatrooms: IChatroom[]) => void;
+  // 채팅방 가입
+  joinChatroom: string;
+  setJoinChatroom: (roomId: string) => void;
 };
 
 export interface IChatroom {

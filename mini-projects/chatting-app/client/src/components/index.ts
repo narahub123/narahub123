@@ -22,6 +22,7 @@ import ChatroomModal from "./ChatroomModal";
 import ChatroomCreateModal from "./ChatroomCreateModal";
 import OpenChatroomListModal from "./OpenChatroomListModal";
 import ChatroomItem from "./ChatroomItem";
+import ChatroomJoinModal from "./ChatroomJoinModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -53,4 +54,5 @@ export {
   ChatroomCreateModal,
   OpenChatroomListModal,
   ChatroomItem,
+  ChatroomJoinModal,
 };
