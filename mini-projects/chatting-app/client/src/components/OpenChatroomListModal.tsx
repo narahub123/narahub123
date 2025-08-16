@@ -3,8 +3,11 @@ import { Modal, ModalContent } from "../theme/daisyui";
 import { useChatroomsStore } from "../stores/useChatroomsStore";
 import { fetchWithAuth } from "../utils";
 import { useOpenStore } from "../stores";
+import { useUserStore } from "../stores/useUserStore";
+import ChatroomItem from "./ChatroomItem";
 
 const OpenChatroomListModal = () => {
+  const userId = useUserStore((state) => state.user?.userId);
   const openChatrooms = useChatroomsStore((state) => state.openChatrooms);
   const setOpenChatrooms = useChatroomsStore((state) => state.setOpenChatrooms);
   const addConnectedChatroom = useChatroomsStore(
@@ -44,19 +47,13 @@ const OpenChatroomListModal = () => {
   return (
     <Modal open={isOpenChatroomModalOpen}>
       <ModalContent onCloseIconClicked={onClose}>
-        <div>
-          <h2>오픈 채팅방 목록</h2>
+        <div className="flex justify-center">
+          <h2 className="text-xl font-bold">오픈 채팅방 목록</h2>
         </div>
         <div>
           <ul className="">
-            {openChatrooms.map((openChatroom) => (
-              <li
-                key={openChatroom.roomId}
-                className="p-2 cursor-pointer"
-                onClick={() => addConnectedChatroom(openChatroom.roomId)}
-              >
-                {openChatroom.roomId}
-              </li>
+            {openChatrooms.map((chatroom) => (
+              <ChatroomItem key={chatroom.roomId} chatroom={chatroom} />
             ))}
           </ul>
         </div>
