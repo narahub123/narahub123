@@ -1,6 +1,10 @@
-import { CollectionReference, DocumentData } from "firebase-admin/firestore";
+import {
+  CollectionReference,
+  DocumentData,
+  FieldValue,
+} from "firebase-admin/firestore";
 import { db } from "../config";
-import { ChatroomCreateType } from "../types";
+import { ChatroomCreateType, ChatroomUserInfo } from "../types";
 import { mapFirebaseError } from "../utils";
 
 class ChatroomRepository {
@@ -32,6 +36,17 @@ class ChatroomRepository {
         .get();
 
       return openChatrooms;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 채팅방 가입
+  async joinChatroom(roomId: string, userInfo: ChatroomUserInfo) {
+    try {
+      await this.chatroomCollection.doc(roomId).update({
+        participants: FieldValue.arrayUnion(userInfo),
+      });
     } catch (err) {
       throw mapFirebaseError(err);
     }

@@ -13,3 +13,12 @@ export interface ChatroomCreateType {
   roomPassword?: string;
   createdAt: FieldValue;
 }
+
+export interface ChatroomUserInfo {
+  email: string;
+  username: string;
+  profileImage: string;
+  joinedAt: Date;
+  lastEnteredAt: Date;
+  lastReadMessageId?: string;
+}

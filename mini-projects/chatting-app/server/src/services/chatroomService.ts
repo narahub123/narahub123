@@ -1,6 +1,6 @@
 import { NotFoundError } from "../errors";
 import { chatroomRepository } from "../repositories";
-import { ChatroomCreateType } from "../types";
+import { ChatroomCreateType, ChatroomUserInfo } from "../types";
 
 class ChatroomService {
   async createChatroom(roomInfo: ChatroomCreateType) {
@@ -30,6 +30,10 @@ class ChatroomService {
     });
 
     return chatrooms;
+  }
+
+  async joinChatroom(roomId: string, userInfo: ChatroomUserInfo) {
+    await chatroomRepository.joinChatroom(roomId, userInfo);
   }
 }
 
