@@ -6,17 +6,17 @@ class UserService {
   async getUserByEmail(email: string) {
     const result = await userRepository.getUserByEmail(email);
 
-    if (!result || result.empty) {
+    if (!result || !result.exists) {
       throw new Error("Not Found");
     }
 
-    return result.docs[0].data()!;
+    return result.data()!;
   }
 
   async getUserByEmailWithoutError(email: string) {
     const result = await userRepository.getUserByEmail(email);
 
-    return result.empty ? null : result.docs[0].data()!;
+    return result.exists ? result.data()! : null;
   }
 
   // 이메일 중복 여부 검사
@@ -24,7 +24,7 @@ class UserService {
     const result = await userRepository.getUserByEmail(email);
 
     // 중복여부 반환: empty이면 false, empty가 아니면 true
-    return !result.empty;
+    return result.exists;
   }
 
   async createUser(signupInfo: SignupInfo) {

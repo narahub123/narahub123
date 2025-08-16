@@ -5,6 +5,7 @@ import {
   WriteResult,
   Timestamp,
   FieldValue,
+  DocumentSnapshot,
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
@@ -17,12 +18,9 @@ class UserRepository {
     this.userCollection = db.collection("users");
   }
 
-  async getUserByEmail(email: string): Promise<QuerySnapshot<DocumentData>> {
+  async getUserByEmail(email: string): Promise<DocumentSnapshot<DocumentData>> {
     try {
-      const snapshot = await this.userCollection
-        .where("email", "==", email)
-        .limit(1) // 검색 속도 향상을 위해서
-        .get();
+      const snapshot = await this.userCollection.doc(email).get();
 
       return snapshot;
     } catch (err) {

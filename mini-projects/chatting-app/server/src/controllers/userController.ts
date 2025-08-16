@@ -52,3 +52,23 @@ export const joinChatroom = asyncWrapper(
     });
   }
 );
+
+// 사용자의 가입된 채팅방 조회
+export const getUserChatrooms = asyncWrapper(
+  "getUserChatrooms",
+  async (req: Request, res: Response) => {
+    const email = req.user.email;
+
+    const chatrooms = await chatroomService.getUserChatroomsInfo(email);
+
+    res.status(200).json({
+      success: true,
+      message: "사용자 가입된 채팅방 조회 성공",
+      code: "USER_JOINED_CHATROOMS_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+      data: {
+        chatrooms,
+      },
+    });
+  }
+);

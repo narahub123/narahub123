@@ -6,6 +6,7 @@ import {
   ChatroomResponseDto,
   ChatroomUserInfo,
 } from "../types";
+import userService from "./userService";
 
 class ChatroomService {
   async createChatroom(roomInfo: ChatroomCreateType) {
@@ -85,6 +86,17 @@ class ChatroomService {
     const snapshot = await chatroomRepository.getChatroomChatsById(roomId);
 
     return snapshot.docs.map((doc) => doc.data()) ?? [];
+  }
+
+  // 사용자의 가입된 채팅방 정보 얻기
+  async getUserChatroomsInfo(email: string) {
+    const user = await userService.getUserByEmail(email);
+
+    const chatroomIds = user.chatrooms;
+
+    return await Promise.all(
+      chatroomIds.map((roomId: string) => this.getChatroomInfoById(roomId))
+    );
   }
 }
 

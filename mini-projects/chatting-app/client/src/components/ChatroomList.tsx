@@ -1,13 +1,14 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useOpenStore } from "../stores";
-import { useUserStore } from "../stores/useUserStore";
 import { useChatroomsStore } from "../stores/useChatroomsStore";
+import { fetchWithAuth } from "../utils";
+import { IChatroom } from "../types";
 
 const ChatroomList: FC = () => {
+  const [chatrooms, setChatrooms] = useState<IChatroom[]>([]);
   const setIsChatroomCreateModalOpen = useOpenStore(
     (state) => state.setIsChatroomCreateModalOpen
   );
-  const chatrooms = useUserStore((state) => state.user?.chatrooms);
 
   const setIsOpenChatroomModalOpen = useOpenStore(
     (state) => state.setIsOpenChatroomListModalOpen
@@ -25,6 +26,23 @@ const ChatroomList: FC = () => {
     setIsOpenChatroomModalOpen(true);
   };
 
+  // 가입된 채팅방 목록 가져오기
+  useEffect(() => {
+    const fetchJoinedChatroomInfo = async () => {
+      const response = await fetchWithAuth("/users/me/chatrooms");
+
+      if (!response.success) {
+        console.error("사용자 가입 채팅방 조회 실패");
+      }
+
+      const chatrooms = response.data.chatrooms;
+      console.log(chatrooms);
+      setChatrooms(chatrooms);
+    };
+
+    fetchJoinedChatroomInfo();
+  }, []);
+
   return (
     <section>
       <div className="space-x-4">
@@ -33,15 +51,24 @@ const ChatroomList: FC = () => {
       </div>
       <div>
         <ul>
-          {chatrooms?.map((chatroom) => (
-            <li
-              key={chatroom}
-              className="p-2 cursor-pointer"
-              onClick={() => addConnectedChatroom(chatroom)}
-            >
-              {chatroom}
-            </li>
-          ))}
+          {chatrooms?.map((chatroom) => {
+            const { roomId, roomTitle, roomIntro } = chatroom;
+            return (
+              <li
+                key={chatroom.roomId}
+                className="py-2 border-b cursor-pointer"
+                onClick={() => addConnectedChatroom(roomId)}
+              >
+                <div className="flex gap-2">
+                  <p className="font-bold">{roomTitle}</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-gray-500">{roomIntro}</p>
+                </div>
+                {/* 마지막 메시지가 표시되어야 함 */}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
