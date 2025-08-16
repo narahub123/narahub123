@@ -11,7 +11,7 @@ interface ChatroomItemProps {
 const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
   const { isSecret, roomId, roomTitle, roomIntro, participants, roomCapacity } =
     chatroom;
-  const userId = useUserStore((state) => state.user?.userId!);
+  const email = useUserStore((state) => state.user?.email!);
   const addConnectedChatroom = useChatroomsStore(
     (state) => state.addConnectedChatroom
   );
@@ -26,7 +26,9 @@ const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
     setIsChatroomJoinModalOpen(true);
   };
 
-  const isMember = participants.includes(userId);
+  const isMember = Boolean(
+    participants.find((participant) => participant.email === email)
+  );
 
   return (
     <li

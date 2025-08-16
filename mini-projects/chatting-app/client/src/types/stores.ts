@@ -58,6 +58,7 @@ export type AuthState = {
 };
 
 export interface UserInfo {
+  email: string;
   userId: string;
   username: string;
   profileImage: string;
@@ -89,6 +90,15 @@ export type ChatroomsState = {
   setJoinChatroom: (roomId: string) => void;
 };
 
+export interface ChatroomUserInfo {
+  email: string;
+  username: string;
+  profileImage: string;
+  joinedAt: Date;
+  lastEnteredAt: Date;
+  lastReadMessageId?: string;
+}
+
 export interface IChatroom {
   roomId: string;
   roomTitle: string;
@@ -97,7 +107,7 @@ export interface IChatroom {
   roomProfileImage: string;
   roomCoverImage: string;
   creator: string;
-  participants: string[];
+  participants: ChatroomUserInfo[];
   roomType: "group" | "private";
   isSecret: boolean;
   roomPassword?: string;
