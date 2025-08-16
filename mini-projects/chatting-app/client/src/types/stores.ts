@@ -70,7 +70,11 @@ export type UserState = {
 };
 
 export type ChatroomsState = {
+  // 연결된 채팅방 목록
   connectedChatrooms: string[];
   addConnectedChatroom: (roomId: string) => void;
   deleteConnectedChatroom: (roomId: string) => void;
+  // 오픈 채팅방 목록
+  openChatrooms: string[];
+  setOpenChatrooms: (roomIds: string[]) => void;
 };

@@ -13,4 +13,10 @@ export const useChatroomsStore = create<ChatroomsState>((set) => ({
         (openChatroom) => openChatroom !== roomId
       ),
     })),
+
+  openChatrooms: [],
+  setOpenChatrooms: (roomIds: string[]) =>
+    set((state) => ({
+      openChatrooms: roomIds,
+    })),
 }));
