@@ -79,6 +79,21 @@ export type ChatroomsState = {
   addConnectedChatroom: (roomId: string) => void;
   deleteConnectedChatroom: (roomId: string) => void;
   // 오픈 채팅방 목록
-  openChatrooms: string[];
-  setOpenChatrooms: (roomIds: string[]) => void;
+  openChatrooms: IChatroom[];
+  setOpenChatrooms: (roomIds: IChatroom[]) => void;
 };
+
+export interface IChatroom {
+  roomId: string;
+  roomTitle: string;
+  roomIntro: string;
+  roomCapacity: number;
+  roomProfileImage: string;
+  roomCoverImage: string;
+  creator: string;
+  participants: string[];
+  roomType: "group" | "private";
+  isSecret: boolean;
+  roomPassword?: string;
+  createdAt: Date;
+}

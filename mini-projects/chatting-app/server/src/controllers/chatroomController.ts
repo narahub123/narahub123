@@ -4,6 +4,7 @@ import { ChatroomCreateType } from "../types";
 import { chatroomService, userService } from "../services";
 import { FieldValue } from "firebase-admin/firestore";
 
+// 그룹 채팅방 생성하기
 export const createGroupChatroom = asyncWrapper(
   "createGroupChatroom",
   async (req: Request, res: Response) => {
@@ -49,6 +50,24 @@ export const createGroupChatroom = asyncWrapper(
       timestamp: new Date().toISOString(),
       data: {
         roomId,
+      },
+    });
+  }
+);
+
+// 그룹 채팅방 목록 불러오기
+export const getGroupChatrooms = asyncWrapper(
+  "getGroupChatrooms",
+  async (req: Request, res: Response) => {
+    const openChatrooms = await chatroomService.getGroupChatrooms();
+
+    res.status(200).json({
+      success: true,
+      message: "오픈 채팅방 조회 성공",
+      code: "OPEN_CHATROOMS_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+      data: {
+        openChatrooms,
       },
     });
   }

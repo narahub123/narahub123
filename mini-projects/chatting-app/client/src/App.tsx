@@ -37,6 +37,7 @@ function App() {
       <AuthMenu />
       <WidgetButton />
       <ChatroomCreateModal />
+      <OpenChatroomListModal />
       {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal
           roomId={connectedChatroom}
@@ -44,7 +45,6 @@ function App() {
           key={connectedChatroom}
         />
       ))}
-      <OpenChatroomListModal />
     </div>
   );
 }

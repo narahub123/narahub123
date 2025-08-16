@@ -19,8 +19,10 @@ const OpenChatroomListModal = () => {
   );
 
   useEffect(() => {
+    if (!isOpenChatroomModalOpen) return;
+
     const fetchChatroomsData = async () => {
-      const response = await fetchWithAuth("/chatrooms");
+      const response = await fetchWithAuth("/chatrooms/group");
 
       if (!response || !response.success) {
         console.log("오픈 채팅방 목록 조회 실패");
@@ -33,7 +35,7 @@ const OpenChatroomListModal = () => {
     };
 
     fetchChatroomsData();
-  }, []);
+  }, [isOpenChatroomModalOpen]);
 
   const onClose = () => {
     setIsOpenChatroomModalOpen(false);
@@ -46,15 +48,17 @@ const OpenChatroomListModal = () => {
           <h2>오픈 채팅방 목록</h2>
         </div>
         <div>
-          {openChatrooms.map((openChatroom) => (
-            <li
-              key={openChatroom}
-              className="p-2 cursor-pointer"
-              onClick={() => addConnectedChatroom(openChatroom)}
-            >
-              {openChatroom}
-            </li>
-          ))}
+          <ul className="">
+            {openChatrooms.map((openChatroom) => (
+              <li
+                key={openChatroom.roomId}
+                className="p-2 cursor-pointer"
+                onClick={() => addConnectedChatroom(openChatroom.roomId)}
+              >
+                {openChatroom.roomId}
+              </li>
+            ))}
+          </ul>
         </div>
       </ModalContent>
     </Modal>

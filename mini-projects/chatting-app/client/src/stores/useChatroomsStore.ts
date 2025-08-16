@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ChatroomsState } from "../types";
+import { ChatroomsState, IChatroom } from "../types";
 
 export const useChatroomsStore = create<ChatroomsState>((set) => ({
   connectedChatrooms: [],
@@ -15,7 +15,7 @@ export const useChatroomsStore = create<ChatroomsState>((set) => ({
     })),
 
   openChatrooms: [],
-  setOpenChatrooms: (roomIds: string[]) =>
+  setOpenChatrooms: (roomIds: IChatroom[]) =>
     set((state) => ({
       openChatrooms: roomIds,
     })),
