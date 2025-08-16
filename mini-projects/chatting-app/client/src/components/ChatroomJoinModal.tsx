@@ -74,7 +74,9 @@ const ChatroomJoinModal: FC = () => {
       );
 
       if (!response.success) {
+        console.error(response.code);
         console.error("오픈 채팅방 가입 실패");
+        return;
       }
 
       // 사용자의 채팅방 기존 목록에 현재 채팅방을 추가

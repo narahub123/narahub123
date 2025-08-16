@@ -51,6 +51,17 @@ class ChatroomRepository {
       throw mapFirebaseError(err);
     }
   }
+
+  // 채팅방 정보 조회
+  async getChatroomInfoById(roomId: string) {
+    try {
+      const snapshot = this.chatroomCollection.doc(roomId).get();
+
+      return snapshot;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
 }
 
 export default new ChatroomRepository();

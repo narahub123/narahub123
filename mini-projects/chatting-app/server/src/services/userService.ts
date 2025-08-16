@@ -1,4 +1,4 @@
-import { NotFoundError } from "../errors";
+import { ConflictError, NotFoundError } from "../errors";
 import userRepository from "../repositories/userRepository";
 import { LoginInfo, SignupInfo } from "../types";
 
@@ -49,7 +49,22 @@ class UserService {
     return user;
   }
 
+  // 가입 여부 확인
+  async hasUserJoinedRoom(email: string, roomId: string) {
+    // 사용자 정보 가져오기
+    const user = await this.getUserByEmail(email);
+
+    return (user.chatrooms as string[])?.includes(roomId) ?? false;
+  }
+
   async updateUserChatrooms(email: string, roomId: string) {
+    // 채팅방 가입 여부 확인
+    const hasJoined = await this.hasUserJoinedRoom(email, roomId);
+
+    if (hasJoined) {
+      throw new ConflictError("이미 가입된 채팅방", "DUPLICATE_ROOMID");
+    }
+
     await userRepository.updateUserChatrooms(email, roomId);
   }
 }
