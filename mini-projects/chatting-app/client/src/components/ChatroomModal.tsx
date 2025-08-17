@@ -62,31 +62,6 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   }, []);
 
   useEffect(() => {
-    const fetchChatroomData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetchWithAuth(`/chatrooms/${roomId}`);
-
-        if (!response.success) {
-          console.error("채팅방 정보 조회 실패");
-          return;
-        }
-
-        const { chats, ...rest } = response.data.chatroom;
-
-        setChats(chats);
-        setChatroom(rest);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchChatroomData();
-  }, []);
-
-  useEffect(() => {
     const ws = new WebSocket(`ws://localhost:3301?roomId=${roomId}`);
 
     setWebsocket(ws);
@@ -96,6 +71,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     };
 
     ws.onmessage = (event) => {
+      setIsLoading(false);
       let chat = event.data;
 
       if (chat === "connected") {
@@ -129,9 +105,9 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     user,
   };
 
-  return isOpen && !isLoading && user && chatroom ? (
+  return isOpen && user && chatroom ? (
     <ChatroomProvider value={context}>
-      <Modal open={isOpen && !isLoading}>
+      <Modal open={isOpen}>
         <ChatroomSettings rect={menuRect} roomId={roomId} />
         <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
           <div className="flex justify-end flex-shrink-0 p-2 pb-0">

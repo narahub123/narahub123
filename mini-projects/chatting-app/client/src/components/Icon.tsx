@@ -7,7 +7,8 @@ export type IconProps = {
   title?: string;
 };
 
-const Icon: FC<IconProps> = ({ name, style, className, title }) => {
+const Icon: FC<IconProps> = ({ name, style, className: _className, title }) => {
+  const className = `${_className}`;
   return (
     <span className={`material-icons ${className}`} style={style} title={title}>
       {name}

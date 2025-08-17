@@ -1,12 +1,12 @@
 import { useChatroomContext } from "../contexts";
-import { useUserStore } from "../stores/useUserStore";
+import Icon from "./Icon";
 import ProfileImage from "./ProfileImage";
 
 const ChatroomModalBody = () => {
-  const { chatroom, chats, user } = useChatroomContext();
+  const { chatroom, chats, user, isLoading } = useChatroomContext();
 
   return (
-    <div className="h-[300px] overflow-y-auto px-2 ">
+    <div className="h-[300px] overflow-y-auto px-2 pb-4">
       <ul className="space-y-2">
         {(chats ?? []).map((chat, idx) => {
           const { sender, text } = chat;
@@ -35,6 +35,13 @@ const ChatroomModalBody = () => {
             </li>
           );
         })}
+        {isLoading && (
+          <li className={`flex justify-end gap-2`}>
+            <span className="w-5">
+              <Icon name="data_usage" className="text-gray-300 animate-spin" />
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );

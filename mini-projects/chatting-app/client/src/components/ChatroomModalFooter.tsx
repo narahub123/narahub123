@@ -3,7 +3,8 @@ import { useChatroomContext } from "../contexts";
 
 const ChatroomModalFooter = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const { setChat, chat, roomId, user, websocket } = useChatroomContext();
+  const { setChat, chat, roomId, user, websocket, setIsLoading } =
+    useChatroomContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -22,6 +23,7 @@ const ChatroomModalFooter = () => {
     };
 
     websocket.send(JSON.stringify(msg));
+    setIsLoading(true);
     setChat("");
   };
 
