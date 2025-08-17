@@ -58,6 +58,7 @@ class UserService {
     return (user.chatrooms as string[])?.includes(roomId) ?? false;
   }
 
+  // 채팅방 가입
   async updateUserChatrooms(email: string, roomId: string) {
     // 채팅방 가입 여부 확인
     const hasJoined = await this.hasUserJoinedRoom(email, roomId);
@@ -67,6 +68,11 @@ class UserService {
     }
 
     await userRepository.updateUserChatrooms(email, roomId);
+  }
+
+  // 채팅방 탈퇴
+  async leaveChatroom(email: string, roomId: string) {
+    await userRepository.leaveChatroom(email, roomId);
   }
 }
 

@@ -123,6 +123,17 @@ class ChatroomRepository {
       throw mapFirebaseError(err);
     }
   }
+
+  // 사용자의 채팅방에서 탈퇴
+  async leaveChatroom(roomId: string, participants: ChatroomParticipantType[]) {
+    try {
+      const chatroomRef = this.chatroomCollection.doc(roomId);
+
+      chatroomRef.set({ participants }, { merge: true });
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
 }
 
 export default new ChatroomRepository();

@@ -106,3 +106,21 @@ export const getChatroomInfo = asyncWrapper(
     });
   }
 );
+
+// 현재 사용자의 채팅방 탈퇴
+export const leaveChatroom = asyncWrapper(
+  "leaveChatroom",
+  async (req: Request, res: Response) => {
+    const user = req.user;
+    const { roomid } = req.params;
+
+    await chatroomService.leaveChatroom(roomid, user.email);
+
+    res.status(200).json({
+      success: true,
+      message: "채팅방 탈퇴 성공",
+      code: "LEAVING_CHATROOM_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+    });
+  }
+);

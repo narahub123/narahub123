@@ -77,6 +77,7 @@ export type UserState = {
   setUserInfo: (user: UserInfo) => void;
   clearUserInfo: () => void;
   addChatroom: (roomId: string) => void;
+  deleteChatroom: (roomId: string) => void;
 };
 
 export type ChatroomsState = {

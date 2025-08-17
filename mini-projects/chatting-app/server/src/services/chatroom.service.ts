@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase-admin/firestore";
-import { ConflictError, NotFoundError } from "../errors";
+import { ConflictError, NotFoundError, UnauthorizedError } from "../errors";
 import { chatroomRepository } from "../repositories";
 import {
   ChatInfoType,
@@ -182,6 +182,29 @@ class ChatroomService {
       chatId: result.id,
       ...convertTimestamps(newChat),
     };
+  }
+
+  async leaveChatroom(roomId: string, email: string) {
+    try {
+      // 채팅방이 존재하는 지 확인
+      const chatroom = await this.getChatroomInfoById(roomId);
+
+      const hasJoined = await userService.hasUserJoinedRoom(email, roomId);
+
+      if (!hasJoined) {
+        throw new UnauthorizedError("가입하지 사용자", "UNAUTHORIZED_TO_LEAVE");
+      }
+
+      // 채팅방에서 사용자 삭제
+      const participants = chatroom.participants;
+      const updatedParticipants = participants.filter((p) => p.email !== email);
+      await chatroomRepository.leaveChatroom(roomId, updatedParticipants);
+
+      // 사용자의 chatrooms에서 채팅방 삭제
+      await userService.leaveChatroom(email, roomId);
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

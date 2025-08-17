@@ -71,6 +71,16 @@ class UserRepository {
       throw mapFirebaseError(err);
     }
   }
+
+  async leaveChatroom(email: string, roomId: string) {
+    try {
+      await this.userCollection
+        .doc(email)
+        .update({ chatrooms: FieldValue.arrayRemove(roomId) });
+    } catch (err) {
+      throw mapFirebaseError;
+    }
+  }
 }
 
 export default new UserRepository();

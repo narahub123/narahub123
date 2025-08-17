@@ -54,7 +54,6 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
       if (!menu) return;
 
       const { bottom, left } = menu.getBoundingClientRect();
-      console.log(bottom, left);
 
       setMenuRect({ top: bottom, left });
     };
@@ -156,7 +155,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
   return isOpen && !isLoading && user && chatroom ? (
     <Modal open={isOpen && !isLoading}>
-      <ChatroomSettings rect={menuRect} />
+      <ChatroomSettings rect={menuRect} roomId={roomId} />
       <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
         <div className="flex justify-end flex-shrink-0 p-2 pb-0">
           <WindowControlButtonsContainer

@@ -24,4 +24,13 @@ export const useUserStore = create<UserState>((set) => ({
         chatrooms: [...state.user!.chatrooms, roomId],
       },
     })),
+  deleteChatroom: (roomId: string) =>
+    set((state) => ({
+      user: {
+        ...state.user!,
+        chatrooms: state.user!.chatrooms.filter(
+          (chatroom) => chatroom !== roomId
+        ),
+      },
+    })),
 }));
