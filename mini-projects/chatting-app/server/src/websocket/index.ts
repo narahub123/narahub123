@@ -1,5 +1,7 @@
 import WebSocket, { WebSocketServer } from "ws";
 import http from "http";
+import { ChatRequestDto } from "../types";
+import { chatroomService } from "../services";
 
 export default (
   server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>
@@ -30,11 +32,13 @@ export default (
         console.log(`${roomId}방에 연결됨`);
         ws.send("connected");
 
-        ws.on("message", (msg) => {
-          const message = JSON.parse(msg.toString());
+        ws.on("message", async (msg) => {
+          const msgInfo: ChatRequestDto = JSON.parse(msg.toString());
+
+          const chatData = await chatroomService.saveChat(msgInfo);
 
           newRoom.clients.forEach((client) => {
-            client.send(JSON.stringify(message));
+            client.send(JSON.stringify(chatData));
           });
 
           console.log("메시지 전송");

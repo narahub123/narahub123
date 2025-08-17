@@ -4,7 +4,7 @@ import {
   FieldValue,
 } from "firebase-admin/firestore";
 import { db } from "../config";
-import { ChatroomCreateType, ChatroomUserInfo } from "../types";
+import { ChatInfoType, ChatroomCreateType, ChatroomUserInfo } from "../types";
 import { mapFirebaseError } from "../utils";
 
 class ChatroomRepository {
@@ -69,9 +69,21 @@ class ChatroomRepository {
       return await this.chatroomCollection
         .doc(roomId)
         .collection("chats")
-        .orderBy("createdAt", "desc")
+        .orderBy("createdAt", "asc")
         .limitToLast(20)
         .get();
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  async saveChat(roomId: string, chatData: ChatInfoType) {
+    try {
+      const chatDoc = this.chatroomCollection.doc(roomId).collection("chats");
+
+      const chatRef = await chatDoc.add(chatData);
+
+      return chatRef;
     } catch (err) {
       throw mapFirebaseError(err);
     }

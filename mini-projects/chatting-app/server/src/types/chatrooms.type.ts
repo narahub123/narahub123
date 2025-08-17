@@ -41,3 +41,23 @@ export interface ChatroomDocType {
 export interface ChatroomResponseDto extends ChatroomDocType {
   roomId: string;
 }
+
+export interface ChatRequestDto {
+  roomId: string;
+  email: string;
+  text?: string;
+  images?: string;
+  files?: string;
+  videos?: string;
+}
+
+export interface ChatInfoType {
+  sender: string; // 이메일
+  text?: string;
+  images?: string;
+  files?: string;
+  videos?: string;
+  createdAt: Date;
+  isDeleted: boolean;
+  unread: string[];
+}

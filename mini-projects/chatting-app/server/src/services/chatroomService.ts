@@ -1,6 +1,8 @@
 import { ConflictError, NotFoundError } from "../errors";
 import { chatroomRepository } from "../repositories";
 import {
+  ChatInfoType,
+  ChatRequestDto,
   ChatroomCreateType,
   ChatroomDocType,
   ChatroomResponseDto,
@@ -97,6 +99,36 @@ class ChatroomService {
     return await Promise.all(
       chatroomIds.map((roomId: string) => this.getChatroomInfoById(roomId))
     );
+  }
+
+  async saveChat(msgInfo: ChatRequestDto) {
+    const { roomId, email, ...rest } = msgInfo;
+
+    // 방의 존재 여부 확인
+    const chatroom = await this.getChatroomInfoById(roomId);
+
+    // 사용자가 방의 참여자인지 확인
+    await this.findUserInChatroomByEmail(roomId, email);
+
+    // 메시지를 전송한 사용자를 제외한 참여자 배열
+    const participants = chatroom.participants
+      .map((participant) => participant.email)
+      .filter((e) => e !== email);
+
+    const newChat: ChatInfoType = {
+      sender: email,
+      ...rest,
+      createdAt: new Date(),
+      isDeleted: false,
+      unread: [...participants],
+    };
+
+    const result = await chatroomRepository.saveChat(roomId, newChat);
+
+    return {
+      chatId: result.id,
+      ...newChat,
+    };
   }
 }
 

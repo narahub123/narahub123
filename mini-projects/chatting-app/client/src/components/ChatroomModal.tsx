@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
-import { Chat, ChatroomInfo } from "../types";
+import { ChatInfo, ChatroomInfo } from "../types";
 import { fetchWithAuth } from "../utils";
 
 interface ChatroomModalProps {
@@ -17,7 +17,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
-  const [chats, setChats] = useState<Chat[]>([]);
+  const [chats, setChats] = useState<ChatInfo[]>([]);
   const [chat, setChat] = useState("");
   const [chatroom, setChatroom] = useState<ChatroomInfo>();
 
@@ -72,9 +72,9 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     if (!websocket || !chat || !user) return;
     console.log("클릭함");
 
-    const msg: Chat = {
-      roomId: "1",
-      userId: user.userId,
+    const msg = {
+      roomId,
+      email: user.email,
       text: chat,
     };
 
@@ -106,9 +106,9 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
         <div>
           <ul className="space-y-2">
             {(chats ?? []).map((chat, idx) => {
-              const { roomId, userId, text } = chat;
+              const { sender, text } = chat;
 
-              const isMyself = user?.userId === userId;
+              const isMyself = user?.email === sender;
 
               const position = isMyself ? "justify-end" : "justify-start";
               const bgColor = isMyself ? "bg-yellow-100" : "bg-blue-100";

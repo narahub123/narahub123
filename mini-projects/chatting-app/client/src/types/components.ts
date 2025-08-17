@@ -7,10 +7,16 @@ export type ImageType = {
 
 export type PageType = "friends" | "chats";
 
-export interface Chat {
-  roomId: string;
-  userId: string;
-  text: string;
+export interface ChatInfo {
+  sender: string;
+  text?: string | undefined;
+  images?: string | undefined;
+  files?: string | undefined;
+  videos?: string | undefined;
+  createdAt: Date;
+  isDeleted: boolean;
+  unread: string[];
+  chatId: string;
 }
 
 export interface ChatroomDto {
