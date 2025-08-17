@@ -1,7 +1,7 @@
-import userService from "./userService";
-import userSessionService from "./userSessionService";
-import chatroomService from "./chatroomService";
-import notificationService from "./notificationService";
+import userService from "./user.service";
+import userSessionService from "./user-session.service";
+import chatroomService from "./chatroom.service";
+import notificationService from "./notification.service";
 
 export {
   userService,

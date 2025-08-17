@@ -1,5 +1,6 @@
 import { ConflictError, NotFoundError } from "../errors";
-import userRepository from "../repositories/userRepository";
+import { userRepository } from "../repositories";
+
 import { LoginInfo, SignupInfo } from "../types";
 
 class UserService {

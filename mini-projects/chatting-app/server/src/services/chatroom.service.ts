@@ -8,7 +8,7 @@ import {
   ChatroomResponseDto,
   ChatroomUserInfo,
 } from "../types";
-import userService from "./userService";
+import userService from "./user.service";
 
 class ChatroomService {
   async createChatroom(roomInfo: ChatroomCreateType) {

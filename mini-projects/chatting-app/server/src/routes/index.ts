@@ -1,8 +1,8 @@
 import { Router } from "express";
-import authRouter from "./authRouter";
-import userRouter from "./userRouter";
-import chatroomRouter from "./chatroomRouter";
-import notificationRouter from "./notificationRouter";
+import authRouter from "./auth.router";
+import userRouter from "./user.router";
+import chatroomRouter from "./chatroom.router";
+import notificationRouter from "./notification.router";
 
 const router = Router();
 

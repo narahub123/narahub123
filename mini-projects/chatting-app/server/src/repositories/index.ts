@@ -1,10 +1,10 @@
-import useRepository from "./userRepository";
-import userSessionRepository from "./userSessionRepository";
-import chatroomRepository from "./chatroomRepository";
-import notificationRepository from "./notificationRepository";
+import userRepository from "./user.repository";
+import userSessionRepository from "./user-session.repository";
+import chatroomRepository from "./chatroom.repository";
+import notificationRepository from "./notification.repository";
 
 export {
-  useRepository,
+  userRepository,
   userSessionRepository,
   chatroomRepository,
   notificationRepository,
