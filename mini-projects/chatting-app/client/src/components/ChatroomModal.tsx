@@ -7,7 +7,9 @@ import {
   WindowControlButtonsContainer,
   Icon,
   ProfileImage,
+  ChatroomSettings,
 } from "../components";
+import { useOpenStore } from "../stores";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -21,13 +23,52 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   onClose,
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [chats, setChats] = useState<ChatInfo[]>([]);
   const [chat, setChat] = useState("");
   const [chatroom, setChatroom] = useState<ChatroomInfo>();
   const [isLoading, setIsLoading] = useState(false);
 
+  const [menuRect, setMenuRect] = useState<{ top: number; left: number }>({
+    top: 0,
+    left: 0,
+  });
+
   const user = useUserStore((state) => state.user);
+
+  const isChatroomSettingsOpen = useOpenStore(
+    (state) => state.isChatroomSettingOpen
+  );
+  const setIsChatroomSettingsOpen = useOpenStore(
+    (state) => state.setIsChatroomSettingOpen
+  );
+
+  // 메뉴 위치 계산
+  useEffect(() => {
+    if (!menuRef.current) return;
+
+    const getMenuPosition = () => {
+      const menu = menuRef.current;
+
+      if (!menu) return;
+
+      const { bottom, left } = menu.getBoundingClientRect();
+      console.log(bottom, left);
+
+      setMenuRect({ top: bottom, left });
+    };
+
+    getMenuPosition();
+
+    window.addEventListener("resize", getMenuPosition);
+    window.addEventListener("scroll", getMenuPosition);
+
+    return () => {
+      window.removeEventListener("resize", getMenuPosition);
+      window.removeEventListener("scroll", getMenuPosition);
+    };
+  }, [isChatroomSettingsOpen]);
 
   useEffect(() => {
     const fetchChatroomData = async () => {
@@ -109,8 +150,13 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     }
   };
 
+  const onChatroomSettingOpen = () => {
+    setIsChatroomSettingsOpen(isChatroomSettingsOpen ? false : true);
+  };
+
   return isOpen && !isLoading && user && chatroom ? (
     <Modal open={isOpen && !isLoading}>
+      <ChatroomSettings rect={menuRect} />
       <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
         <div className="flex justify-end flex-shrink-0 p-2 pb-0">
           <WindowControlButtonsContainer
@@ -138,8 +184,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
             <button>
               <Icon name="search" className="text-2xl" />
             </button>
-            <button>
-              <Icon name="menu" className="text-2xl" />
+            <button ref={menuRef} onClick={onChatroomSettingOpen}>
+              <Icon name="menu" className="text-2xl " />
             </button>
           </div>
         </div>

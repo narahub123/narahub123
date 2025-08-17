@@ -54,4 +54,10 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isChatroomJoinModalOpen,
     })),
+
+  isChatroomSettingOpen: false,
+  setIsChatroomSettingOpen: (isChatroomSettingOpen: boolean) =>
+    set(() => ({
+      isChatroomSettingOpen,
+    })),
 }));

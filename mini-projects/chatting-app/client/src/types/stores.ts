@@ -28,6 +28,8 @@ export type OpenState = {
   ) => void;
   isChatroomJoinModalOpen: boolean;
   setIsChatroomJoinModalOpen: (isChatroomJoinModalOpen: boolean) => void;
+  isChatroomSettingOpen: boolean;
+  setIsChatroomSettingOpen: (isChatroomSettingOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
