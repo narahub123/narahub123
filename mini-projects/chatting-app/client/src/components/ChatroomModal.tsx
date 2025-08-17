@@ -9,6 +9,7 @@ import {
   ProfileImage,
   ChatroomSettings,
   ChatroomModalHeader,
+  ChatroomModalBody,
 } from "../components";
 import { useOpenStore } from "../stores";
 import { ChatroomProvider } from "../contexts";
@@ -26,19 +27,42 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   onClose,
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const menuRef = useRef<HTMLButtonElement>(null);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [chats, setChats] = useState<ChatInfo[]>([]);
   const [chat, setChat] = useState("");
   const [chatroom, setChatroom] = useState<ChatroomInfo>();
   const [isLoading, setIsLoading] = useState(false);
-
   const [menuRect, setMenuRect] = useState<{ top: number; left: number }>({
     top: 0,
     left: 0,
   });
 
   const user = useUserStore((state) => state.user);
+
+  useEffect(() => {
+    const fetchChatroomData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetchWithAuth(`/chatrooms/${roomId}`);
+
+        if (!response.success) {
+          console.error("채팅방 정보 조회 실패");
+          return;
+        }
+
+        const { chats, ...rest } = response.data.chatroom;
+
+        setChats(chats);
+        setChatroom(rest);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchChatroomData();
+  }, []);
 
   useEffect(() => {
     const fetchChatroomData = async () => {
@@ -94,9 +118,16 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
   const context: ChatroomContextType = {
     chatroom: chatroom!,
+    setChatroom,
     roomId,
     menuRect,
     setMenuRect,
+    chat,
+    setChat,
+    isLoading,
+    setIsLoading,
+    chats,
+    setChats,
   };
 
   const handleClick = () => {
@@ -141,41 +172,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
           </div>
           {/* 헤더 */}
           <ChatroomModalHeader />
-
           {/* 바디 */}
-          <div className="h-[300px] overflow-y-auto px-2 ">
-            <ul className="space-y-2">
-              {(chats ?? []).map((chat, idx) => {
-                const { sender, text } = chat;
-
-                const isMyself = user?.email === sender;
-
-                const position = isMyself ? "justify-end" : "justify-start";
-                const bgColor = isMyself ? "bg-yellow-100" : "bg-white";
-                return (
-                  <li className={`flex ${position} gap-2`} key={`chat-${idx}`}>
-                    {/* 상대방 사용자의 이미지 필요 */}
-                    {!isMyself && (
-                      <ProfileImage
-                        src={chatroom?.roomProfileImage ?? ""}
-                        size={50}
-                      />
-                    )}
-                    <div className="flex flex-col gap-1">
-                      {!isMyself && <div>{sender}</div>}
-                      <div className="flex">
-                        <p
-                          className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}
-                        >
-                          {text}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <ChatroomModalBody />
           {/* 푸터 */}
           <div className="flex-shrink-0 p-2 space-y-2 bg-white">
             <div>

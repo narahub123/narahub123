@@ -26,6 +26,7 @@ import ChatroomJoinModal from "./ChatroomJoinModal";
 import WindowControlButtonsContainer from "./WindowControlButtonsContainer";
 import ChatroomSettings from "./ChatroomSettings";
 import ChatroomModalHeader from "./ChatroomModalHeader";
+import ChatroomModalBody from "./ChatroomModalBody";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -61,4 +62,5 @@ export {
   WindowControlButtonsContainer,
   ChatroomSettings,
   ChatroomModalHeader,
+  ChatroomModalBody,
 };

@@ -1,8 +1,9 @@
-import { ChatroomInfo } from "./components";
+import { ChatInfo, ChatroomInfo } from "./components";
 
 export interface ChatroomContextType {
-  chatroom: ChatroomInfo;
   roomId: string;
+  chatroom: ChatroomInfo;
+  setChatroom: React.Dispatch<React.SetStateAction<ChatroomInfo | undefined>>;
   menuRect: {
     top: number;
     left: number;
@@ -13,4 +14,10 @@ export interface ChatroomContextType {
       left: number;
     }>
   >;
+  chat: string;
+  setChat: React.Dispatch<React.SetStateAction<string>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  chats: ChatInfo[];
+  setChats: React.Dispatch<React.SetStateAction<ChatInfo[]>>;
 }
