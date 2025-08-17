@@ -22,13 +22,16 @@ export const windowControllers = [
   {
     name: "horizontal_rule",
     title: "최소화",
+    id: "minimize",
   },
   {
     name: "square",
     title: "최대화",
+    id: "maximize",
   },
   {
     name: "close",
     title: "닫기",
+    id: "close",
   },
 ];
