@@ -1,4 +1,5 @@
 import { ChatInfo, ChatroomInfo } from "./components";
+import { UserInfo } from "./stores";
 
 export interface ChatroomContextType {
   roomId: string;
@@ -20,4 +21,6 @@ export interface ChatroomContextType {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   chats: ChatInfo[];
   setChats: React.Dispatch<React.SetStateAction<ChatInfo[]>>;
+  websocket: WebSocket | null;
+  user: UserInfo | null;
 }

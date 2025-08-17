@@ -3,9 +3,7 @@ import { useUserStore } from "../stores/useUserStore";
 import ProfileImage from "./ProfileImage";
 
 const ChatroomModalBody = () => {
-  const { chatroom, chats } = useChatroomContext();
-
-  const user = useUserStore((state) => state.user);
+  const { chatroom, chats, user } = useChatroomContext();
 
   return (
     <div className="h-[300px] overflow-y-auto px-2 ">
