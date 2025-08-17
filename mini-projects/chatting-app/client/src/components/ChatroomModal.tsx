@@ -1,8 +1,13 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
+import { Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
 import { ChatInfo, ChatroomInfo } from "../types";
 import { fetchWithAuth } from "../utils";
+import {
+  WindowControlButtonsContainer,
+  Icon,
+  ProfileImage,
+} from "../components";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -104,14 +109,42 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     }
   };
 
-  return isOpen && !isLoading ? (
+  return isOpen && !isLoading && user && chatroom ? (
     <Modal open={isOpen && !isLoading}>
-      <ModalContent>
-        <div className="flex justify-end">
-          <button onClick={() => onClose(roomId)}>닫기</button>
+      <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
+        <div className="flex justify-end flex-shrink-0 p-2 pb-0">
+          <WindowControlButtonsContainer
+            onClose={() => onClose(roomId)}
+            onMaximize={() => {}}
+            onMinimize={() => {}}
+          />
         </div>
-        <h2>{`${chatroom?.roomTitle}(${roomId})`}</h2>
-        <div>
+        {/* 헤더 */}
+        <div className="flex items-center justify-between flex-shrink-0 p-2">
+          <div className="flex items-center gap-2">
+            <div>
+              {/* rounded 조절 필요? 아님 기본 컴포넌트 추가? */}
+              <ProfileImage src={chatroom.roomProfileImage || ""} size={50} />
+            </div>
+            <div className="flex flex-col justify-center">
+              <h2>{`${chatroom.roomTitle}(${roomId})`}</h2>
+              <span className="flex items-center text-gray-500">
+                <Icon name="person" />
+                <p>{chatroom.participants.length}</p>
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button>
+              <Icon name="search" className="text-2xl" />
+            </button>
+            <button>
+              <Icon name="menu" className="text-2xl" />
+            </button>
+          </div>
+        </div>
+        {/* 바디 */}
+        <div className="h-[300px] overflow-y-auto px-2 ">
           <ul className="space-y-2">
             {(chats ?? []).map((chat, idx) => {
               const { sender, text } = chat;
@@ -119,26 +152,56 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
               const isMyself = user?.email === sender;
 
               const position = isMyself ? "justify-end" : "justify-start";
-              const bgColor = isMyself ? "bg-yellow-100" : "bg-blue-100";
+              const bgColor = isMyself ? "bg-yellow-100" : "bg-white";
               return (
-                <li className={`flex ${position}`} key={`chat-${idx}`}>
-                  <p className={`p-2 ${bgColor} rounded-md max-w-60`}>{text}</p>
+                <li className={`flex ${position} gap-2`} key={`chat-${idx}`}>
+                  {/* 상대방 사용자의 이미지 필요 */}
+                  {!isMyself && (
+                    <ProfileImage
+                      src={chatroom?.roomProfileImage ?? ""}
+                      size={50}
+                    />
+                  )}
+                  <div className="flex flex-col gap-1">
+                    {!isMyself && <div>{sender}</div>}
+                    <div className="flex">
+                      <p
+                        className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}
+                      >
+                        {text}
+                      </p>
+                    </div>
+                  </div>
                 </li>
               );
             })}
           </ul>
         </div>
-        <div className="flex items-center mt-2 space-x-4">
-          <textarea
-            className="w-full p-2 border"
-            ref={inputRef}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            value={chat}
-          />
-          <Button onClick={handleClick} disabled={!chat}>
-            전송
-          </Button>
+        {/* 푸터 */}
+        <div className="flex-shrink-0 p-2 space-y-2 bg-white">
+          <div>
+            <textarea
+              className="w-full p-2 focus:outline-none"
+              ref={inputRef}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              value={chat}
+              placeholder="메시지 입력"
+            />
+          </div>
+          <div className="flex">
+            <div className="flex-1"></div>
+            <div>
+              <button
+                type="button"
+                onClick={handleClick}
+                disabled={!chat}
+                className="px-4 py-2 text-sm text-white bg-blue-400 rounded-md cursor-pointer hover:bg-blue-500 disabled:bg-gray-300"
+              >
+                전송
+              </button>
+            </div>
+          </div>
         </div>
       </ModalContent>
     </Modal>
