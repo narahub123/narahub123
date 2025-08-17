@@ -20,22 +20,30 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   const [chats, setChats] = useState<ChatInfo[]>([]);
   const [chat, setChat] = useState("");
   const [chatroom, setChatroom] = useState<ChatroomInfo>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {
     const fetchChatroomData = async () => {
-      const response = await fetchWithAuth(`/chatrooms/${roomId}`);
+      setIsLoading(true);
+      try {
+        const response = await fetchWithAuth(`/chatrooms/${roomId}`);
 
-      if (!response.success) {
-        console.error("채팅방 정보 조회 실패");
-        return;
+        if (!response.success) {
+          console.error("채팅방 정보 조회 실패");
+          return;
+        }
+
+        const { chats, ...rest } = response.data.chatroom;
+
+        setChats(chats);
+        setChatroom(rest);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
       }
-
-      const { chats, ...rest } = response.data.chatroom;
-
-      setChats(chats);
-      setChatroom(rest);
     };
 
     fetchChatroomData();
@@ -96,8 +104,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     }
   };
 
-  return isOpen ? (
-    <Modal open={isOpen}>
+  return isOpen && !isLoading ? (
+    <Modal open={isOpen && !isLoading}>
       <ModalContent>
         <div className="flex justify-end">
           <button onClick={() => onClose(roomId)}>닫기</button>
