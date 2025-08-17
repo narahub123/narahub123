@@ -10,6 +10,8 @@ import {
   ChatroomSettings,
 } from "../components";
 import { useOpenStore } from "../stores";
+import { ChatroomProvider } from "../contexts";
+import { ChatroomContextType } from "../types/contexts";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -121,6 +123,11 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     };
   }, []);
 
+  const context: ChatroomContextType = {
+    chatroom: chatroom!,
+    roomId,
+  };
+
   const handleClick = () => {
     if (!websocket || !chat || !user) return;
     console.log("클릭함");
@@ -154,102 +161,104 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   };
 
   return isOpen && !isLoading && user && chatroom ? (
-    <Modal open={isOpen && !isLoading}>
-      <ChatroomSettings rect={menuRect} roomId={roomId} />
-      <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
-        <div className="flex justify-end flex-shrink-0 p-2 pb-0">
-          <WindowControlButtonsContainer
-            onClose={() => onClose(roomId)}
-            onMaximize={() => {}}
-            onMinimize={() => {}}
-          />
-        </div>
-        {/* 헤더 */}
-        <div className="flex items-center justify-between flex-shrink-0 p-2">
-          <div className="flex items-center gap-2">
-            <div>
-              {/* rounded 조절 필요? 아님 기본 컴포넌트 추가? */}
-              <ProfileImage src={chatroom.roomProfileImage || ""} size={50} />
-            </div>
-            <div className="flex flex-col justify-center">
-              <h2>{`${chatroom.roomTitle}(${roomId})`}</h2>
-              <span className="flex items-center text-gray-500">
-                <Icon name="person" />
-                <p>{chatroom.participants.length}</p>
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button>
-              <Icon name="search" className="text-2xl" />
-            </button>
-            <button ref={menuRef} onClick={onChatroomSettingOpen}>
-              <Icon name="menu" className="text-2xl " />
-            </button>
-          </div>
-        </div>
-        {/* 바디 */}
-        <div className="h-[300px] overflow-y-auto px-2 ">
-          <ul className="space-y-2">
-            {(chats ?? []).map((chat, idx) => {
-              const { sender, text } = chat;
-
-              const isMyself = user?.email === sender;
-
-              const position = isMyself ? "justify-end" : "justify-start";
-              const bgColor = isMyself ? "bg-yellow-100" : "bg-white";
-              return (
-                <li className={`flex ${position} gap-2`} key={`chat-${idx}`}>
-                  {/* 상대방 사용자의 이미지 필요 */}
-                  {!isMyself && (
-                    <ProfileImage
-                      src={chatroom?.roomProfileImage ?? ""}
-                      size={50}
-                    />
-                  )}
-                  <div className="flex flex-col gap-1">
-                    {!isMyself && <div>{sender}</div>}
-                    <div className="flex">
-                      <p
-                        className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}
-                      >
-                        {text}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        {/* 푸터 */}
-        <div className="flex-shrink-0 p-2 space-y-2 bg-white">
-          <div>
-            <textarea
-              className="w-full p-2 focus:outline-none"
-              ref={inputRef}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              value={chat}
-              placeholder="메시지 입력"
+    <ChatroomProvider value={context}>
+      <Modal open={isOpen && !isLoading}>
+        <ChatroomSettings rect={menuRect} roomId={roomId} />
+        <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
+          <div className="flex justify-end flex-shrink-0 p-2 pb-0">
+            <WindowControlButtonsContainer
+              onClose={() => onClose(roomId)}
+              onMaximize={() => {}}
+              onMinimize={() => {}}
             />
           </div>
-          <div className="flex">
-            <div className="flex-1"></div>
-            <div>
-              <button
-                type="button"
-                onClick={handleClick}
-                disabled={!chat}
-                className="px-4 py-2 text-sm text-white bg-blue-400 rounded-md cursor-pointer hover:bg-blue-500 disabled:bg-gray-300"
-              >
-                전송
+          {/* 헤더 */}
+          <div className="flex items-center justify-between flex-shrink-0 p-2">
+            <div className="flex items-center gap-2">
+              <div>
+                {/* rounded 조절 필요? 아님 기본 컴포넌트 추가? */}
+                <ProfileImage src={chatroom.roomProfileImage || ""} size={50} />
+              </div>
+              <div className="flex flex-col justify-center">
+                <h2>{`${chatroom.roomTitle}(${roomId})`}</h2>
+                <span className="flex items-center text-gray-500">
+                  <Icon name="person" />
+                  <p>{chatroom.participants.length}</p>
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button>
+                <Icon name="search" className="text-2xl" />
+              </button>
+              <button ref={menuRef} onClick={onChatroomSettingOpen}>
+                <Icon name="menu" className="text-2xl " />
               </button>
             </div>
           </div>
-        </div>
-      </ModalContent>
-    </Modal>
+          {/* 바디 */}
+          <div className="h-[300px] overflow-y-auto px-2 ">
+            <ul className="space-y-2">
+              {(chats ?? []).map((chat, idx) => {
+                const { sender, text } = chat;
+
+                const isMyself = user?.email === sender;
+
+                const position = isMyself ? "justify-end" : "justify-start";
+                const bgColor = isMyself ? "bg-yellow-100" : "bg-white";
+                return (
+                  <li className={`flex ${position} gap-2`} key={`chat-${idx}`}>
+                    {/* 상대방 사용자의 이미지 필요 */}
+                    {!isMyself && (
+                      <ProfileImage
+                        src={chatroom?.roomProfileImage ?? ""}
+                        size={50}
+                      />
+                    )}
+                    <div className="flex flex-col gap-1">
+                      {!isMyself && <div>{sender}</div>}
+                      <div className="flex">
+                        <p
+                          className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}
+                        >
+                          {text}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          {/* 푸터 */}
+          <div className="flex-shrink-0 p-2 space-y-2 bg-white">
+            <div>
+              <textarea
+                className="w-full p-2 focus:outline-none"
+                ref={inputRef}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                value={chat}
+                placeholder="메시지 입력"
+              />
+            </div>
+            <div className="flex">
+              <div className="flex-1"></div>
+              <div>
+                <button
+                  type="button"
+                  onClick={handleClick}
+                  disabled={!chat}
+                  className="px-4 py-2 text-sm text-white bg-blue-400 rounded-md cursor-pointer hover:bg-blue-500 disabled:bg-gray-300"
+                >
+                  전송
+                </button>
+              </div>
+            </div>
+          </div>
+        </ModalContent>
+      </Modal>
+    </ChatroomProvider>
   ) : null;
 };
 
