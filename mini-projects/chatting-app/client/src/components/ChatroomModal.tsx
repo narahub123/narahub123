@@ -81,7 +81,23 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
       chat = JSON.parse(chat);
 
+      console.log(chat);
+
+      // chat 추가
       setChats((prev) => [...prev, chat]);
+
+      // 사용자의 마지막 읽은 메시지에 추가
+      setChatroom((prev) => ({
+        ...prev!,
+        participants: prev!.participants.map((p) =>
+          p.email === chat.sender
+            ? {
+                ...p,
+                lastReadMessageId: chat.chatId,
+              }
+            : p
+        ),
+      }));
     };
 
     ws.onclose = () => {

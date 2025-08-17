@@ -86,7 +86,11 @@ class ChatroomService {
   async getChatroomChatsById(roomId: string) {
     const snapshot = await chatroomRepository.getChatroomChatsById(roomId);
 
-    return snapshot.docs.map((doc) => convertTimestamps(doc.data())) ?? [];
+    return (
+      snapshot.docs.map((doc) =>
+        convertTimestamps({ chatId: doc.id, ...doc.data() })
+      ) ?? []
+    );
   }
 
   // 사용자의 가입된 채팅방 정보 얻기
@@ -116,7 +120,7 @@ class ChatroomService {
   async updateParticipantLastMessageId(
     roomId: string,
     email: string,
-    lastMessageId: string
+    lastReadMessageId: string
   ) {
     try {
       const chatroom = await this.getChatroomInfoById(roomId);
@@ -124,7 +128,7 @@ class ChatroomService {
       const participants = chatroom.participants || [];
 
       const updatedParticipants = participants.map((p) =>
-        p.email === email ? { ...p, lastMessageId } : p
+        p.email === email ? { ...p, lastReadMessageId } : p
       );
 
       await chatroomRepository.updateParticipantLastMessageId(
