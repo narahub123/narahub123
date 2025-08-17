@@ -36,7 +36,6 @@ const ChatroomList: FC = () => {
       }
 
       const chatrooms = response.data.chatrooms;
-      console.log(chatrooms);
       setChatrooms(chatrooms);
     };
 
@@ -52,7 +51,8 @@ const ChatroomList: FC = () => {
       <div>
         <ul>
           {chatrooms?.map((chatroom) => {
-            const { roomId, roomTitle, roomIntro } = chatroom;
+            const { roomId, roomTitle, roomIntro, lastMessage } = chatroom;
+
             return (
               <li
                 key={chatroom.roomId}
@@ -66,6 +66,18 @@ const ChatroomList: FC = () => {
                   <p className="text-gray-500">{roomIntro}</p>
                 </div>
                 {/* 마지막 메시지가 표시되어야 함 */}
+                {lastMessage && (
+                  <div>
+                    <p>
+                      {`${new Date(
+                        lastMessage.createdAt
+                      ).toLocaleDateString()} ${new Date(
+                        lastMessage.createdAt
+                      ).toLocaleTimeString()}`}
+                    </p>
+                    <p>{lastMessage.text}</p>
+                  </div>
+                )}
               </li>
             );
           })}

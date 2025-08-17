@@ -1,4 +1,4 @@
-import { ImageType } from "./components";
+import { ChatroomLastMessage, ImageType } from "./components";
 
 export type LoginStoreState = {
   isLoggedIn: boolean;
@@ -112,4 +112,5 @@ export interface IChatroom {
   isSecret: boolean;
   roomPassword?: string;
   createdAt: Date;
+  lastMessage: ChatroomLastMessage;
 }

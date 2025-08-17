@@ -34,4 +34,11 @@ export interface ChatroomInfo extends ChatroomDto {
   participants: ChatroomUserInfo[];
   roomType: "group" | "private";
   createdAt: Date;
+  lastMessage: ChatroomLastMessage;
+}
+
+export interface ChatroomLastMessage {
+  sender: string;
+  createdAt: Date;
+  text: string;
 }

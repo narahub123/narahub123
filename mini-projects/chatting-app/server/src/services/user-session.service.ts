@@ -1,5 +1,6 @@
 import { NotFoundError } from "../errors";
 import { userSessionRepository } from "../repositories";
+import { convertTimestamps } from "../utils";
 
 class UserSessionService {
   async createUserSession(
@@ -21,7 +22,7 @@ class UserSessionService {
       throw new NotFoundError("세션 없음", "SESSION_NOT_FOUND");
     }
 
-    return result.data()!;
+    return convertTimestamps(result.data()!);
   }
 
   // 인증용

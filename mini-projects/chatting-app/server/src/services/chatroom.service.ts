@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase-admin/firestore";
 import { ConflictError, NotFoundError } from "../errors";
 import { chatroomRepository } from "../repositories";
 import {
@@ -5,10 +6,12 @@ import {
   ChatRequestDto,
   ChatroomCreateType,
   ChatroomDocType,
+  ChatroomLastMessage,
   ChatroomResponseDto,
-  ChatroomUserInfo,
+  ChatroomParticipantType,
 } from "../types";
 import userService from "./user.service";
+import { convertTimestamps } from "../utils";
 
 class ChatroomService {
   async createChatroom(roomInfo: ChatroomCreateType) {
@@ -28,14 +31,10 @@ class ChatroomService {
       );
     }
 
-    const chatrooms = snapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        roomId: doc.id,
-        ...data,
-        createdAt: data.createdAt.toDate(),
-      };
-    });
+    const chatrooms = snapshot.docs.map((doc) => ({
+      roomId: doc.id,
+      ...convertTimestamps(doc.data()),
+    }));
 
     return chatrooms;
   }
@@ -50,7 +49,7 @@ class ChatroomService {
 
     return {
       roomId: result.id,
-      ...(result.data() as ChatroomDocType),
+      ...convertTimestamps(result.data() as ChatroomDocType),
     };
   }
 
@@ -68,7 +67,7 @@ class ChatroomService {
   }
 
   // 채팅방 가입하기
-  async joinChatroom(roomId: string, userInfo: ChatroomUserInfo) {
+  async joinChatroom(roomId: string, userInfo: ChatroomParticipantType) {
     try {
       // 기존 가입자인지 여부 확인하기
       const user = await this.findUserInChatroomByEmail(roomId, userInfo.email);
@@ -87,7 +86,7 @@ class ChatroomService {
   async getChatroomChatsById(roomId: string) {
     const snapshot = await chatroomRepository.getChatroomChatsById(roomId);
 
-    return snapshot.docs.map((doc) => doc.data()) ?? [];
+    return snapshot.docs.map((doc) => convertTimestamps(doc.data())) ?? [];
   }
 
   // 사용자의 가입된 채팅방 정보 얻기
@@ -99,6 +98,42 @@ class ChatroomService {
     return await Promise.all(
       chatroomIds.map((roomId: string) => this.getChatroomInfoById(roomId))
     );
+  }
+
+  // 채팅방 마지막 메시지 업데이트
+  async updateChatroomLastMessage(
+    roomId: string,
+    lastMessage: ChatroomLastMessage
+  ) {
+    try {
+      await chatroomRepository.updateChatroomLastMessage(roomId, lastMessage);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // 참여자의 마지막 메시지 업데이트
+  async updateParticipantLastMessageId(
+    roomId: string,
+    email: string,
+    lastMessageId: string
+  ) {
+    try {
+      const chatroom = await this.getChatroomInfoById(roomId);
+
+      const participants = chatroom.participants || [];
+
+      const updatedParticipants = participants.map((p) =>
+        p.email === email ? { ...p, lastMessageId } : p
+      );
+
+      await chatroomRepository.updateParticipantLastMessageId(
+        roomId,
+        updatedParticipants
+      );
+    } catch (err) {
+      throw err;
+    }
   }
 
   async saveChat(msgInfo: ChatRequestDto) {
@@ -123,11 +158,29 @@ class ChatroomService {
       unread: [...participants],
     };
 
+    // 메시지 저장
     const result = await chatroomRepository.saveChat(roomId, newChat);
+
+    // 저장된 메시지를 채팅방의 마지막 메시지로 저장하기
+    const lastMessage: ChatroomLastMessage = {
+      sender: newChat.sender,
+      createdAt: newChat.createdAt,
+      text: newChat.text
+        ? newChat.text
+        : newChat.images
+        ? "이미지"
+        : newChat.files
+        ? "파일"
+        : "비디오",
+    };
+    await this.updateChatroomLastMessage(roomId, lastMessage);
+
+    // 전송한 사용자의 마지막으로 읽은 메시지 변경하기
+    await this.updateParticipantLastMessageId(roomId, email, result.id);
 
     return {
       chatId: result.id,
-      ...newChat,
+      ...convertTimestamps(newChat),
     };
   }
 }

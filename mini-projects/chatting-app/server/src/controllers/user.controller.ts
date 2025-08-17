@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../utils";
 import { chatroomService, userService } from "../services";
-import { ChatroomUserInfo } from "../types";
+import { ChatroomParticipantType } from "../types";
 
 export const getUserInfo = asyncWrapper(
   "getUserInfo",
   async (req: Request, res: Response) => {
-    console.log(req.user);
     const { password, ...rest } = req.user;
 
-    const userInfo = rest;
+    const userInfo = { ...rest, createdAt: rest.createdAt.toDate() };
+
+    console.log(userInfo);
 
     res.status(200).json({
       success: true,
@@ -31,7 +32,7 @@ export const joinChatroom = asyncWrapper(
     const { roomid } = req.params;
     const { username, profileImage } = req.body;
 
-    const userInfo: ChatroomUserInfo = {
+    const userInfo: ChatroomParticipantType = {
       email: user.email,
       username,
       profileImage,

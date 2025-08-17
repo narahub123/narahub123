@@ -4,7 +4,12 @@ import {
   FieldValue,
 } from "firebase-admin/firestore";
 import { db } from "../config";
-import { ChatInfoType, ChatroomCreateType, ChatroomUserInfo } from "../types";
+import {
+  ChatInfoType,
+  ChatroomCreateType,
+  ChatroomLastMessage,
+  ChatroomParticipantType,
+} from "../types";
 import { mapFirebaseError } from "../utils";
 
 class ChatroomRepository {
@@ -14,6 +19,7 @@ class ChatroomRepository {
     this.chatroomCollection = db.collection("chatrooms");
   }
 
+  // 채팅방 만들기
   async createChatroom(roomInfo: ChatroomCreateType) {
     try {
       const docRef = this.chatroomCollection.doc();
@@ -42,7 +48,7 @@ class ChatroomRepository {
   }
 
   // 채팅방 가입
-  async joinChatroom(roomId: string, userInfo: ChatroomUserInfo) {
+  async joinChatroom(roomId: string, userInfo: ChatroomParticipantType) {
     try {
       await this.chatroomCollection.doc(roomId).update({
         participants: FieldValue.arrayUnion(userInfo),
@@ -77,6 +83,7 @@ class ChatroomRepository {
     }
   }
 
+  // chat 저장하기
   async saveChat(roomId: string, chatData: ChatInfoType) {
     try {
       const chatDoc = this.chatroomCollection.doc(roomId).collection("chats");
@@ -84,6 +91,34 @@ class ChatroomRepository {
       const chatRef = await chatDoc.add(chatData);
 
       return chatRef;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 채팅방 마지막 메시지 업데이트
+  async updateChatroomLastMessage(
+    roomId: string,
+    lastMessage: ChatroomLastMessage
+  ) {
+    try {
+      const chatroomRef = this.chatroomCollection.doc(roomId);
+
+      await chatroomRef.set({ lastMessage }, { merge: true });
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 사용자의 마지막 읽은 메시지 업데이트
+  async updateParticipantLastMessageId(
+    roomId: string,
+    participants: ChatroomParticipantType[]
+  ) {
+    try {
+      const chatroomRef = this.chatroomCollection.doc(roomId);
+
+      await chatroomRef.update({ participants });
     } catch (err) {
       throw mapFirebaseError(err);
     }
