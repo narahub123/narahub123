@@ -28,6 +28,7 @@ import ChatroomSettings from "./ChatroomSettings";
 import ChatroomModalHeader from "./ChatroomModalHeader";
 import ChatroomModalBody from "./ChatroomModalBody";
 import ChatroomModalFooter from "./ChatroomModalFooter";
+import MoreDropdown from "./MoreDropdown";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -65,4 +66,5 @@ export {
   ChatroomModalHeader,
   ChatroomModalBody,
   ChatroomModalFooter,
+  MoreDropdown,
 };

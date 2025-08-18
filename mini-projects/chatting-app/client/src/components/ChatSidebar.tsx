@@ -1,19 +1,57 @@
-import { FC } from "react";
+import { FC, useLayoutEffect, useRef, useState } from "react";
 import { sidebars } from "../data";
 import { Button, Icon } from "../theme/daisyui";
 import { PageType } from "../types";
+import MoreDropdown from "./MoreDropdown";
 
 interface ChatSidebarProps {
   setCurPage: React.Dispatch<React.SetStateAction<PageType>>;
 }
 
 const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
+  const sidebarRef = useRef<HTMLElement>(null);
+  const moreIconRef = useRef<HTMLDivElement>(null);
+  const [rect, setRect] = useState<{ bottom: number; left: number }>({
+    bottom: 0,
+    left: 0,
+  });
+
+  useLayoutEffect(() => {
+    const getIconPosition = () => {
+      if (!moreIconRef.current || !sidebarRef.current) return;
+      const {
+        bottom: SidebarBottom,
+        left: SidebarLeft,
+        width,
+      } = sidebarRef.current.getBoundingClientRect();
+      const { bottom, left } = moreIconRef.current.getBoundingClientRect();
+
+      setRect({
+        bottom: SidebarBottom - bottom,
+        left: left + width - SidebarLeft + 2,
+      });
+    };
+
+    getIconPosition();
+
+    window.addEventListener("resize", getIconPosition);
+    window.addEventListener("scoll", getIconPosition);
+
+    return () => {
+      window.removeEventListener("resize", getIconPosition);
+      window.removeEventListener("scoll", getIconPosition);
+    };
+  }, []);
+
   const handleClick = (pageType: PageType) => {
     setCurPage(pageType);
   };
 
   return (
-    <aside className="flex flex-col justify-between p-2 border-r h-60">
+    <aside
+      className="flex flex-col justify-between p-2 border-r h-60"
+      ref={sidebarRef}
+    >
       <div className="flex flex-col">
         {sidebars.map((sidebar) => (
           <Button
@@ -29,7 +67,8 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
           </Button>
         ))}
       </div>
-      <div>
+      <MoreDropdown rect={rect} />
+      <div ref={moreIconRef}>
         <Icon
           name="more_horiz"
           className="text-2xl bg-transparent border-0 shadow-none"
