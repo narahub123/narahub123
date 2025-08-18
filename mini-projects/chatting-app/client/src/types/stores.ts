@@ -30,6 +30,8 @@ export type OpenState = {
   setIsChatroomJoinModalOpen: (isChatroomJoinModalOpen: boolean) => void;
   isChatroomSettingOpen: boolean;
   setIsChatroomSettingOpen: (isChatroomSettingOpen: boolean) => void;
+  isMoreDropdownOpen: boolean;
+  setIsMoreDropdownOpen: (isChatroomSettingOpen: boolean) => void;
 };
 
 export type SignupInfoType = {

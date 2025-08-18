@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Icon from "./Icon";
+import { useOpenStore } from "../stores";
 
 interface MoreDropdownProps {
   rect: {
@@ -10,6 +11,7 @@ interface MoreDropdownProps {
 
 const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
   const { bottom, left } = rect;
+  const isMoreDropdownOpen = useOpenStore((state) => state.isMoreDropdownOpen);
 
   const menus = [
     {
@@ -19,7 +21,7 @@ const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
     },
   ];
 
-  if (bottom === 0 || left === 0) return null;
+  if (bottom === 0 || left === 0 || !isMoreDropdownOpen) return null;
 
   return (
     <div className="absolute z-20 border shrink-0" style={{ bottom, left }}>

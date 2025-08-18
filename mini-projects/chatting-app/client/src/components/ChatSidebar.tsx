@@ -3,6 +3,7 @@ import { sidebars } from "../data";
 import { Button, Icon } from "../theme/daisyui";
 import { PageType } from "../types";
 import MoreDropdown from "./MoreDropdown";
+import { useOpenStore } from "../stores";
 
 interface ChatSidebarProps {
   setCurPage: React.Dispatch<React.SetStateAction<PageType>>;
@@ -16,6 +17,12 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
     left: 0,
   });
 
+  const isMoreDropdownOpen = useOpenStore((state) => state.isMoreDropdownOpen);
+  const setIsMoreDropdownOpen = useOpenStore(
+    (state) => state.setIsMoreDropdownOpen
+  );
+
+  // more 버튼 위치
   useLayoutEffect(() => {
     const getIconPosition = () => {
       if (!moreIconRef.current || !sidebarRef.current) return;
@@ -27,7 +34,7 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
       const { bottom, left } = moreIconRef.current.getBoundingClientRect();
 
       setRect({
-        bottom: SidebarBottom - bottom,
+        bottom: SidebarBottom - bottom + 3,
         left: left + width - SidebarLeft + 2,
       });
     };
@@ -45,6 +52,10 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
 
   const handleClick = (pageType: PageType) => {
     setCurPage(pageType);
+  };
+
+  const handleMoreDropdownOpen = () => {
+    setIsMoreDropdownOpen(isMoreDropdownOpen ? false : true);
   };
 
   return (
@@ -72,6 +83,7 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
         <Icon
           name="more_horiz"
           className="text-2xl bg-transparent border-0 shadow-none"
+          onClick={handleMoreDropdownOpen}
         />
       </div>
     </aside>

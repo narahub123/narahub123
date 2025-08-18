@@ -60,4 +60,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isChatroomSettingOpen,
     })),
+  isMoreDropdownOpen: false,
+  setIsMoreDropdownOpen: (isMoreDropdownOpen: boolean) =>
+    set(() => ({
+      isMoreDropdownOpen,
+    })),
 }));
