@@ -210,6 +210,52 @@ class ChatroomService {
       throw err;
     }
   }
+
+  async getChatById(roomId: string, chatId: string) {
+    try {
+      const result = await chatroomRepository.getChatById(roomId, chatId);
+
+      if (!result.exists) {
+        throw new NotFoundError("챗 조회 실패", "CHAT_NOT_FOUND");
+      }
+
+      const chat = result.data();
+
+      if (!chat) {
+        throw new NotFoundError("챗 조회 실패", "CHAT_NOT_FOUND");
+      }
+
+      return chat;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async checkReadMessages(
+    roomId: string,
+    email: string,
+    firstUnreadMessageId: string
+  ) {
+    try {
+      const chat = await this.getChatById(roomId, firstUnreadMessageId);
+
+      const createdAt = chat["createdAt"];
+
+      // 읽은 표시로 변경
+      const lastChatId = await chatroomRepository.checkReadMessages(
+        roomId,
+        email,
+        createdAt
+      );
+
+      if (!lastChatId) return;
+
+      // 사용자의 마지막 읽은 메시지 변경
+      await this.updateParticipantLastMessageId(roomId, email, lastChatId);
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default new ChatroomService();

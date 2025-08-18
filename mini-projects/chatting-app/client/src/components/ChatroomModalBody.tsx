@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { useChatroomContext } from "../contexts";
 import Icon from "./Icon";
 import ProfileImage from "./ProfileImage";
+import { fetchWithAuth } from "../utils";
 
 const ChatroomModalBody = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
   const lastReadMsgRef = useRef<HTMLLIElement>(null);
   const firstUnreadMsgRef = useRef<HTMLLIElement>(null);
-  const { chatroom, setChatroom, chats, setChats, user, isLoading } =
+  const { chatroom, setChatroom, chats, setChats, user, isLoading, roomId } =
     useChatroomContext();
   const [lastReadMessageId, setLastReadMessageId] = useState("");
   const [firstUnreadMessageId, setFirstUnreadMessageId] = useState("");
@@ -58,12 +59,15 @@ const ChatroomModalBody = () => {
     });
   }, [isLoading]);
 
+  console.log(chats);
+
   // 읽음 표시
   useEffect(() => {
-    if (!containerRef.current || !firstUnreadMsgRef.current) return;
-
     const container = containerRef.current;
     const target = firstUnreadMsgRef.current;
+    console.log(container, target);
+
+    if (!container || !target) return;
 
     // 관찰자 옵션
     const options: IntersectionObserverInit = {
@@ -74,10 +78,8 @@ const ChatroomModalBody = () => {
 
     // 콜백
     const callback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(async (entry) => {
         if (entry.isIntersecting) {
-          console.log("교차함");
-
           // firstUnreadMessage 이후 메시지는 읽음 처리
           const firstUnreadMessageIndex = chats.findIndex(
             (chat) => chat.chatId === firstUnreadMessageId
@@ -93,6 +95,24 @@ const ChatroomModalBody = () => {
                 }));
 
           const updatedChats = [...readChats, ...unreadChats];
+
+          const response = await fetchWithAuth(
+            `/chatrooms/${roomId}/participants/me/read`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+            {
+              firstUnreadMessageId,
+            }
+          );
+
+          if (!response.success) {
+            console.error("안 읽은 메시지 실패");
+            return;
+          }
 
           setChats(updatedChats);
 
@@ -123,7 +143,12 @@ const ChatroomModalBody = () => {
     return () => {
       observer.disconnect();
     };
-  }, [firstUnreadMsgRef.current, containerRef.current]);
+  }, [
+    // firstUnreadMsgRef.current,
+    // containerRef.current,
+    chats,
+    firstUnreadMessageId,
+  ]);
 
   console.log(lastReadMessageId);
   console.log(chats);

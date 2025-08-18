@@ -1,6 +1,7 @@
 import {
   CollectionReference,
   DocumentData,
+  DocumentSnapshot,
   FieldValue,
 } from "firebase-admin/firestore";
 import { db } from "../config";
@@ -130,6 +131,55 @@ class ChatroomRepository {
       const chatroomRef = this.chatroomCollection.doc(roomId);
 
       chatroomRef.set({ participants }, { merge: true });
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 특정 챗 조회하기
+  async getChatById(roomId: string, chatId: string): Promise<DocumentSnapshot> {
+    try {
+      const chat = await this.chatroomCollection
+        .doc(roomId)
+        .collection("chats")
+        .doc(chatId)
+        .get();
+
+      return chat;
+    } catch (err) {
+      throw mapFirebaseError(err);
+    }
+  }
+
+  // 채팅방에서 사용자의 안 읽은 메시지 읽음 처리
+  async checkReadMessages(roomId: string, email: string, createdAt: Date) {
+    try {
+      const chatsRef = this.chatroomCollection.doc(roomId).collection("chats");
+
+      const result = await chatsRef.where("createdAt", ">=", createdAt).get();
+
+      const batch = db.batch();
+
+      console.log(result.docs.length);
+
+      if (result.empty) return "";
+
+      const lastChatId = result.docs[result.docs.length - 1].id;
+
+      result.docs.forEach((doc) => {
+        const data = doc.data();
+        const unread = data.unread || [];
+
+        if (unread.includes(email)) {
+          const newUnread = unread.filter((u: string) => u !== email);
+
+          batch.update(doc.ref, { unread: newUnread });
+        }
+      });
+
+      await batch.commit();
+
+      return lastChatId;
     } catch (err) {
       throw mapFirebaseError(err);
     }

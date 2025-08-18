@@ -3,6 +3,7 @@ import { asyncWrapper } from "../utils";
 import { ChatroomCreateType } from "../types";
 import { chatroomService, userService } from "../services";
 import { FieldValue } from "firebase-admin/firestore";
+import { BadRequestError } from "../errors";
 
 // 그룹 채팅방 생성하기
 export const createGroupChatroom = asyncWrapper(
@@ -120,6 +121,38 @@ export const leaveChatroom = asyncWrapper(
       success: true,
       message: "채팅방 탈퇴 성공",
       code: "LEAVING_CHATROOM_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+    });
+  }
+);
+
+// 사용자 채팅 읽음 처리
+export const checkReadMessages = asyncWrapper(
+  "checkReadMessages",
+  async (req: Request, res: Response) => {
+    const user = req.user;
+    const { roomid } = req.params;
+    const { firstUnreadMessageId } = req.body;
+
+    console.log(req.query);
+
+    if (!firstUnreadMessageId) {
+      throw new BadRequestError(
+        "첫 안 읽은 메시지 아이디 필수",
+        "MISSING_FIRSTUNREADMESSAGEID"
+      );
+    }
+
+    await chatroomService.checkReadMessages(
+      roomid,
+      user.email,
+      firstUnreadMessageId
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "안 읽음 표시 변경 성공",
+      code: "UNREAD_TO_READ_SUCCEEDED",
       timestamp: new Date().toISOString(),
     });
   }
