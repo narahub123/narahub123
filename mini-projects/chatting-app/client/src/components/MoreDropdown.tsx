@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Icon from "./Icon";
-import { useOpenStore } from "../stores";
+import { useLoginStore, useOpenStore } from "../stores";
+import { fetchWithAuth, removeLoginState } from "../utils";
 
 interface MoreDropdownProps {
   rect: {
@@ -13,6 +14,9 @@ const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
   const { bottom, left } = rect;
   const isMoreDropdownOpen = useOpenStore((state) => state.isMoreDropdownOpen);
 
+  // 로그인 상태 변경
+  const setIsLoggedIn = useLoginStore((state) => state.setIsLoggedIn);
+
   const menus = [
     {
       id: "logout",
@@ -20,6 +24,27 @@ const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
       icon: "logout",
     },
   ];
+
+  const handleLogout = async () => {
+    const response = await fetchWithAuth("/auth/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.success) {
+      console.log("로그아웃 실패");
+
+      return;
+    }
+
+    // 로그인 상태 변경
+    setIsLoggedIn(false);
+
+    // 로컬스토리지에서 삭제
+    removeLoginState();
+  };
 
   if (bottom === 0 || left === 0 || !isMoreDropdownOpen) return null;
 
@@ -29,6 +54,7 @@ const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
         <button
           className="flex items-center gap-1 px-4 py-2 hover:bg-gray-50"
           key={menu.id}
+          onClick={menu.id === "logout" ? handleLogout : undefined}
         >
           <Icon name={menu.icon} />
           {menu.name}

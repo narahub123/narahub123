@@ -87,6 +87,8 @@ export type ChatroomsState = {
   connectedChatrooms: string[];
   addConnectedChatroom: (roomId: string) => void;
   deleteConnectedChatroom: (roomId: string) => void;
+  // 연결된 채팅방 비우기
+  clearConnectedChatrooms: () => void;
   // 오픈 채팅방 목록
   openChatrooms: IChatroom[];
   setOpenChatrooms: (openChatrooms: IChatroom[]) => void;

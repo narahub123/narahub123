@@ -22,7 +22,9 @@ const ChatModal: FC = () => {
       const response = await fetchWithAuth("/users/me");
 
       if (!response.success) {
-        throw new Error("에러");
+        console.log("사용자 정보 조회 실패");
+
+        return;
       }
 
       setUserInfo(response.data.user);

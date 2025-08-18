@@ -265,3 +265,20 @@ export const oauth = asyncWrapper(
     } catch (err) {}
   }
 );
+
+export const logout = asyncWrapper(
+  "logout",
+  async (req: Request, res: Response) => {
+    const sessionId = req.sessionId;
+
+    // 세션 지우기
+    await userSessionService.deleteUserSessionById(sessionId);
+
+    res.status(200).json({
+      success: true,
+      message: "로그아웃 성공",
+      code: "LOGOUT_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+    });
+  }
+);

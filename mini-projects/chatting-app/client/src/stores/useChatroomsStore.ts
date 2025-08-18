@@ -14,6 +14,11 @@ export const useChatroomsStore = create<ChatroomsState>((set) => ({
       ),
     })),
 
+  clearConnectedChatrooms: () =>
+    set(() => ({
+      connectedChatrooms: [],
+    })),
+
   openChatrooms: [],
   setOpenChatrooms: (openChatrooms: IChatroom[]) =>
     set((state) => ({
