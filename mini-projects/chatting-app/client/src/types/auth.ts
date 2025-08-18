@@ -6,4 +6,6 @@ export type OauthInfoType = {
   url: string;
   client_id: string;
   scope: string;
+  prompt: string;
+  access_type?: string
 };

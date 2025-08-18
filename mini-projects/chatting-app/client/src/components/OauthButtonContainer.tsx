@@ -9,7 +9,7 @@ const OauthButtonContainer: FC = () => {
   const handleSocialSignup = (social: OauthType) => {
     const oauth = oauths[social];
 
-    const url = `${oauth.url}?client_id=${oauth.client_id}&redirect_uri=${SERVER_URL}/auth/oauth&response_type=code&scope=${oauth.scope}&state=${oauth.type}`;
+    const url = `${oauth.url}?client_id=${oauth.client_id}&redirect_uri=${SERVER_URL}/auth/oauth&response_type=code&scope=${oauth.scope}&state=${oauth.type}&prompt=${oauth.prompt}&access_type=${oauth.access_type}`;
 
     window.open(url, "oauth", "popup");
   };

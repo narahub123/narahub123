@@ -53,6 +53,8 @@ export const oauths: Record<OauthType, OauthInfoType> = {
     url: "https://accounts.google.com/o/oauth2/v2/auth",
     client_id: GOOGLE_CLIENT_ID,
     scope: "email+profile",
+    prompt: "consent",
+    access_type: "offline",
   },
   kakao: {
     type: "kakao",
@@ -60,6 +62,7 @@ export const oauths: Record<OauthType, OauthInfoType> = {
     url: "https://kauth.kakao.com/oauth/authorize",
     client_id: KAKAO_CLIENT_ID,
     scope: "account_email, profile_nickname, profile_image",
+    prompt: "login",
   },
   naver: {
     type: "naver",
@@ -67,6 +70,7 @@ export const oauths: Record<OauthType, OauthInfoType> = {
     url: "",
     client_id: NAVER_CLIENT_ID,
     scope: "",
+    prompt: "consent",
   },
   github: {
     type: "github",
@@ -74,5 +78,6 @@ export const oauths: Record<OauthType, OauthInfoType> = {
     url: "https://github.com/login/oauth/authorize",
     client_id: GITHUB_CLIENT_ID,
     scope: "user",
+    prompt: "consent",
   },
 };
