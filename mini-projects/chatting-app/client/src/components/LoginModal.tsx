@@ -26,7 +26,7 @@ const LoginModal = () => {
   );
 
   // 입력된 회원정보 삭제 함수
-  const cleanLoginInfo = useAuthStore((state) => state.cleanLoginInfo);
+  const clearLoginInfo = useAuthStore((state) => state.clearLoginInfo);
 
   // 사용자 입력 정보
   const loginInfo = useAuthStore((state) => state.login);
@@ -115,7 +115,7 @@ const LoginModal = () => {
     // 로그인 모달 닫기
     setIsLoginModalOpen(false);
     // 입력된 회원정보 삭제
-    cleanLoginInfo();
+    clearLoginInfo();
     // canSend 초기화
     setCanSend(false);
   };
@@ -162,6 +162,9 @@ const LoginModal = () => {
     if (result.success) {
       // 로그인 상태 로컬 스토리지에 저장
       saveLoginState(result.data);
+
+      // Login 비우기
+      clearLoginInfo();
 
       // 로그인 상태 변경
       setIsLoggedin(true);

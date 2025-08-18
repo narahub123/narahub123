@@ -32,7 +32,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       },
     })),
   // 회원가입 사용자 정보 삭제
-  cleanSignupInfo: () =>
+  clearSignupInfo: () =>
     set(() => ({
       signup: signupInitialState,
     })),
@@ -58,7 +58,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       },
     })),
   // 회원가입 사용자 정보 삭제
-  cleanLoginInfo: () =>
+  clearLoginInfo: () =>
     set(() => ({
       login: loginInitialState,
     })),

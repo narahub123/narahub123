@@ -13,6 +13,10 @@ interface MoreDropdownProps {
 const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
   const { bottom, left } = rect;
   const isMoreDropdownOpen = useOpenStore((state) => state.isMoreDropdownOpen);
+  const setIsChatModalOpen = useOpenStore((state) => state.setIsChatModalOpen);
+  const setIsMoreDropdown = useOpenStore(
+    (state) => state.setIsMoreDropdownOpen
+  );
 
   // 로그인 상태 변경
   const setIsLoggedIn = useLoginStore((state) => state.setIsLoggedIn);
@@ -44,6 +48,12 @@ const MoreDropdown: FC<MoreDropdownProps> = ({ rect }) => {
 
     // 로컬스토리지에서 삭제
     removeLoginState();
+
+    // MoreDropdown 닫기
+    setIsMoreDropdown(false);
+
+    // ChatModal 닫기
+    setIsChatModalOpen(false);
   };
 
   if (bottom === 0 || left === 0 || !isMoreDropdownOpen) return null;

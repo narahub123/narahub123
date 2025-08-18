@@ -53,12 +53,12 @@ export type AuthState = {
   signup: SignupInfoType; // 회원가입 사용자 정보
   setProfileImage: (profileImage: ImageType) => void; // 이미지 변경
   setSignupInfo: (id: string, value: string) => void;
-  cleanSignupInfo: () => void; // 회원가입 사용자 정보 삭제
+  clearSignupInfo: () => void; // 회원가입 사용자 정보 삭제
   canSend: boolean; // 회원가입 버튼 유효성 통과 여부 상태
   setCanSend: (canSend: boolean) => void;
   login: LoginInfoType;
   setLoginInfo: (id: string, value: string) => void;
-  cleanLoginInfo: () => void;
+  clearLoginInfo: () => void;
 };
 
 export interface UserInfo {

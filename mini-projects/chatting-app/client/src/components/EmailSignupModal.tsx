@@ -18,7 +18,7 @@ const EmailSignupModal: FC = () => {
     (state) => state.setIsSignupModalOpen
   );
   // 회원가입 사용자 정보 삭제
-  const cleanSignupInfo = useAuthStore((state) => state.cleanSignupInfo);
+  const clearSignupInfo = useAuthStore((state) => state.clearSignupInfo);
 
   // 회원가입 사용자 입력 정보 추가
   const setSignupInfo = useAuthStore((state) => state.setSignupInfo);
@@ -92,7 +92,7 @@ const EmailSignupModal: FC = () => {
     // 회원가입 모달창 열기
     setIsSignupModalOpen(true);
     // 회원가입 사용자 정보 삭제
-    cleanSignupInfo();
+    clearSignupInfo();
   };
 
   // 입력 값 업데이트 함수
@@ -133,7 +133,7 @@ const EmailSignupModal: FC = () => {
       // 로그인 열기
       setIsLoginModalOpen(true);
       // 회원가입 사용자 정보 삭제
-      cleanSignupInfo();
+      clearSignupInfo();
       // canSend 초기화
       setCanSend(false);
     }
