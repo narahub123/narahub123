@@ -10,6 +10,7 @@ import {
   SIGNUP_IMAGE_MAXSIZE,
 } from "../constants";
 import { isValidFileSize, isValidFileType } from "../utils";
+import { useToast } from "../hooks";
 
 const EmailSignupModal: FC = () => {
   const [isIn, setIsIn] = useState(false);
@@ -95,6 +96,8 @@ const EmailSignupModal: FC = () => {
     signupInfo,
   ]);
 
+  const toast = useToast();
+
   // 이메일 회원가입 취소 함수
   const handleCancel = () => {
     // 이메일 회원 가입 모달창 닫기
@@ -160,14 +163,26 @@ const EmailSignupModal: FC = () => {
       (file) => !isValidFileType(file, SIGNUP_IMAGE_ACCEPT)
     );
 
-    if (invalidFiles.length > 0) return false;
+    if (invalidFiles.length > 0) {
+      toast({
+        type: "error",
+        message: `이미지 타입에 맞지 않습니다.`,
+      });
+      return false;
+    }
 
     // 파일 크기 유효성 검사
     invalidFiles = files.filter(
       (file) => !isValidFileSize(file, SIGNUP_IMAGE_MAXSIZE * MEGA_BYTE)
     );
 
-    if (invalidFiles.length > 0) return false;
+    if (invalidFiles.length > 0) {
+      toast({
+        type: "error",
+        message: `이미지의 최대 사이트는 ${SIGNUP_IMAGE_MAXSIZE}mb입니다.`,
+      });
+      return false;
+    }
 
     return true;
   };

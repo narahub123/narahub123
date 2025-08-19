@@ -32,6 +32,8 @@ export type OpenState = {
   setIsChatroomSettingOpen: (isChatroomSettingOpen: boolean) => void;
   isMoreDropdownOpen: boolean;
   setIsMoreDropdownOpen: (isChatroomSettingOpen: boolean) => void;
+  isToastOpen: boolean;
+  setIsToastOpen: (isToastOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
@@ -121,3 +123,14 @@ export interface IChatroom {
   createdAt: Date;
   lastMessage: ChatroomLastMessage;
 }
+
+export interface ToastType {
+  type: "error";
+  message: string;
+}
+
+export type ToastStore = {
+  toast?: ToastType;
+  setToast: (toast: ToastType) => void;
+  clearToast: () => void;
+};

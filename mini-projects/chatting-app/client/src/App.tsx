@@ -9,6 +9,7 @@ import {
   OpenChatroomListModal,
   ResetPasswordModal,
   SignupModal,
+  Toast,
   WidgetButton,
 } from "./components";
 import { useLoginCheck } from "./hooks";
@@ -47,6 +48,7 @@ function App() {
           key={connectedChatroom}
         />
       ))}
+      <Toast />
     </div>
   );
 }

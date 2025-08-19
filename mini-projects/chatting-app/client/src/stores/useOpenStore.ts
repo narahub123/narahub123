@@ -65,4 +65,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isMoreDropdownOpen,
     })),
+  isToastOpen: false,
+  setIsToastOpen: (isToastOpen: boolean) =>
+    set(() => ({
+      isToastOpen,
+    })),
 }));
