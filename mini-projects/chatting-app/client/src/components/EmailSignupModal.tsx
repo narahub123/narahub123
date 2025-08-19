@@ -1,11 +1,12 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore, useAuthStore } from "../stores";
-import { ProfileImageUploader, Input } from "../components";
+import { ProfileImageUploader, Input, DragAndDrop } from "../components";
 import { signupFieldList } from "../data";
 import { SERVER_URL } from "../constants";
 
 const EmailSignupModal: FC = () => {
+  const [isIn, setIsIn] = useState(false);
   // 이메일 회원가입 모달창 여닫기 상태
   const isOpen = useOpenStore((state) => state.isEmailSignupModalOpen);
 
@@ -139,41 +140,61 @@ const EmailSignupModal: FC = () => {
     }
   };
 
+  const areValidFiles = () => {
+    return false;
+  };
+
+  const storeFiles = () => {};
+
   return (
     <Modal open={isOpen}>
-      <ModalContent className="space-y-8">
-        <div className="flex justify-center">
-          <h2 className="text-xl font-bold">이메일 회원 가입</h2>
-        </div>
-        <div className="flex justify-center">
-          <div className="space-y-4">
-            <div className="flex justify-center flex-1">
-              <ProfileImageUploader />
+      <ModalContent className="p-0">
+        <DragAndDrop
+          isIn={isIn}
+          setIsIn={setIsIn}
+          className="m-4 rounded-lg"
+          storeFiles={storeFiles}
+          areValidFiles={areValidFiles}
+        >
+          <div className={`space-y-8 p-6`}>
+            <div className="flex justify-center">
+              <h2 className="text-xl font-bold">이메일 회원 가입</h2>
             </div>
-            {signupFieldList.map((input) => (
-              <Input
-                key={input.field}
-                field={input.field}
-                placeholder={input.placeholder}
-                type={input.type}
-                onChange={handleChange}
-                entity={signupInfo}
-              />
-            ))}
+            <div className="flex justify-center">
+              <div className="space-y-4">
+                <div className="flex justify-center flex-1">
+                  <ProfileImageUploader />
+                </div>
+
+                {signupFieldList.map((input) => (
+                  <Input
+                    key={input.field}
+                    field={input.field}
+                    placeholder={input.placeholder}
+                    type={input.type}
+                    onChange={handleChange}
+                    entity={signupInfo}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-between w-full">
+              <Button
+                className="text-white btn btn-error"
+                onClick={handleCancel}
+              >
+                취소
+              </Button>
+              <Button
+                className="btn btn-primary"
+                disabled={!canSend}
+                onClick={handleSignup}
+              >
+                회원가입
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-between w-full">
-          <Button className="text-white btn btn-error" onClick={handleCancel}>
-            취소
-          </Button>
-          <Button
-            className="btn btn-primary"
-            disabled={!canSend}
-            onClick={handleSignup}
-          >
-            회원가입
-          </Button>
-        </div>
+        </DragAndDrop>
       </ModalContent>
     </Modal>
   );
