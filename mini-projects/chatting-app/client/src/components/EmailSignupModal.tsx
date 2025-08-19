@@ -3,7 +3,13 @@ import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { useOpenStore, useAuthStore } from "../stores";
 import { ProfileImageUploader, Input, DragAndDrop } from "../components";
 import { signupFieldList } from "../data";
-import { SERVER_URL } from "../constants";
+import {
+  MEGA_BYTE,
+  SERVER_URL,
+  SIGNUP_IMAGE_ACCEPT,
+  SIGNUP_IMAGE_MAXSIZE,
+} from "../constants";
+import { isValidFileSize, isValidFileType } from "../utils";
 
 const EmailSignupModal: FC = () => {
   const [isIn, setIsIn] = useState(false);
@@ -37,6 +43,9 @@ const EmailSignupModal: FC = () => {
 
   // 회원가입 사용자 정보
   const signupInfo = useAuthStore((state) => state.signup);
+
+  // 프로필 이미지 상태 변경
+  const setProfileImage = useAuthStore((state) => state.setProfileImage);
 
   console.log(signupInfo);
   // 이메일 중복 체크
@@ -140,11 +149,44 @@ const EmailSignupModal: FC = () => {
     }
   };
 
-  const areValidFiles = () => {
-    return false;
+  const areValidFiles = (files: File[]) => {
+    // const totalFiles: any[] = [...prevFiles, files];
+
+    // 총 파일 개수 유효성 검사
+    // if (!isValidFileCount(totalFiles, SIGNUP_IMAGE_MAXCOUNT)) return false;
+
+    // 파일 타입 유효성 검사
+    let invalidFiles: File[] = files.filter(
+      (file) => !isValidFileType(file, SIGNUP_IMAGE_ACCEPT)
+    );
+
+    if (invalidFiles.length > 0) return false;
+
+    // 파일 크기 유효성 검사
+    invalidFiles = files.filter(
+      (file) => !isValidFileSize(file, SIGNUP_IMAGE_MAXSIZE * MEGA_BYTE)
+    );
+
+    if (invalidFiles.length > 0) return false;
+
+    return true;
   };
 
-  const storeFiles = () => {};
+  const storeFilesWithPreview = (files: File[]) => {
+    for (const file of files) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          console.log(e.target!.result);
+
+          setProfileImage({ file, preview: e.target!.result as string });
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <Modal open={isOpen}>
@@ -153,7 +195,7 @@ const EmailSignupModal: FC = () => {
           isIn={isIn}
           setIsIn={setIsIn}
           className="m-4 rounded-lg"
-          storeFiles={storeFiles}
+          storeFiles={storeFilesWithPreview}
           areValidFiles={areValidFiles}
         >
           <div className={`space-y-8 p-6`}>

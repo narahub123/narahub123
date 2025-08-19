@@ -34,6 +34,7 @@ const DragAndDrop: FC<PropsWithChildren<DragAndDropProps>> = ({
     e.preventDefault();
     e.stopPropagation();
 
+    setIsIn(false);
     const files = Array.from(e.dataTransfer.files);
 
     console.log(files);
