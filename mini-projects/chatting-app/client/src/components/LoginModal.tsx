@@ -153,11 +153,13 @@ const LoginModal = () => {
       body: JSON.stringify(loginInfo),
     });
 
-    if (!response.ok) {
-      throw new Error("회원가입 실패");
-    }
-
     const result = await response.json();
+
+    if (!result.success) {
+      // 에러 표현 방식 생각해볼 것
+      console.error("로그인 실패", result.message);
+      return;
+    }
 
     if (result.success) {
       // 로그인 상태 로컬 스토리지에 저장
@@ -176,6 +178,14 @@ const LoginModal = () => {
       setIsChatModalOpen(true);
     }
   };
+
+  const handleKeyDown = async (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && canSend) {
+      e.preventDefault();
+      await handleLogin();
+    }
+  };
+
   console.log(loginInfo);
 
   return (
@@ -198,6 +208,7 @@ const LoginModal = () => {
                   type={login.type}
                   onChange={handleLoginInput}
                   entity={loginInfo}
+                  onKeyDown={handleKeyDown}
                 />
               ))}
               <div className="flex justify-between text-sm">

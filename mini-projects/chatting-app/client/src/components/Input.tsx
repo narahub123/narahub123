@@ -1,7 +1,8 @@
 import { FC } from "react";
 
-type InputProps = {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+type InputHtmlProps = React.HTMLAttributes<HTMLInputElement>;
+
+type InputProps = InputHtmlProps & {
   entity: any;
   field: string;
   placeholder: string;
@@ -14,6 +15,7 @@ const Input: FC<InputProps> = ({
   field,
   placeholder,
   type = "text",
+  ...rest
 }) => {
   return (
     <input
@@ -24,6 +26,7 @@ const Input: FC<InputProps> = ({
       onChange={onChange}
       value={entity[field]}
       placeholder={placeholder}
+      {...rest}
     />
   );
 };
