@@ -125,32 +125,31 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
             ? []
             : chats.slice(firstUnreadMessageIndex).map((chat) => ({
                 ...chat,
-                unread: chat.unread.filter((p) => p !== user?.email),
+                unread: chat.unread.filter((p) => p !== chatData.email),
               }));
 
-        console.log("안 읽은 애들", chats);
+        console.log("안 읽은 애들", chats.slice(firstUnreadMessageIndex));
 
         const updatedChats = [...readChats, ...unreadChats];
 
         console.log(updatedChats);
 
+        const newChatroom = {
+          ...chatroom,
+          participants: chatroom?.participants.map((p) => ({
+            ...p,
+            lastReadMessageId:
+              p.email === chatData?.email
+                ? updatedChats[updatedChats.length - 1].chatId
+                : p.lastReadMessageId,
+          })),
+        };
+
+        console.log(newChatroom);
+
         setChats(updatedChats);
         // 마지막 읽은 메시지 아이디 변경
-        setChatroom((prev) => ({
-          ...prev!,
-          participants: prev!.participants.map((p) => {
-            console.log(chats);
-            console.log(updatedChats);
-
-            return {
-              ...p,
-              lastReadMessageId:
-                p.email === user?.email
-                  ? updatedChats[updatedChats.length - 1].chatId
-                  : p.lastReadMessageId,
-            };
-          }),
-        }));
+        setChatroom(newChatroom as ChatroomInfo);
       }
     };
 

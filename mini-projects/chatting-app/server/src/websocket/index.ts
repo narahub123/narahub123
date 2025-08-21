@@ -64,7 +64,7 @@ export default (
 
               console.log("안 읽은 메시지 처리");
               newRoom.clients.forEach((client) => {
-                client.send(JSON.stringify({ type }));
+                client.send(JSON.stringify(msgInfo));
               });
             } catch (error) {
               console.error("안 읽은 메시지 처리 실패");
