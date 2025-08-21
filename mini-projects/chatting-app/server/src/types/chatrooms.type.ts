@@ -43,13 +43,23 @@ export interface ChatroomResponseDto extends ChatroomDocType {
   roomId: string;
 }
 
-export interface ChatRequestDto {
+export type ChatRequestType = "unread" | "message";
+
+export interface ChatRequestBaseDto {
+  type: ChatRequestType;
   roomId: string;
-  email: string;
+  email: string; // sender
+}
+
+export interface ChatRequestMessageDto extends ChatRequestBaseDto {
   text?: string;
   images?: string;
   files?: string;
   videos?: string;
+}
+
+export interface ChatRequestUnreadDto extends ChatRequestBaseDto {
+  firstUnreadMessageId: string;
 }
 
 export interface ChatInfoType {

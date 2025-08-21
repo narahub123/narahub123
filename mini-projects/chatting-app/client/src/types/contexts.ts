@@ -23,4 +23,6 @@ export interface ChatroomContextType {
   setChats: React.Dispatch<React.SetStateAction<ChatInfo[]>>;
   websocket: WebSocket | null;
   user: UserInfo | null;
+  firstUnreadMessageId: string;
+  setFirstUnreadMessageId: React.Dispatch<React.SetStateAction<string>>;
 }

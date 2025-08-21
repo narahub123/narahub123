@@ -33,9 +33,11 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     top: 0,
     left: 0,
   });
+  const [firstUnreadMessageId, setFirstUnreadMessageId] = useState("");
 
   const user = useUserStore((state) => state.user);
 
+  // 채팅방 조회
   useEffect(() => {
     const fetchChatroomData = async () => {
       setIsLoading(true);
@@ -61,6 +63,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     fetchChatroomData();
   }, []);
 
+  // 웹 소켓 처리
   useEffect(() => {
     const ws = new WebSocket(`ws://localhost:3301?roomId=${roomId}`);
 
@@ -72,38 +75,89 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
     ws.onmessage = (event) => {
       setIsLoading(false);
-      let chat = event.data;
+      let chatData = event.data;
 
-      if (chat === "connected") {
+      if (chatData === "connected") {
         // setConnection("접속 완료");
         return;
       }
 
-      chat = JSON.parse(chat);
+      chatData = JSON.parse(chatData);
 
-      console.log(chat);
+      console.log(chatData);
+      // 메시지 전송
+      if (chatData.type === "message") {
+        const { type, ...chat } = chatData;
+        // chat 추가
+        setChats((prev) => [...prev, chat]);
 
-      // chat 추가
-      setChats((prev) => [...prev, chat]);
+        // 사용자의 마지막 읽은 메시지에 추가
+        setChatroom((prev) => ({
+          ...prev!,
+          participants: prev!.participants.map((p) =>
+            p.email === chat.sender
+              ? {
+                  ...p,
+                  lastReadMessageId: chat.chatId,
+                }
+              : p
+          ),
+        }));
+      } else if (chatData.type === "unread") {
+        console.log(firstUnreadMessageId);
 
-      // 사용자의 마지막 읽은 메시지에 추가
-      setChatroom((prev) => ({
-        ...prev!,
-        participants: prev!.participants.map((p) =>
-          p.email === chat.sender
-            ? {
-                ...p,
-                lastReadMessageId: chat.chatId,
-              }
-            : p
-        ),
-      }));
+        // firstUnreadMessage 이후 메시지는 읽음 처리
+        const firstUnreadMessageIndex = chats.findIndex(
+          (chat) => chat.chatId === firstUnreadMessageId
+        );
+
+        console.log(firstUnreadMessageIndex);
+
+        console.log("챗들", chats);
+
+        const readChats = chats.slice(0, firstUnreadMessageIndex);
+        console.log("읽은 애들", chats);
+
+        // 안 읽은 챗은 email이 아닌 해당 email의 createdAt보다 이후의 애들만 골라야 함
+        // createdAt를 기준으로 이후 것들만 남길 것
+        const unreadChats =
+          firstUnreadMessageIndex === -1
+            ? []
+            : chats.slice(firstUnreadMessageIndex).map((chat) => ({
+                ...chat,
+                unread: chat.unread.filter((p) => p !== user?.email),
+              }));
+
+        console.log("안 읽은 애들", chats);
+
+        const updatedChats = [...readChats, ...unreadChats];
+
+        console.log(updatedChats);
+
+        setChats(updatedChats);
+        // 마지막 읽은 메시지 아이디 변경
+        setChatroom((prev) => ({
+          ...prev!,
+          participants: prev!.participants.map((p) => {
+            console.log(chats);
+            console.log(updatedChats);
+
+            return {
+              ...p,
+              lastReadMessageId:
+                p.email === user?.email
+                  ? updatedChats[updatedChats.length - 1].chatId
+                  : p.lastReadMessageId,
+            };
+          }),
+        }));
+      }
     };
 
     ws.onclose = () => {
-      //   setConnection("접속 종료");
+      console.log("접속 종료");
     };
-  }, []);
+  }, [chats, firstUnreadMessageId]);
 
   const context: ChatroomContextType = {
     chatroom: chatroom!,
@@ -119,6 +173,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     setChats,
     websocket,
     user,
+    firstUnreadMessageId,
+    setFirstUnreadMessageId,
   };
 
   return isOpen && user && chatroom ? (

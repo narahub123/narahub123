@@ -9,10 +9,19 @@ const ChatroomModalBody = () => {
   const loadingRef = useRef<HTMLDivElement>(null);
   const lastReadMsgRef = useRef<HTMLLIElement>(null);
   const firstUnreadMsgRef = useRef<HTMLLIElement>(null);
-  const { chatroom, setChatroom, chats, setChats, user, isLoading, roomId } =
-    useChatroomContext();
+  const {
+    chatroom,
+    setChatroom,
+    chats,
+    setChats,
+    user,
+    isLoading,
+    roomId,
+    websocket,
+    firstUnreadMessageId,
+    setFirstUnreadMessageId,
+  } = useChatroomContext();
   const [lastReadMessageId, setLastReadMessageId] = useState("");
-  const [firstUnreadMessageId, setFirstUnreadMessageId] = useState("");
 
   // 마지막 읽은 메시지, 처음 안 읽은 메시 설정
   useEffect(() => {
@@ -80,53 +89,64 @@ const ChatroomModalBody = () => {
     const callback: IntersectionObserverCallback = (entries) => {
       entries.forEach(async (entry) => {
         if (entry.isIntersecting) {
-          // firstUnreadMessage 이후 메시지는 읽음 처리
-          const firstUnreadMessageIndex = chats.findIndex(
-            (chat) => chat.chatId === firstUnreadMessageId
-          );
+          // 웹소켓으로 특정 사용자가 입장함을 전송
+          // 웹소켓을 통해서 전송해야 할 메시지
+          const msg = {
+            type: "unread",
+            roomId,
+            email: user?.email,
+            firstUnreadMessageId,
+          };
 
-          const readChats = chats.slice(0, firstUnreadMessageIndex);
-          const unreadChats =
-            firstUnreadMessageIndex === -1
-              ? []
-              : chats.slice(firstUnreadMessageIndex).map((chat) => ({
-                  ...chat,
-                  unread: chat.unread.filter((p) => p !== user?.email),
-                }));
+          websocket?.send(JSON.stringify(msg));
 
-          const updatedChats = [...readChats, ...unreadChats];
+          // // firstUnreadMessage 이후 메시지는 읽음 처리
+          // const firstUnreadMessageIndex = chats.findIndex(
+          //   (chat) => chat.chatId === firstUnreadMessageId
+          // );
 
-          const response = await fetchWithAuth(
-            `/chatrooms/${roomId}/participants/me/read`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            },
-            {
-              firstUnreadMessageId,
-            }
-          );
+          // const readChats = chats.slice(0, firstUnreadMessageIndex);
+          // const unreadChats =
+          //   firstUnreadMessageIndex === -1
+          //     ? []
+          //     : chats.slice(firstUnreadMessageIndex).map((chat) => ({
+          //         ...chat,
+          //         unread: chat.unread.filter((p) => p !== user?.email),
+          //       }));
 
-          if (!response.success) {
-            console.error("안 읽은 메시지 실패");
-            return;
-          }
+          // const updatedChats = [...readChats, ...unreadChats];
 
-          setChats(updatedChats);
+          // const response = await fetchWithAuth(
+          //   `/chatrooms/${roomId}/participants/me/read`,
+          //   {
+          //     method: "PATCH",
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+          //   },
+          //   {
+          //     firstUnreadMessageId,
+          //   }
+          // );
 
-          // 마지막 읽은 메시지 아이디 변경
-          setChatroom((prev) => ({
-            ...prev!,
-            participants: prev!.participants.map((p) => ({
-              ...p,
-              lastReadMessageId:
-                p.email === user?.email
-                  ? chats[chats.length - 1].chatId
-                  : p.lastReadMessageId,
-            })),
-          }));
+          // if (!response.success) {
+          //   console.error("안 읽은 메시지 실패");
+          //   return;
+          // }
+
+          // setChats(updatedChats);
+
+          // // 마지막 읽은 메시지 아이디 변경
+          // setChatroom((prev) => ({
+          //   ...prev!,
+          //   participants: prev!.participants.map((p) => ({
+          //     ...p,
+          //     lastReadMessageId:
+          //       p.email === user?.email
+          //         ? chats[chats.length - 1].chatId
+          //         : p.lastReadMessageId,
+          //   })),
+          // }));
 
           observer.unobserve(entry.target);
         }

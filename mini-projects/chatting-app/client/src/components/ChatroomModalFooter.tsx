@@ -17,6 +17,7 @@ const ChatroomModalFooter = () => {
     console.log("클릭함");
 
     const msg = {
+      type: "message",
       roomId,
       email: user.email,
       text: chat,

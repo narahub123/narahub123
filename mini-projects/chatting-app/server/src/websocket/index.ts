@@ -1,6 +1,10 @@
 import WebSocket, { WebSocketServer } from "ws";
 import http from "http";
-import { ChatRequestDto } from "../types";
+import {
+  ChatRequestBaseDto,
+  ChatRequestMessageDto,
+  ChatRequestUnreadDto,
+} from "../types";
 import { chatroomService } from "../services";
 
 export default (
@@ -33,15 +37,39 @@ export default (
         ws.send("connected");
 
         ws.on("message", async (msg) => {
-          const msgInfo: ChatRequestDto = JSON.parse(msg.toString());
+          const msgInfo: ChatRequestBaseDto = JSON.parse(msg.toString());
 
-          const chatData = await chatroomService.saveChat(msgInfo);
+          if (msgInfo.type === "message") {
+            try {
+              const chatData = await chatroomService.saveChat(msgInfo);
 
-          newRoom.clients.forEach((client) => {
-            client.send(JSON.stringify(chatData));
-          });
+              newRoom.clients.forEach((client) => {
+                client.send(JSON.stringify({ type: "message", ...chatData }));
+              });
 
-          console.log("메시지 전송");
+              console.log("메시지 전송");
+            } catch (error) {
+              console.error("메시지 전송 실패");
+            }
+          } else if (msgInfo.type === "unread") {
+            try {
+              const { type, roomId, email, firstUnreadMessageId } =
+                msgInfo as ChatRequestUnreadDto;
+
+              await chatroomService.checkReadMessages(
+                roomId,
+                email,
+                firstUnreadMessageId
+              );
+
+              console.log("안 읽은 메시지 처리");
+              newRoom.clients.forEach((client) => {
+                client.send(JSON.stringify({ type }));
+              });
+            } catch (error) {
+              console.error("안 읽은 메시지 처리 실패");
+            }
+          }
         });
 
         ws.on("close", () => {

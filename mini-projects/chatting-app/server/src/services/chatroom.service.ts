@@ -3,12 +3,12 @@ import { ConflictError, NotFoundError, UnauthorizedError } from "../errors";
 import { chatroomRepository } from "../repositories";
 import {
   ChatInfoType,
-  ChatRequestDto,
   ChatroomCreateType,
   ChatroomDocType,
   ChatroomLastMessage,
   ChatroomResponseDto,
   ChatroomParticipantType,
+  ChatRequestMessageDto,
 } from "../types";
 import userService from "./user.service";
 import { convertTimestamps } from "../utils";
@@ -140,7 +140,7 @@ class ChatroomService {
     }
   }
 
-  async saveChat(msgInfo: ChatRequestDto) {
+  async saveChat(msgInfo: ChatRequestMessageDto) {
     const { roomId, email, ...rest } = msgInfo;
 
     // 방의 존재 여부 확인
