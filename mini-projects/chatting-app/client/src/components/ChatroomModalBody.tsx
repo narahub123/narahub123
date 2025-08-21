@@ -100,53 +100,17 @@ const ChatroomModalBody = () => {
 
           websocket?.send(JSON.stringify(msg));
 
-          // // firstUnreadMessage 이후 메시지는 읽음 처리
-          // const firstUnreadMessageIndex = chats.findIndex(
-          //   (chat) => chat.chatId === firstUnreadMessageId
-          // );
-
-          // const readChats = chats.slice(0, firstUnreadMessageIndex);
-          // const unreadChats =
-          //   firstUnreadMessageIndex === -1
-          //     ? []
-          //     : chats.slice(firstUnreadMessageIndex).map((chat) => ({
-          //         ...chat,
-          //         unread: chat.unread.filter((p) => p !== user?.email),
-          //       }));
-
-          // const updatedChats = [...readChats, ...unreadChats];
-
-          // const response = await fetchWithAuth(
-          //   `/chatrooms/${roomId}/participants/me/read`,
-          //   {
-          //     method: "PATCH",
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //     },
-          //   },
-          //   {
-          //     firstUnreadMessageId,
-          //   }
-          // );
-
-          // if (!response.success) {
-          //   console.error("안 읽은 메시지 실패");
-          //   return;
-          // }
-
-          // setChats(updatedChats);
-
-          // // 마지막 읽은 메시지 아이디 변경
-          // setChatroom((prev) => ({
-          //   ...prev!,
-          //   participants: prev!.participants.map((p) => ({
-          //     ...p,
-          //     lastReadMessageId:
-          //       p.email === user?.email
-          //         ? chats[chats.length - 1].chatId
-          //         : p.lastReadMessageId,
-          //   })),
-          // }));
+          // 사용자의 마지막 읽은 메시지 아이디 변경
+          setChatroom((prev) => ({
+            ...prev!,
+            participants: prev!.participants.map((p) => ({
+              ...p,
+              lastReadMessageId:
+                p.email === user?.email
+                  ? chats[chats.length - 1].chatId
+                  : p.lastReadMessageId,
+            })),
+          }));
 
           observer.unobserve(entry.target);
         }

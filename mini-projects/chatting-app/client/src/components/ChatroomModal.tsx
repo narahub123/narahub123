@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
-import { ChatInfo, ChatroomInfo } from "../types";
+import { ChatInfo, ChatroomInfo, IChatroom } from "../types";
 import { fetchWithAuth } from "../utils";
 import {
   WindowControlButtonsContainer,
@@ -104,59 +104,34 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
           ),
         }));
       } else if (chatData.type === "unread") {
-        console.log(firstUnreadMessageId);
+        // 브로드캐스트를 이용한 안 읽은 메시지 수정
+        const { email: sender, firstUnreadMessageId } = chatData;
 
-        // firstUnreadMessage 이후 메시지는 읽음 처리
-        const firstUnreadMessageIndex = chats.findIndex(
-          (chat) => chat.chatId === firstUnreadMessageId
-        );
+        // 모든 참여자의 chats의 unread에서 sender의 이메일을 삭제함 => sender가 메시지를 읽음
+        setChats((prev) => {
+          // sender가 읽지 않은 첫 메시지 index
+          const firstUnreadMessageIndex = prev.findIndex(
+            (c) => c.chatId === firstUnreadMessageId
+          );
 
-        console.log(firstUnreadMessageIndex);
+          // 읽은 메시지들
+          const readChats = prev.slice(0, firstUnreadMessageIndex);
+          // 안 읽은 메시지들
+          // 안 읽은 메시지들의 unread에서 sender 삭제
+          const unreadChats = prev.slice(firstUnreadMessageIndex).map((c) => ({
+            ...c,
+            unread: c.unread.filter((u) => u !== sender),
+          }));
 
-        console.log("챗들", chats);
-
-        const readChats = chats.slice(0, firstUnreadMessageIndex);
-        console.log("읽은 애들", chats);
-
-        // 안 읽은 챗은 email이 아닌 해당 email의 createdAt보다 이후의 애들만 골라야 함
-        // createdAt를 기준으로 이후 것들만 남길 것
-        const unreadChats =
-          firstUnreadMessageIndex === -1
-            ? []
-            : chats.slice(firstUnreadMessageIndex).map((chat) => ({
-                ...chat,
-                unread: chat.unread.filter((p) => p !== chatData.email),
-              }));
-
-        console.log("안 읽은 애들", chats.slice(firstUnreadMessageIndex));
-
-        const updatedChats = [...readChats, ...unreadChats];
-
-        console.log(updatedChats);
-
-        const newChatroom = {
-          ...chatroom,
-          participants: chatroom?.participants.map((p) => ({
-            ...p,
-            lastReadMessageId:
-              p.email === chatData?.email
-                ? updatedChats[updatedChats.length - 1].chatId
-                : p.lastReadMessageId,
-          })),
-        };
-
-        console.log(newChatroom);
-
-        setChats(updatedChats);
-        // 마지막 읽은 메시지 아이디 변경
-        setChatroom(newChatroom as ChatroomInfo);
+          return [...readChats, ...unreadChats];
+        });
       }
     };
 
     ws.onclose = () => {
       console.log("접속 종료");
     };
-  }, [chats, firstUnreadMessageId]);
+  }, []);
 
   const context: ChatroomContextType = {
     chatroom: chatroom!,

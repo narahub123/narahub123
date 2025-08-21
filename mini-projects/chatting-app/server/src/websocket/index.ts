@@ -53,7 +53,7 @@ export default (
             }
           } else if (msgInfo.type === "unread") {
             try {
-              const { type, roomId, email, firstUnreadMessageId } =
+              const { roomId, email, firstUnreadMessageId } =
                 msgInfo as ChatRequestUnreadDto;
 
               await chatroomService.checkReadMessages(
@@ -64,7 +64,9 @@ export default (
 
               console.log("안 읽은 메시지 처리");
               newRoom.clients.forEach((client) => {
-                client.send(JSON.stringify(msgInfo));
+                client.send(
+                  JSON.stringify({ ...msgInfo, firstUnreadMessageId })
+                );
               });
             } catch (error) {
               console.error("안 읽은 메시지 처리 실패");
