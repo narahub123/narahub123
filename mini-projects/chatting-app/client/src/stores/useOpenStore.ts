@@ -75,4 +75,10 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isUserProfileModalOpen,
     })),
+
+  isCheckPasswordModalOpen: false,
+  setIsCheckPasswordModalOpen: (isCheckPasswordModalOpen: boolean) =>
+    set(() => ({
+      isCheckPasswordModalOpen,
+    })),
 }));

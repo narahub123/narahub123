@@ -1,12 +1,25 @@
 import { useState } from "react";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import Input from "./Input";
+import { useOpenStore } from "../stores";
 
 const CheckPasswordModal = () => {
   const [password, setPassword] = useState("");
+  const isCheckPasswordModalOpen = useOpenStore(
+    (state) => state.isCheckPasswordModalOpen
+  );
+
+  const setIsCheckPasswordModalOpen = useOpenStore(
+    (state) => state.setIsCheckPasswordModalOpen
+  );
+
+  const onClose = () => {
+    setIsCheckPasswordModalOpen(false);
+  };
+
   return (
-    <Modal open>
-      <ModalContent className="space-y-4">
+    <Modal open={isCheckPasswordModalOpen}>
+      <ModalContent className="space-y-4" onCloseIconClicked={onClose}>
         <div className="flex justify-center">
           <p className="text-xl font-bold">비밀번호 확인</p>
         </div>

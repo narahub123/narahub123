@@ -12,6 +12,14 @@ const UserProfileModal = () => {
     (state) => state.setIsUserProfileModalOpen
   );
 
+  const setIsCheckPasswordModalOpen = useOpenStore(
+    (state) => state.setIsCheckPasswordModalOpen
+  );
+
+  const onCheckPasswordModalOpen = () => {
+    setIsCheckPasswordModalOpen(true);
+  };
+
   const onClose = () => {
     setIsUserProfileModalOpen(false);
   };
@@ -41,7 +49,12 @@ const UserProfileModal = () => {
               />
             ))}
             {/* ResetPassword 모달창 사용? 비밀번호 확인 후 ResetPasswordModal로 이동?*/}
-            <Button className="text-white btn btn-error">비밀번호 변경</Button>
+            <Button
+              className="text-white btn btn-error"
+              onClick={onCheckPasswordModalOpen}
+            >
+              비밀번호 변경
+            </Button>
           </div>
         </div>
         <div className="flex justify-end">

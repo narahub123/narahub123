@@ -36,6 +36,8 @@ export type OpenState = {
   setIsToastOpen: (isToastOpen: boolean) => void;
   isUserProfileModalOpen: boolean;
   setIsUserProfileModalOpen: (isUserProfileModalOpen: boolean) => void;
+  isCheckPasswordModalOpen: boolean;
+  setIsCheckPasswordModalOpen: (isCheckPasswordModalOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
