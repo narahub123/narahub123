@@ -7,9 +7,10 @@ import {
   MEGA_BYTE,
   SERVER_URL,
   SIGNUP_IMAGE_ACCEPT,
+  SIGNUP_IMAGE_MAXCOUNT,
   SIGNUP_IMAGE_MAXSIZE,
 } from "../constants";
-import { isValidFileSize, isValidFileType } from "../utils";
+import { isValidFileCount, isValidFileSize, isValidFileType } from "../utils";
 import { useToast } from "../hooks";
 
 const EmailSignupModal: FC = () => {
@@ -153,10 +154,8 @@ const EmailSignupModal: FC = () => {
   };
 
   const areValidFiles = (files: File[]) => {
-    // const totalFiles: any[] = [...prevFiles, files];
-
     // 총 파일 개수 유효성 검사
-    // if (!isValidFileCount(totalFiles, SIGNUP_IMAGE_MAXCOUNT)) return false;
+    if (!isValidFileCount(files, SIGNUP_IMAGE_MAXCOUNT)) return false;
 
     // 파일 타입 유효성 검사
     let invalidFiles: File[] = files.filter(
