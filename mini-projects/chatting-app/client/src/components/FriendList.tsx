@@ -1,6 +1,15 @@
 import { FC } from "react";
+import { useOpenStore } from "../stores";
 
 const FriendList: FC = () => {
+  const setIsUserProfileModalOpen = useOpenStore(
+    (state) => state.setIsUserProfileModalOpen
+  );
+
+  const handleOpen = () => {
+    setIsUserProfileModalOpen(true);
+  };
+
   return (
     <section>
       <header>
@@ -9,7 +18,7 @@ const FriendList: FC = () => {
         </div>
         <div>
           <div className="flex justify-end">
-            <button>내 프로필</button>
+            <button onClick={handleOpen}>내 프로필</button>
           </div>
         </div>
       </header>

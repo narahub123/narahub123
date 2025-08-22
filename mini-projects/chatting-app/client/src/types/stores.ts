@@ -34,6 +34,8 @@ export type OpenState = {
   setIsMoreDropdownOpen: (isChatroomSettingOpen: boolean) => void;
   isToastOpen: boolean;
   setIsToastOpen: (isToastOpen: boolean) => void;
+  isUserProfileModalOpen: boolean;
+  setIsUserProfileModalOpen: (isUserProfileModalOpen: boolean) => void;
 };
 
 export type SignupInfoType = {

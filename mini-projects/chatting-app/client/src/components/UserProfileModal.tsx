@@ -1,15 +1,26 @@
-import { useUserStore } from "../stores";
+import { useOpenStore, useUserStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { ProfileImageUploader, Input } from "../components";
 import { profileFieldList } from "../data";
 
 const UserProfileModal = () => {
   const user = useUserStore((state) => state.user);
+  const isUserProfileModalOpen = useOpenStore(
+    (state) => state.isUserProfileModalOpen
+  );
+  const setIsUserProfileModalOpen = useOpenStore(
+    (state) => state.setIsUserProfileModalOpen
+  );
+
+  const onClose = () => {
+    setIsUserProfileModalOpen(false);
+  };
 
   if (!user) return null;
+
   return (
-    <Modal open>
-      <ModalContent className="space-y-4">
+    <Modal open={isUserProfileModalOpen}>
+      <ModalContent className="space-y-4" onCloseIconClicked={onClose}>
         <div className="flex justify-center">
           <h2 className="text-xl font-bold">사용자 프로필</h2>
         </div>

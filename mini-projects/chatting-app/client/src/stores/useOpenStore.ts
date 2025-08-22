@@ -70,4 +70,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isToastOpen,
     })),
+  isUserProfileModalOpen: false,
+  setIsUserProfileModalOpen: (isUserProfileModalOpen: boolean) =>
+    set(() => ({
+      isUserProfileModalOpen,
+    })),
 }));
