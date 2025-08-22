@@ -17,6 +17,12 @@ const CheckPasswordModal = () => {
     setIsCheckPasswordModalOpen(false);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setPassword(value);
+  };
+
   return (
     <Modal open={isCheckPasswordModalOpen}>
       <ModalContent className="space-y-4" onCloseIconClicked={onClose}>
@@ -29,6 +35,7 @@ const CheckPasswordModal = () => {
             entity={password}
             field="password"
             placeholder="현재 비밀번호를 작성해주세요."
+            onChange={handleChange}
           />
         </div>
         <div className="flex justify-end">
