@@ -40,6 +40,7 @@ const UserProfileModal = () => {
   useEffect(() => {
     if (!user) return;
 
+    // 초기화
     setProfile({
       userId: user.userId,
       username: user.username,
@@ -56,7 +57,19 @@ const UserProfileModal = () => {
   };
 
   const onClose = () => {
+    if (!user) return;
     setIsUserProfileModalOpen(false);
+    
+    // 초기화
+    setProfile({
+      userId: user.userId,
+      username: user.username,
+      email: user.email,
+      profileImage: {
+        file: null,
+        preview: user.profileImage,
+      },
+    });
   };
 
   const storeFiles = (files: File[]) => {
