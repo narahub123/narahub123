@@ -32,6 +32,7 @@ import MoreDropdown from "./MoreDropdown";
 import DragAndDrop from "./DragAndDrop";
 import Toast from "./Toast";
 import UserProfileModal from "./UserProfileModal";
+import CheckPasswordModal from "./CheckPasswordModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -73,4 +74,5 @@ export {
   DragAndDrop,
   Toast,
   UserProfileModal,
+  CheckPasswordModal,
 };

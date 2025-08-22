@@ -4,6 +4,7 @@ import {
   ChatroomCreateModal,
   ChatroomJoinModal,
   ChatroomModal,
+  CheckPasswordModal,
   EmailSignupModal,
   LoginModal,
   OpenChatroomListModal,
@@ -33,7 +34,6 @@ function App() {
   return (
     <div className="App">
       <ChatModal />
-      <ResetPasswordModal />
       <EmailSignupModal />
       <SignupModal />
       <LoginModal />
@@ -42,6 +42,8 @@ function App() {
       <ChatroomCreateModal />
       <OpenChatroomListModal />
       <UserProfileModal />
+      <ResetPasswordModal />
+      <CheckPasswordModal />
       <ChatroomJoinModal />
       {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal
