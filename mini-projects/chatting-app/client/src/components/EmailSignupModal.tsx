@@ -219,7 +219,10 @@ const EmailSignupModal: FC = () => {
             <div className="flex justify-center">
               <div className="space-y-4">
                 <div className="flex justify-center flex-1">
-                  <ProfileImageUploader />
+                  <ProfileImageUploader
+                    profileImage={signupInfo.profile_image}
+                    setProfileImage={setProfileImage}
+                  />
                 </div>
 
                 {signupFieldList.map((input) => (

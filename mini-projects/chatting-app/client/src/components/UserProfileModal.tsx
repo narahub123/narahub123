@@ -11,14 +11,12 @@ import {
   SIGNUP_IMAGE_MAXSIZE,
 } from "../constants";
 import { useToast } from "../hooks";
+import { ImageType } from "../types";
 
 interface ProfileInfo {
   userId: string;
   username: string;
-  profileImage: {
-    file: File | null;
-    preview: string;
-  };
+  profileImage: ImageType;
   email: string;
 }
 
@@ -113,6 +111,13 @@ const UserProfileModal = () => {
     return true;
   };
 
+  const setProfileImage = (profileImage: ImageType) => {
+    setProfile((prev) => ({
+      ...prev!,
+      profileImage,
+    }));
+  };
+
   if (!user || !profile) return null;
 
   return (
@@ -131,7 +136,10 @@ const UserProfileModal = () => {
           <div className="space-y-4">
             <div className="flex justify-center">
               {/* 회원가입과 사용자 프로필 모두에 적용 가능하게 변경해야 함 */}
-              <ProfileImageUploader />
+              <ProfileImageUploader
+                profileImage={profile.profileImage}
+                setProfileImage={setProfileImage}
+              />
             </div>
             <div className="space-y-4">
               {profileFieldList.map((input) => (

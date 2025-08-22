@@ -1,16 +1,21 @@
 import { FC } from "react";
 import ImageUploader from "./ImageUploader";
 import ProfileImage from "./ProfileImage";
-import { useAuthStore } from "../stores";
+import { ImageType } from "../types";
 
-const ProfileImageUploader: FC = () => {
-  const image = useAuthStore((state) => state.signup.profile_image);
-  const setImage = useAuthStore((state) => state.setProfileImage);
+interface ProfileImageUploaderProps {
+  profileImage: ImageType | null;
+  setProfileImage: (profileImage: ImageType) => void;
+}
 
+const ProfileImageUploader: FC<ProfileImageUploaderProps> = ({
+  profileImage,
+  setProfileImage,
+}) => {
   return (
     <div className="relative">
-      <ImageUploader setImage={setImage} />
-      <ProfileImage src={image?.preview || ""} />
+      <ImageUploader setImage={setProfileImage} />
+      <ProfileImage src={profileImage?.preview || ""} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { ChatroomUserInfo } from "./stores";
 
 export type ImageType = {
-  file: File | string;
+  file: File | string | null;
   preview: string;
 };
 
