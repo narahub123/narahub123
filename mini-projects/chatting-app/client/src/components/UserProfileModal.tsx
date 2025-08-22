@@ -23,6 +23,7 @@ interface ProfileInfo {
 const UserProfileModal = () => {
   const [isIn, setIsIn] = useState(false);
   const [profile, setProfile] = useState<ProfileInfo | null>(null);
+  const [canSend, setCanSend] = useState(false);
   const user = useUserStore((state) => state.user);
   const isUserProfileModalOpen = useOpenStore(
     (state) => state.isUserProfileModalOpen
@@ -37,6 +38,7 @@ const UserProfileModal = () => {
 
   const toast = useToast();
 
+  // profile 초기화
   useEffect(() => {
     if (!user) return;
 
@@ -52,6 +54,18 @@ const UserProfileModal = () => {
     });
   }, [user]);
 
+  // 전송 가능 여부 확인
+  useEffect(() => {
+    if (!profile || !user) return;
+    const canSend = [
+      profile.userId !== user.userId,
+      profile.profileImage.preview !== user.profileImage,
+      profile.username !== user.username,
+    ].some(Boolean);
+
+    setCanSend((prev) => (prev === canSend ? prev : canSend));
+  }, [profile, user]);
+
   const onCheckPasswordModalOpen = () => {
     setIsCheckPasswordModalOpen(true);
   };
@@ -59,7 +73,7 @@ const UserProfileModal = () => {
   const onClose = () => {
     if (!user) return;
     setIsUserProfileModalOpen(false);
-    
+
     // 초기화
     setProfile({
       userId: user.userId,
@@ -131,6 +145,19 @@ const UserProfileModal = () => {
     }));
   };
 
+  // 입력 값 업데이트 함수
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setProfile((prev) => ({
+      ...prev!,
+      [id]: value,
+    }));
+  };
+
+  const handleUpdateProfile = () => {};
+
   if (!user || !profile) return null;
 
   return (
@@ -148,7 +175,6 @@ const UserProfileModal = () => {
           </div>
           <div className="space-y-4">
             <div className="flex justify-center">
-              {/* 회원가입과 사용자 프로필 모두에 적용 가능하게 변경해야 함 */}
               <ProfileImageUploader
                 profileImage={profile.profileImage}
                 setProfileImage={setProfileImage}
@@ -163,6 +189,7 @@ const UserProfileModal = () => {
                   type={input.type}
                   entity={profile}
                   disabled={input.field === "email"}
+                  onChange={handleChange}
                 />
               ))}
               {/* ResetPassword 모달창 사용? 비밀번호 확인 후 ResetPasswordModal로 이동?*/}
@@ -175,7 +202,13 @@ const UserProfileModal = () => {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button className="btn-primary">프로필 변경</Button>
+            <Button
+              className="btn-primary"
+              onClick={handleUpdateProfile}
+              disabled={!canSend}
+            >
+              프로필 변경
+            </Button>
           </div>
         </DragAndDrop>
       </ModalContent>
