@@ -10,6 +10,7 @@ import {
   ResetPasswordModal,
   SignupModal,
   Toast,
+  UserProfileModal,
   WidgetButton,
 } from "./components";
 import { useLoginCheck } from "./hooks";
@@ -40,6 +41,7 @@ function App() {
       <WidgetButton />
       <ChatroomCreateModal />
       <OpenChatroomListModal />
+      <UserProfileModal />
       <ChatroomJoinModal />
       {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal

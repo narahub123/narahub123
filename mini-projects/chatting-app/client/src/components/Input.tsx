@@ -6,6 +6,7 @@ type InputProps = InputHtmlProps & {
   entity: any;
   field: string;
   placeholder: string;
+  disabled?: boolean;
   type?: string;
 };
 

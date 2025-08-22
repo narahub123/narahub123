@@ -81,3 +81,19 @@ export const oauths: Record<OauthType, OauthInfoType> = {
     prompt: "consent",
   },
 };
+
+export const profileFieldList = [
+  {
+    field: "userId",
+    placeholder: "사용자 아이디",
+  },
+  {
+    field: "username",
+    placeholder: "사용자 이름",
+  },
+  {
+    field: "email",
+    placeholder: "이메일",
+    type: "email",
+  },
+];

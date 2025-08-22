@@ -31,6 +31,7 @@ import ChatroomModalFooter from "./ChatroomModalFooter";
 import MoreDropdown from "./MoreDropdown";
 import DragAndDrop from "./DragAndDrop";
 import Toast from "./Toast";
+import UserProfileModal from "./UserProfileModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -71,4 +72,5 @@ export {
   MoreDropdown,
   DragAndDrop,
   Toast,
+  UserProfileModal,
 };
