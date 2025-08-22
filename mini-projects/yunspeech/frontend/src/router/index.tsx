@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
+import { AdminPage, HomePage } from "../pages";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <>홈</>,
+    element: <HomePage />,
   },
   {
     path: "/admin",
-    element: <>관리자</>,
+    element: <AdminPage />,
   },
 ]);
