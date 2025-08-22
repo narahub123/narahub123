@@ -129,7 +129,7 @@ export interface IChatroom {
 }
 
 export interface ToastType {
-  type: "error";
+  type: "error" | "success";
   message: string;
 }
 

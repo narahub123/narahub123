@@ -10,3 +10,9 @@ export interface LoginInfo {
   email: string;
   password: string;
 }
+
+export interface ProfileInfo {
+  username: string;
+  userId: string;
+  profileImage: string;
+}

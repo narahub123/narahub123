@@ -9,7 +9,7 @@ import {
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
-import { LoginInfo, SignupInfo } from "../types";
+import { LoginInfo, ProfileInfo, SignupInfo } from "../types";
 
 class UserRepository {
   private userCollection: CollectionReference<DocumentData>;
@@ -79,6 +79,16 @@ class UserRepository {
         .update({ chatrooms: FieldValue.arrayRemove(roomId) });
     } catch (err) {
       throw mapFirebaseError;
+    }
+  }
+
+  async updateMe(email: string, profile: ProfileInfo) {
+    try {
+      const userDoc = this.userCollection.doc(email);
+
+      return userDoc.update({ ...profile });
+    } catch (err) {
+      throw mapFirebaseError(err);
     }
   }
 }

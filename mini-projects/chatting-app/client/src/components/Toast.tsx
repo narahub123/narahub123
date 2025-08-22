@@ -44,18 +44,25 @@ const Toast = () => {
       toastRef.current?.removeEventListener("transitionend", transitionEnd);
   }, [isToastOpen]);
 
+  if (!toast) return null;
+
   return createPortal(
     <div
       ref={toastRef}
-      className={`max-w-[95%] min-w-[50%] flex items-center gap-2 -z-10 text-white bg-red-400 absolute bottom-8 left-1/2 -translate-x-1/2  opacity-0 transition-opacity duration-500 py-2 px-4 rounded-lg ${
+      className={`max-w-[95%] min-w-[50%] flex items-center gap-2 -z-10 text-white ${
+        toast?.type === "error" ? "bg-red-400" : "bg-green-400"
+      } absolute bottom-8 left-1/2 -translate-x-1/2  opacity-0 transition-opacity duration-500 py-2 px-4 rounded-lg ${
         isToastOpen ? "opacity-100" : ""
       }`}
     >
       <span>
-        <Icon name="error" className="text-2xl" />
+        <Icon
+          name={toast.type === "error" ? "error" : "check_circle"}
+          className="text-2xl"
+        />
       </span>
       <span>
-        <p>{toast?.message}</p>
+        <p>{toast.message}</p>
       </span>
     </div>,
     document.body

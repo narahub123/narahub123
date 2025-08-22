@@ -1,7 +1,7 @@
 import { ConflictError, NotFoundError } from "../errors";
 import { userRepository } from "../repositories";
 
-import { LoginInfo, SignupInfo } from "../types";
+import { LoginInfo, ProfileInfo, SignupInfo } from "../types";
 
 class UserService {
   async getUserByEmail(email: string) {
@@ -73,6 +73,15 @@ class UserService {
   // 채팅방 탈퇴
   async leaveChatroom(email: string, roomId: string) {
     await userRepository.leaveChatroom(email, roomId);
+  }
+
+  // 사용자 프로필 업데이트
+  async updateMe(email: string, profile: ProfileInfo) {
+    try {
+      await userRepository.updateMe(email, profile);
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

@@ -73,3 +73,26 @@ export const getUserChatrooms = asyncWrapper(
     });
   }
 );
+
+// 사용자 정보 업데이트
+export const updateMe = asyncWrapper(
+  "updateMe",
+  async (req: Request, res: Response) => {
+    const data = req.body.profile;
+
+    const { email, ...profile } = data;
+
+    await userService.updateMe(email, {
+      ...profile,
+      profileImage: profile.profileImage,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "사용자 정보 업데이트 성공",
+      code: "UPDATE_USER_SUCCEEDED",
+      timestamp: new Date().toISOString(),
+      // 이미지 업로드 후 data 추가할 것
+    });
+  }
+);

@@ -3,7 +3,12 @@ import { useOpenStore, useUserStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import { ProfileImageUploader, Input, DragAndDrop } from "../components";
 import { profileFieldList } from "../data";
-import { isValidFileCount, isValidFileSize, isValidFileType } from "../utils";
+import {
+  fetchWithAuth,
+  isValidFileCount,
+  isValidFileSize,
+  isValidFileType,
+} from "../utils";
 import {
   MEGA_BYTE,
   SIGNUP_IMAGE_ACCEPT,
@@ -156,7 +161,47 @@ const UserProfileModal = () => {
     }));
   };
 
-  const handleUpdateProfile = () => {};
+  const handleUpdateProfile = async () => {
+    try {
+      const response = await fetchWithAuth(
+        "/users/me",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+        {
+          profile: {
+            ...profile,
+            profileImage: profile?.profileImage.file,
+          },
+        }
+      );
+
+      if (!response.success) {
+        console.error("프로필 수정 실패");
+        toast({
+          type: "error",
+          message: "프로필 수정 실패",
+        });
+        return;
+      }
+
+      // setProfile(response.data.profile);
+
+      toast({
+        type: "success",
+        message: "프로필 수정 성공",
+      });
+    } catch (err) {
+      console.error(err);
+      toast({
+        type: "error",
+        message: "프로필 수정 실패",
+      });
+    }
+  };
 
   if (!user || !profile) return null;
 
