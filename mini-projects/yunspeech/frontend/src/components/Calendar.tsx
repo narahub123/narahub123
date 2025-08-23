@@ -96,7 +96,7 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick, type }) => {
   const days = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
-    <div className="items-center w-full">
+    <div className="items-center max-w-[500px] space-y-2">
       <div className="flex items-center justify-around">
         <div className="w-full">
           <button className="w-full" onClick={prevMonth}>
@@ -114,14 +114,16 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick, type }) => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-7 py-2 text-center">
+      <div className="grid grid-cols-7 text-center">
         {days.map((day) => (
-          <p key={day}>{day}</p>
+          <p key={day} className="flex justify-center">
+            {day}
+          </p>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-2 text-center">
+      <div className="grid grid-cols-7 text-center">
         {dates.map((date) => (
-          <div key={date.toDateString()}>
+          <div key={date.toDateString()} className="flex justify-center p-2">
             <DateButton
               date={date}
               onClick={onClick}

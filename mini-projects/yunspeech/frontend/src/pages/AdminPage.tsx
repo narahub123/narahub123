@@ -38,22 +38,20 @@ const AdminPage: FC = () => {
       <div>
         <button onClick={() => navigate("/")}>홈으로</button>
       </div>
-      <div>
-        <p>달력</p>
+      <div className="p-4 border">
         <Calendar
           selectedDate={selectedDate}
           onClick={getSelectedDate}
           type="admin"
         />
       </div>
-      <div>
-        <div className="flex justify-center gap-4">
+      <div className="p-4 space-y-4 border">
+        <div className="flex justify-center gap-4 ">
           <span>선택한 날짜</span>
           <span>{selectedDate.toLocaleDateString()}</span>
         </div>
         <div>
-          <div>시간 설정하기</div>
-          <div className="space-y-2">
+          <div className="flex flex-col items-center space-y-2">
             {(schedules[selectedDate.toLocaleDateString()] ?? []).map(
               (_, index) => (
                 <TimeChecker
@@ -64,11 +62,20 @@ const AdminPage: FC = () => {
               )
             )}
           </div>
-          <button
-            onClick={() => addTimeSlot(selectedDate.toLocaleDateString(), 0)}
-          >
-            시간 추가
-          </button>
+          {(!schedules[selectedDate.toLocaleDateString()] ||
+            schedules[selectedDate.toLocaleDateString()].length === 0) && (
+            <div className="flex justify-center">
+              <button
+                className="btn btn-primary"
+                onClick={() =>
+                  addTimeSlot(selectedDate.toLocaleDateString(), 0)
+                }
+                title="시간 추가"
+              >
+                <span className="material-icons">{"add"}</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

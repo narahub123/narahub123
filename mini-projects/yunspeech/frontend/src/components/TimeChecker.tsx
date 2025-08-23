@@ -65,22 +65,22 @@ const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
       </span>
       <span>
         <button
-          className="material-icons btn"
-          onClick={() =>
-            removeTimeSlot(selectedDate.toLocaleDateString(), index)
-          }
-        >
-          {"remove"}
-        </button>
-      </span>
-      <span>
-        <button
-          className="material-icons btn"
+          className="material-icons btn btn-primary"
           onClick={() =>
             addTimeSlot(selectedDate.toLocaleDateString(), index + 1)
           }
         >
           {"add"}
+        </button>
+      </span>
+      <span>
+        <button
+          className="text-white material-icons btn btn-error"
+          onClick={() =>
+            removeTimeSlot(selectedDate.toLocaleDateString(), index)
+          }
+        >
+          {"remove"}
         </button>
       </span>
     </div>

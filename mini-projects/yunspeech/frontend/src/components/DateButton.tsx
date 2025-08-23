@@ -15,8 +15,6 @@ const DateButton: FC<DateButtonProps> = ({
   type,
 }) => {
   const schedules = useSchedulesStore((state) => state.schedules);
-  console.log(selectedDate == date);
-
   const isSelected = date.getTime() === selectedDate.getTime();
   const today = new Date();
   today.setHours(0, 0, 0, 0);

@@ -23,8 +23,6 @@ const HomePage: FC = () => {
     setSelectedDate(today);
   }, []);
 
-  console.log(selectedDate);
-
   const handleClick = (date: Date) => {
     setIsOpen(false);
     setTimeslot({
