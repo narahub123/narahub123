@@ -60,9 +60,11 @@ jobs:
         run: |
           mkdir -p deploy/react-project
           mkdir -p deploy/chatting-app
+          mkdir -p deploy/yunspeech
           # 올바른 소스 경로로 수정
           cp -r mini-projects/react-project/build/* deploy/react-project/
           cp -r mini-projects/chatting-app/client/build/* deploy/chatting-app/
+          cp -r mini-projects/yunspeech/frontend/build/* deploy/yunspeech/
 
           # 루트 경로에 README.md 같은 파일을 두고 싶다면 여기에 추가
           # cp README.md deploy/
