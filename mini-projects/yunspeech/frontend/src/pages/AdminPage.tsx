@@ -31,21 +31,21 @@ const AdminPage: FC = () => {
   console.log(schedules);
 
   return (
-    <div className="space-y-4">
+    <div className="">
       <div>
         <p>관리자 페이지입니다.</p>
       </div>
       <div>
         <button onClick={() => navigate("/")}>홈으로</button>
       </div>
-      <div className="p-4 border">
+      <div className="flex justify-center p-4">
         <Calendar
           selectedDate={selectedDate}
           onClick={getSelectedDate}
           type="admin"
         />
       </div>
-      <div className="p-4 space-y-4 border">
+      <div className="flex flex-col justify-center p-2 space-y-4">
         <div className="flex justify-center gap-4 ">
           <span>선택한 날짜</span>
           <span>{selectedDate.toLocaleDateString()}</span>

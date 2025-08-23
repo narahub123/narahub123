@@ -19,7 +19,11 @@ const DateButton: FC<DateButtonProps> = ({
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const isPast = today > date;
-  const isDisabled = isPast || !schedules[date.toLocaleDateString()];
+  const isDisabled =
+    isPast ||
+    !schedules[date.toLocaleDateString()] ||
+    (schedules[date.toLocaleDateString()].length === 1 &&
+      !schedules[date.toLocaleDateString()][0].start);
   const hasSchedules = schedules[date.toLocaleDateString()];
   return (
     <button
