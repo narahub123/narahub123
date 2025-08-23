@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { Calendar, TimeChecker } from "../components";
 import { useSchedulesStore } from "../stores";
+import { useNavigate } from "react-router-dom";
 
 export interface TimeSlot {
   start: string;
@@ -8,6 +9,7 @@ export interface TimeSlot {
 }
 
 const AdminPage: FC = () => {
+  const navigate = useNavigate();
   const schedules = useSchedulesStore((state) => state.schedules);
   const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -22,6 +24,9 @@ const AdminPage: FC = () => {
     <div className="space-y-4">
       <div>
         <p>관리자 페이지입니다.</p>
+      </div>
+      <div>
+        <button onClick={() => navigate("/")}>홈으로</button>
       </div>
       <div>
         <p>달력</p>
