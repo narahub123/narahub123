@@ -1,27 +1,17 @@
 import { FC } from "react";
 import { TimeSlot } from "../pages/AdminPage";
+import { useSchedulesStore } from "../stores";
 
 interface TimeCheckerProps {
   selectedDate: Date;
-  setSchedules: React.Dispatch<
-    React.SetStateAction<Record<string, TimeSlot[]>>
-  >;
   index: number;
 }
 
-const TimeChecker: FC<TimeCheckerProps> = ({
-  selectedDate,
-  setSchedules,
-  index,
-}) => {
-  const removeTime = () => {
-    setSchedules((prev) => ({
-      ...prev,
-      [selectedDate.toLocaleDateString()]: prev[
-        selectedDate.toLocaleDateString()
-      ].filter((_, idx) => idx !== index),
-    }));
-  };
+const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
+  const schedules = useSchedulesStore((state) => state.schedules);
+  const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
+  const setTimeSlot = useSchedulesStore((state) => state.setTimeSlot);
+  const removeTimeSlot = useSchedulesStore((state) => state.deleteTimeSlot);
 
   return (
     <div className="flex items-center gap-2">
@@ -34,22 +24,21 @@ const TimeChecker: FC<TimeCheckerProps> = ({
           name="start"
           id="start"
           onChange={(e) => {
-            const start = e.target.value;
+            const id = e.target.id;
+            const value = e.target.value;
 
-            setSchedules((prev) => ({
-              ...prev,
-              [selectedDate.toLocaleDateString()]: prev[
-                selectedDate.toLocaleDateString()
-              ].map((ts, idx) => {
-                if (index === idx) {
-                  return {
-                    ...ts,
-                    start,
-                  };
-                } else return ts;
-              }),
-            }));
+            console.log(id, value);
+
+            const timeslot: TimeSlot = {
+              ...schedules[selectedDate.toLocaleDateString()][index],
+              [id]: value,
+            };
+
+            console.log(timeslot);
+
+            setTimeSlot(selectedDate.toLocaleDateString(), index, timeslot);
           }}
+          value={schedules[selectedDate.toLocaleDateString()][index].start}
         />
       </span>
       <span className="flex items-center gap-2 p-2 border">
@@ -61,31 +50,36 @@ const TimeChecker: FC<TimeCheckerProps> = ({
           name="end"
           id="end"
           onChange={(e) => {
-            const end = e.target.value;
+            const id = e.target.id;
+            const value = e.target.value;
 
-            setSchedules((prev) => ({
-              ...prev,
-              [selectedDate.toLocaleDateString()]: prev[
-                selectedDate.toLocaleDateString()
-              ].map((ts, idx) => {
-                if (index === idx) {
-                  return {
-                    ...ts,
-                    end,
-                  };
-                } else return ts;
-              }),
-            }));
+            const timeslot: TimeSlot = {
+              ...schedules[selectedDate.toLocaleDateString()][index],
+              [id]: value,
+            };
+
+            setTimeSlot(selectedDate.toLocaleDateString(), index, timeslot);
           }}
+          value={schedules[selectedDate.toLocaleDateString()][index].end}
         />
       </span>
       <span>
-        <button className="material-icons btn" onClick={removeTime}>
+        <button
+          className="material-icons btn"
+          onClick={() =>
+            removeTimeSlot(selectedDate.toLocaleDateString(), index)
+          }
+        >
           {"remove"}
         </button>
       </span>
       <span>
-        <button className="material-icons btn" onClick={removeTime}>
+        <button
+          className="material-icons btn"
+          onClick={() =>
+            addTimeSlot(selectedDate.toLocaleDateString(), index + 1)
+          }
+        >
           {"add"}
         </button>
       </span>

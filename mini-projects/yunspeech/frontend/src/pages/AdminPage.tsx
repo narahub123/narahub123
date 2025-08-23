@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { Calendar, TimeChecker } from "../components";
+import { useSchedulesStore } from "../stores";
 
 export interface TimeSlot {
   start: string;
@@ -7,23 +8,12 @@ export interface TimeSlot {
 }
 
 const AdminPage: FC = () => {
-  const [schedules, setSchedules] = useState<Record<string, TimeSlot[]>>({});
+  const schedules = useSchedulesStore((state) => state.schedules);
+  const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const getSelectedDate = (date: Date) => {
     setSelectedDate(date);
-  };
-
-  const addTimeSlot = () => {
-    setSchedules((prev) => ({
-      ...prev,
-      [selectedDate.toLocaleDateString()]: [
-        {
-          start: "",
-          end: "",
-        },
-      ],
-    }));
   };
 
   console.log(schedules);
@@ -51,12 +41,15 @@ const AdminPage: FC = () => {
                   key={index}
                   selectedDate={selectedDate}
                   index={index}
-                  setSchedules={setSchedules}
                 />
               )
             )}
           </div>
-          <button onClick={addTimeSlot}>시간 추가</button>
+          <button
+            onClick={() => addTimeSlot(selectedDate.toLocaleDateString(), 0)}
+          >
+            시간 추가
+          </button>
         </div>
       </div>
     </div>

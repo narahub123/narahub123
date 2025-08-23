@@ -1,0 +1,11 @@
+export interface TimeSlot {
+  start: string;
+  end: string;
+}
+
+export interface ScheduleState {
+  schedules: Record<string, TimeSlot[]>;
+  addTimeSlot: (date: string, index: number) => void;
+  deleteTimeSlot: (date: string, index: number) => void;
+  setTimeSlot: (date: string, index: number, timeslot: TimeSlot) => void;
+}
