@@ -92,7 +92,7 @@ const HomePage: FC = () => {
       return;
     }
 
-    if (id === "start" && value > timeslot.end) {
+    if (id === "start" && value >= timeslot.end) {
       console.error(`시작 시간은 종료시간 이전여야 합니다.`);
       toast({
         type: "error",
@@ -101,7 +101,7 @@ const HomePage: FC = () => {
       return;
     }
 
-    if (id === "end" && value < timeslot.start) {
+    if (id === "end" && value <= timeslot.start) {
       console.error(`종료 시간은 시작 시간 이후여야 합니다.`);
       toast({
         type: "error",
