@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { Calendar } from "../components";
+import { Calendar, Toast } from "../components";
 import { TimeSlot } from "./AdminPage";
 import { useSchedulesStore } from "../stores";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../hooks";
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const HomePage: FC = () => {
     start: "",
     end: "",
   });
+
+  const toast = useToast();
 
   useEffect(() => {
     const today = new Date();
@@ -44,21 +47,37 @@ const HomePage: FC = () => {
 
     if (value < startTime) {
       console.error(`상담 시간은 ${startTime}이후여야 합니다.`);
+      toast({
+        type: "error",
+        message: `상담 시간은 ${startTime}이후여야 합니다.`,
+      });
       return;
     }
 
     if (value > endTime) {
       console.error(`상담 시간은 ${endTime}이전여야 합니다.`);
+      toast({
+        type: "error",
+        message: `상담 시간은 ${endTime}이전이어야 합니다.`,
+      });
       return;
     }
 
     if (id === "start" && value > timeslot.end) {
       console.error(`시작 시간은 종료시간 이전여야 합니다.`);
+      toast({
+        type: "error",
+        message: `시작 시간은 종료시간 이전이어야 합니다.`,
+      });
       return;
     }
 
     if (id === "end" && value < timeslot.start) {
       console.error(`종료 시간은 시작 시간 이후여야 합니다.`);
+      toast({
+        type: "error",
+        message: `종료 시간은 시작 시간 이후여야 합니다.`,
+      });
       return;
     }
 
@@ -159,6 +178,7 @@ const HomePage: FC = () => {
           )}
         </div>
       </div>
+      <Toast />
     </div>
   );
 };
