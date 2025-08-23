@@ -46,6 +46,14 @@ jobs:
           npm install
           CI=false npm run build
           cp build/index.html build/404.html
+        # --- project2 빌드 ---
+      - name: 📦 Install and Build Project 3
+        env:
+        run: |
+          cd mini-projects/yunspeech/frontend
+          npm install
+          CI=false npm run build
+          cp build/index.html build/404.html
 
       # --- 빌드 결과물을 한 곳으로 모으기 ---
       - name: 📂 Prepare deployment directory
