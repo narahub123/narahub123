@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useSchedulesStore } from "../stores";
+import { getDateKey } from "../utils";
 
 interface DateButtonProps {
   date: Date;
@@ -15,16 +16,19 @@ const DateButton: FC<DateButtonProps> = ({
   type,
 }) => {
   const schedules = useSchedulesStore((state) => state.schedules);
+
+  const key = getDateKey(date);
+
   const isSelected = date.getTime() === selectedDate.getTime();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const isPast = today > date;
   const isDisabled =
     isPast ||
-    !schedules[date.toLocaleDateString()] ||
-    (schedules[date.toLocaleDateString()].length === 1 &&
-      !schedules[date.toLocaleDateString()][0].start);
-  const hasSchedules = schedules[date.toLocaleDateString()];
+    !schedules[key] ||
+    schedules[key].length === 0 ||
+    (schedules[key].length === 1 && !schedules[key][0].start);
+  const hasSchedules = schedules[key] && schedules[key].length > 0;
   return (
     <button
       className={`btn-circle ${

@@ -3,6 +3,13 @@ import { ScheduleState, TimeSlot } from "../types";
 
 export const useSchedulesStore = create<ScheduleState>((set) => ({
   schedules: {},
+  setSchedule: (schedule: Record<string, TimeSlot[]>) =>
+    set((state) => ({
+      schedules: {
+        ...state.schedules,
+        ...schedule,
+      },
+    })),
   addTimeSlot: (date: string, index: number) =>
     set((state) => {
       const copy = [...(state.schedules[date] || [])];
