@@ -25,6 +25,7 @@ const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
 
       if (!docSnap.exists()) {
         console.error("해당 날짜의 스케줄 문서가 존재하지 않습니다.");
+        removeTimeSlot(key, index);
         return;
       }
 
