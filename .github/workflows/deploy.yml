@@ -49,6 +49,7 @@ jobs:
         # --- project2 빌드 ---
       - name: 📦 Install and Build Project 3
         env:
+          REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}     
         run: |
           cd mini-projects/yunspeech/frontend
           npm install
