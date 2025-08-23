@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Calendar, TimeChecker } from "../components";
 import { useSchedulesStore } from "../stores";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,16 @@ const AdminPage: FC = () => {
   const schedules = useSchedulesStore((state) => state.schedules);
   const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  useEffect(() => {
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    setSelectedDate(today);
+  }, []);
+
+  console.log(selectedDate);
 
   const getSelectedDate = (date: Date) => {
     setSelectedDate(date);
@@ -30,7 +40,11 @@ const AdminPage: FC = () => {
       </div>
       <div>
         <p>달력</p>
-        <Calendar selectedDate={selectedDate} onClick={getSelectedDate} />
+        <Calendar
+          selectedDate={selectedDate}
+          onClick={getSelectedDate}
+          type="admin"
+        />
       </div>
       <div>
         <div className="flex justify-center gap-4">

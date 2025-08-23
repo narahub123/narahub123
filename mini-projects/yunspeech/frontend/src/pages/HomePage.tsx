@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Calendar } from "../components";
 import { TimeSlot } from "./AdminPage";
 import { useSchedulesStore } from "../stores";
@@ -15,9 +15,22 @@ const HomePage: FC = () => {
     end: "",
   });
 
-  console.log(schedules);
+  useEffect(() => {
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    setSelectedDate(today);
+  }, []);
+
+  console.log(selectedDate);
 
   const handleClick = (date: Date) => {
+    setIsOpen(false);
+    setTimeslot({
+      start: "",
+      end: "",
+    });
     setSelectedDate(date);
   };
 
@@ -64,7 +77,11 @@ const HomePage: FC = () => {
       </div>
       <div className="space-y-4">
         <div>
-          <Calendar selectedDate={selectedDate} onClick={handleClick} />
+          <Calendar
+            selectedDate={selectedDate}
+            onClick={handleClick}
+            type="guest"
+          />
         </div>
         <div className="space-y-2">
           <div>{selectedDate.toLocaleDateString()}</div>
@@ -138,7 +155,7 @@ const HomePage: FC = () => {
                 </span>
               </div>
               <div>
-                <button className="btn btn-primary">상담 폼 제출하기</button>
+                <button className="btn btn-primary">상담 폼 작성하기</button>
               </div>
             </div>
           )}

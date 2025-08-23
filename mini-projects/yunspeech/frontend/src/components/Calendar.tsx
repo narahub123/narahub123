@@ -4,9 +4,10 @@ import DateButton from "./DateButton";
 interface CalendarProps {
   selectedDate: Date;
   onClick: (date: Date) => void;
+  type: "admin" | "guest";
 }
 
-const Calendar: FC<CalendarProps> = ({ selectedDate, onClick }) => {
+const Calendar: FC<CalendarProps> = ({ selectedDate, onClick, type }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [dates, setDates] = useState<Date[]>([]);
 
@@ -22,7 +23,13 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick }) => {
     const prevMonthDates = Array.from({ length: firstDayOfMonth })
       .map((_, index) => lastDateOfPrevMonth - index)
       .reverse()
-      .map((date) => new Date(prevDate.setDate(date)));
+      .map((date) => {
+        const dated = new Date(prevDate.setDate(date));
+
+        dated.setHours(0, 0, 0, 0);
+
+        return dated;
+      });
 
     const targetDate = new Date(currentMonth);
 
@@ -38,7 +45,13 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick }) => {
     const lastDateOfMonth = targetDate.getDate();
 
     const curMonthDates = Array.from({ length: lastDateOfMonth }).map(
-      (_, index) => new Date(targetDate.setDate(index + 1))
+      (_, index) => {
+        const date = new Date(targetDate.setDate(index + 1));
+
+        date.setHours(0, 0, 0, 0);
+
+        return date;
+      }
     );
 
     const nextDate = new Date(currentMonth);
@@ -54,7 +67,13 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick }) => {
     const lastDayOfMonth = nextDate.getDay();
 
     const nextMonthDates = Array.from({ length: 6 - lastDayOfMonth }).map(
-      (_) => new Date(nextDate.setDate(nextDate.getDate() + 1))
+      (_) => {
+        const date = new Date(nextDate.setDate(nextDate.getDate() + 1));
+
+        date.setHours(0, 0, 0, 0);
+
+        return date;
+      }
     );
 
     const dates = [...prevMonthDates, ...curMonthDates, ...nextMonthDates];
@@ -103,7 +122,12 @@ const Calendar: FC<CalendarProps> = ({ selectedDate, onClick }) => {
       <div className="grid grid-cols-7 gap-2 text-center">
         {dates.map((date) => (
           <div key={date.toDateString()}>
-            <DateButton date={date} onClick={onClick} />
+            <DateButton
+              date={date}
+              onClick={onClick}
+              selectedDate={selectedDate}
+              type={type}
+            />
           </div>
         ))}
       </div>
