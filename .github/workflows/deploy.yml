@@ -78,6 +78,12 @@ jobs:
           # 루트 경로에 README.md 같은 파일을 두고 싶다면 여기에 추가
           # cp README.md deploy/
 
+      # --- 부모 루트 404.html 복사 ---
+      - name: 📄 Copy Root 404.html
+        run: |
+          # 부모 루트(public)에서 404.html을 deploy 루트로 복사
+          cp public/404.html deploy/404.html
+
       # --- gh-pages 브랜치로 배포 ---
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
