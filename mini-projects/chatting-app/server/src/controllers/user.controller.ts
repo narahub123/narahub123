@@ -78,13 +78,14 @@ export const getUserChatrooms = asyncWrapper(
 export const updateMe = asyncWrapper(
   "updateMe",
   async (req: Request, res: Response) => {
-    const data = req.body.profile;
+    const data = req.body;
+    const profileImage = req.file;
 
     const { email, ...profile } = data;
 
     await userService.updateMe(email, {
       ...profile,
-      profileImage: profile.profileImage,
+      profileImage,
     });
 
     res.status(200).json({

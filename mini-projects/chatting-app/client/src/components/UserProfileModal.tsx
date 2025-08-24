@@ -162,21 +162,27 @@ const UserProfileModal = () => {
   };
 
   const handleUpdateProfile = async () => {
+    if (!profile) return;
+    const fd = new FormData();
+
+    (Object.keys(profile) as (keyof ProfileInfo)[]).forEach((key) => {
+      if (key === "profileImage") {
+        if (profile.profileImage?.file) {
+          fd.append("profileImage", profile.profileImage.file);
+        }
+      } else {
+        fd.append(key, String(profile[key]));
+      }
+    });
+
     try {
       const response = await fetchWithAuth(
         "/users/me",
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: {},
         },
-        {
-          profile: {
-            ...profile,
-            profileImage: profile?.profileImage.file,
-          },
-        }
+        fd
       );
 
       if (!response.success) {

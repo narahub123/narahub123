@@ -78,7 +78,11 @@ class UserService {
   // 사용자 프로필 업데이트
   async updateMe(email: string, profile: ProfileInfo) {
     try {
-      await userRepository.updateMe(email, profile);
+      console.log(email);
+      const { profileImage, ...rest } = profile;
+      console.log(profileImage);
+
+      // await userRepository.updateMe(email, profile);
     } catch (err) {
       throw err;
     }

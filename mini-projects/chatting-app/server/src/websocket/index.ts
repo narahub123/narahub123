@@ -2,7 +2,6 @@ import WebSocket, { WebSocketServer } from "ws";
 import http from "http";
 import {
   ChatRequestBaseDto,
-  ChatRequestMessageDto,
   ChatRequestUnreadDto,
 } from "../types";
 import { chatroomService } from "../services";
