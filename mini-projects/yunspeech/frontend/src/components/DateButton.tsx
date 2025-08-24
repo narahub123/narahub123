@@ -36,7 +36,7 @@ const DateButton: FC<DateButtonProps> = ({
           ? isSelected
             ? "bg-green-500"
             : isDisabled
-            ? "bg-gray-100"
+            ? "bg-gray-100 text-gray-500"
             : "bg-blue-200"
           : isSelected
           ? "bg-green-500"

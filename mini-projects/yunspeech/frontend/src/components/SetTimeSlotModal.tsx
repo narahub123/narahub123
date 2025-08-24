@@ -21,6 +21,10 @@ const SetTimeSlotModal: FC<SetTimeSlotModalProps> = ({}) => {
 
   const key = getDateKey(selectedDate);
 
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
   const onClose = () => {
     setIsSetTimeSlotOpen(false);
   };
@@ -54,16 +58,13 @@ const SetTimeSlotModal: FC<SetTimeSlotModalProps> = ({}) => {
             {schedules[key] &&
               schedules[key].length > 0 &&
               schedules[key].map((_, index) => (
-                <TimeChecker
-                  key={index}
-                  selectedDate={selectedDate}
-                  index={index}
-                />
+                <TimeChecker key={index} index={index} />
               ))}
             {schedules[key] &&
               schedules[key].length > 0 &&
               schedules[key][0].start &&
-              schedules[key][0].end && (
+              schedules[key][0].end &&
+              selectedDate >= today && (
                 <div>
                   <button className="btn btn-primary" onClick={handleSave}>
                     저장
@@ -71,17 +72,18 @@ const SetTimeSlotModal: FC<SetTimeSlotModalProps> = ({}) => {
                 </div>
               )}
           </div>
-          {(!schedules[key] || schedules[key].length === 0) && (
-            <div className="flex justify-center">
-              <button
-                className="btn btn-primary"
-                onClick={() => addTimeSlot(key, 0)}
-                title="시간 추가"
-              >
-                <span className="material-icons">{"add"}</span>
-              </button>
-            </div>
-          )}
+          {(!schedules[key] || schedules[key].length === 0) &&
+            selectedDate >= today && (
+              <div className="flex justify-center">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addTimeSlot(key, 0)}
+                  title="시간 추가"
+                >
+                  <span className="material-icons">{"add"}</span>
+                </button>
+              </div>
+            )}
         </div>
       </ModalContent>
     </Modal>

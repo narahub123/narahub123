@@ -6,17 +6,20 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../configs";
 
 interface TimeCheckerProps {
-  selectedDate: Date;
   index: number;
 }
 
-const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
+const TimeChecker: FC<TimeCheckerProps> = ({ index }) => {
   const schedules = useSchedulesStore((state) => state.schedules);
   const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
   const setTimeSlot = useSchedulesStore((state) => state.setTimeSlot);
   const removeTimeSlot = useSchedulesStore((state) => state.deleteTimeSlot);
+  const selectedDate = useSchedulesStore((state) => state.selectedDate);
 
   const key = getDateKey(selectedDate);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const removeTimeslotAtIndex = async (key: string, index: number) => {
     try {
@@ -88,14 +91,16 @@ const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
           value={schedules[key][index].end}
         />
       </span>
-      <span>
-        <button
-          className="material-icons btn btn-primary"
-          onClick={() => addTimeSlot(key, index + 1)}
-        >
-          {"add"}
-        </button>
-      </span>
+      {selectedDate >= today && (
+        <span>
+          <button
+            className="material-icons btn btn-primary"
+            onClick={() => addTimeSlot(key, index + 1)}
+          >
+            {"add"}
+          </button>
+        </span>
+      )}
       <span>
         <button
           className="text-white material-icons btn btn-error"
