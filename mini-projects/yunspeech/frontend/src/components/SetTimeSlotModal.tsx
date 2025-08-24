@@ -49,9 +49,9 @@ const SetTimeSlotModal: FC<SetTimeSlotModalProps> = ({}) => {
 
   return (
     <Modal open={isSetTimeSlotModalOpen}>
-      <ModalContent onCloseIconClicked={onClose}>
+      <ModalContent onCloseIconClicked={onClose} className="space-y-6 min-h-96">
         <div>
-          <h2>{key}</h2>
+          <h2 className="text-lg font-bold">{key}</h2>
         </div>
         <div>
           <div className="flex flex-col items-center space-y-2">

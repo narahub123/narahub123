@@ -40,7 +40,7 @@ const ChooseTimeSlotModal: FC<ChooseTimeSlotModalProps> = ({
 
     const endTime = schedules[key][selectedIndex].end;
 
-    if (value < startTime) {
+    if (id == "start" && value < startTime) {
       console.error(`상담 시간은 ${startTime}이후여야 합니다.`);
       toast({
         type: "error",
@@ -49,7 +49,7 @@ const ChooseTimeSlotModal: FC<ChooseTimeSlotModalProps> = ({
       return;
     }
 
-    if (value > endTime) {
+    if (id === "end" && value > endTime) {
       console.error(`상담 시간은 ${endTime}이전여야 합니다.`);
       toast({
         type: "error",
@@ -58,7 +58,7 @@ const ChooseTimeSlotModal: FC<ChooseTimeSlotModalProps> = ({
       return;
     }
 
-    if (id === "start" && value >= timeslot.end) {
+    if (id === "start" && (value >= endTime || value >= timeslot.end)) {
       console.error(`시작 시간은 종료시간 이전여야 합니다.`);
       toast({
         type: "error",
@@ -67,7 +67,7 @@ const ChooseTimeSlotModal: FC<ChooseTimeSlotModalProps> = ({
       return;
     }
 
-    if (id === "end" && value <= timeslot.start) {
+    if (id === "end" && (value <= timeslot.start || value <= startTime)) {
       console.error(`종료 시간은 시작 시간 이후여야 합니다.`);
       toast({
         type: "error",

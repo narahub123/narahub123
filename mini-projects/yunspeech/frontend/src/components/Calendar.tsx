@@ -97,7 +97,7 @@ const Calendar: FC<CalendarProps> = ({ onClick, type }) => {
   const days = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
-    <div className="items-center max-w-[500px] space-y-2 border p-2">
+    <div className="items-center max-w-[500px] space-y-2 border p-4 shadow-md rounded-xl">
       <div className="flex items-center justify-around p-2">
         <div className="w-full">
           <button className="w-full" onClick={prevMonth}>

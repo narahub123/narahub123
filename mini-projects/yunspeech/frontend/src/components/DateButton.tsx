@@ -31,12 +31,12 @@ const DateButton: FC<DateButtonProps> = ({
   const hasSchedules = schedules[key] && schedules[key].length > 0;
   return (
     <button
-      className={`btn-circle ${
+      className={`btn-circle shadow-md ${
         type === "guest"
           ? isSelected
             ? "bg-green-500"
             : isDisabled
-            ? "bg-gray-100 text-gray-500"
+            ? "bg-gray-100 text-gray-500 shadow-none"
             : "bg-blue-200"
           : isSelected
           ? "bg-green-500"

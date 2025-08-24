@@ -38,14 +38,6 @@ const HomePage: FC = () => {
     return () => result();
   }, []);
 
-  useEffect(() => {
-    const today = new Date();
-
-    today.setHours(0, 0, 0, 0);
-
-    setSelectedDate(today);
-  }, []);
-
   // 스케줄 불러오기
   useEffect(() => {
     const getSchedules = async () => {
