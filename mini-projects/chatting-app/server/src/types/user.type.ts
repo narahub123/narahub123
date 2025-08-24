@@ -16,3 +16,15 @@ export interface ProfileInfo {
   userId: string;
   profileImage: string;
 }
+
+export interface ProfileInfoWithFile {
+  username: string;
+  userId: string;
+  profileImage: Express.Multer.File;
+}
+
+export interface UpdateMeDto {
+  username?: string;
+  userId?: string;
+  profileImage?: string;
+}

@@ -1,7 +1,13 @@
 import { ConflictError, NotFoundError } from "../errors";
 import { userRepository } from "../repositories";
 
-import { LoginInfo, ProfileInfo, SignupInfo } from "../types";
+import {
+  LoginInfo,
+  ProfileInfo,
+  ProfileInfoWithFile,
+  SignupInfo,
+} from "../types";
+import { upload } from "../utils";
 
 class UserService {
   async getUserByEmail(email: string) {
@@ -76,13 +82,26 @@ class UserService {
   }
 
   // 사용자 프로필 업데이트
-  async updateMe(email: string, profile: ProfileInfo) {
+  async updateMe(email: string, profile: ProfileInfoWithFile) {
     try {
       console.log(email);
       const { profileImage, ...rest } = profile;
-      console.log(profileImage);
 
-      // await userRepository.updateMe(email, profile);
+      const newProfile = {
+        ...rest,
+      } as Record<string, string>;
+
+      if (profileImage) {
+        const secure_url = await upload(profileImage);
+
+        if (secure_url) {
+          newProfile["profileImage"] = secure_url;
+        }
+      }
+
+      await userRepository.updateMe(email, newProfile);
+
+      return newProfile["profileImage"] || null;
     } catch (err) {
       throw err;
     }

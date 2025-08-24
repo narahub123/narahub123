@@ -9,7 +9,7 @@ import {
 } from "firebase-admin/firestore";
 import { db } from "../config";
 import { mapFirebaseError } from "../utils";
-import { LoginInfo, ProfileInfo, SignupInfo } from "../types";
+import { LoginInfo, ProfileInfo, SignupInfo, UpdateMeDto } from "../types";
 
 class UserRepository {
   private userCollection: CollectionReference<DocumentData>;
@@ -82,7 +82,7 @@ class UserRepository {
     }
   }
 
-  async updateMe(email: string, profile: ProfileInfo) {
+  async updateMe(email: string, profile: UpdateMeDto) {
     try {
       const userDoc = this.userCollection.doc(email);
 

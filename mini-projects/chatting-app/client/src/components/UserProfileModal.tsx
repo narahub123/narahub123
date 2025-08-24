@@ -194,7 +194,23 @@ const UserProfileModal = () => {
         return;
       }
 
-      // setProfile(response.data.profile);
+      const { profileImage, ...rest } = response.data.profile;
+
+      let newProfile = {
+        ...rest,
+      };
+
+      if (profileImage) {
+        newProfile["profileImage"] = {
+          file: null,
+          preview: profileImage,
+        };
+      }
+
+      setProfile((prev) => ({
+        ...prev,
+        ...newProfile,
+      }));
 
       toast({
         type: "success",

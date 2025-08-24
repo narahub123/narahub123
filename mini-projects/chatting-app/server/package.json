@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
+    "streamifier": "^0.1.1",
     "ws": "^8.18.3"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.2.1",
+    "@types/streamifier": "^0.1.2",
     "@types/ws": "^8.18.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",

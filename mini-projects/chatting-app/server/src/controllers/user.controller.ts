@@ -83,17 +83,29 @@ export const updateMe = asyncWrapper(
 
     const { email, ...profile } = data;
 
-    await userService.updateMe(email, {
+    const profileImage_url = await userService.updateMe(email, {
       ...profile,
       profileImage,
     });
+
+    const newProfile = {
+      ...profile,
+    };
+
+    console.log(profileImage_url);
+
+    if (profileImage_url) {
+      newProfile["profileImage"] = profileImage_url;
+    }
 
     res.status(200).json({
       success: true,
       message: "사용자 정보 업데이트 성공",
       code: "UPDATE_USER_SUCCEEDED",
       timestamp: new Date().toISOString(),
-      // 이미지 업로드 후 data 추가할 것
+      data: {
+        profile: newProfile,
+      },
     });
   }
 );
