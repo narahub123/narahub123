@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from "react";
-import { Calendar, TimeChecker } from "../components";
+import { AdminHeader, Calendar, TimeChecker } from "../components";
 import { useSchedulesStore } from "../stores";
-import { useNavigate } from "react-router-dom";
-import { getDateKey, logout, signInWithGoogle } from "../utils";
+import { getDateKey } from "../utils";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../configs";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 export interface TimeSlot {
   start: string;
@@ -13,7 +12,6 @@ export interface TimeSlot {
 }
 
 const AdminPage: FC = () => {
-  const navigate = useNavigate();
   const schedules = useSchedulesStore((state) => state.schedules);
   const setSchedule = useSchedulesStore((state) => state.setSchedule);
   const addTimeSlot = useSchedulesStore((state) => state.addTimeSlot);
@@ -76,17 +74,6 @@ const AdminPage: FC = () => {
 
   console.log(schedules);
 
-  const handleLogin = async () => {
-    await signInWithGoogle();
-
-    setIsLogin(true);
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    setIsLogin(false);
-  };
-
   const handleSave = async () => {
     try {
       const scheduleRef = doc(db, "schedules", key);
@@ -105,29 +92,10 @@ const AdminPage: FC = () => {
 
   return (
     <div className="">
-      <div>
-        <p>관리자 페이지입니다.</p>
-      </div>
-      <div className="flex justify-between mx-4">
-        <div>
-          <button onClick={() => navigate("/")} className="btn">
-            홈으로
-          </button>
-        </div>
-        <div>
-          {isLogin ? (
-            <button onClick={handleLogout} className="text-white btn btn-error">
-              로그아웃
-            </button>
-          ) : (
-            <button onClick={handleLogin} className="btn btn-primary">
-              구글 로그인
-            </button>
-          )}
-        </div>
-      </div>
+      <AdminHeader isLogin={isLogin} setIsLogin={setIsLogin} />
+
       {isLogin && (
-        <div>
+        <main className="flex flex-col items-center justify-center w-full h-full">
           <div className="flex justify-center p-4">
             <Calendar
               selectedDate={selectedDate}
@@ -175,7 +143,7 @@ const AdminPage: FC = () => {
               )}
             </div>
           </div>
-        </div>
+        </main>
       )}
     </div>
   );

@@ -1,8 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { Calendar, Toast } from "../components";
+import { Calendar, HomeHeader, Toast } from "../components";
 import { TimeSlot } from "./AdminPage";
 import { useSchedulesStore } from "../stores";
-import { useNavigate } from "react-router-dom";
 import { useToast } from "../hooks";
 import { getDateKey } from "../utils";
 import { collection, getDocs } from "firebase/firestore";
@@ -10,7 +9,6 @@ import { auth, db } from "../configs";
 import { onAuthStateChanged } from "firebase/auth";
 
 const HomePage: FC = () => {
-  const navigate = useNavigate();
   const schedules = useSchedulesStore((state) => state.schedules);
   const setSchedule = useSchedulesStore((state) => state.setSchedule);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -133,13 +131,9 @@ const HomePage: FC = () => {
     }));
   };
   return (
-    <div className="flex items-center justify-center w-full h-screen">
-      {isLogin && (
-        <div>
-          <button onClick={() => navigate("/admin")}>관리자로</button>
-        </div>
-      )}
-      <div className="space-y-4">
+    <div className="w-full h-screen">
+      {isLogin && <HomeHeader />}
+      <main className="flex flex-col items-center justify-center w-full h-screen space-y-4">
         <div className="flex justify-center">
           <Calendar
             selectedDate={selectedDate}
@@ -213,7 +207,7 @@ const HomePage: FC = () => {
             </div>
           )}
         </div>
-      </div>
+      </main>
       <Toast />
     </div>
   );
