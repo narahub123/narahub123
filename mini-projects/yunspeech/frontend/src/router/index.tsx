@@ -8,7 +8,7 @@ export const router = createBrowserRouter(
       element: <HomePage />,
     },
     {
-      path: "admin",
+      path: "/admin",
       element: <AdminPage />,
     },
   ],
