@@ -29,4 +29,6 @@ export type OpenState = {
   setIsToastOpen: (isToastOpen: boolean) => void;
   isChooseTimeSlotModalOpen: boolean;
   setIsChooseTimeSlotModalOpen: (isChooseTimeSlotModalOpen: boolean) => void;
+  isSetTimeSlotModalOpen: boolean;
+  setIsSetTimeSlotModalOpen: (isSetTimeSlotModalOpen: boolean) => void;
 };

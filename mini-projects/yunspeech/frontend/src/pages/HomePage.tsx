@@ -13,7 +13,6 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const HomePage: FC = () => {
   const setSchedule = useSchedulesStore((state) => state.setSchedule);
-  const selectedDate = useSchedulesStore((state) => state.selectedDate);
   const setSelectedDate = useSchedulesStore((state) => state.setSelectedDate);
   const [timeslot, setTimeslot] = useState<TimeSlot>({
     start: "",
@@ -87,11 +86,7 @@ const HomePage: FC = () => {
       {isLogin && <HomeHeader />}
       <main className="flex flex-col items-center justify-center w-full h-screen space-y-4">
         <div className="flex justify-center">
-          <Calendar
-            selectedDate={selectedDate}
-            onClick={handleClick}
-            type="guest"
-          />
+          <Calendar onClick={handleClick} type="guest" />
         </div>
       </main>
       <Toast />

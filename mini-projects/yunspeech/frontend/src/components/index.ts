@@ -6,6 +6,7 @@ import Toast from "./Toast";
 import HomeHeader from "./HomeHeader";
 import AdminHeader from "./AdminHeader";
 import ChooseTimeSlotModal from "./ChooseTimeSlotModal";
+import SetTimeSlotModal from "./SetTimeSlotModal";
 export * from "./Div";
 export * from "./MinMaxWidthHeight";
 export * from "./WidthHeight";
@@ -21,4 +22,5 @@ export {
   HomeHeader,
   AdminHeader,
   ChooseTimeSlotModal,
+  SetTimeSlotModal,
 };

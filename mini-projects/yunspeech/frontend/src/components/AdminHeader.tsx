@@ -22,7 +22,7 @@ const AdminHeader: FC<AdminHeaderProps> = ({ isLogin, setIsLogin }) => {
   };
 
   return (
-    <header className="flex justify-between mx-4 mt-4">
+    <header className="absolute flex justify-between w-full px-4 mt-4">
       <div>
         <button onClick={() => navigate("/")} className="btn">
           홈으로
@@ -34,7 +34,7 @@ const AdminHeader: FC<AdminHeaderProps> = ({ isLogin, setIsLogin }) => {
             로그아웃
           </button>
         ) : (
-          <button onClick={handleLogin} className="btn btn-primary">
+          <button onClick={handleLogin} className="text-white btn btn-success">
             구글 로그인
           </button>
         )}

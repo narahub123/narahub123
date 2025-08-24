@@ -12,4 +12,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isChooseTimeSlotModalOpen,
     })),
+  isSetTimeSlotModalOpen: false,
+  setIsSetTimeSlotModalOpen: (isSetTimeSlotModalOpen: boolean) =>
+    set(() => ({
+      isSetTimeSlotModalOpen,
+    })),
 }));

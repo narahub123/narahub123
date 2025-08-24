@@ -50,53 +50,41 @@ const TimeChecker: FC<TimeCheckerProps> = ({ selectedDate, index }) => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    const timeslot: TimeSlot = {
+      ...schedules[key][index],
+      [id]: value,
+    };
+
+    setTimeSlot(key, index, timeslot);
+  };
+
   return (
     <div className="flex items-center gap-2">
-      <span className="flex items-center gap-2 p-2 border">
-        <label className="font-bold" htmlFor="start">
-          시작 시간
+      <span className="flex items-center gap-2 p-2 border rounded-md">
+        <label className="" htmlFor="start">
+          시작
         </label>
         <input
           type="time"
           name="start"
           id="start"
-          onChange={(e) => {
-            const id = e.target.id;
-            const value = e.target.value;
-
-            console.log(id, value);
-
-            const timeslot: TimeSlot = {
-              ...schedules[key][index],
-              [id]: value,
-            };
-
-            console.log(timeslot);
-
-            setTimeSlot(key, index, timeslot);
-          }}
+          onChange={handleChange}
           value={schedules[key][index].start}
         />
       </span>
-      <span className="flex items-center gap-2 p-2 border">
-        <label className="font-bold" htmlFor="end">
-          종료 시간
+      <span className="flex items-center gap-2 p-2 border rounded-md">
+        <label className="" htmlFor="end">
+          종료
         </label>
         <input
           type="time"
           name="end"
           id="end"
-          onChange={(e) => {
-            const id = e.target.id;
-            const value = e.target.value;
-
-            const timeslot: TimeSlot = {
-              ...schedules[key][index],
-              [id]: value,
-            };
-
-            setTimeSlot(key, index, timeslot);
-          }}
+          onChange={handleChange}
           value={schedules[key][index].end}
         />
       </span>

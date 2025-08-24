@@ -1,15 +1,16 @@
 import { FC, useEffect, useState } from "react";
 import DateButton from "./DateButton";
+import { useSchedulesStore } from "../stores";
 
 interface CalendarProps {
-  selectedDate: Date;
   onClick: (date: Date) => void;
   type: "admin" | "guest";
 }
 
-const Calendar: FC<CalendarProps> = ({ selectedDate, onClick, type }) => {
+const Calendar: FC<CalendarProps> = ({ onClick, type }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [dates, setDates] = useState<Date[]>([]);
+  const selectedDate = useSchedulesStore((state) => state.selectedDate);
 
   useEffect(() => {
     const prevDate = new Date(currentMonth);
