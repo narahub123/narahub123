@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Single Page Apps for GitHub Pages</title>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       // Single Page Apps for GitHub Pages
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
@@ -66,6 +66,26 @@
           (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
           l.hash
       );
+    </script> -->
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect for /narahub123/yunspeech
+      (function () {
+        var base = "/narahub123/yunspeech"; // basename과 동일
+        var pathname = window.location.pathname;
+
+        // 이미 index.html이면 리턴
+        if (pathname === base + "/" || pathname === base + "/index.html")
+          return;
+
+        // index.html로 리디렉션 (원래 경로를 query로 넘김)
+        window.location.replace(
+          base +
+            "/index.html?p=" +
+            pathname +
+            window.location.search +
+            window.location.hash
+        );
+      })();
     </script>
   </head>
   <body></body>
