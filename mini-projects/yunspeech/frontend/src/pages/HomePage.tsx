@@ -133,7 +133,7 @@ const HomePage: FC = () => {
     }));
   };
   return (
-    <div>
+    <div className="flex items-center justify-center w-full h-screen">
       {isLogin && (
         <div>
           <button onClick={() => navigate("/admin")}>관리자로</button>
