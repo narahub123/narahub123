@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "../hooks";
 import { getDateKey } from "../utils";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../configs";
+import { auth, db } from "../configs";
+import { onAuthStateChanged } from "firebase/auth";
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
@@ -19,6 +20,22 @@ const HomePage: FC = () => {
     start: "",
     end: "",
   });
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  // 로그인 상태 확인
+  useEffect(() => {
+    const result = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+      if (currentUser) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    });
+
+    return () => result();
+  }, []);
 
   const key = getDateKey(selectedDate);
 
@@ -117,10 +134,11 @@ const HomePage: FC = () => {
   };
   return (
     <div>
-      <div>홈페이지 입니다. 사용자가 볼 수 있는 페이지</div>
-      <div>
-        <button onClick={() => navigate("/admin")}>관리자로</button>
-      </div>
+      {isLogin && (
+        <div>
+          <button onClick={() => navigate("/admin")}>관리자로</button>
+        </div>
+      )}
       <div className="space-y-4">
         <div className="flex justify-center">
           <Calendar
