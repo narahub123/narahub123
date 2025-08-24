@@ -7,7 +7,7 @@ import {
   ProfileInfoWithFile,
   SignupInfo,
 } from "../types";
-import { upload } from "../utils";
+import { deleteFile, upload } from "../utils";
 
 class UserService {
   async getUserByEmail(email: string) {
@@ -89,19 +89,30 @@ class UserService {
 
       const newProfile = {
         ...rest,
-      } as Record<string, string>;
+      } as Record<string, any>;
 
       if (profileImage) {
-        const secure_url = await upload(profileImage);
+        // 기존 이미지 유무 확인
+        const user = await this.getUserByEmail(email);
+        const public_id = user.profileImage.public_id;
 
-        if (secure_url) {
-          newProfile["profileImage"] = secure_url;
+        if (public_id) {
+          // 기존 이미지 삭제
+          await deleteFile(public_id);
+          console.log("삭제 성공");
+        }
+
+        // 이미지 업로드
+        const result = await upload(profileImage);
+
+        if (result) {
+          newProfile["profileImage"] = result;
         }
       }
 
       await userRepository.updateMe(email, newProfile);
 
-      return newProfile["profileImage"] || null;
+      return newProfile["profileImage"]?.secure_url || null;
     } catch (err) {
       throw err;
     }

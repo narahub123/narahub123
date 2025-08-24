@@ -23,8 +23,13 @@ export interface ProfileInfoWithFile {
   profileImage: Express.Multer.File;
 }
 
+export interface ImageType {
+  secure_url: string;
+  public_id: string;
+}
+
 export interface UpdateMeDto {
   username?: string;
   userId?: string;
-  profileImage?: string;
+  profileImage?: ImageType;
 }
