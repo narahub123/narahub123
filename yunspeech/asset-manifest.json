@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/yunspeech/static/css/main.428775a0.css",
-    "main.js": "/yunspeech/static/js/main.c39d79cc.js",
-    "static/media/material-icons-latin-400-normal.woff": "/yunspeech/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
-    "static/media/material-icons-latin-400-normal.woff2": "/yunspeech/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
-    "index.html": "/yunspeech/index.html",
-    "main.428775a0.css.map": "/yunspeech/static/css/main.428775a0.css.map",
-    "main.c39d79cc.js.map": "/yunspeech/static/js/main.c39d79cc.js.map"
+    "main.css": "/narahub123/yunspeech/static/css/main.2d828f2b.css",
+    "main.js": "/narahub123/yunspeech/static/js/main.0313331d.js",
+    "static/media/material-icons-latin-400-normal.woff": "/narahub123/yunspeech/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
+    "static/media/material-icons-latin-400-normal.woff2": "/narahub123/yunspeech/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
+    "index.html": "/narahub123/yunspeech/index.html",
+    "main.2d828f2b.css.map": "/narahub123/yunspeech/static/css/main.2d828f2b.css.map",
+    "main.0313331d.js.map": "/narahub123/yunspeech/static/js/main.0313331d.js.map"
   },
   "entrypoints": [
-    "static/css/main.428775a0.css",
-    "static/js/main.c39d79cc.js"
+    "static/css/main.2d828f2b.css",
+    "static/js/main.0313331d.js"
   ]
 }
