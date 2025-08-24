@@ -32,7 +32,7 @@ jobs:
           cd mini-projects/react-project
           npm install
           CI=false npm run build
-          cp build/404.html build/404.html
+          cp build/index.html build/404.html
       # --- project2 빌드 ---
       - name: 📦 Install and Build Project 2
         env:
@@ -45,7 +45,7 @@ jobs:
           cd mini-projects/chatting-app/client
           npm install
           CI=false npm run build
-          cp build/404.html build/404.html
+          cp build/index.html build/404.html
         # --- project3 빌드 ---
       - name: 📦 Install and Build Project 3
         env:
