@@ -80,3 +80,4 @@
 ## 배포 주소
 
 - <a href="https://narahub123.github.io/narahub123/yunspeech" target="_blank">🚀 프로젝트 바로가기</a>
+- <a href="https://narahub123.github.io/narahub123/yunspeech/admin" target="_blank">🚀 관리자 페이지</a>
