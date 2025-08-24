@@ -13,6 +13,6 @@ export const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/yunspeech",
+    basename: "/narahub123/yunspeech",
   }
 );
