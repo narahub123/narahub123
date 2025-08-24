@@ -48,4 +48,10 @@ export const useSchedulesStore = create<ScheduleState>((set) => ({
         },
       };
     }),
+
+  selectedDate: new Date(),
+  setSelectedDate: (date: Date) =>
+    set((state) => ({
+      selectedDate: date,
+    })),
 }));

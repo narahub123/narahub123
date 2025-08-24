@@ -9,6 +9,8 @@ export interface ScheduleState {
   addTimeSlot: (date: string, index: number) => void;
   deleteTimeSlot: (date: string, index: number) => void;
   setTimeSlot: (date: string, index: number, timeslot: TimeSlot) => void;
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
 }
 
 export interface ToastType {
@@ -25,4 +27,6 @@ export type ToastStore = {
 export type OpenState = {
   isToastOpen: boolean;
   setIsToastOpen: (isToastOpen: boolean) => void;
+  isChooseTimeSlotModalOpen: boolean;
+  setIsChooseTimeSlotModalOpen: (isChooseTimeSlotModalOpen: boolean) => void;
 };
