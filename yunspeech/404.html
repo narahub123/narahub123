@@ -70,37 +70,29 @@
     <script type="text/javascript">
       // GitHub Pages SPA redirect for /narahub123/yunspeech
       (function () {
-        var repoBase = "/narahub123/yunspeech"; // GitHub Pages repo path
-        var pathSegmentsToKeep = 2; // /narahub123/yunspeech → keep 2 segments
-
         var l = window.location;
 
-        // split pathname and keep the repo path
-        var basePath = l.pathname
-          .split("/")
-          .slice(0, pathSegmentsToKeep + 1)
-          .join("/");
-        var extraPath = l.pathname
-          .slice(1)
-          .split("/")
-          .slice(pathSegmentsToKeep)
-          .join("/");
+        // pathSegmentsToKeep: /narahub123/yunspeech → 2
+        var pathSegmentsToKeep = 2;
 
-        if (extraPath) {
-          // if there is extra SPA path, rewrite URL to query string format for React Router
-          var newUrl =
-            l.protocol +
-            "//" +
-            l.hostname +
-            (l.port ? ":" + l.port : "") +
-            basePath +
-            "/?/" +
-            extraPath +
-            (l.search ? "&" + l.search.slice(1) : "") +
-            l.hash;
+        // 현재 URL의 path를 split
+        var segments = l.pathname.split("/");
 
-          window.history.replaceState(null, null, newUrl);
-        }
+        // 유지할 segment와 SPA 경로 나누기
+        var base = segments.slice(0, 1 + pathSegmentsToKeep).join("/");
+        var route = segments.slice(pathSegmentsToKeep).join("/");
+
+        // 쿼리와 hash 처리
+        var search = l.search
+          ? "&" + l.search.slice(1).replace(/&/g, "~and~")
+          : "";
+        var hash = l.hash || "";
+
+        // 최종 리다이렉트 URL
+        var redirectURL = base + "/?/" + route + search + hash;
+
+        // 리다이렉트
+        l.replace(redirectURL);
       })();
     </script>
   </head>
