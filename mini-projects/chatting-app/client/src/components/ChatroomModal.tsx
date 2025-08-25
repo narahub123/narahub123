@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
-import { ChatInfo, ChatroomInfo, IChatroom } from "../types";
+import { ChatInfo, ChatroomInfo, FileInfo, IChatroom } from "../types";
 import {
   fetchWithAuth,
   isValidFileCount,
@@ -25,7 +25,7 @@ import {
   SIGNUP_IMAGE_MAXSIZE,
 } from "../constants";
 import { useToast } from "../hooks";
-import { useOpenStore } from "../stores";
+import { useFilesStore, useOpenStore } from "../stores";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -55,6 +55,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   const setIsSendFilesModalOpen = useOpenStore(
     (state) => state.setIsSendFilesModalOpen
   );
+
+  const setFile = useFilesStore((state) => state.setFile);
 
   // 채팅방 조회
   useEffect(() => {
@@ -174,7 +176,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
   const areValidFiles = (files: File[]) => {
     // 총 파일 개수 유효성 검사
-    if (!isValidFileCount(files, SIGNUP_IMAGE_MAXCOUNT)) return false;
+    if (!isValidFileCount(files, 4)) return false;
 
     // 파일 타입 유효성 검사
     let invalidFiles: File[] = files.filter(
@@ -207,19 +209,48 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
   const storeFilesWithPreview = (files: File[]) => {
     for (const file of files) {
-      const reader = new FileReader();
+      const mimeType = file.type;
 
-      reader.onload = (e) => {
-        if (e.target) {
-          console.log(e.target!.result);
+      let fileType: "image" | "video" | "file";
+      if (mimeType.startsWith("image/")) {
+        fileType = "image";
+      } else if (mimeType.startsWith("video/")) {
+        fileType = "video";
+      } else {
+        fileType = "file";
+      }
 
-          setIsSendFilesModalOpen(true);
+      if (fileType === "image" || fileType === "video") {
+        const reader = new FileReader();
 
-          // setProfileImage({ file, preview: e.target!.result as string });
-        }
-      };
+        reader.onload = (e) => {
+          if (e.target) {
+            const preview = e.target.result as string;
 
-      reader.readAsDataURL(file);
+            setIsSendFilesModalOpen(true);
+
+            setFile({
+              file,
+              type: fileType,
+              preview,
+              name: file.name,
+              size: file.size,
+            });
+          }
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        // preview 불필요한 일반 파일
+        setIsSendFilesModalOpen(true);
+
+        setFile({
+          file,
+          type: fileType,
+          name: file.name,
+          size: file.size,
+        });
+      }
     }
   };
 

@@ -4,3 +4,4 @@ export * from "./useAuthStore";
 export * from "./useChatroomsStore";
 export * from "./useToastStore";
 export * from "./useUserStore";
+export * from "./useFilesStore";

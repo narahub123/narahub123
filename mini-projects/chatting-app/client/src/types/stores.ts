@@ -140,3 +140,18 @@ export type ToastStore = {
   setToast: (toast: ToastType) => void;
   clearToast: () => void;
 };
+
+export interface FileInfo {
+  type: "image" | "file" | "video";
+  file: File;
+  preview?: string;
+  name: string;
+  size: number;
+}
+
+export interface FilesState {
+  files: FileInfo[];
+  setFile: (file: FileInfo) => void;
+  clearFiles: () => void;
+  deleteFile: (index: number) => void;
+}
