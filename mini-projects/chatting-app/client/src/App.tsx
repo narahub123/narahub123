@@ -9,6 +9,7 @@ import {
   LoginModal,
   OpenChatroomListModal,
   ResetPasswordModal,
+  SendFilesModal,
   SignupModal,
   Toast,
   UserProfileModal,
@@ -52,6 +53,7 @@ function App() {
           key={connectedChatroom}
         />
       ))}
+      <SendFilesModal />
       <Toast />
     </div>
   );

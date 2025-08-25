@@ -25,6 +25,7 @@ import {
   SIGNUP_IMAGE_MAXSIZE,
 } from "../constants";
 import { useToast } from "../hooks";
+import { useOpenStore } from "../stores";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -50,6 +51,10 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
   const [isIn, setIsIn] = useState(false);
 
   const user = useUserStore((state) => state.user);
+
+  const setIsSendFilesModalOpen = useOpenStore(
+    (state) => state.setIsSendFilesModalOpen
+  );
 
   // 채팅방 조회
   useEffect(() => {
@@ -207,6 +212,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
       reader.onload = (e) => {
         if (e.target) {
           console.log(e.target!.result);
+
+          setIsSendFilesModalOpen(true);
 
           // setProfileImage({ file, preview: e.target!.result as string });
         }

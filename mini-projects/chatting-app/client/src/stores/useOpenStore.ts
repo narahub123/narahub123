@@ -81,4 +81,9 @@ export const useOpenStore = create<OpenState>((set) => ({
     set(() => ({
       isCheckPasswordModalOpen,
     })),
+  isSendFilesModalOpen: false,
+  setIsSendFilesModalOpen: (isSendFilesModalOpen: boolean) =>
+    set(() => ({
+      isSendFilesModalOpen,
+    })),
 }));

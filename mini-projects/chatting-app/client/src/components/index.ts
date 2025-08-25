@@ -33,6 +33,7 @@ import DragAndDrop from "./DragAndDrop";
 import Toast from "./Toast";
 import UserProfileModal from "./UserProfileModal";
 import CheckPasswordModal from "./CheckPasswordModal";
+import SendFilesModal from "./SendFilesModal";
 export * from "./Icon";
 export * from "./Div";
 export * from "./LeftRightTopBottom";
@@ -75,4 +76,5 @@ export {
   Toast,
   UserProfileModal,
   CheckPasswordModal,
+  SendFilesModal,
 };

@@ -38,6 +38,8 @@ export type OpenState = {
   setIsUserProfileModalOpen: (isUserProfileModalOpen: boolean) => void;
   isCheckPasswordModalOpen: boolean;
   setIsCheckPasswordModalOpen: (isCheckPasswordModalOpen: boolean) => void;
+  isSendFilesModalOpen: boolean;
+  setIsSendFilesModalOpen: (isSendFilesModalOpen: boolean) => void;
 };
 
 export type SignupInfoType = {
