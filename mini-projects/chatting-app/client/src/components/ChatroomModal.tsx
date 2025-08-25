@@ -2,16 +2,29 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Modal, ModalContent } from "../theme/daisyui";
 import { useUserStore } from "../stores/useUserStore";
 import { ChatInfo, ChatroomInfo, IChatroom } from "../types";
-import { fetchWithAuth } from "../utils";
+import {
+  fetchWithAuth,
+  isValidFileCount,
+  isValidFileSize,
+  isValidFileType,
+} from "../utils";
 import {
   WindowControlButtonsContainer,
   ChatroomSettings,
   ChatroomModalHeader,
   ChatroomModalBody,
   ChatroomModalFooter,
+  DragAndDrop,
 } from "../components";
 import { ChatroomProvider } from "../contexts";
 import { ChatroomContextType } from "../types/contexts";
+import {
+  MEGA_BYTE,
+  SIGNUP_IMAGE_ACCEPT,
+  SIGNUP_IMAGE_MAXCOUNT,
+  SIGNUP_IMAGE_MAXSIZE,
+} from "../constants";
+import { useToast } from "../hooks";
 
 interface ChatroomModalProps {
   roomId: string;
@@ -34,6 +47,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     left: 0,
   });
   const [firstUnreadMessageId, setFirstUnreadMessageId] = useState("");
+  const [isIn, setIsIn] = useState(false);
 
   const user = useUserStore((state) => state.user);
 
@@ -151,24 +165,83 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     setFirstUnreadMessageId,
   };
 
+  const toast = useToast();
+
+  const areValidFiles = (files: File[]) => {
+    // 총 파일 개수 유효성 검사
+    if (!isValidFileCount(files, SIGNUP_IMAGE_MAXCOUNT)) return false;
+
+    // 파일 타입 유효성 검사
+    let invalidFiles: File[] = files.filter(
+      (file) => !isValidFileType(file, SIGNUP_IMAGE_ACCEPT)
+    );
+
+    if (invalidFiles.length > 0) {
+      toast({
+        type: "error",
+        message: `이미지 타입에 맞지 않습니다.`,
+      });
+      return false;
+    }
+
+    // 파일 크기 유효성 검사
+    invalidFiles = files.filter(
+      (file) => !isValidFileSize(file, SIGNUP_IMAGE_MAXSIZE * MEGA_BYTE)
+    );
+
+    if (invalidFiles.length > 0) {
+      toast({
+        type: "error",
+        message: `이미지의 최대 사이트는 ${SIGNUP_IMAGE_MAXSIZE}mb입니다.`,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const storeFilesWithPreview = (files: File[]) => {
+    for (const file of files) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          console.log(e.target!.result);
+
+          // setProfileImage({ file, preview: e.target!.result as string });
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   return isOpen && user && chatroom ? (
     <ChatroomProvider value={context}>
       <Modal open={isOpen}>
         <ChatroomSettings rect={menuRect} roomId={roomId} />
         <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
-          <div className="flex justify-end flex-shrink-0 p-2 pb-0">
-            <WindowControlButtonsContainer
-              onClose={() => onClose(roomId)}
-              onMaximize={() => {}}
-              onMinimize={() => {}}
-            />
-          </div>
-          {/* 헤더 */}
-          <ChatroomModalHeader />
-          {/* 바디 */}
-          <ChatroomModalBody />
-          {/* 푸터 */}
-          <ChatroomModalFooter />
+          <DragAndDrop
+            isIn={isIn}
+            setIsIn={setIsIn}
+            storeFiles={storeFilesWithPreview}
+            areValidFiles={areValidFiles}
+            className="m-4"
+          >
+            <div className="flex justify-end flex-shrink-0 p-2 pb-0">
+              <WindowControlButtonsContainer
+                onClose={() => onClose(roomId)}
+                onMaximize={() => {}}
+                onMinimize={() => {}}
+              />
+            </div>
+            {/* 헤더 */}
+            <ChatroomModalHeader />
+            {/* 바디 */}
+            <ChatroomModalBody />
+            {/* 푸터 */}
+            <ChatroomModalFooter />
+          </DragAndDrop>
         </ModalContent>
       </Modal>
     </ChatroomProvider>
