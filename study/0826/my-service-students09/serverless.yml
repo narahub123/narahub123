@@ -1,0 +1,43 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: narahub123
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: my-service
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: my-service-students09
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  deploymentBucket:
+    name: tmd-genai1-students09
+    blockPublicAccess: true
+    serverSideEncryption: AES256
+
+functions:
+  getUser:
+    handler: handler.getUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+
+  createUser:
+    handler: handler.createUser
+    events:
+      - httpApi:
+          path: /users
+          method: post
+
+  updateUser:
+    handler: handler.updateUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+
+  deleteUser:
+    handler: handler.deleteUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: delete
