@@ -15,4 +15,4 @@ export const SIGNUP_IMAGE_ACCEPT = "image/*";
 
 export const SIGNUP_IMAGE_MAXSIZE = 10;
 
-export const MEGA_BYTE = 1048576;
+

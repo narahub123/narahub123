@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useChatroomContext } from "../contexts";
-import Icon from "./Icon";
-import ProfileImage from "./ProfileImage";
-import { fetchWithAuth } from "../utils";
+import { Icon, ProfileImage } from "../components";
+import { calculateFileSize } from "../utils";
 
 const ChatroomModalBody = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,7 +12,6 @@ const ChatroomModalBody = () => {
     chatroom,
     setChatroom,
     chats,
-    setChats,
     user,
     isLoading,
     roomId,
@@ -141,7 +139,7 @@ const ChatroomModalBody = () => {
     <div className="h-[300px] overflow-y-auto px-2" ref={containerRef}>
       <ul className="">
         {(chats ?? []).map((chat, idx) => {
-          const { sender, text, images, unread } = chat;
+          const { sender, text, images, videos, files, unread } = chat;
 
           const isMyself = user?.email === sender;
 
@@ -186,6 +184,22 @@ const ChatroomModalBody = () => {
                     images.length > 0 &&
                     images.map((i) => (
                       <img src={i} alt="" style={{ width: "200px" }} />
+                    ))}
+
+                  {videos &&
+                    videos.length > 0 &&
+                    videos.map((v) => (
+                      <video src={v} style={{ width: "200px" }} />
+                    ))}
+
+                  {files &&
+                    files.length > 0 &&
+                    files.map((f) => (
+                      <div className="flex flex-col items-center p-2 bg-white rounded-xl">
+                        <Icon name="folder_zip" className="text-2xl" />
+                        <p>{f.name}</p>
+                        <p>{calculateFileSize(f.size)}</p>
+                      </div>
                     ))}
                   {!isMyself && (
                     <p className="text-xs text-red-400">{unread.length}</p>

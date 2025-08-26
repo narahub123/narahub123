@@ -196,21 +196,21 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     // 총 파일 개수 유효성 검사
     if (!isValidFileCount(files, 4)) return false;
 
-    // 파일 타입 유효성 검사
-    let invalidFiles: File[] = files.filter(
-      (file) => !isValidFileType(file, SIGNUP_IMAGE_ACCEPT)
-    );
+    // // 파일 타입 유효성 검사
+    // let invalidFiles: File[] = files.filter(
+    //   (file) => !isValidFileType(file, SIGNUP_IMAGE_ACCEPT)
+    // );
 
-    if (invalidFiles.length > 0) {
-      toast({
-        type: "error",
-        message: `이미지 타입에 맞지 않습니다.`,
-      });
-      return false;
-    }
+    // if (invalidFiles.length > 0) {
+    //   toast({
+    //     type: "error",
+    //     message: `이미지 타입에 맞지 않습니다.`,
+    //   });
+    //   return false;
+    // }
 
     // 파일 크기 유효성 검사
-    invalidFiles = files.filter(
+    let invalidFiles = files.filter(
       (file) => !isValidFileSize(file, SIGNUP_IMAGE_MAXSIZE * MEGA_BYTE)
     );
 

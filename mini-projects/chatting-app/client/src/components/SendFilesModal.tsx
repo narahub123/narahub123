@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { useFilesStore, useOpenStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
-import Icon from "./Icon";
+import { Icon } from "../components";
 import { UserInfo } from "../types";
+import { calculateFileSize } from "../utils";
 
 interface SendFilesModalProps {
   roomId: string;
@@ -45,7 +46,21 @@ const SendFilesModal: FC<SendFilesModalProps> = ({
       type: "file",
       roomId,
       email: user.email,
-      files: files.map((f) => ({ file: f.file, type: f.type })),
+      files: files.map((f) => {
+        if (f.type === "file") {
+          return {
+            file: f.file,
+            type: f.type,
+            name: f.name,
+            size: f.size,
+          };
+        } else {
+          return {
+            file: f.file,
+            type: f.type,
+          };
+        }
+      }),
     };
 
     websocket.send(JSON.stringify(msg));
@@ -73,7 +88,7 @@ const SendFilesModal: FC<SendFilesModalProps> = ({
                       </span>
                       <span>
                         <p>{file.name}</p>
-                        <p>{file.size}</p>
+                        <p>{calculateFileSize(file.size)}</p>
                       </span>
                     </span>
                     <span>
@@ -98,7 +113,7 @@ const SendFilesModal: FC<SendFilesModalProps> = ({
                       </span>
                       <span>
                         <p>{file.name}</p>
-                        <p>{file.size}</p>
+                        <p>{calculateFileSize(file.size)}</p>
                       </span>
                     </span>
                     <span>
@@ -110,13 +125,13 @@ const SendFilesModal: FC<SendFilesModalProps> = ({
                 );
               } else {
                 return (
-                  <div className="flex items-center gap-2" key={index}>
+                  <div className="flex items-center gap-4" key={index}>
                     <span>
-                      <p>file</p>
+                      <Icon name="folder_zip" className="text-2xl" />
                     </span>
                     <span>
                       <p>{file.name}</p>
-                      <p>{file.size}</p>
+                      <p>{calculateFileSize(file.size)}</p>
                     </span>
                   </div>
                 );

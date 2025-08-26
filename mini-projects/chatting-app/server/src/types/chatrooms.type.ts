@@ -60,6 +60,8 @@ export type FileType = "image" | "video" | "file";
 export interface FileInfo {
   file: Buffer;
   type: FileType;
+  name?: string;
+  size?: string;
 }
 
 export interface ChatRequestFileDto extends ChatRequestBaseDto {
@@ -76,12 +78,17 @@ export interface FileSaveType {
   type: FileType;
 }
 
+export interface FileTypeSaveType extends FileSaveType {
+  name: string;
+  size: number;
+}
+
 export interface ChatInfoType {
   sender: string; // 이메일
   text?: string;
   images?: FileSaveType[];
   files?: FileSaveType[];
-  videos?: FileSaveType[];
+  videos?: FileTypeSaveType[];
   createdAt: Date;
   isDeleted: boolean;
   unread: string[];

@@ -11,6 +11,7 @@ import {
   ChatRequestMessageDto,
   ChatRequestFileDto,
   FileSaveType,
+  FileTypeSaveType,
 } from "../types";
 import userService from "./user.service";
 import { convertTimestamps, uploadMultipleFromBuffers } from "../utils";
@@ -96,7 +97,11 @@ class ChatroomService {
           ...chat,
           images: chat.images?.map((i: FileSaveType) => i.secure_url),
           videos: chat.videos?.map((i: FileSaveType) => i.secure_url),
-          files: chat.files?.map((i: FileSaveType) => i.secure_url),
+          files: chat.files?.map((f: FileTypeSaveType) => ({
+            url: f.secure_url,
+            name: f.name,
+            size: f.size,
+          })),
         });
       }) ?? []
     );
@@ -267,7 +272,7 @@ class ChatroomService {
   }
 
   async saveFiles(msgInfo: ChatRequestFileDto) {
-    const { email, files, roomId, type } = msgInfo;
+    const { email, files, roomId } = msgInfo;
 
     // 방의 존재 여부 확인
     const chatroom = await this.getChatroomInfoById(roomId);

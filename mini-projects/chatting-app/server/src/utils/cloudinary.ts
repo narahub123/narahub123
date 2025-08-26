@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
-import { FileType } from "../types";
+import { FileInfo, FileType } from "../types";
 
 export const upload = (
   file: Express.Multer.File
@@ -57,11 +57,22 @@ export const uploadFromBuffer = (
 };
 
 export const uploadMultipleFromBuffers = async (
-  files: { file: Buffer; type: FileType }[]
-): Promise<{ secure_url: string; public_id: string }[]> => {
-  const uploadPromises = files.map((file) =>
-    uploadFromBuffer(file.file, file.type)
-  );
+  files: FileInfo[]
+): Promise<
+  { secure_url: string; public_id: string; name?: string; size?: string }[]
+> => {
+  const uploadPromises = files.map(async (file) => {
+    const uploadResult = await uploadFromBuffer(file.file, file.type);
+    if (file.type === "file") {
+      return {
+        ...uploadResult,
+        name: file.name,
+        size: file.size,
+      };
+    } else {
+      return uploadResult;
+    }
+  });
 
   const results = await Promise.all(uploadPromises);
 
@@ -73,6 +84,8 @@ export const uploadMultipleFromBuffers = async (
       secure_url: string;
       public_id: string;
       type: FileType;
+      name?: string;
+      size?: string;
     } => res !== null
   );
 };

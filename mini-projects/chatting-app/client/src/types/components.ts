@@ -7,12 +7,18 @@ export type ImageType = {
 
 export type PageType = "friends" | "chats";
 
+export interface FileType {
+  url: string;
+  name: string;
+  size: number;
+}
+
 export interface ChatInfo {
   sender: string;
   text?: string | undefined;
   images?: string[];
-  files?: string[];
   videos?: string[];
+  files?: FileType[];
   createdAt: Date;
   isDeleted: boolean;
   unread: string[];
