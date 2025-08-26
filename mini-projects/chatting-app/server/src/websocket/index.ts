@@ -1,9 +1,6 @@
 import WebSocket, { WebSocketServer } from "ws";
 import http from "http";
-import {
-  ChatRequestBaseDto,
-  ChatRequestUnreadDto,
-} from "../types";
+import { ChatRequestBaseDto, ChatRequestUnreadDto } from "../types";
 import { chatroomService } from "../services";
 
 export default (
@@ -36,7 +33,7 @@ export default (
         ws.send("connected");
 
         ws.on("message", async (msg) => {
-          const msgInfo: ChatRequestBaseDto = JSON.parse(msg.toString());
+          const msgInfo = JSON.parse(msg.toString());
 
           if (msgInfo.type === "message") {
             try {
@@ -70,6 +67,12 @@ export default (
             } catch (error) {
               console.error("안 읽은 메시지 처리 실패");
             }
+          } else if (msgInfo.type === "file") {
+            const chatData = await chatroomService.saveFiles(msgInfo);
+
+            newRoom.clients.forEach((client) => {
+              client.send(JSON.stringify({ type: "file", ...chatData }));
+            });
           }
         });
 

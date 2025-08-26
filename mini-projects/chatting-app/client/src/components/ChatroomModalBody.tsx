@@ -141,7 +141,7 @@ const ChatroomModalBody = () => {
     <div className="h-[300px] overflow-y-auto px-2" ref={containerRef}>
       <ul className="">
         {(chats ?? []).map((chat, idx) => {
-          const { sender, text, unread } = chat;
+          const { sender, text, images, unread } = chat;
 
           const isMyself = user?.email === sender;
 
@@ -173,9 +173,20 @@ const ChatroomModalBody = () => {
                   {isMyself && (
                     <p className="text-xs text-red-400">{unread.length}</p>
                   )}
-                  <p className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}>
-                    {text}
-                  </p>
+                  {/* 텍스트인 경우 */}
+                  {text && (
+                    <p
+                      className={`p-2 ${bgColor} rounded-md shadow-sm max-w-60`}
+                    >
+                      {text}
+                    </p>
+                  )}
+                  {/* 이미지인 경우 */}
+                  {images &&
+                    images.length > 0 &&
+                    images.map((i) => (
+                      <img src={i} alt="" style={{ width: "200px" }} />
+                    ))}
                   {!isMyself && (
                     <p className="text-xs text-red-400">{unread.length}</p>
                   )}

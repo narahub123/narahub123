@@ -1,8 +1,20 @@
+import { FC } from "react";
 import { useFilesStore, useOpenStore } from "../stores";
 import { Button, Modal, ModalContent } from "../theme/daisyui";
 import Icon from "./Icon";
+import { UserInfo } from "../types";
 
-const SendFilesModal = () => {
+interface SendFilesModalProps {
+  roomId: string;
+  websocket: WebSocket;
+  user: UserInfo;
+}
+
+const SendFilesModal: FC<SendFilesModalProps> = ({
+  roomId,
+  websocket,
+  user,
+}) => {
   const isSendFilesModalOpen = useOpenStore(
     (state) => state.isSendFilesModalOpen
   );
@@ -26,10 +38,24 @@ const SendFilesModal = () => {
     deleteFile(index);
   };
 
+  const handleSend = () => {
+    if (files.length === 0) return;
+
+    const msg = {
+      type: "file",
+      roomId,
+      email: user.email,
+      files: files.map((f) => ({ file: f.file, type: f.type })),
+    };
+
+    websocket.send(JSON.stringify(msg));
+    clearFiles();
+  };
+
   return (
     <Modal open={isSendFilesModalOpen}>
       <ModalContent onCloseIconClicked={onClose} className="w-[400px]">
-        <div className="space-y-4">
+        <div className="space-y-8">
           <div>
             <h2 className="text-xl font-bold">파일 전송</h2>
           </div>
@@ -97,8 +123,14 @@ const SendFilesModal = () => {
               }
             })}
           </div>
-          <div>
-            <Button>파일 전송</Button>
+          <div className="flex justify-center">
+            <Button
+              className="w-full btn-primary"
+              disabled={files.length === 0}
+              onClick={handleSend}
+            >
+              파일 전송
+            </Button>
           </div>
         </div>
       </ModalContent>

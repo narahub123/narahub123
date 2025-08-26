@@ -43,7 +43,7 @@ export interface ChatroomResponseDto extends ChatroomDocType {
   roomId: string;
 }
 
-export type ChatRequestType = "unread" | "message";
+export type ChatRequestType = "unread" | "message" | "files";
 
 export interface ChatRequestBaseDto {
   type: ChatRequestType;
@@ -53,9 +53,17 @@ export interface ChatRequestBaseDto {
 
 export interface ChatRequestMessageDto extends ChatRequestBaseDto {
   text?: string;
-  images?: string;
-  files?: string;
-  videos?: string;
+}
+
+export type FileType = "image" | "video" | "file";
+
+export interface FileInfo {
+  file: Buffer;
+  type: FileType;
+}
+
+export interface ChatRequestFileDto extends ChatRequestBaseDto {
+  files: FileInfo[];
 }
 
 export interface ChatRequestUnreadDto extends ChatRequestBaseDto {
@@ -65,9 +73,18 @@ export interface ChatRequestUnreadDto extends ChatRequestBaseDto {
 export interface ChatInfoType {
   sender: string; // 이메일
   text?: string;
-  images?: string;
-  files?: string;
-  videos?: string;
+  images?: {
+    secure_url: string;
+    public_id: string;
+  }[];
+  files?: {
+    secure_url: string;
+    public_id: string;
+  }[];
+  videos?: {
+    secure_url: string;
+    public_id: string;
+  }[];
   createdAt: Date;
   isDeleted: boolean;
   unread: string[];

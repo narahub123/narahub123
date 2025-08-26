@@ -10,9 +10,9 @@ export type PageType = "friends" | "chats";
 export interface ChatInfo {
   sender: string;
   text?: string | undefined;
-  images?: string | undefined;
-  files?: string | undefined;
-  videos?: string | undefined;
+  images?: string[];
+  files?: string[];
+  videos?: string[];
   createdAt: Date;
   isDeleted: boolean;
   unread: string[];

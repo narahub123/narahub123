@@ -9,9 +9,10 @@ import {
   ChatroomResponseDto,
   ChatroomParticipantType,
   ChatRequestMessageDto,
+  ChatRequestFileDto,
 } from "../types";
 import userService from "./user.service";
-import { convertTimestamps } from "../utils";
+import { convertTimestamps, uploadMultipleFromBuffers } from "../utils";
 
 class ChatroomService {
   async createChatroom(roomInfo: ChatroomCreateType) {
@@ -255,6 +256,58 @@ class ChatroomService {
     } catch (err) {
       throw err;
     }
+  }
+
+  async saveFiles(msgInfo: ChatRequestFileDto) {
+    const { email, files, roomId, type } = msgInfo;
+
+    // 방의 존재 여부 확인
+    const chatroom = await this.getChatroomInfoById(roomId);
+
+    // 사용자가 방의 참여자인지 확인
+    await this.findUserInChatroomByEmail(roomId, email);
+
+    // 메시지를 전송한 사용자를 제외한 참여자 배열
+    const participants = chatroom.participants
+      .map((participant) => participant.email)
+      .filter((e) => e !== email);
+
+    // 이미지 업로드
+    const result = await uploadMultipleFromBuffers(files);
+
+    const newChat: ChatInfoType = {
+      sender: email,
+      createdAt: new Date(),
+      isDeleted: false,
+      unread: [...participants],
+      [`${files[0].type}s`]: result,
+    };
+
+    // 메시지 저장
+    const result2 = await chatroomRepository.saveChat(roomId, newChat);
+
+    // 저장된 메시지를 채팅방의 마지막 메시지로 저장하기
+    const lastMessage: ChatroomLastMessage = {
+      sender: newChat.sender,
+      createdAt: newChat.createdAt,
+      text: newChat.text
+        ? newChat.text
+        : newChat.images
+        ? "이미지"
+        : newChat.files
+        ? "파일"
+        : "비디오",
+    };
+    await this.updateChatroomLastMessage(roomId, lastMessage);
+
+    // 전송한 사용자의 마지막으로 읽은 메시지 변경하기
+    await this.updateParticipantLastMessageId(roomId, email, result2.id);
+
+    return {
+      chatId: result2.id,
+      ...convertTimestamps(newChat),
+      [`${files[0].type}s`]: result.map((r) => r.secure_url),
+    };
   }
 }
 

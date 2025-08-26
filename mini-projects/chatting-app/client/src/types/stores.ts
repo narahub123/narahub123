@@ -143,7 +143,7 @@ export type ToastStore = {
 
 export interface FileInfo {
   type: "image" | "file" | "video";
-  file: File;
+  file: ArrayBuffer;
   preview?: string;
   name: string;
   size: number;

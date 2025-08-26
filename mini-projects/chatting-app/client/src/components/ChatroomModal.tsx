@@ -15,6 +15,7 @@ import {
   ChatroomModalBody,
   ChatroomModalFooter,
   DragAndDrop,
+  SendFilesModal,
 } from "../components";
 import { ChatroomProvider } from "../contexts";
 import { ChatroomContextType } from "../types/contexts";
@@ -146,6 +147,23 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
 
           return [...readChats, ...unreadChats];
         });
+      } else if (chatData.type === "file") {
+        const { type, ...chat } = chatData;
+        // chat 추가
+        setChats((prev) => [...prev, chat]);
+
+        // 사용자의 마지막 읽은 메시지에 추가
+        setChatroom((prev) => ({
+          ...prev!,
+          participants: prev!.participants.map((p) =>
+            p.email === chat.sender
+              ? {
+                  ...p,
+                  lastReadMessageId: chat.chatId,
+                }
+              : p
+          ),
+        }));
       }
     };
 
@@ -220,45 +238,42 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
         fileType = "file";
       }
 
-      if (fileType === "image" || fileType === "video") {
-        const reader = new FileReader();
+      const reader = new FileReader();
 
-        reader.onload = (e) => {
-          if (e.target) {
-            const preview = e.target.result as string;
+      reader.onload = (e) => {
+        if (e.target) {
+          const preview = e.target.result as string;
+          const arrayBuffer = e.target.result as ArrayBuffer;
 
-            setIsSendFilesModalOpen(true);
+          setIsSendFilesModalOpen(true);
 
-            setFile({
-              file,
-              type: fileType,
-              preview,
-              name: file.name,
-              size: file.size,
-            });
-          }
-        };
+          setFile({
+            file: arrayBuffer,
+            type: fileType,
+            preview,
+            name: file.name,
+            size: file.size,
+          });
+        }
+      };
 
-        reader.readAsDataURL(file);
-      } else {
-        // preview 불필요한 일반 파일
-        setIsSendFilesModalOpen(true);
-
-        setFile({
-          file,
-          type: fileType,
-          name: file.name,
-          size: file.size,
-        });
-      }
+      reader.readAsDataURL(file);
     }
   };
 
   return isOpen && user && chatroom ? (
     <ChatroomProvider value={context}>
       <Modal open={isOpen}>
+        <SendFilesModal roomId={roomId} websocket={websocket!} user={user} />
         <ChatroomSettings rect={menuRect} roomId={roomId} />
         <ModalContent className="flex flex-col p-0 rounded-md bg-blue-50">
+          <div className="flex justify-end flex-shrink-0 p-2 pb-0">
+            <WindowControlButtonsContainer
+              onClose={() => onClose(roomId)}
+              onMaximize={() => {}}
+              onMinimize={() => {}}
+            />
+          </div>
           <DragAndDrop
             isIn={isIn}
             setIsIn={setIsIn}
@@ -266,13 +281,6 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
             areValidFiles={areValidFiles}
             className="m-4"
           >
-            <div className="flex justify-end flex-shrink-0 p-2 pb-0">
-              <WindowControlButtonsContainer
-                onClose={() => onClose(roomId)}
-                onMaximize={() => {}}
-                onMinimize={() => {}}
-              />
-            </div>
             {/* 헤더 */}
             <ChatroomModalHeader />
             {/* 바디 */}
