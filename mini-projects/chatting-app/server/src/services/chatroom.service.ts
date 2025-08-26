@@ -94,9 +94,9 @@ class ChatroomService {
         return convertTimestamps({
           chatId: doc.id,
           ...chat,
-          images: chat.images.map((i: FileSaveType) => i.secure_url),
-          videos: chat.images.map((i: FileSaveType) => i.secure_url),
-          files: chat.images.map((i: FileSaveType) => i.secure_url),
+          images: chat.images?.map((i: FileSaveType) => i.secure_url),
+          videos: chat.videos?.map((i: FileSaveType) => i.secure_url),
+          files: chat.files?.map((i: FileSaveType) => i.secure_url),
         });
       }) ?? []
     );
