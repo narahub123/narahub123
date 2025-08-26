@@ -10,6 +10,7 @@ import {
   ChatroomParticipantType,
   ChatRequestMessageDto,
   ChatRequestFileDto,
+  FileSaveType,
 } from "../types";
 import userService from "./user.service";
 import { convertTimestamps, uploadMultipleFromBuffers } from "../utils";
@@ -88,9 +89,16 @@ class ChatroomService {
     const snapshot = await chatroomRepository.getChatroomChatsById(roomId);
 
     return (
-      snapshot.docs.map((doc) =>
-        convertTimestamps({ chatId: doc.id, ...doc.data() })
-      ) ?? []
+      snapshot.docs.map((doc) => {
+        const chat = doc.data();
+        return convertTimestamps({
+          chatId: doc.id,
+          ...chat,
+          images: chat.images.map((i: FileSaveType) => i.secure_url),
+          videos: chat.images.map((i: FileSaveType) => i.secure_url),
+          files: chat.images.map((i: FileSaveType) => i.secure_url),
+        });
+      }) ?? []
     );
   }
 

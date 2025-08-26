@@ -70,21 +70,18 @@ export interface ChatRequestUnreadDto extends ChatRequestBaseDto {
   firstUnreadMessageId: string;
 }
 
+export interface FileSaveType {
+  secure_url: string;
+  public_id: string;
+  type: FileType;
+}
+
 export interface ChatInfoType {
   sender: string; // 이메일
   text?: string;
-  images?: {
-    secure_url: string;
-    public_id: string;
-  }[];
-  files?: {
-    secure_url: string;
-    public_id: string;
-  }[];
-  videos?: {
-    secure_url: string;
-    public_id: string;
-  }[];
+  images?: FileSaveType[];
+  files?: FileSaveType[];
+  videos?: FileSaveType[];
   createdAt: Date;
   isDeleted: boolean;
   unread: string[];
