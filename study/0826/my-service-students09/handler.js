@@ -1,15 +1,21 @@
 "use strict";
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
-const { v4: uuidv4 } = require('uuid');
+const {
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  UpdateCommand,
+  DeleteCommand,
+} = require("@aws-sdk/lib-dynamodb");
+const { v4: uuidv4 } = require("uuid");
 
 // DynamoDB 클라이언트 설정
 const client = new DynamoDBClient({});
 const ddb = DynamoDBDocumentClient.from(client);
 
 // 테이블 이름 상수 정의
-const USERS_TABLE = process.env.USERS_TABLE || 'users-table';
+const USERS_TABLE = process.env.USERS_TABLE || "users-table";
 
 exports.getUser = async (event) => {
   const userId = event.pathParameters.id;
@@ -21,13 +27,13 @@ exports.getUser = async (event) => {
     })
   );
 
-  if(!result.Item){
+  if (!result.Item) {
     return {
       statusCode: 404,
       body: JSON.stringify({
         error: `User ${userId} not found`,
-      })
-    }
+      }),
+    };
   }
 
   // const queryParams = event.queryStringParameters;
@@ -36,21 +42,21 @@ exports.getUser = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(
-      result.Item
-    ),
+    body: JSON.stringify(result.Item),
   };
 };
 
 exports.createUser = async (event) => {
   const body = JSON.parse(event.body);
-  const id = uuidv4()
-  const user = { id, ...body }
+  const id = uuidv4();
+  const user = { id, ...body };
 
-  await ddb.send(new PutCommand({
-    TableName: USERS_TABLE,
-    Item: user,
-  }))
+  await ddb.send(
+    new PutCommand({
+      TableName: USERS_TABLE,
+      Item: user,
+    })
+  );
 
   return {
     statusCode: 201,
@@ -76,22 +82,22 @@ exports.updateUser = async (event) => {
       Key: { id: userId },
       UpdateExpression: "set #name = :name, #email = :email",
       ExpressionAttributeNames: {
-        '#name': 'name',
-        '#email': "email"
+        "#name": "name",
+        "#email": "email",
       },
       ExpressionAttributeValues: {
         ":name": body.name,
-        ":email": body.email
+        ":email": body.email,
       },
-      ReturnValues: "ALL_NEW"
+      ReturnValues: "ALL_NEW",
     })
-  )
+  );
 
   return {
     statusCode: 200,
     body: JSON.stringify({
       message: "User updated successfully",
-      user: result.Attributes
+      user: result.Attributes,
     }),
   };
 };
@@ -104,7 +110,7 @@ exports.deleteUser = async (event) => {
       TableName: USERS_TABLE,
       Key: { id: userId },
     })
-  )
+  );
 
   return {
     statusCode: 200,
