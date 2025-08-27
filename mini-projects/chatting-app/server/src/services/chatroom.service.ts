@@ -322,6 +322,29 @@ class ChatroomService {
       [`${files[0].type}s`]: result.map((r) => r.secure_url),
     };
   }
+
+  // 참여자들의 상태 확인
+  async checkParticipantsStatusById(roomId: string) {
+    try {
+      const chatroom = await this.getChatroomInfoById(roomId);
+
+      const participants = chatroom.participants.map((p) => p.email);
+
+      await Promise.all(
+        participants.map(async (p) => {
+          const user = await userService.getUserByEmail(p);
+
+          if (user.status === "ONLINE") {
+            return true;
+          }
+        })
+      );
+
+      return false;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new ChatroomService();

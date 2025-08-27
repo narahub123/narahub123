@@ -26,60 +26,7 @@ export default (
     } else {
       const newRoom = new WebSocketServer({ noServer: true });
 
-      newRoom.on("connection", (ws) => {
-        ws.on("error", console.error);
-
-        console.log(`${roomId}방에 연결됨`);
-        ws.send("connected");
-
-        ws.on("message", async (msg) => {
-          const msgInfo = JSON.parse(msg.toString());
-
-          if (msgInfo.type === "message") {
-            try {
-              const chatData = await chatroomService.saveChat(msgInfo);
-
-              newRoom.clients.forEach((client) => {
-                client.send(JSON.stringify({ type: "message", ...chatData }));
-              });
-
-              console.log("메시지 전송");
-            } catch (error) {
-              console.error("메시지 전송 실패");
-            }
-          } else if (msgInfo.type === "unread") {
-            try {
-              const { roomId, email, firstUnreadMessageId } =
-                msgInfo as ChatRequestUnreadDto;
-
-              await chatroomService.checkReadMessages(
-                roomId,
-                email,
-                firstUnreadMessageId
-              );
-
-              console.log("안 읽은 메시지 처리");
-              newRoom.clients.forEach((client) => {
-                client.send(
-                  JSON.stringify({ ...msgInfo, firstUnreadMessageId })
-                );
-              });
-            } catch (error) {
-              console.error("안 읽은 메시지 처리 실패");
-            }
-          } else if (msgInfo.type === "file") {
-            const chatData = await chatroomService.saveFiles(msgInfo);
-
-            newRoom.clients.forEach((client) => {
-              client.send(JSON.stringify({ type: "file", ...chatData }));
-            });
-          }
-        });
-
-        ws.on("close", () => {
-          console.log("클라언트와 접속 해제");
-        });
-      });
+      connectChatroom(newRoom, roomId);
 
       rooms[roomId] = newRoom;
 
@@ -87,5 +34,71 @@ export default (
         rooms[roomId].emit("connection", ws, req);
       });
     }
+  });
+};
+
+const connectChatroom = (
+  newRoom: WebSocket.Server<typeof WebSocket, typeof http.IncomingMessage>,
+  roomId: string
+) => {
+  newRoom.on("connection", (ws) => {
+    ws.on("error", console.error);
+
+    console.log(`${roomId}방에 연결됨`);
+    ws.send("connected");
+
+    ws.on("message", async (msg) => {
+      const msgInfo = JSON.parse(msg.toString());
+
+      if (msgInfo.type === "message") {
+        try {
+          const chatData = await chatroomService.saveChat(msgInfo);
+
+          newRoom.clients.forEach((client) => {
+            client.send(JSON.stringify({ type: "message", ...chatData }));
+          });
+
+          console.log("메시지 전송");
+        } catch (error) {
+          console.error("메시지 전송 실패");
+        }
+      } else if (msgInfo.type === "unread") {
+        try {
+          const { roomId, email, firstUnreadMessageId } =
+            msgInfo as ChatRequestUnreadDto;
+
+          await chatroomService.checkReadMessages(
+            roomId,
+            email,
+            firstUnreadMessageId
+          );
+
+          console.log("안 읽은 메시지 처리");
+          newRoom.clients.forEach((client) => {
+            client.send(JSON.stringify({ ...msgInfo, firstUnreadMessageId }));
+          });
+        } catch (error) {
+          console.error("안 읽은 메시지 처리 실패");
+        }
+      } else if (msgInfo.type === "file") {
+        const chatData = await chatroomService.saveFiles(msgInfo);
+
+        newRoom.clients.forEach((client) => {
+          client.send(JSON.stringify({ type: "file", ...chatData }));
+        });
+      }
+    });
+
+    ws.on("close", async () => {
+      console.log("클라언트와 접속 해제");
+
+      const areParticipants = await chatroomService.checkParticipantsStatusById(
+        roomId
+      );
+
+      if (areParticipants) {
+        connectChatroom(newRoom, roomId);
+      }
+    });
   });
 };
