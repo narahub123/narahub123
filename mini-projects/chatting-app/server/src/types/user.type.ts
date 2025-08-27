@@ -18,9 +18,10 @@ export interface ProfileInfo {
 }
 
 export interface ProfileInfoWithFile {
-  username: string;
-  userId: string;
-  profileImage: Express.Multer.File;
+  username?: string;
+  userId?: string;
+  profileImage?: Express.Multer.File;
+  status?: UserStatusType;
 }
 
 export interface ImageType {
@@ -28,8 +29,11 @@ export interface ImageType {
   public_id: string;
 }
 
+export type UserStatusType = "ONLINE" | "OFFLINE";
+
 export interface UpdateMeDto {
   username?: string;
   userId?: string;
   profileImage?: ImageType;
+  status?: UserStatusType;
 }

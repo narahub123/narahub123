@@ -269,10 +269,13 @@ export const oauth = asyncWrapper(
 export const logout = asyncWrapper(
   "logout",
   async (req: Request, res: Response) => {
+    const email = req.user.email;
     const sessionId = req.sessionId;
 
     // 세션 지우기
     await userSessionService.deleteUserSessionById(sessionId);
+
+    await userService.updateMe(email, { status: "OFFLINE" });
 
     res.status(200).json({
       success: true,

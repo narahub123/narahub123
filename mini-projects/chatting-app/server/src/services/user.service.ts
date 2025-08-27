@@ -43,15 +43,14 @@ class UserService {
   }
 
   async login(loginInfo: LoginInfo) {
-    // 이메일 중복 검사
-
-    // 비밀번호 비교?
-
     const user = await userRepository.login(loginInfo);
 
     if (user.empty) {
       throw new NotFoundError("사용자 없음", "USER_NOT_FOUND");
     }
+
+    // 사용자 status 업데이트
+    await userRepository.updateMe(loginInfo.email, { status: "ONLINE" });
 
     return user;
   }
