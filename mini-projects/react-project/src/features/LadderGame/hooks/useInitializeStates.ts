@@ -14,6 +14,7 @@ const useInitializeStates = () => {
     canvas,
     rect,
     pathCanvas,
+    setOrders,
   } = useLadderGameContext();
 
   // 초기화 => 캔버스 초기화 구현 방법
@@ -27,6 +28,7 @@ const useInitializeStates = () => {
     setSelected(-1);
     setPositions([]);
     setSelectorPositions([]);
+    setOrders([]);
     if (canvas && rect) {
       const ctx = canvas.getContext("2d");
 

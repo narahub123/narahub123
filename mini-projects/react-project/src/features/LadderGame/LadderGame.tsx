@@ -3,6 +3,7 @@ import { LadderGameControls, LadderGameGround } from "./components";
 import { LadderGameProvider } from "./context/indext";
 import { BridgePos, LadderGameContextType, Position } from "./types";
 import { useReposiveSize } from "../MemoryGame/hooks";
+import { LadderGameType } from "../../types";
 
 export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [participants, setParticipants] = useState(1);
@@ -19,6 +20,8 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
   const [rect, setRect] = useState<{ width: number; height: number } | null>(
     null
   );
+  const [gameType, setGameType] = useState<LadderGameType>("winner");
+  const [orders, setOrders] = useState<number[]>([]);
 
   const value: LadderGameContextType = {
     participants,
@@ -45,6 +48,10 @@ export const LadderGame = forwardRef<HTMLDivElement>(({}, ref) => {
     setRect,
     pathCanvas,
     setPathCanvas,
+    gameType,
+    setGameType,
+    orders,
+    setOrders,
   };
 
   const { width, height } = useReposiveSize({ aspectRatio: "6/5" });

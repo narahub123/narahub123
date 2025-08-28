@@ -18,7 +18,7 @@ export const LadderGameInput: FC<LadderGameInputProps> = ({
   max = 10,
 }) => {
   return (
-    <div className="flex items-center justify-center w-full gap-4">
+    <div className="flex items-center gap-4">
       <p>{label}</p>
       <input
         type="number"

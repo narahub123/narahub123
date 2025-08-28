@@ -1,13 +1,23 @@
-import { generateWinners } from "../utils";
+import { generateOrders, generateWinners } from "../utils";
 import useLadderGameContext from "./useLadderGameContext";
 
 const useGameStart = () => {
-  const { setIsStarted, participants, numOfWinners, setWinners } =
-    useLadderGameContext();
+  const {
+    setIsStarted,
+    participants,
+    numOfWinners,
+    setWinners,
+    gameType,
+    setOrders,
+  } = useLadderGameContext();
 
   const handleGameStart = () => {
     setIsStarted((prev) => (prev === false ? true : prev));
-    generateWinners(participants, numOfWinners, setWinners);
+    if (gameType === "winner") {
+      generateWinners(participants, numOfWinners, setWinners);
+    } else {
+      generateOrders(participants, setOrders);
+    }
   };
 
   return handleGameStart;

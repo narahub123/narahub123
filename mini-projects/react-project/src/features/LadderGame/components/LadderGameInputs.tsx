@@ -10,6 +10,7 @@ export const LadderGameInputs: FC = () => {
     isStarted,
     setParticipants,
     setNumOfWinners,
+    gameType,
   } = useLadderGameContext();
   const inputs = [
     {
@@ -28,9 +29,11 @@ export const LadderGameInputs: FC = () => {
   ];
 
   return (
-    <div className="flex flex-row justify-center w-full gap-4">
+    <div className="flex flex-row justify-between w-full gap-4">
       {inputs.map((input) => {
         const { value, onChange, label, max } = input;
+
+        if (gameType === "order" && label === "당첨 인원") return null;
         return (
           <LadderGameInput
             label={label}

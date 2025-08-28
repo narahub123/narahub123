@@ -49,3 +49,5 @@ export interface IDashboard {
   isCentered: boolean;
   setIsCentered: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export type LadderGameType = "winner" | "order";

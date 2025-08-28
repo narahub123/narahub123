@@ -1,3 +1,5 @@
+import { LadderGameType } from "../../../types";
+
 export type LadderGameButtonType = {
   text: string;
   onClick: () => void;
@@ -47,4 +49,8 @@ export type LadderGameContextType = {
       height: number;
     } | null>
   >;
+  gameType: LadderGameType;
+  setGameType: React.Dispatch<React.SetStateAction<LadderGameType>>;
+  orders: number[];
+  setOrders: (orders: number[]) => void;
 };
