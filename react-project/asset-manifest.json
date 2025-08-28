@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/narahub123/react-project/static/css/main.0f109736.css",
-    "main.js": "/narahub123/react-project/static/js/main.aa23944f.js",
+    "main.css": "/narahub123/react-project/static/css/main.066c7dc9.css",
+    "main.js": "/narahub123/react-project/static/js/main.26051ee0.js",
     "static/media/material-icons-latin-400-normal.woff": "/narahub123/react-project/static/media/material-icons-latin-400-normal.ec276a3b4c1b27cdbab7.woff",
     "static/media/material-icons-latin-400-normal.woff2": "/narahub123/react-project/static/media/material-icons-latin-400-normal.0c35d18bf06992036b69.woff2",
     "index.html": "/narahub123/react-project/index.html",
-    "main.0f109736.css.map": "/narahub123/react-project/static/css/main.0f109736.css.map",
-    "main.aa23944f.js.map": "/narahub123/react-project/static/js/main.aa23944f.js.map"
+    "main.066c7dc9.css.map": "/narahub123/react-project/static/css/main.066c7dc9.css.map",
+    "main.26051ee0.js.map": "/narahub123/react-project/static/js/main.26051ee0.js.map"
   },
   "entrypoints": [
-    "static/css/main.0f109736.css",
-    "static/js/main.aa23944f.js"
+    "static/css/main.066c7dc9.css",
+    "static/js/main.26051ee0.js"
   ]
 }
