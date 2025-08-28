@@ -27,6 +27,8 @@ export const LadderGameButtonContainer: FC = () => {
   ];
 
   const handleGameType = (gameType: LadderGameType) => {
+    if (isStarted) return;
+
     setGameType(gameType);
   };
 
@@ -38,8 +40,9 @@ export const LadderGameButtonContainer: FC = () => {
             gameType === "winner"
               ? "bg-green-300 hover:bg-green-400"
               : "bg-gray-300 hover:bg-gray-400"
-          } `}
+          } ${isStarted && "bg-gray-200 hover:bg-gray-200"}`}
           onClick={() => handleGameType("winner")}
+          disabled={isStarted}
         >
           당첨
         </button>
@@ -48,8 +51,9 @@ export const LadderGameButtonContainer: FC = () => {
             gameType === "order"
               ? "bg-green-300 hover:bg-green-400"
               : "bg-gray-300 hover:bg-gray-400"
-          }`}
+          } ${isStarted && "bg-gray-200 hover:bg-gray-200"}`}
           onClick={() => handleGameType("order")}
+          disabled={isStarted}
         >
           순서
         </button>
