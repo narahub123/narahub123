@@ -1,9 +1,8 @@
-import type { FC } from "react";
-import type { ReactDivProps } from "../../components";
-import { Div } from "../../components";
+import type { FC, HTMLAttributes } from "react";
+
 import { Icon } from "./Icon";
 
-export type ModalProps = ReactDivProps & {
+export type ModalProps = HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
 };
 export const Modal: FC<ModalProps> = ({
@@ -20,7 +19,7 @@ export const Modal: FC<ModalProps> = ({
   return <div {...props} className={className} />;
 };
 
-export type ModalContentProps = ReactDivProps & {
+export type ModalContentProps = HTMLAttributes<HTMLDivElement> & {
   onCloseIconClicked?: () => void;
   closeIconClassName?: string;
 };
@@ -44,19 +43,19 @@ export const ModalContent: FC<ModalContentProps> = ({
     "btn text-lg btn-sm bg-transparent border-none hover:bg-gray-100";
   return (
     <div {...props} className={className}>
-      <Div className="absolute" right="0.5rem" top="0.5rem">
+      <div className="absolute" style={{ right: "0.5rem", top: "0.5rem" }}>
         <Icon
           name="close"
           className={closeIconClassName}
           onClick={onCloseIconClicked}
         />
-      </Div>
+      </div>
       {children}
     </div>
   );
 };
 
-export type ModalActionProps = ReactDivProps & {};
+export type ModalActionProps = HTMLAttributes<HTMLDivElement> & {};
 export const ModalAction: FC<ModalActionProps> = ({
   className: _className,
   ...props

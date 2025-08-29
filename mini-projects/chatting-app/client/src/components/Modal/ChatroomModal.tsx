@@ -1,13 +1,13 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Modal, ModalContent } from "../theme/daisyui";
-import { useUserStore } from "../stores/useUserStore";
-import { ChatInfo, ChatroomInfo, FileInfo, IChatroom } from "../types";
+import { Modal, ModalContent } from "../../theme/daisyui";
+import { useUserStore } from "../../stores/useUserStore";
+import { ChatInfo, ChatroomInfo, FileInfo, IChatroom } from "../../types";
 import {
   fetchWithAuth,
   isValidFileCount,
   isValidFileSize,
   isValidFileType,
-} from "../utils";
+} from "../../utils";
 import {
   WindowControlButtonsContainer,
   ChatroomSettings,
@@ -16,17 +16,17 @@ import {
   ChatroomModalFooter,
   DragAndDrop,
   SendFilesModal,
-} from "../components";
-import { ChatroomProvider } from "../contexts";
-import { ChatroomContextType } from "../types/contexts";
+} from "..";
+import { ChatroomProvider } from "../../contexts";
+import { ChatroomContextType } from "../../types/contexts";
 import {
   MEGA_BYTE,
   SIGNUP_IMAGE_ACCEPT,
   SIGNUP_IMAGE_MAXCOUNT,
   SIGNUP_IMAGE_MAXSIZE,
-} from "../constants";
-import { useToast } from "../hooks";
-import { useFilesStore, useOpenStore } from "../stores";
+} from "../../constants";
+import { useToast } from "../../hooks";
+import { useFilesStore, useOpenStore } from "../../stores";
 
 interface ChatroomModalProps {
   roomId: string;

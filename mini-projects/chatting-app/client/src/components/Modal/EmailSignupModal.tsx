@@ -1,17 +1,21 @@
 import { FC, useEffect, useState } from "react";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { useOpenStore, useAuthStore } from "../stores";
-import { ProfileImageUploader, Input, DragAndDrop } from "../components";
-import { signupFieldList } from "../data";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { useOpenStore, useAuthStore } from "../../stores";
+import { ProfileImageUploader, Input, DragAndDrop } from "..";
+import { signupFieldList } from "../../data";
 import {
   MEGA_BYTE,
   SERVER_URL,
   SIGNUP_IMAGE_ACCEPT,
   SIGNUP_IMAGE_MAXCOUNT,
   SIGNUP_IMAGE_MAXSIZE,
-} from "../constants";
-import { isValidFileCount, isValidFileSize, isValidFileType } from "../utils";
-import { useToast } from "../hooks";
+} from "../../constants";
+import {
+  isValidFileCount,
+  isValidFileSize,
+  isValidFileType,
+} from "../../utils";
+import { useToast } from "../../hooks";
 
 const EmailSignupModal: FC = () => {
   const [isIn, setIsIn] = useState(false);

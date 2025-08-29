@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useOpenStore, useAuthStore, useLoginStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Icon, Input, Link, OauthButtonContainer } from "../components";
-import { loginList } from "../data";
-import { useLocalStorageCheck } from "../hooks";
-import { SERVER_URL } from "../constants";
-import { saveLoginState } from "../utils";
+import { useOpenStore, useAuthStore, useLoginStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { Icon, Input, Link, OauthButtonContainer } from "..";
+import { loginList } from "../../data";
+import { useLocalStorageCheck } from "../../hooks";
+import { SERVER_URL } from "../../constants";
+import { saveLoginState } from "../../utils";
 
 const LoginModal = () => {
   // 로그인 모달 여닫힘 상태

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Modal, ModalContent } from "../theme/daisyui";
-import { useChatroomsStore } from "../stores/useChatroomsStore";
-import { fetchWithAuth } from "../utils";
-import { useOpenStore } from "../stores";
-import ChatroomItem from "./ChatroomItem";
+import { Modal, ModalContent } from "../../theme/daisyui";
+import { useChatroomsStore } from "../../stores/useChatroomsStore";
+import { fetchWithAuth } from "../../utils";
+import { useOpenStore } from "../../stores";
+import ChatroomItem from "../ChatroomItem";
 
 const OpenChatroomListModal = () => {
   const openChatrooms = useChatroomsStore((state) => state.openChatrooms);

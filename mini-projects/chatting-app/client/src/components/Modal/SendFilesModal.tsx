@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { useFilesStore, useOpenStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Icon } from "../components";
-import { UserInfo } from "../types";
-import { calculateFileSize } from "../utils";
+import { useFilesStore, useOpenStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { Icon } from "..";
+import { UserInfo } from "../../types";
+import { calculateFileSize } from "../../utils";
 
 interface SendFilesModalProps {
   roomId: string;

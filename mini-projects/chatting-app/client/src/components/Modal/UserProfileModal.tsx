@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { useOpenStore, useUserStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { ProfileImageUploader, Input, DragAndDrop } from "../components";
-import { profileFieldList } from "../data";
+import { useOpenStore, useUserStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { ProfileImageUploader, Input, DragAndDrop } from "..";
+import { profileFieldList } from "../../data";
 import {
   fetchWithAuth,
   isValidFileCount,
   isValidFileSize,
   isValidFileType,
-} from "../utils";
+} from "../../utils";
 import {
   MEGA_BYTE,
   SIGNUP_IMAGE_ACCEPT,
   SIGNUP_IMAGE_MAXCOUNT,
   SIGNUP_IMAGE_MAXSIZE,
-} from "../constants";
-import { useToast } from "../hooks";
-import { ImageType } from "../types";
+} from "../../constants";
+import { useToast } from "../../hooks";
+import { ImageType } from "../../types";
 
 interface ProfileInfo {
   userId: string;

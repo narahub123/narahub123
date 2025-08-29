@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import Input from "./Input";
-import { useOpenStore } from "../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import Input from "../Input";
+import { useOpenStore } from "../../stores";
 
 const CheckPasswordModal = () => {
   const [password, setPassword] = useState("");

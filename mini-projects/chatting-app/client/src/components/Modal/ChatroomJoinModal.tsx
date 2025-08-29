@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { useOpenStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { useChatroomsStore } from "../stores/useChatroomsStore";
-import { fetchWithAuth } from "../utils";
-import Input from "./Input";
-import { useUserStore } from "../stores/useUserStore";
-import ProfileImage from "./ProfileImage";
+import { useOpenStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { useChatroomsStore } from "../../stores/useChatroomsStore";
+import { fetchWithAuth } from "../../utils";
+import Input from "../Input";
+import { useUserStore } from "../../stores/useUserStore";
+import ProfileImage from "../ProfileImage";
 
 interface UserInfo {
   username: string;

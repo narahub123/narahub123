@@ -1,6 +1,6 @@
-import { useOpenStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Link, OauthButtonContainer } from "../components";
+import { useOpenStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { Link, OauthButtonContainer } from "../../components";
 
 const SignupModal = () => {
   // 회원가입 여닫기 상태

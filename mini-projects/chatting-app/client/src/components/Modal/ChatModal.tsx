@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { Modal, ModalContent } from "../theme/daisyui";
-import { useLoginStore, useOpenStore } from "../stores";
-import { fetchWithAuth } from "../utils";
-import ChatSidebar from "./ChatSidebar";
-import ChatMain from "./ChatMain";
-import { PageType } from "../types";
-import { useUserStore } from "../stores/useUserStore";
+import { Modal, ModalContent } from "../../theme/daisyui";
+import { useLoginStore, useOpenStore } from "../../stores";
+import { fetchWithAuth } from "../../utils";
+import ChatSidebar from "../ChatSidebar";
+import ChatMain from "../ChatMain";
+import { PageType } from "../../types";
+import { useUserStore } from "../../stores/useUserStore";
 
 const ChatModal: FC = () => {
   const [curPage, setCurPage] = useState<PageType>("friends");

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import Input from "./Input";
-import { ChatroomDto, ChatroomUserInfo } from "../types";
-import { useOpenStore } from "../stores";
-import { fetchWithAuth } from "../utils";
-import { useChatroomsStore } from "../stores/useChatroomsStore";
-import ProfileImage from "./ProfileImage";
-import { useUserStore } from "../stores/useUserStore";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import Input from "../Input";
+import { ChatroomDto, ChatroomUserInfo } from "../../types";
+import { useOpenStore } from "../../stores";
+import { fetchWithAuth } from "../../utils";
+import { useChatroomsStore } from "../../stores/useChatroomsStore";
+import ProfileImage from "../ProfileImage";
+import { useUserStore } from "../../stores/useUserStore";
 
 interface UserInfo {
   username: string;

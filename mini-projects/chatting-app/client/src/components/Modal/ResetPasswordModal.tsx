@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useOpenStore } from "../stores";
-import { Button, Modal, ModalContent } from "../theme/daisyui";
-import { Input } from "../components";
+import { useOpenStore } from "../../stores";
+import { Button, Modal, ModalContent } from "../../theme/daisyui";
+import { Input } from "..";
 
 const initialValue = { email: "", password: "" };
 
