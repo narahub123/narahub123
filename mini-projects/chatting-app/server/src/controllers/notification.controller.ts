@@ -63,9 +63,12 @@ export const deleteNotification = asyncWrapper(
   "deleteNotification",
   async (req: Request, res: Response) => {
     const user = req.user;
-    const { notificationId } = req.body;
+    const { notificationId } = req.params;
 
-    await notificationService.deleteNotificationById(notificationId);
+    await notificationService.deleteNotificationById(
+      notificationId,
+      user.email
+    );
 
     res.status(200).json({
       success: true,

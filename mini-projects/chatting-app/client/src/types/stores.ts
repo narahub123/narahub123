@@ -155,3 +155,21 @@ export interface FilesState {
   clearFiles: () => void;
   deleteFile: (index: number) => void;
 }
+
+export type NotificationType = "chatrooms" | "friends";
+
+export interface INotification {
+  notificationId: string;
+  receiver: string; // 사용자 이메일
+  sender: string; // 알림 유발자 이메일
+  type: NotificationType;
+  text: string;
+  createdAt: Date;
+}
+
+export interface NotificationState {
+  notifications: INotification[];
+  setNotifications: (notifications: INotification[]) => void;
+  addNotification: (notification: INotification) => void;
+  deleteNotification: (notificationId: string) => void;
+}

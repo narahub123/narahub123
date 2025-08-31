@@ -1,5 +1,5 @@
 import { NotificationCreateDto } from "../dtos";
-import { NotFoundError } from "../errors";
+import { NotFoundError, UnauthorizedError } from "../errors";
 import { notificationRepository } from "../repositories";
 import { convertTimestamps } from "../utils";
 
@@ -60,10 +60,16 @@ class NotificationService {
   }
 
   // 알림 삭제
-  async deleteNotificationById(notificationId: string) {
+  async deleteNotificationById(notificationId: string, receiver: string) {
+    // receiver is email
     try {
-      await this.getNotificaitonById(notificationId);
+      const notification = await this.getNotificaitonById(notificationId);
 
+      // 알림 수신자와 현재 사용자의 일치 여부 확인
+      if (notification.receiver !== receiver) {
+        throw new UnauthorizedError("권한 없음");
+      }
+      
       await notificationRepository.deleteNotificationById(notificationId);
     } catch (error) {
       throw error;
@@ -77,7 +83,7 @@ class NotificationService {
 
       return Promise.all(
         notifications.map((notification) =>
-          this.deleteNotificationById(notification.notificationId)
+          this.deleteNotificationById(notification.notificationId, email)
         )
       );
     } catch (error) {
