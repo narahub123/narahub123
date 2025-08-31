@@ -7,17 +7,18 @@ import {
   getNotificationList,
   updateNotification,
 } from "../controllers";
+import { authTokenVerifier } from "../middlewares";
 
 const router = Router();
 // 알림 목록 조회
-router.get("/", getNotificationList);
+router.get("/", authTokenVerifier, getNotificationList);
 // 알림 전체 삭제
-router.delete("/", deleteNotificationAll);
+router.delete("/", authTokenVerifier, deleteNotificationAll);
 // 알림 조회
-router.get("/:notificationid", getNotification);
+router.get("/:notificationid", authTokenVerifier, getNotification);
 // 알림 수정
-router.patch("/:notificationid", updateNotification);
+router.patch("/:notificationid", authTokenVerifier, updateNotification);
 // 알림 삭제
-router.delete("/:notificationid", deleteNotification);
+router.delete("/:notificationid", authTokenVerifier, deleteNotification);
 
 export default () => router;

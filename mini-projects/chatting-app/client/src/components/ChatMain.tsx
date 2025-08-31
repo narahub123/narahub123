@@ -25,13 +25,12 @@ const ChatMain: FC<ChatMainProps> = ({ curPage }) => {
     setIsChatModalOpen(false);
   };
 
-  
   const handleClose = () => {
     setIsChatModalOpen(false);
   };
 
   return (
-    <main className="flex-1">
+    <main className="flex flex-col flex-1">
       <div className="flex justify-end">
         <WindowControlButtonsContainer
           onClose={handleClose}
