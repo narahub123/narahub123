@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase-admin/firestore";
 
 export interface IUser {
+  email: string;
   userId: string;
   username: string;
   password: string;

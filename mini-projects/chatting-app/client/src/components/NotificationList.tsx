@@ -1,4 +1,5 @@
 const NotificationList = () => {
+    
   return <div>알림 목록</div>;
 };
 

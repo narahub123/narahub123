@@ -1,4 +1,4 @@
-import { IUser } from "dtos";
+import { IUser } from "../dtos";
 
 declare global {
   namespace Express {
