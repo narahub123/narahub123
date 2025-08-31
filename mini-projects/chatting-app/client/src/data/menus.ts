@@ -1,4 +1,4 @@
-import { chatIcon, defaultProfile } from "./images";
+import { chatIcon, defaultProfile, notificationIcon } from "./images";
 
 export const auths = [
   { id: "signup", text: "회원가입" },

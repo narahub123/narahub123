@@ -3,6 +3,7 @@ import {
   ChatroomList,
   FriendList,
   Icon,
+  NotificationList,
   WindowControlButtonsContainer,
 } from "../components";
 import { windowControllers } from "../data";
@@ -24,6 +25,7 @@ const ChatMain: FC<ChatMainProps> = ({ curPage }) => {
     setIsChatModalOpen(false);
   };
 
+  
   const handleClose = () => {
     setIsChatModalOpen(false);
   };
@@ -37,7 +39,13 @@ const ChatMain: FC<ChatMainProps> = ({ curPage }) => {
           onMinimize={() => {}}
         />
       </div>
-      {curPage === "friends" ? <FriendList /> : <ChatroomList />}
+      {curPage === "friends" ? (
+        <FriendList />
+      ) : curPage === "chats" ? (
+        <ChatroomList />
+      ) : (
+        <NotificationList />
+      )}
     </main>
   );
 };

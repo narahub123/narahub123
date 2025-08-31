@@ -236,7 +236,7 @@ export const oauth = asyncWrapper(
 
         // 기존 사용자인 경우: 로그인
         if (user) {
-          console.log("로그인 성공 ");
+          console.log("로그` 성공 ");
           const payload = {
             userId: user.userId,
             email: user.email,

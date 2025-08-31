@@ -5,7 +5,7 @@ export type ImageType = {
   preview: string;
 };
 
-export type PageType = "friends" | "chats";
+export type PageType = "friends" | "chats" | "notifications";
 
 export interface FileType {
   url: string;

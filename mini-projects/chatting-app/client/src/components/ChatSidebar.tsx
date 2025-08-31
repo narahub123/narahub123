@@ -4,6 +4,7 @@ import { Button, Icon } from "../theme/daisyui";
 import { PageType } from "../types";
 import MoreDropdown from "./MoreDropdown";
 import { useOpenStore } from "../stores";
+import NotificationIcon from "./NotificationIcon";
 
 interface ChatSidebarProps {
   setCurPage: React.Dispatch<React.SetStateAction<PageType>>;
@@ -77,6 +78,7 @@ const ChatSidebar: FC<ChatSidebarProps> = ({ setCurPage }) => {
             />
           </Button>
         ))}
+        <NotificationIcon onClick={() => handleClick("notifications")} />
       </div>
       <MoreDropdown rect={rect} />
       <div ref={moreIconRef}>

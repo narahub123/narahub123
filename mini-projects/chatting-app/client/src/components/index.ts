@@ -34,6 +34,8 @@ import Toast from "./Toast";
 import UserProfileModal from "./Modal/UserProfileModal";
 import CheckPasswordModal from "./Modal/CheckPasswordModal";
 import SendFilesModal from "./Modal/SendFilesModal";
+import NotificationIcon from "./NotificationIcon";
+import NotificationList from "./NotificationList";
 export * from "./Icon";
 export * from "./Modal";
 
@@ -73,4 +75,6 @@ export {
   UserProfileModal,
   CheckPasswordModal,
   SendFilesModal,
+  NotificationIcon,
+  NotificationList,
 };
