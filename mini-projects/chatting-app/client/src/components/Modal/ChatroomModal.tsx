@@ -261,6 +261,8 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
     }
   };
 
+  const handleMinimize = () => {};
+
   return isOpen && user && chatroom ? (
     <ChatroomProvider value={context}>
       <Modal open={isOpen}>
@@ -271,7 +273,7 @@ const ChatroomModal: FC<ChatroomModalProps> = ({
             <WindowControlButtonsContainer
               onClose={() => onClose(roomId)}
               onMaximize={() => {}}
-              onMinimize={() => {}}
+              onMinimize={handleMinimize}
             />
           </div>
           <DragAndDrop

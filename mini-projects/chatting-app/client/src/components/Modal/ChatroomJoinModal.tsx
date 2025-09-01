@@ -30,7 +30,7 @@ const ChatroomJoinModal: FC = () => {
     (state) => state.setIsChatroomJoinModalOpen
   );
 
-  const joinChatroomId = useChatroomsStore((state) => state.joinChatroom);
+  const joinChatroom = useChatroomsStore((state) => state.joinChatroom);
 
   const setJoinChatroom = useChatroomsStore((state) => state.setJoinChatroom);
 
@@ -52,15 +52,16 @@ const ChatroomJoinModal: FC = () => {
     // 입력 값 초기화
     setUserInfo({ username: "", profileImage: "" });
     // 가입할 채팅방 초기화
-    setJoinChatroom("");
+    setJoinChatroom(undefined);
     // 채팅방 가입 모달 닫기
     setIsChatroomJoinModalOpen(false);
   };
 
   const joinChatroomWithRoomId = async () => {
+    if (!joinChatroom) return;
     try {
       const response = await fetchWithAuth(
-        `/users/me/chatrooms/${joinChatroomId}`,
+        `/users/me/chatrooms/${joinChatroom.roomId}`,
         {
           method: "PATCH",
           headers: {
@@ -80,19 +81,19 @@ const ChatroomJoinModal: FC = () => {
       }
 
       // 사용자의 채팅방 기존 목록에 현재 채팅방을 추가
-      addChatroom(joinChatroomId);
+      addChatroom(joinChatroom.roomId);
 
       // 초기화
       // 입력 값 초기화
       setUserInfo({ username: "", profileImage: "" });
       // 가입할 채팅방 초기화
-      setJoinChatroom("");
+      setJoinChatroom(undefined);
 
       // 가입 모달 닫기
       setIsChatroomJoinModalOpen(false);
 
       // 해당 채팅방 열기
-      addConnectedChatroom(joinChatroomId);
+      addConnectedChatroom(joinChatroom);
     } catch (err) {
       console.error(err);
     }

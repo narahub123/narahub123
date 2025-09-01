@@ -21,8 +21,8 @@ const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
 
   const setJoinChatroom = useChatroomsStore((state) => state.setJoinChatroom);
 
-  const joinOpenChatroom = (roomId: string) => {
-    setJoinChatroom(roomId);
+  const joinOpenChatroom = (chatroom: IChatroom) => {
+    setJoinChatroom(chatroom);
     setIsChatroomJoinModalOpen(true);
   };
 
@@ -35,7 +35,7 @@ const ChatroomItem: FC<ChatroomItemProps> = ({ chatroom }) => {
       key={chatroom.roomId}
       className="py-2 border-b cursor-pointer"
       onClick={() =>
-        isMember ? addConnectedChatroom(roomId) : joinOpenChatroom(roomId)
+        isMember ? addConnectedChatroom(chatroom) : joinOpenChatroom(chatroom)
       }
     >
       <div className="flex gap-2">

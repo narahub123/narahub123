@@ -57,7 +57,7 @@ const ChatroomList: FC = () => {
               <li
                 key={chatroom.roomId}
                 className="py-2 border-b cursor-pointer"
-                onClick={() => addConnectedChatroom(roomId)}
+                onClick={() => addConnectedChatroom(chatroom)}
               >
                 <div className="flex gap-2">
                   <p className="font-bold">{roomTitle}</p>

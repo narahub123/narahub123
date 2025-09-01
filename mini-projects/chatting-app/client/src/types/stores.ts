@@ -92,8 +92,8 @@ export type UserState = {
 
 export type ChatroomsState = {
   // 연결된 채팅방 목록
-  connectedChatrooms: string[];
-  addConnectedChatroom: (roomId: string) => void;
+  connectedChatrooms: IChatroom[];
+  addConnectedChatroom: (chatroom: IChatroom) => void;
   deleteConnectedChatroom: (roomId: string) => void;
   // 연결된 채팅방 비우기
   clearConnectedChatrooms: () => void;
@@ -101,8 +101,8 @@ export type ChatroomsState = {
   openChatrooms: IChatroom[];
   setOpenChatrooms: (openChatrooms: IChatroom[]) => void;
   // 채팅방 가입
-  joinChatroom: string;
-  setJoinChatroom: (roomId: string) => void;
+  joinChatroom: IChatroom | undefined;
+  setJoinChatroom: (chatroom: IChatroom | undefined) => void;
 };
 
 export interface ChatroomUserInfo {

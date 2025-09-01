@@ -48,9 +48,9 @@ function App() {
       <ChatroomJoinModal />
       {connectedChatrooms.map((connectedChatroom) => (
         <ChatroomModal
-          roomId={connectedChatroom}
+          roomId={connectedChatroom.roomId}
           onClose={onClose}
-          key={connectedChatroom}
+          key={connectedChatroom.roomId}
         />
       ))}
       <Toast />

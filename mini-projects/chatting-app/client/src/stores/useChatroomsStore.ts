@@ -3,14 +3,14 @@ import { ChatroomsState, IChatroom } from "../types";
 
 export const useChatroomsStore = create<ChatroomsState>((set) => ({
   connectedChatrooms: [],
-  addConnectedChatroom: (roomId: string) =>
+  addConnectedChatroom: (chatroom: IChatroom) =>
     set((state) => ({
-      connectedChatrooms: [...state.connectedChatrooms, roomId],
+      connectedChatrooms: [...state.connectedChatrooms, chatroom],
     })),
   deleteConnectedChatroom: (roomId: string) =>
     set((state) => ({
       connectedChatrooms: state.connectedChatrooms.filter(
-        (openChatroom) => openChatroom !== roomId
+        (openChatroom) => openChatroom.roomId !== roomId
       ),
     })),
 
@@ -25,8 +25,8 @@ export const useChatroomsStore = create<ChatroomsState>((set) => ({
       openChatrooms,
     })),
 
-  joinChatroom: "",
-  setJoinChatroom: (joinChatroom: string) =>
+  joinChatroom: undefined,
+  setJoinChatroom: (joinChatroom: IChatroom | undefined) =>
     set(() => ({
       joinChatroom,
     })),
